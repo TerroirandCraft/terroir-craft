@@ -121,7 +121,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCAU-MO0422.jpg"
+    "image_url": "/bottle-shots/TCAU-MO0422.png"
   },
   {
     "id": "TCAU-MO0522",
@@ -179,7 +179,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCAU-MO0622.jpg"
+    "image_url": "/bottle-shots/TCAU-MO0622.png"
   },
   {
     "id": "TCAU-MO0623",
@@ -383,7 +383,8 @@
     "grape": "Grenache",
     "tasting_note": "Deep and concentrated Grenache with complex aromatics. Structured tannins with layers of berry and spice. Full-bodied with long finish. Source: Tscharke Official",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCAU-TS0321.png"
   },
   {
     "id": "TCAU-TS0322",
@@ -435,7 +436,8 @@
     "grape": "Grenache",
     "tasting_note": "Premium white wine from Gnadenfrei vineyard. Aromatic with citrus and stone fruit. Crisp acidity with mineral complexity. Source: Tscharke Official",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCAU-TS0821.png"
   },
   {
     "id": "TCAU-TS0921",
@@ -586,7 +588,8 @@
       }
     ],
     "phonetic": "Margaux [mar-GO]",
-    "exclusive": false
+    "exclusive": false,
+    "image_url": "/bottle-shots/TCFR-BBL0117HF.png"
   },
   {
     "id": "TCFR-CB01NV",
@@ -640,7 +643,8 @@
     "tasting_note": "Pure Chardonnay expression. Citrus and green apple with brioche. Elegant acidity with refined bubbles. 1er Cru La Cote terroir. Source: Boizel",
     "ratings": [],
     "phonetic": "Champagne [sham-PAN-yuh]",
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCFR-CB06NV.png"
   },
   {
     "id": "TCFR-CB0415",
@@ -765,7 +769,8 @@
       }
     ],
     "phonetic": "Saint-Estèphe [san eh-STEF]",
-    "exclusive": false
+    "exclusive": false,
+    "image_url": "/bottle-shots/TCFR-LP0117.png"
   },
   {
     "id": "TCFR-MC0123",
@@ -1062,7 +1067,8 @@
       }
     ],
     "phonetic": "Châteauneuf-du-Pape [shah-toh-NUF doo PAP]",
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCFR-SC0223.png"
   },
   {
     "id": "TCFR-SC0323",
@@ -1087,7 +1093,7 @@
     ],
     "phonetic": "Saint-Joseph [san zhoh-ZEF]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC0323.jpg"
+    "image_url": "/bottle-shots/TCFR-SC0323.png"
   },
   {
     "id": "TCFR-SC0423",
@@ -1112,7 +1118,7 @@
     ],
     "phonetic": "Gigondas [zhee-gon-DAH]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC0423.jpg"
+    "image_url": "/bottle-shots/TCFR-SC0423.png"
   },
   {
     "id": "TCFR-SC0723",
@@ -1137,7 +1143,7 @@
     ],
     "phonetic": "Gigondas [zhee-gon-DAH]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC0723.jpg"
+    "image_url": "/bottle-shots/TCFR-SC0723.png"
   },
   {
     "id": "TCFR-SC0522",
@@ -1187,7 +1193,7 @@
     ],
     "phonetic": "Côtes du Rhône [koht doo RONE]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC0624.jpg"
+    "image_url": "/bottle-shots/TCFR-SC0624.png"
   },
   {
     "id": "TCFR-SC0823",
@@ -1212,7 +1218,7 @@
     ],
     "phonetic": "Crozes-Hermitage [KROZ air-mee-TAHZH]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC0823.jpg"
+    "image_url": "/bottle-shots/TCFR-SC0823.png"
   },
   {
     "id": "TCFR-SC09NV",
@@ -1237,7 +1243,7 @@
     ],
     "phonetic": "Château de Saint Cosme [sha-TOH duh san KOZM]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC09NV.jpg"
+    "image_url": "/bottle-shots/TCFR-SC09NV.png"
   },
   {
     "id": "TCFR-SC1023",
@@ -1262,7 +1268,7 @@
     ],
     "phonetic": "Côte-Rôtie [koht roh-TEE]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC1023.jpg"
+    "image_url": "/bottle-shots/TCFR-SC1023.png"
   },
   {
     "id": "TCFR-SC1123",
@@ -1287,7 +1293,7 @@
     ],
     "phonetic": "Gigondas [zhee-gon-DAH]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC1123.jpg"
+    "image_url": "/bottle-shots/TCFR-SC1123.png"
   },
   {
     "id": "TCFR-SC1223",
@@ -1312,7 +1318,7 @@
     ],
     "phonetic": "Château de Saint Cosme [sha-TOH duh san KOZM]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC1223.jpg"
+    "image_url": "/bottle-shots/TCFR-SC1223.png"
   },
   {
     "id": "TCFR-SC13NV",
@@ -1337,7 +1343,7 @@
     ],
     "phonetic": "Château de Saint Cosme [sha-TOH duh san KOZM]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC13NV.jpg"
+    "image_url": "/bottle-shots/TCFR-SC13NV.png"
   },
   {
     "id": "TCFR-SC1423",
@@ -1362,7 +1368,7 @@
     ],
     "phonetic": "Condrieu [kon-DREE-uh]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC1423.jpg"
+    "image_url": "/bottle-shots/TCFR-SC1423.png"
   },
   {
     "id": "DAFR-DN0121",
@@ -1410,7 +1416,7 @@
     "tasting_note": "Sparkling Riesling. Fresh, aromatic with citrus notes. Crisp acidity with elegant bubbles. Light-bodied, refreshing character. Fine effervescence. Source: Vereinigte Hospitien",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCGE-VH0121.jpg"
+    "image_url": "/bottle-shots/TCGE-VH0121.png"
   },
   {
     "id": "TCGE-VH0223",
