@@ -20,7 +20,8 @@
         "maxScore": 100
       }
     ],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCAU-MO0123.jpg"
   },
   {
     "id": "TCAU-MO0222",
@@ -120,7 +121,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCAU-MO0422.png"
+    "image_url": "/bottle-shots/TCAU-MO0422.jpg"
   },
   {
     "id": "TCAU-MO0522",
@@ -177,7 +178,8 @@
         "maxScore": 100
       }
     ],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCAU-MO0622.jpg"
   },
   {
     "id": "TCAU-MO0623",
@@ -277,7 +279,8 @@
         "maxScore": 100
       }
     ],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCAU-MO1023.jpg"
   },
   {
     "id": "TCAU-MO1124",
@@ -328,7 +331,8 @@
     "grape": "Verdelho",
     "tasting_note": "Elegant white wine expressing Verdelho character. Aromatic with citrus, stone fruit and floral notes. Crisp acidity with balanced structure. Medium-bodied with refreshing, clean finish. Source: Mollydooker",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCAU-MO1224.jpg"
   },
   {
     "id": "TCAU-TS0121",
@@ -1133,7 +1137,8 @@
       }
     ],
     "phonetic": "Gigondas [zhee-gon-DAH]",
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCFR-SC0723.jpg"
   },
   {
     "id": "TCFR-SC0522",
@@ -1182,7 +1187,8 @@
       }
     ],
     "phonetic": "Côtes du Rhône [koht doo RONE]",
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCFR-SC0624.jpg"
   },
   {
     "id": "TCFR-SC0823",
@@ -1256,7 +1262,8 @@
       }
     ],
     "phonetic": "Côte-Rôtie [koht roh-TEE]",
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCFR-SC1023.jpg"
   },
   {
     "id": "TCFR-SC1123",
@@ -1355,7 +1362,8 @@
       }
     ],
     "phonetic": "Condrieu [kon-DREE-uh]",
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCFR-SC1423.jpg"
   },
   {
     "id": "DAFR-DN0121",
@@ -1579,7 +1587,8 @@
     "grape": "Moscato",
     "tasting_note": "Sweet Italian sparkling. Low alcohol (5%). Tropical fruit, peach and floral notes. Light bubbles with balanced sweetness. Festive character. Source: Wine Spectator",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/VINIT-PQ0324.jpg"
   },
   {
     "id": "TCKR- CA01NV",
@@ -1832,7 +1841,8 @@
         "maxScore": 100
       }
     ],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCPO-KO04NVSET.jpg"
   },
   {
     "id": "TCPO-KO05NV",
@@ -1901,7 +1911,7 @@
     "tasting_note": "Late Bottled Vintage Port. Rich dark fruits. Full-bodied with firm structure. Mature complexity without decanting. Source: Kopke",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCPO-KO08NV.png"
+    "image_url": "/bottle-shots/TCPO-KO08NV.jpg"
   },
   {
     "id": "TCPO-KO0937",
@@ -1924,7 +1934,8 @@
         "maxScore": 100
       }
     ],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCPO-KO0937.jpg"
   },
   {
     "id": "TCPO-KO1012",
@@ -2132,7 +2143,8 @@
     "grape": "90% Merlot and 10% Charbono",
     "tasting_note": "Rose from Napa Valley. Fresh strawberry and citrus. Crisp acidity with balanced complexity. Light-bodied, elegant dry style. Source: Realm",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCUS-RC0223.jpg"
   },
   {
     "id": "TCUS-RC0324",
@@ -2149,7 +2161,8 @@
     "grape": "Sauvignon Blanc",
     "tasting_note": "Napa Valley Sauvignon Blanc. Citrus and tropical notes. Crisp acidity with mineral character. Fleshy texture with persistent finish. Source: Napa Wine Project",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCUS-RC0324.jpg"
   },
   {
     "id": "TCUS-RC0421",
@@ -2173,7 +2186,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCUS-RC0421.png"
+    "image_url": "/bottle-shots/TCUS-RC0421.jpg"
   },
   {
     "id": "TCUS-RC0421HF",
@@ -2221,7 +2234,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCUS-RC0621.png"
+    "image_url": "/bottle-shots/TCUS-RC0621.jpg"
   },
   {
     "id": "TCUS-RC0721",
@@ -2244,7 +2257,8 @@
         "maxScore": 100
       }
     ],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCUS-RC0721.jpg"
   },
   {
     "id": "TCUS-RC0921",
