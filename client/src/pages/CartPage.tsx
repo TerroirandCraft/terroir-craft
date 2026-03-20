@@ -34,7 +34,7 @@ export default function CartPage() {
     );
   }
 
-  const deliveryFee = totalPrice >= 800 ? 0 : 80;
+  const deliveryFee = totalPrice >= 1000 ? 0 : 80;
   const orderTotal = totalPrice + deliveryFee;
   const pointsWillEarn = Math.floor(orderTotal / 5) + (!member?.bonus_first_order ? 100 : 0);
 
@@ -152,9 +152,9 @@ export default function CartPage() {
                     {deliveryFee === 0 ? "Free" : formatPrice(deliveryFee)}
                   </span>
                 </div>
-                {totalPrice < 800 && (
+                {totalPrice < 1000 && (
                   <p className="text-xs text-muted-foreground bg-muted/50 rounded p-2">
-                    Add {formatPrice(800 - totalPrice)} more for free delivery
+                    Add {formatPrice(1000 - totalPrice)} more for free delivery
                   </p>
                 )}
                 <div className="border-t border-border pt-3 flex justify-between font-semibold text-base">
@@ -204,7 +204,7 @@ export default function CartPage() {
               <div className="mt-5 flex items-start gap-2 p-3 bg-muted/40 rounded-lg">
                 <Package className="w-4 h-4 text-muted-foreground mt-0.5 shrink-0" />
                 <p className="font-body text-xs text-muted-foreground leading-relaxed">
-                  Free delivery on orders over HK$800. Same-day delivery available in Hong Kong (order before 12pm).
+                  Free delivery on orders over HK$1,000.
                 </p>
               </div>
             </div>

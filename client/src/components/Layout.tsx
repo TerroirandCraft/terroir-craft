@@ -25,7 +25,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       {/* Top bar */}
       <div className="bg-[hsl(355,62%,28%)] text-white text-xs py-2 px-4 text-center font-body tracking-wide">
-        Free delivery in Hong Kong for orders over HK$800 &nbsp;|&nbsp; 香港訂單滿 HK$800 免運費
+        Free delivery in Hong Kong for orders over HK$1,000 &nbsp;|&nbsp; 香港訂單滿 HK$1,000 免運費
       </div>
 
       {/* Nav */}

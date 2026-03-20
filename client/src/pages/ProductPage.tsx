@@ -354,7 +354,7 @@ export default function ProductPage() {
                   </Button>
 
                   <p className="text-center text-xs text-muted-foreground font-body">
-                    Free delivery on orders over HK$800
+                    Free delivery on orders over HK$1,000
                   </p>
                 </div>
               )}
@@ -371,7 +371,7 @@ export default function ProductPage() {
               <div className="border-t border-border px-6 py-4 space-y-2.5">
                 {[
                   { icon: "✓", text: "Guaranteed authentic provenance" },
-                  { icon: "🚚", text: "Free HK delivery over HK$800" },
+                  { icon: "🚚", text: "Free HK delivery over HK$1,000" },
                   { icon: "❄️", text: "Temperature-controlled storage" },
                 ].map((t, i) => (
                   <div key={i} className="flex items-center gap-2.5 text-xs text-muted-foreground font-body">
