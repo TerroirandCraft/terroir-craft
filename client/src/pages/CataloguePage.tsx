@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import WineCard from "@/components/WineCard";
 import type { Product } from "@/lib/products";
 
-const TYPES = ["All Types", "Red", "White", "Sparkling", "Champagne", "Rose", "Fortified", "Sparkling Red", "Magoli", "Supplement"];
+const TYPES = ["All Types", "Red", "White", "Sparkling", "Champagne", "Rose", "Fortified", "Sparkling Red", "Makgeolli", "Supplement"];
 const COUNTRIES = ["All Countries", "France", "Australia", "Portugal", "USA", "Germany", "New Zealand", "Spain", "Italy", "South Africa", "Korea"];
 const SORT_OPTIONS = [
   { value: "default", label: "Featured" },

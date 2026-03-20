@@ -31,7 +31,7 @@ const tastingNotesByType: Record<string, string> = {
   "Champagne": "Complex autolytic notes, fine mousse, toasted brioche and citrus",
   "Fortified": "Rich dried fruit, caramel, nutty complexity, lingering sweetness",
   "Rose": "Fresh red berries, delicate floral notes, dry and refreshing",
-  "Magoli": "Traditional rice brew, light and slightly effervescent, subtly sweet",
+  "Makgeolli": "Traditional rice brew, light and slightly effervescent, subtly sweet",
 };
 
 const foodPairingByType: Record<string, string> = {
@@ -42,7 +42,7 @@ const foodPairingByType: Record<string, string> = {
   "Champagne": "Caviar, oysters, lobster, fine dining",
   "Fortified": "Blue cheese, dark chocolate, dried fruits, nuts, desserts",
   "Rose": "Grilled fish, summer salads, charcuterie, soft cheeses",
-  "Magoli": "Korean BBQ, spicy food, dim sum, light snacks",
+  "Makgeolli": "Korean BBQ, spicy food, dim sum, light snacks",
 };
 
 // Enrich products with descriptions

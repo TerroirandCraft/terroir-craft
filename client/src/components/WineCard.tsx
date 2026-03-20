@@ -20,7 +20,7 @@ const TYPE_COLOR_MAP: Record<string, string> = {
   "Champagne": "bg-yellow-800/30 text-yellow-100",
   "Rose": "bg-pink-800/30 text-pink-200",
   "Fortified": "bg-orange-800/30 text-orange-200",
-  "Magoli": "bg-green-800/30 text-green-200",
+  "Makgeolli": "bg-green-800/30 text-green-200",
   "Supplement": "bg-fuchsia-800/30 text-fuchsia-200",
 };
 
@@ -32,7 +32,7 @@ const BOTTLE_COLORS: Record<string, string> = {
   "Champagne": "#D4AF37",
   "Rose": "#D4789A",
   "Fortified": "#8B4513",
-  "Magoli": "#5B8A3C",
+  "Makgeolli": "#5B8A3C",
   "Supplement": "#8B2B8C",
 };
 
@@ -106,12 +106,7 @@ export default function WineCard({ product }: WineCardProps) {
             {product.type}
           </span>
 
-          {/* Status badge */}
-          {product.status === "Fine Wine" && (
-            <span className="absolute top-3 right-3 text-[10px] px-2 py-0.5 rounded-full bg-[hsl(38,65%,52%)]/20 text-[hsl(38,65%,70%)] font-body font-medium">
-              Fine Wine
-            </span>
-          )}
+          {/* Status badge — Fine Wine label removed */}
           {product.status === "Sold Out" && (
             <span className="absolute top-3 right-3 text-[10px] px-2 py-0.5 rounded-full bg-black/60 text-white/80 font-body font-medium">
               Sold Out

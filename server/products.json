@@ -1433,7 +1433,8 @@
     "grape": "Riesling",
     "tasting_note": "Off-dry Mosel Riesling. Fresh citrus with stone fruit. Balanced acidity with slight sweetness. Medium-bodied, aromatic character. Delicate and balanced. Source: Vereinigte Hospitien",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCGE-VH0223.png"
   },
   {
     "id": "TCGE-VH0422",
@@ -1451,7 +1452,7 @@
     "tasting_note": "Shy but fragrant nose. Very pure and balanced palate. Super-taut and clean. Honeysuckle and yellow peach notes. Light-bodied with crisp acidity. Source: Decanter",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCGE-VH0422.jpg"
+    "image_url": "/bottle-shots/TCGE-VH0422.png"
   },
   {
     "id": "TCGE-VH0522",
@@ -1468,7 +1469,8 @@
     "grape": "Riesling",
     "tasting_note": "Late-harvest Mosel Riesling. Riper fruit with mineral precision. Balanced sweetness with good acidity. Medium-bodied, aromatic. Smooth textured. Source: Vereinigte Hospitien",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCGE-VH0522.png"
   },
   {
     "id": "TCGE-VH0622",
@@ -1504,7 +1506,7 @@
     "tasting_note": "Dry Mosel Riesling. Fresh citrus and stone fruit. Crisp acidity with mineral complexity. Light-bodied, elegant, refreshing. Green apple and citrus. Source: Wine Secret HK",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCGE-VH0623.jpg"
+    "image_url": "/bottle-shots/TCGE-VH0623.png"
   },
   {
     "id": "TCGE-VH0723",
@@ -1539,7 +1541,8 @@
     "grape": "Riesling",
     "tasting_note": "Fruity expression of Mosel Riesling. Stone fruit with floral notes. Balanced sweetness and acidity. Light-bodied, approachable character. Source: Vereinigte Hospitien",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCGE-VH0323.png"
   },
   {
     "id": "TCGE-VH0620",
@@ -1601,7 +1604,7 @@
     "brand": "Canmak",
     "country": "Korea",
     "region": "",
-    "type": "Magoli",
+    "type": "Makgeolli",
     "status": "Fixed",
     "size": "355ml",
     "vintage": "NV",
@@ -1610,7 +1613,8 @@
     "grape": "Rice",
     "tasting_note": "Traditional Korean rice wine. Smooth with mild sweetness. Light-bodied with subtle flavor. Approachable and versatile for drinking. Source: Canmak",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCKR-_CA01NV.png"
   },
   {
     "id": "TCKR- CA02NV",
@@ -1618,7 +1622,7 @@
     "brand": "Canmak",
     "country": "Korea",
     "region": "",
-    "type": "Magoli",
+    "type": "Makgeolli",
     "status": "Fixed",
     "size": "355ml",
     "vintage": "NV",
@@ -1627,7 +1631,8 @@
     "grape": "Rice",
     "tasting_note": "Flavored Korean rice wine with peach. Light-bodied with fruity character. Smooth with subtle sweetness. Refreshing and approachable. Source: Canmak",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCKR-_CA02NV.png"
   },
   {
     "id": "TCKR- CA03NV",
@@ -1635,7 +1640,7 @@
     "brand": "Canmak",
     "country": "Korea",
     "region": "",
-    "type": "Magoli",
+    "type": "Makgeolli",
     "status": "Fixed",
     "size": "355ml",
     "vintage": "NV",
@@ -1653,7 +1658,7 @@
     "brand": "Canmak",
     "country": "Korea",
     "region": "",
-    "type": "Magoli",
+    "type": "Makgeolli",
     "status": "Fixed",
     "size": "355ml",
     "vintage": "NV",
@@ -1714,7 +1719,8 @@
     "grape": "Pinot Noir",
     "tasting_note": "Juicy Pinot Noir with rich ripe fruit. Plum and blackberry flavors. Medium-bodied with balanced structure. Fresh cut roses and wet earth notes. Smooth finish. Source: Sherwood Estate",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCNZ-SH0523.png"
   },
   {
     "id": "TCNZ-SH0423",
@@ -1731,7 +1737,8 @@
     "grape": "Sauvignon Blanc",
     "tasting_note": "New Zealand Sauvignon with intense aromatics. Citrus and green apple. Crisp acidity with clean finish. Fresh, vibrant character. World-class Kiwi style. Source: Sherwood Estate",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCNZ-SH0423.png"
   },
   {
     "id": "TCNZ-SH0425",
@@ -1748,7 +1755,8 @@
     "grape": "Sauvignon Blanc",
     "tasting_note": "New Zealand Sauvignon with intense aromatics. Citrus and green apple. Crisp acidity with clean finish. Fresh, vibrant character. World-class Kiwi style. Source: Sherwood Estate",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCNZ-SH0425.png"
   },
   {
     "id": "TCPO-KO01NV",
@@ -1765,7 +1773,8 @@
     "grape": "Arinto, Viosinho, Gouveio, and Malvasia Fina.",
     "tasting_note": "White Port with greengage freshness. Honeyed richness with singed character. Smooth and approachable. Classic Port elegance. Source: Kopke",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCPO-KO01NV.png"
   },
   {
     "id": "TCPO-KO02NV",
@@ -1847,7 +1856,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCPO-KO04NVSET.jpg"
+    "image_url": "/bottle-shots/TCPO-KO04NVSET.png"
   },
   {
     "id": "TCPO-KO05NV",
@@ -1916,7 +1925,7 @@
     "tasting_note": "Late Bottled Vintage Port. Rich dark fruits. Full-bodied with firm structure. Mature complexity without decanting. Source: Kopke",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCPO-KO08NV.jpg"
+    "image_url": "/bottle-shots/TCPO-KO08NV.png"
   },
   {
     "id": "TCPO-KO0937",
@@ -1940,7 +1949,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCPO-KO0937.jpg"
+    "image_url": "/bottle-shots/TCPO-KO0937.png"
   },
   {
     "id": "TCPO-KO1012",
@@ -1958,7 +1967,7 @@
     "tasting_note": "Vintage Port from excellent year. Deep dark fruits. Full-bodied with firm structure. Age-worthy wine. Source: Kopke",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCPO-KO1012.jpg"
+    "image_url": "/bottle-shots/TCPO-KO1012.png"
   },
   {
     "id": "TCPO-KO09NVHF",

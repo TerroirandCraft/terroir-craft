@@ -53,7 +53,7 @@ export const WINE_TYPE_COLORS: Record<string, string> = {
   "Champagne": "badge-champagne",
   "Rose": "badge-rose",
   "Fortified": "badge-fortified",
-  "Magoli": "badge-magoli",
+  "Makgeolli": "badge-magoli",
 };
 
 export const BRAND_INFO: Record<string, { country: string; description: string; website?: string }> = {

@@ -150,7 +150,7 @@ export default function BrandDetailPage() {
     byType[t].push(p);
   });
 
-  const typeOrder = ["Red", "White", "Sparkling", "Champagne", "Sparkling Red", "Rose", "Fortified", "Magoli", "Other"];
+  const typeOrder = ["Red", "White", "Sparkling", "Champagne", "Sparkling Red", "Rose", "Fortified", "Makgeolli", "Other"];
   const sortedTypes = Object.keys(byType).sort((a, b) => {
     const ai = typeOrder.indexOf(a);
     const bi = typeOrder.indexOf(b);

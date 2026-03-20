@@ -234,11 +234,7 @@ export default function ProductPage() {
                   {product.size}
                 </span>
               )}
-              {product.status === "Fine Wine" && (
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border border-amber-300 bg-amber-50 text-amber-700 font-body">
-                  Fine Wine
-                </span>
-              )}
+
             </div>
 
             {/* Quick meta */}
