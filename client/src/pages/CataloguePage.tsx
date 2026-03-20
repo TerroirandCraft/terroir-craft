@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -27,7 +28,8 @@ export default function CataloguePage() {
   const [sort, setSort] = useState("default");
   const [showFilters, setShowFilters] = useState(false);
 
-  // Read ?country= and ?brand= from URL hash query string on mount
+  // Read ?country= and ?brand= from URL hash query string, re-run whenever the hash changes
+  const [location] = useLocation();
   useEffect(() => {
     const hashSearch = window.location.hash.split("?")[1] || "";
     const params = new URLSearchParams(hashSearch);
@@ -35,12 +37,17 @@ export default function CataloguePage() {
     const brandParam = params.get("brand");
     if (countryParam && COUNTRIES.includes(countryParam)) {
       setCountryFilter(countryParam);
+      setBrandFilter(null);
       setShowFilters(true);
+    } else if (!countryParam) {
+      // Only reset if navigating without a country param (e.g. plain /wines)
+      // Don't reset if user manually changed the filter
     }
     if (brandParam) {
       setBrandFilter(brandParam);
+      setCountryFilter("All Countries");
     }
-  }, []);
+  }, [location]);
 
   const { data: products = [], isLoading } = useQuery<Product[]>({
     queryKey: ["/api/products"],
