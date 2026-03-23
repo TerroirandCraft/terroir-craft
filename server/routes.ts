@@ -6,6 +6,7 @@ import type { Product } from "@shared/schema";
 import crypto from "crypto";
 import { readFileSync } from "fs";
 import { join } from "path";
+import { getStockMap, appendMember, initMembersSheet } from "./googleSheets";
 
 // Load Fine & Rare data once at startup
 let fineRareData: unknown[] = [];
@@ -76,6 +77,24 @@ Important: Only recommend wines from the T&C catalogue above. Never invent wines
 }
 
 export async function registerRoutes(httpServer: Server, app: Express): Promise<Server> {
+
+  // Init Google Sheets headers on startup
+  initMembersSheet().catch(console.error);
+
+  // ── Stock API ────────────────────────────────────────────────────────────
+  app.get("/api/stock", async (_req, res) => {
+    try {
+      const map = await getStockMap();
+      const result: Record<string, "in_stock" | "out_of_stock"> = {};
+      for (const [code, qty] of Object.entries(map)) {
+        result[code] = qty > 0 ? "in_stock" : "out_of_stock";
+      }
+      res.json(result);
+    } catch (err) {
+      res.status(500).json({ error: "Failed to fetch stock" });
+    }
+  });
+
   // Fine & Rare collection
   app.get("/api/fine-rare", (_req, res) => {
     res.json(fineRareData);
@@ -255,6 +274,16 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
       });
       // Return member without password_hash
       const { password_hash: _, ...safe } = member;
+
+      // Sync new member to Google Sheets (non-blocking)
+      appendMember({
+        name: member.name,
+        email: member.email,
+        phone: member.phone || "",
+        points: member.points,
+        source: "Website Registration",
+      }).catch(console.error);
+
       res.status(201).json(safe);
     } catch (err) {
       console.error("Register error:", err);

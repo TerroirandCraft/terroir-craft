@@ -6,7 +6,8 @@ import type { Product } from "@/lib/products";
 import { getTypeBadgeClass, formatPrice } from "@/lib/products";
 import { useCart } from "./CartContext";
 import { useToast } from "@/hooks/use-toast";
-import { API_BASE } from "@/lib/queryClient";
+import { API_BASE, apiRequest } from "@/lib/queryClient";
+import { useQuery } from "@tanstack/react-query";
 
 interface WineCardProps {
   product: Product;
@@ -41,6 +42,13 @@ export default function WineCard({ product }: WineCardProps) {
   const { toast } = useToast();
   const bottleColor = BOTTLE_COLORS[product.type] || "#7B1F2E";
   const typeClass = TYPE_COLOR_MAP[product.type] || "bg-gray-800/30 text-gray-200";
+
+  const { data: stockMap = {} } = useQuery<Record<string, "in_stock" | "out_of_stock">>({
+    queryKey: ["/api/stock"],
+    queryFn: () => apiRequest("GET", "/api/stock").then(r => r.json()),
+    staleTime: 15 * 60 * 1000,
+  });
+  const stockStatus = stockMap[product.id] ?? "in_stock";
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -154,7 +162,7 @@ export default function WineCard({ product }: WineCardProps) {
                 </span>
               )}
             </div>
-            {product.status !== "Sold Out" && (
+            {product.status !== "Sold Out" && stockStatus === "in_stock" && (
               <Button
                 size="sm"
                 onClick={handleAddToCart}
@@ -163,6 +171,9 @@ export default function WineCard({ product }: WineCardProps) {
               >
                 <ShoppingCart className="w-3.5 h-3.5" />
               </Button>
+            )}
+            {stockStatus === "out_of_stock" && product.status !== "Sold Out" && (
+              <span className="text-[10px] font-body text-gray-400 font-medium">Out of Stock</span>
             )}
           </div>
         </div>

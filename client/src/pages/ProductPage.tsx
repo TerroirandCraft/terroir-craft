@@ -111,6 +111,13 @@ export default function ProductPage() {
     queryFn: () => apiRequest("GET", `/api/products/${id}`).then(r => r.json()),
   });
 
+  const { data: stockMap = {} } = useQuery<Record<string, "in_stock" | "out_of_stock">>({
+    queryKey: ["/api/stock"],
+    queryFn: () => apiRequest("GET", "/api/stock").then(r => r.json()),
+    staleTime: 15 * 60 * 1000,
+  });
+  const stockStatus = product ? (stockMap[product.id] ?? "in_stock") : "in_stock";
+
   const { data: related = [] } = useQuery<Product[]>({
     queryKey: ["/api/products"],
     select: (all: Product[]) =>
@@ -316,8 +323,23 @@ export default function ProductPage() {
                 )}
               </div>
 
+              {/* Stock status badge */}
+              <div className="px-6 pt-4">
+                {stockStatus === "in_stock" ? (
+                  <span className="inline-flex items-center gap-1.5 text-xs font-body font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>
+                    In Stock
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1.5 text-xs font-body font-semibold text-gray-500 bg-gray-100 border border-gray-200 px-2.5 py-1 rounded-full">
+                    <span className="w-1.5 h-1.5 rounded-full bg-gray-400 inline-block"></span>
+                    Out of Stock
+                  </span>
+                )}
+              </div>
+
               {/* Controls */}
-              {product.price > 0 && product.status !== "Sold Out" && (
+              {product.price > 0 && product.status !== "Sold Out" && stockStatus === "in_stock" && (
                 <div className="px-6 py-5 space-y-3">
                   {/* Qty */}
                   <div className="flex items-center justify-between">
@@ -355,10 +377,10 @@ export default function ProductPage() {
                 </div>
               )}
 
-              {product.status === "Sold Out" && (
+              {(product.status === "Sold Out" || stockStatus === "out_of_stock") && product.price > 0 && (
                 <div className="px-6 py-5">
                   <div className="w-full h-12 rounded-xl border-2 border-border bg-muted flex items-center justify-center text-sm text-muted-foreground font-body font-medium">
-                    Currently Unavailable
+                    Currently Out of Stock
                   </div>
                 </div>
               )}
