@@ -68,7 +68,7 @@ export default function WineCard({ product }: WineCardProps) {
             <img
               src={product.image_url.startsWith('/') ? `${API_BASE}${product.image_url}` : product.image_url}
               alt={product.name}
-              className="h-36 w-24 object-contain mb-2 group-hover:scale-105 transition-transform duration-300"
+              className="absolute inset-0 w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
             />
           ) : product.type === "Supplement" ? (
             <div className="h-36 flex items-center justify-center mb-2">
