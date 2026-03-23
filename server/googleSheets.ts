@@ -15,8 +15,8 @@ function getAuth() {
 }
 
 // ── Sheet IDs ──────────────────────────────────────────────────────────────
-const STOCK_SHEET_ID = "1Adm-64W56duFkxu6261_JEk2moXUOfqd";
-const STOCK_SHEET_TAB = "Item master"; // gid=112811888
+const STOCK_SHEET_ID = "1k5mUs69iPYHSi6WoeVD1hrls4dnlI-yMBRIOIq8dRVg";
+const STOCK_SHEET_TAB = "Item Master"; // W=總庫存, A=Item Code
 const MEMBERS_SHEET_ID = "1knojavzlakQAQjPLMhhAwpPNsUhuSkhISVYEyIOpD_U";
 const MEMBERS_SHEET_TAB = "工作表1";
 
