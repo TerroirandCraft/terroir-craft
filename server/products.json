@@ -68,7 +68,8 @@
         "maxScore": 100
       }
     ],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCAU-MO0223.png"
   },
   {
     "id": "TCAU-MO0324",
@@ -202,7 +203,8 @@
         "maxScore": 100
       }
     ],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCAU-MO0623.png"
   },
   {
     "id": "TCAU-MO0722",
@@ -297,7 +299,8 @@
     "grape": "Verdelho",
     "tasting_note": "Fresh, aromatic sparkling wine with citrus and stone fruit notes. Crisp acidity with elegant bubbles. Light to medium-bodied with refreshing finish. Verdelho variety adds aromatic complexity. Source: Mollydooker Official",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCAU-MO1124.png"
   },
   {
     "id": "TCAU-MO1125",
@@ -314,7 +317,8 @@
     "grape": "Verdelho",
     "tasting_note": "Fresh, aromatic sparkling wine with citrus and stone fruit notes. Crisp acidity with elegant bubbles. Light to medium-bodied with refreshing finish. Verdelho variety adds aromatic complexity. Source: Mollydooker Official",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCAU-MO1125.png"
   },
   {
     "id": "TCAU-MO1224",
@@ -332,7 +336,7 @@
     "tasting_note": "Elegant white wine expressing Verdelho character. Aromatic with citrus, stone fruit and floral notes. Crisp acidity with balanced structure. Medium-bodied with refreshing, clean finish. Source: Mollydooker",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCAU-MO1224.jpg"
+    "image_url": "/bottle-shots/TCAU-MO1224.png"
   },
   {
     "id": "TCAU-TS0121",
@@ -349,7 +353,8 @@
     "grape": "Grenache",
     "tasting_note": "Elegant Grenache with red fruit aromatics. Balanced structure with refined tannins. Medium-bodied with fresh, clean finish. Source: Australian Wine Companion",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCAU-TS0121.png"
   },
   {
     "id": "TCAU-TS0222",
@@ -366,7 +371,8 @@
     "grape": "Montepulciano",
     "tasting_note": "Layered and textural, seductive and seamless. Rich red fruits and ripe raspberry interwoven with soft chalky tannins and incredible structure. Source: Vivino",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCAU-TS0222.png"
   },
   {
     "id": "TCAU-TS0321",
@@ -454,7 +460,8 @@
     "grape": "Grenache",
     "tasting_note": "Estate-grown Barossa blend from Gnadenfrei vineyard. Red fruit with balanced oak and structure. Complex and elegant expression. Medium to full-bodied. Source: Tscharke",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCAU-TS0921.png"
   },
   {
     "id": "TCAU-TS0621",
@@ -471,7 +478,8 @@
     "grape": "GSM",
     "tasting_note": "Estate-grown Barossa blend. Balanced with red fruit and spice aromatics. Smooth, approachable style for everyday drinking. Source: Tscharke Official",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCAU-TS0621.png"
   },
   {
     "id": "TCAU-LBJ0120",
@@ -607,7 +615,8 @@
     "tasting_note": "Fresh nose with white peach and apricot. Elegant citrus and pastry notes. Stone fruit, white flowers and lime zest. Three years on lees with 30% reserve wines. Source: Boizel",
     "ratings": [],
     "phonetic": "Champagne [sham-PAN-yuh]",
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCFR-CB01NV.png"
   },
   {
     "id": "TCFR-CB03NV",
@@ -625,7 +634,8 @@
     "tasting_note": "Aromatic rose Champagne. Wild strawberry and cherry notes. Fresh, smooth palate with structure. Raspberry and citrus with spicy mineral notes. Pale pink color. Source: Boizel",
     "ratings": [],
     "phonetic": "Champagne [sham-PAN-yuh]",
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCFR-CB03NV.png"
   },
   {
     "id": "TCFR-CB06NV",
@@ -668,7 +678,8 @@
       }
     ],
     "phonetic": "Champagne [sham-PAN-yuh]",
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCFR-CB0415.png"
   },
   {
     "id": "TCFR-CML0117",
@@ -692,7 +703,8 @@
       }
     ],
     "phonetic": "Saint-Estèphe [san eh-STEF]",
-    "exclusive": false
+    "exclusive": false,
+    "image_url": "/bottle-shots/TCFR-CML0117.png"
   },
   {
     "id": "TCFR-DN0221",
@@ -883,7 +895,8 @@
     "tasting_note": "Premier Cru Puligny-Montrachet. Very pure with white flower aromatics. Yellow and green citrus. Taut, tensile palate with persistent finish. Source: Atlas Fine Wines",
     "ratings": [],
     "phonetic": "Puligny-Montrachet [poo-LEE-nyee mon-rah-SHAY]",
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCFR-MC0623.png"
   },
   {
     "id": "TCFR-MC0723",
@@ -1038,7 +1051,8 @@
       }
     ],
     "phonetic": "Gigondas [zhee-gon-DAH]",
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCFR-SC0123.png"
   },
   {
     "id": "TCFR-SC0223",
@@ -1684,7 +1698,8 @@
     "grape": "Pinot Noir",
     "tasting_note": "Juicy Pinot Noir with rich ripe fruit. Plum and blackberry flavors. Medium-bodied with balanced structure. Fresh cut roses and wet earth notes. Smooth finish. Source: Sherwood Estate",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCNZ-SH0123.png"
   },
   {
     "id": "TCNZ-SH0224",
@@ -1809,7 +1824,8 @@
     "grape": "Touriga Nacional, Touriga Franca, Tinta Roriz (Tempranillo), and Tinta Barroca",
     "tasting_note": "Rich Ruby Port with dark fruits. Fruity and youthful character. Full-bodied with berry notes. Classic Port style. Source: Kopke",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCPO-KO03NV.png"
   },
   {
     "id": "TCPO-KO04NV",
@@ -1832,7 +1848,8 @@
         "maxScore": 100
       }
     ],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCPO-KO04NV.png"
   },
   {
     "id": "TCPO-KO04NVSET",
@@ -1873,7 +1890,8 @@
     "grape": "Touriga Nacional, Touriga Franca, Tinta Roriz (Tempranillo), and Tinta Barroca",
     "tasting_note": "Aged Tawny (20 years). Deep complexity with dried fruits. Smooth, elegant style. Rich, mature character. Source: Kopke",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCPO-KO05NV.png"
   },
   {
     "id": "TCPO-KO06NV",
@@ -1890,7 +1908,8 @@
     "grape": "Touriga Nacional, Touriga Franca, Tinta Roriz (Tempranillo), and Tinta Barroca",
     "tasting_note": "Very old Tawny (30 years). Deep amber color. Complex aromatics with nuts and caramel. Ultimate sophistication and balance. Source: Kopke",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCPO-KO06NV.png"
   },
   {
     "id": "TCPO-KO07NV",
@@ -1907,7 +1926,8 @@
     "grape": "Touriga Nacional, Touriga Franca, Tinta Roriz (Tempranillo), and Tinta Barroca",
     "tasting_note": "Single harvest vintage Port (2002). Aged expression. Deep color with complex fruit. Balanced structure with long finish. Characteristic of this superior vintage year. Source: Kopke",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCPO-KO07NV.png"
   },
   {
     "id": "TCPO-KO08NV",
@@ -2248,7 +2268,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCUS-RC0621.jpg"
+    "image_url": "/bottle-shots/TCUS-RC0621.png"
   },
   {
     "id": "TCUS-RC0721",

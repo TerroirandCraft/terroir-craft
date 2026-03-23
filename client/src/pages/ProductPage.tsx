@@ -193,7 +193,7 @@ export default function ProductPage() {
               <img
                 src={product.image_url?.startsWith('/') ? `${API_BASE}${product.image_url}` : product.image_url}
                 alt={cleanName}
-                className="max-h-[420px] w-auto object-contain drop-shadow-xl"
+                className="h-[380px] w-[200px] object-contain drop-shadow-xl"
               />
             ) : (
               <BottleSVG color={bottleColor} />
