@@ -15,7 +15,8 @@ const REGIONS = [
     label: "France",
     labelZh: "法國",
     count: 37,
-    flag: "🇫🇷",
+    flag: "fr",
+    flagEmoji: "🇫🇷",
     gradient: "linear-gradient(145deg, hsl(355,55%,28%) 0%, hsl(355,70%,18%) 50%, hsl(220,30%,25%) 100%)",
   },
   {
@@ -23,7 +24,8 @@ const REGIONS = [
     label: "Australia",
     labelZh: "澳洲",
     count: 28,
-    flag: "🇦🇺",
+    flag: "au",
+    flagEmoji: "🇦🇺",
     gradient: "linear-gradient(145deg, hsl(25,65%,35%) 0%, hsl(20,55%,22%) 50%, hsl(10,40%,18%) 100%)",
   },
   {
@@ -31,7 +33,8 @@ const REGIONS = [
     label: "Portugal",
     labelZh: "葡萄牙",
     count: 12,
-    flag: "🇵🇹",
+    flag: "pt",
+    flagEmoji: "🇵🇹",
     gradient: "linear-gradient(145deg, hsl(140,40%,28%) 0%, hsl(140,45%,18%) 50%, hsl(355,40%,20%) 100%)",
   },
   {
@@ -39,7 +42,8 @@ const REGIONS = [
     label: "USA",
     labelZh: "美國",
     count: 11,
-    flag: "🇺🇸",
+    flag: "us",
+    flagEmoji: "🇺🇸",
     gradient: "linear-gradient(145deg, hsl(210,60%,28%) 0%, hsl(220,55%,18%) 50%, hsl(0,40%,22%) 100%)",
   },
   {
@@ -47,7 +51,8 @@ const REGIONS = [
     label: "Germany",
     labelZh: "德國",
     count: 9,
-    flag: "🇩🇪",
+    flag: "de",
+    flagEmoji: "🇩🇪",
     gradient: "linear-gradient(145deg, hsl(40,15%,30%) 0%, hsl(0,0%,20%) 50%, hsl(0,55%,18%) 100%)",
   },
   {
@@ -55,7 +60,8 @@ const REGIONS = [
     label: "New Zealand",
     labelZh: "紐西蘭",
     count: 5,
-    flag: "🇳🇿",
+    flag: "nz",
+    flagEmoji: "🇳🇿",
     gradient: "linear-gradient(145deg, hsl(160,40%,26%) 0%, hsl(170,50%,18%) 50%, hsl(200,35%,20%) 100%)",
   },
   {
@@ -63,7 +69,8 @@ const REGIONS = [
     label: "Korea",
     labelZh: "韓國",
     count: 4,
-    flag: "🇰🇷",
+    flag: "kr",
+    flagEmoji: "🇰🇷",
     gradient: "linear-gradient(145deg, hsl(0,55%,30%) 0%, hsl(210,50%,22%) 50%, hsl(0,5%,18%) 100%)",
   },
   {
@@ -71,7 +78,8 @@ const REGIONS = [
     label: "Spain",
     labelZh: "西班牙",
     count: 3,
-    flag: "🇪🇸",
+    flag: "es",
+    flagEmoji: "🇪🇸",
     gradient: "linear-gradient(145deg, hsl(35,70%,32%) 0%, hsl(0,55%,22%) 50%, hsl(35,40%,16%) 100%)",
   },
   {
@@ -79,7 +87,8 @@ const REGIONS = [
     label: "South Africa",
     labelZh: "南非",
     count: 1,
-    flag: "🇿🇦",
+    flag: "za",
+    flagEmoji: "🇿🇦",
     gradient: "linear-gradient(145deg, hsl(120,35%,25%) 0%, hsl(60,40%,20%) 50%, hsl(0,55%,18%) 100%)",
   },
   {
@@ -87,7 +96,8 @@ const REGIONS = [
     label: "Italy",
     labelZh: "意大利",
     count: 2,
-    flag: "🇮🇹",
+    flag: "it",
+    flagEmoji: "🇮🇹",
     gradient: "linear-gradient(145deg, hsl(0,60%,30%) 0%, hsl(125,35%,22%) 50%, hsl(0,5%,18%) 100%)",
   },
   {
@@ -271,7 +281,18 @@ export default function HomePage() {
                     backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E")`,
                   }} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                  <div className="absolute top-3 right-3 text-2xl leading-none drop-shadow">{region.flag}</div>
+                  {(region as any).isBrand ? (
+                    <div className="absolute top-3 right-3 text-2xl leading-none drop-shadow">💊</div>
+                  ) : (
+                    <img
+                      src={`https://flagcdn.com/w40/${region.flag}.png`}
+                      width="28"
+                      height="21"
+                      alt={region.label}
+                      className="absolute top-3 right-3 rounded-sm shadow-md object-cover"
+                      style={{width:'28px',height:'21px'}}
+                    />
+                  )}
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[60%] opacity-10 group-hover:opacity-20 transition-opacity pointer-events-none">
                     <svg viewBox="0 0 60 160" width="36" fill="white">
                       <rect x="22" y="0" width="16" height="25" rx="3"/>

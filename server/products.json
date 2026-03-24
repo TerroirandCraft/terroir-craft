@@ -90,11 +90,6 @@
         "source": "WA",
         "score": 91,
         "maxScore": 100
-      },
-      {
-        "source": "BH",
-        "score": 92,
-        "maxScore": 100
       }
     ],
     "exclusive": true,
@@ -538,7 +533,7 @@
     "grape": "Merlot",
     "tasting_note": "Limited edition Merlot from Barossa. Full-bodied with rich fruit. Balanced tannins with smooth, elegant finish. Premium limited production. Source: CF Empress",
     "ratings": [],
-    "exclusive": true
+    "exclusive": false
   },
   {
     "id": "OTHER-06",
@@ -555,7 +550,7 @@
     "grape": "Cabernet Sauvignon",
     "tasting_note": "Structured Cabernet Sauvignon from Barossa Valley. Deep red fruit with spice and oak notes. Medium to full-bodied with well-balanced tannins and smooth finish. Source: Temperament",
     "ratings": [],
-    "exclusive": true
+    "exclusive": false
   },
   {
     "id": "OTHER-10",
@@ -572,7 +567,7 @@
     "grape": "Shiraz",
     "tasting_note": "Rich Shiraz from Barossa Valley. Ripe fruit with balanced oak aging. Full-bodied with structured tannins and long finish. Powerful expression. Source: Temperament",
     "ratings": [],
-    "exclusive": true
+    "exclusive": false
   },
   {
     "id": "TCFR-BBL0117HF",
@@ -976,7 +971,7 @@
   {
     "id": "TCFR-MC1122",
     "name": "Maison Morey-Coffinet - Chassagne Montrachet RougeLes Chambres Rouge 2022",
-    "brand": "Maison Morey-Coffinet",
+    "brand": "Morey-Coffinet",
     "country": "France",
     "region": "Bourgogne",
     "type": "Red",
@@ -2041,7 +2036,7 @@
     "grape": "Garnacha ",
     "tasting_note": "Spanish Grenache Rose. Fresh salmon color. Strawberry and citrus aromatics. Crisp acidity with balanced style. Light-bodied. Source: Carinena",
     "ratings": [],
-    "exclusive": true,
+    "exclusive": false,
     "image_url": "/bottle-shots/TCCA-PG.png"
   },
   {

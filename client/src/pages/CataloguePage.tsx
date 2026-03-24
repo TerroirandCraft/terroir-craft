@@ -28,10 +28,12 @@ export default function CataloguePage() {
   const [sort, setSort] = useState("default");
   const [showFilters, setShowFilters] = useState(false);
 
-  // Read ?country= and ?brand= from URL hash query string, re-run whenever the hash changes
+  // Read ?country= and ?brand= from URL hash query string
   const [location] = useLocation();
-  useEffect(() => {
-    const hashSearch = window.location.hash.split("?")[1] || "";
+
+  const applyHashParams = () => {
+    const fullHash = window.location.hash; // e.g. #/wines?country=France
+    const hashSearch = fullHash.includes("?") ? fullHash.split("?")[1] : "";
     const params = new URLSearchParams(hashSearch);
     const countryParam = params.get("country");
     const brandParam = params.get("brand");
@@ -39,14 +41,20 @@ export default function CataloguePage() {
       setCountryFilter(countryParam);
       setBrandFilter(null);
       setShowFilters(true);
-    } else if (!countryParam) {
-      // Only reset if navigating without a country param (e.g. plain /wines)
-      // Don't reset if user manually changed the filter
+    } else if (!countryParam && !brandParam) {
+      setCountryFilter("All Countries");
     }
     if (brandParam) {
       setBrandFilter(brandParam);
       setCountryFilter("All Countries");
     }
+  };
+
+  useEffect(() => {
+    applyHashParams();
+    // Also listen for hashchange so clicking same-page region cards works
+    window.addEventListener("hashchange", applyHashParams);
+    return () => window.removeEventListener("hashchange", applyHashParams);
   }, [location]);
 
   const { data: products = [], isLoading } = useQuery<Product[]>({
