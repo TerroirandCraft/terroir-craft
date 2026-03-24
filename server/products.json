@@ -21,7 +21,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCAU-MO0123.jpg"
+    "image_url": "/bottle-shots/TCAU-MO0123.png"
   },
   {
     "id": "TCAU-MO0222",
@@ -277,7 +277,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCAU-MO1023.jpg"
+    "image_url": "/bottle-shots/TCAU-MO1023.png"
   },
   {
     "id": "TCAU-MO1124",
@@ -2108,7 +2108,8 @@
         "maxScore": 100
       }
     ],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCUS-RC0121HF.png"
   },
   {
     "id": "TCUS-RC0121MG",
@@ -2155,7 +2156,8 @@
         "maxScore": 100
       }
     ],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCUS-RC0122.png"
   },
   {
     "id": "TCUS-RC0223",
@@ -2310,7 +2312,8 @@
         "maxScore": 100
       }
     ],
-    "exclusive": true
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCUS-RC0921.png"
   },
   {
     "id": "TCHYD-001",

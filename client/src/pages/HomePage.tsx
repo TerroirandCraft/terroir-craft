@@ -261,18 +261,23 @@ export default function HomePage() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
             {REGIONS.map((region) => (
-              <Link
+              <a
                 key={region.country}
                 href={(region as any).isBrand
-                  ? `/wines?brand=Hydrodol`
-                  : `/wines?country=${encodeURIComponent(region.country)}`
+                  ? `/#/wines?brand=Hydrodol`
+                  : `/#/wines?country=${encodeURIComponent(region.country)}`
                 }
+                onClick={(e) => {
+                  e.preventDefault();
+                  const target = (region as any).isBrand
+                    ? '/#/wines?brand=Hydrodol'
+                    : `/#/wines?country=${encodeURIComponent(region.country)}`;
+                  window.location.href = target;
+                }}
+                className="group relative overflow-hidden rounded-xl cursor-pointer block"
+                style={{ aspectRatio: "3/4" }}
+                data-testid={`region-${region.country.toLowerCase().replace(/\s/g, "-")}`}
               >
-                <a
-                  className="group relative overflow-hidden rounded-xl cursor-pointer block"
-                  style={{ aspectRatio: "3/4" }}
-                  data-testid={`region-${region.country.toLowerCase().replace(/\s/g, "-")}`}
-                >
                   <div
                     className="absolute inset-0 transition-transform duration-500 group-hover:scale-105"
                     style={{ background: region.gradient }}
@@ -310,8 +315,7 @@ export default function HomePage() {
                     </div>
                   </div>
                   <div className="absolute inset-0 rounded-xl border-2 border-white/0 group-hover:border-white/25 transition-all duration-300" />
-                </a>
-              </Link>
+              </a>
             ))}
           </div>
 
