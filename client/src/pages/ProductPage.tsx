@@ -300,7 +300,7 @@ export default function ProductPage() {
             {/* Tasting note preview */}
             {tastingNoteDisplay && (
               <div className="bg-[hsl(30,20%,97%)] dark:bg-muted/30 rounded-xl p-4 border border-[hsl(30,15%,90%)] dark:border-border mb-5">
-                <p className="font-body text-sm text-foreground/80 leading-relaxed italic line-clamp-3">
+                <p className="font-body text-sm text-foreground/80 leading-relaxed italic">
                   "{tastingNoteDisplay}"
                 </p>
               </div>
