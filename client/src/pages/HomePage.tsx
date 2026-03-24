@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { navigate } from "wouter/use-hash-location";
+import WorldMap from "@/components/WorldMap";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { ArrowRight, Bot, Globe, Star, Package, ChevronRight, Instagram, Facebook } from "lucide-react";
@@ -260,62 +261,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-            {REGIONS.map((region) => (
-              <a
-                key={region.country}
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  const target = (region as any).isBrand
-                    ? '/wines?brand=Hydrodol'
-                    : `/wines?country=${encodeURIComponent(region.country)}`;
-                  navigate(target);
-                }}
-                className="group relative overflow-hidden rounded-xl cursor-pointer block"
-                style={{ aspectRatio: "3/4" }}
-                data-testid={`region-${region.country.toLowerCase().replace(/\s/g, "-")}`}
-              >
-                  <div
-                    className="absolute inset-0 transition-transform duration-500 group-hover:scale-105"
-                    style={{ background: region.gradient }}
-                  />
-                  <div className="absolute inset-0 opacity-15" style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E")`,
-                  }} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                  {(region as any).isBrand ? (
-                    <div className="absolute top-3 right-3 text-2xl leading-none drop-shadow">💊</div>
-                  ) : (
-                    <img
-                      src={`https://flagcdn.com/w40/${region.flag}.png`}
-                      width="28"
-                      height="21"
-                      alt={region.label}
-                      className="absolute top-3 right-3 rounded-sm shadow-md object-cover"
-                      style={{width:'28px',height:'21px'}}
-                    />
-                  )}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[60%] opacity-10 group-hover:opacity-20 transition-opacity pointer-events-none">
-                    <svg viewBox="0 0 60 160" width="36" fill="white">
-                      <rect x="22" y="0" width="16" height="25" rx="3"/>
-                      <path d="M18 25 Q10 40 10 55 L10 145 Q10 155 20 155 L40 155 Q50 155 50 145 L50 55 Q50 40 42 25 Z"/>
-                    </svg>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-3.5">
-                    <h3 className="font-display text-white font-semibold text-sm leading-tight mb-0.5">{region.label}</h3>
-                    {region.labelZh && <p className="font-body text-white/65 text-xs mb-1">{region.labelZh}</p>}
-                    <div className="flex items-center justify-between mt-1">
-                      <span className="font-body text-white/55 text-xs">{region.count} {(region as any).isBrand ? "products" : "wines"}</span>
-                      <span className="w-5 h-5 rounded-full bg-white/25 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 translate-x-1 group-hover:translate-x-0">
-                        <ArrowRight className="w-2.5 h-2.5 text-white" />
-                      </span>
-                    </div>
-                  </div>
-                  <div className="absolute inset-0 rounded-xl border-2 border-white/0 group-hover:border-white/25 transition-all duration-300" />
-              </a>
-            ))}
-          </div>
+          <WorldMap />
 
           <div className="text-center mt-8">
             <Link href="/wines">
