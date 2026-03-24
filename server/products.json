@@ -2493,5 +2493,570 @@
     "description": "HYDRODOL HANGOVER oral strips are your on-the-go hangover solution. Dissolves instantly — no water needed. Formulated to help you feel like yourself again. 100% Vegan. Australian-made.",
     "style": "Hangover Relief — Oral Strip Format",
     "exclusive": true
+  },
+  {
+    "id": "ECS220",
+    "name": "Château Calon Ségur - Saint-Estèphe 3ème Cru GCC 2022",
+    "brand": "Bordeaux 2022",
+    "country": "France",
+    "region": "Saint-Estèphe",
+    "type": "Red",
+    "status": "Other",
+    "exclusive": false,
+    "size": "750ml",
+    "vintage": "2022",
+    "price": 1180.0,
+    "promo_price": 1050.0,
+    "grape": "70% Cabernet Sauvignon, 24% Merlot, 5% Cabernet Franc, 1% Petit Verdot",
+    "tasting_note": "Superb wine from this historic Saint-Estèphe third growth. Unwinding with aromas of dark berries, cherries and blackcurrants mingled with violets, licorice and pencil shavings. Full-bodied, rich and concentrated with excellent structure and a lengthy finish.",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 98,
+        "maxScore": 100
+      },
+      {
+        "source": "JS",
+        "score": 97,
+        "maxScore": 100
+      },
+      {
+        "source": "JR",
+        "score": 17.5,
+        "maxScore": 20
+      }
+    ],
+    "image_url": "/bottle-shots/ECS220.png",
+    "promotion": "bordeaux2022"
+  },
+  {
+    "id": "GCH220",
+    "name": "Château Les Carmes Haut-Brion - Pessac-Léognan 2022",
+    "brand": "Bordeaux 2022",
+    "country": "France",
+    "region": "Pessac-Léognan",
+    "type": "Red",
+    "status": "Other",
+    "exclusive": false,
+    "size": "750ml",
+    "vintage": "2022",
+    "price": 1250.0,
+    "promo_price": 1150.0,
+    "grape": "40% Cabernet Franc, 34% Cabernet Sauvignon, 26% Merlot",
+    "tasting_note": "The finest wine bottled to date at this estate. Unfurling from the glass with aromas of violet, iris and black fruits with a seamless, rich, powerful palate. Extraordinary depth and length.",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 99,
+        "maxScore": 100
+      },
+      {
+        "source": "JS",
+        "score": 99,
+        "maxScore": 100
+      }
+    ],
+    "image_url": "/bottle-shots/GCH220.png",
+    "promotion": "bordeaux2022"
+  },
+  {
+    "id": "HLT220",
+    "name": "Château La Tour Carnet - Haut-Médoc GCC 2022",
+    "brand": "Bordeaux 2022",
+    "country": "France",
+    "region": "Haut-Médoc",
+    "type": "Red",
+    "status": "Other",
+    "exclusive": false,
+    "size": "750ml",
+    "vintage": "2022",
+    "price": 250.0,
+    "promo_price": 220.0,
+    "grape": "59% Merlot, 40% Cabernet Sauvignon, 1% Cabernet Franc",
+    "tasting_note": "Blackberries, black cherries, flowers, tobacco leaf, cedar and espresso nuances. Creamy, lush and round on the palate with notes of espresso and chocolate on the finish.",
+    "ratings": [
+      {
+        "source": "JS",
+        "score": 93,
+        "maxScore": 100
+      }
+    ],
+    "image_url": "/bottle-shots/HLT220.png",
+    "promotion": "bordeaux2022"
+  },
+  {
+    "id": "JBE220",
+    "name": "Château Beychevelle - Saint-Julien 4ème Cru GCC 2022",
+    "brand": "Bordeaux 2022",
+    "country": "France",
+    "region": "Saint-Julien",
+    "type": "Red",
+    "status": "Other",
+    "exclusive": false,
+    "size": "750ml",
+    "vintage": "2022",
+    "price": 810.0,
+    "promo_price": 740.0,
+    "grape": "54% Cabernet Sauvignon, 42% Merlot, 4% Petit Verdot",
+    "tasting_note": "Aromas of dark berries, cherries and cassis mingled with hints of violets and licorice. Medium to full-bodied, velvety and layered with a long, structured finish.",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 94,
+        "maxScore": 100
+      }
+    ],
+    "image_url": "/bottle-shots/JBE220.png",
+    "promotion": "bordeaux2022"
+  },
+  {
+    "id": "JCT220",
+    "name": "Connétable de Talbot - Saint-Julien 2022",
+    "brand": "Bordeaux 2022",
+    "country": "France",
+    "region": "Saint-Julien",
+    "type": "Red",
+    "status": "Other",
+    "exclusive": false,
+    "size": "750ml",
+    "vintage": "2022",
+    "price": 250.0,
+    "promo_price": 205.0,
+    "grape": "56% Cabernet Sauvignon, 44% Merlot",
+    "tasting_note": "Aromas of rich berries, loamy soil, cherries and licorice. A medium to full-bodied, fleshy and impressively concentrated second wine of Château Talbot.",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 88,
+        "maxScore": 100
+      },
+      {
+        "source": "JS",
+        "score": 93,
+        "maxScore": 100
+      }
+    ],
+    "image_url": "/bottle-shots/JCT220.png",
+    "promotion": "bordeaux2022"
+  },
+  {
+    "id": "JTA220",
+    "name": "Château Talbot - Saint-Julien 4ème Cru GCC 2022",
+    "brand": "Bordeaux 2022",
+    "country": "France",
+    "region": "Saint-Julien",
+    "type": "Red",
+    "status": "Other",
+    "exclusive": false,
+    "size": "750ml",
+    "vintage": "2022",
+    "price": 550.0,
+    "promo_price": 460.0,
+    "grape": "70% Cabernet Sauvignon, 25% Merlot, 5% Petit Verdot",
+    "tasting_note": "Bursting with aromas of cherries, berries, orange zest and petals framed by toasty oak. Medium to full-bodied, velvety and layered with sweet fruit and impressive length.",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 93,
+        "maxScore": 100
+      },
+      {
+        "source": "JS",
+        "score": 96,
+        "maxScore": 100
+      }
+    ],
+    "image_url": "/bottle-shots/JTA220.png",
+    "promotion": "bordeaux2022"
+  },
+  {
+    "id": "MDI220",
+    "name": "Château d'Issan - Margaux 3ème Cru GCC 2022",
+    "brand": "Bordeaux 2022",
+    "country": "France",
+    "region": "Margaux",
+    "type": "Red",
+    "status": "Other",
+    "exclusive": false,
+    "size": "750ml",
+    "vintage": "2022",
+    "price": 680.0,
+    "promo_price": 600.0,
+    "grape": "65% Cabernet Sauvignon, 30% Merlot, 2% Cabernet Franc, 2% Malbec, 1% Petit Verdot",
+    "tasting_note": "Luxurious, showing blackcurrants and orange peel with cedar and dried-mushroom aromas. Crunchy and lightly chalky tannins with a long, elegant Margaux finish.",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 95,
+        "maxScore": 100
+      },
+      {
+        "source": "JS",
+        "score": 98,
+        "maxScore": 100
+      }
+    ],
+    "image_url": "/bottle-shots/MDI220.png",
+    "promotion": "bordeaux2022"
+  },
+  {
+    "id": "MRS220",
+    "name": "Château Rauzan-Ségla - Margaux 2ème Cru GCC 2022",
+    "brand": "Bordeaux 2022",
+    "country": "France",
+    "region": "Margaux",
+    "type": "Red",
+    "status": "Other",
+    "exclusive": false,
+    "size": "750ml",
+    "vintage": "2022",
+    "price": 960.0,
+    "promo_price": 860.0,
+    "grape": "72% Cabernet Sauvignon, 26% Merlot, 2% Petit Verdot",
+    "tasting_note": "Aromas of dark berries and cherries mingled with licorice, burning embers and pencil shavings. Medium to full-bodied, ample and creamy with extraordinary length.",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 96,
+        "maxScore": 100
+      },
+      {
+        "source": "JS",
+        "score": 98,
+        "maxScore": 100
+      },
+      {
+        "source": "JR",
+        "score": 18,
+        "maxScore": 20
+      }
+    ],
+    "image_url": "/bottle-shots/MRS220.png",
+    "promotion": "bordeaux2022"
+  },
+  {
+    "id": "OFO220",
+    "name": "Château La Fleur-Pétrus - Pomerol 2022",
+    "brand": "Bordeaux 2022",
+    "country": "France",
+    "region": "Pomerol",
+    "type": "Red",
+    "status": "Other",
+    "exclusive": false,
+    "size": "750ml",
+    "vintage": "2022",
+    "price": 1950.0,
+    "promo_price": 1750.0,
+    "grape": "96.5% Merlot, 3% Cabernet Franc, 0.5% Petit Verdot",
+    "tasting_note": "Deep garnet-purple. Nose of blueberry jam, mulberries and blackcurrant preserve with violets. Full-bodied, rich and concentrated with a silky texture and excellent structure.",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 94,
+        "maxScore": 100
+      },
+      {
+        "source": "JS",
+        "score": 97,
+        "maxScore": 100
+      },
+      {
+        "source": "JR",
+        "score": 17.5,
+        "maxScore": 20
+      }
+    ],
+    "image_url": "/bottle-shots/OFO220.png",
+    "promotion": "bordeaux2022"
+  },
+  {
+    "id": "PAM220",
+    "name": "Château d'Armailhac - Pauillac 5ème Cru GCC 2022",
+    "brand": "Bordeaux 2022",
+    "country": "France",
+    "region": "Pauillac",
+    "type": "Red",
+    "status": "Other",
+    "exclusive": false,
+    "size": "750ml",
+    "vintage": "2022",
+    "price": 450.0,
+    "promo_price": 395.0,
+    "grape": "60% Cabernet Sauvignon, 22% Merlot, 16% Cabernet Franc, 2% Petit Verdot",
+    "tasting_note": "The epitome of contained power. Black fruit flavours mingled with floral, spice and mineral notes. Shows all the density of the vintage offset by great freshness and remarkable length.",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 92,
+        "maxScore": 100
+      },
+      {
+        "source": "JS",
+        "score": 97,
+        "maxScore": 100
+      }
+    ],
+    "image_url": "/bottle-shots/PAM220.png",
+    "promotion": "bordeaux2022"
+  },
+  {
+    "id": "PCL220",
+    "name": "Carruades de Lafite - Pauillac 2022",
+    "brand": "Bordeaux 2022",
+    "country": "France",
+    "region": "Pauillac",
+    "type": "Red",
+    "status": "Other",
+    "exclusive": false,
+    "size": "750ml",
+    "vintage": "2022",
+    "price": 1880.0,
+    "promo_price": 1725.0,
+    "grape": "53% Cabernet Sauvignon, 40% Merlot, 4% Cabernet Franc, 3% Petit Verdot",
+    "tasting_note": "Youthfully understated bouquet of raspberries, cherries and cedary pencil shavings. Medium to full-bodied, velvety and layered with ripe cassis and excellent structure.",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 92,
+        "maxScore": 100
+      },
+      {
+        "source": "JS",
+        "score": 96,
+        "maxScore": 100
+      },
+      {
+        "source": "JR",
+        "score": 17,
+        "maxScore": 20
+      }
+    ],
+    "image_url": "/bottle-shots/PCL220.png",
+    "promotion": "bordeaux2022"
+  },
+  {
+    "id": "PCM220",
+    "name": "Château Clerc Milon - Pauillac 5ème Cru GCC 2022",
+    "brand": "Bordeaux 2022",
+    "country": "France",
+    "region": "Pauillac",
+    "type": "Red",
+    "status": "Other",
+    "exclusive": false,
+    "size": "750ml",
+    "vintage": "2022",
+    "price": 720.0,
+    "promo_price": 630.0,
+    "grape": "59% Cabernet Sauvignon, 32% Merlot, 8% Cabernet Franc, 1% Carménère",
+    "tasting_note": "Aromas of sweet crème de cassis, licorice, violets and creamy new oak. Full-bodied, rich and layered with ripe integrated tannins and impressive length.",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 95,
+        "maxScore": 100
+      },
+      {
+        "source": "JS",
+        "score": 96,
+        "maxScore": 100
+      },
+      {
+        "source": "JR",
+        "score": 17,
+        "maxScore": 20
+      }
+    ],
+    "image_url": "/bottle-shots/PCM220.png",
+    "promotion": "bordeaux2022"
+  },
+  {
+    "id": "PDM220",
+    "name": "Château Duhart-Milon Rothschild - Pauillac 4ème Cru GCC 2022",
+    "brand": "Bordeaux 2022",
+    "country": "France",
+    "region": "Pauillac",
+    "type": "Red",
+    "status": "Other",
+    "exclusive": false,
+    "size": "750ml",
+    "vintage": "2022",
+    "price": 620.0,
+    "promo_price": 545.0,
+    "grape": "78% Cabernet Sauvignon, 22% Merlot",
+    "tasting_note": "Aromas of mulberries, blackcurrants, pencil shavings and rose petal. Medium to full-bodied, velvety and textural with powdery tannins and lively acids. Harmonious and integrated.",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 94,
+        "maxScore": 100
+      },
+      {
+        "source": "JS",
+        "score": 96,
+        "maxScore": 100
+      },
+      {
+        "source": "JR",
+        "score": 17.5,
+        "maxScore": 20
+      }
+    ],
+    "image_url": "/bottle-shots/PDM220.png",
+    "promotion": "bordeaux2022"
+  },
+  {
+    "id": "PGL220",
+    "name": "Château Grand-Puy-Lacoste - Pauillac 5ème Cru GCC 2022",
+    "brand": "Bordeaux 2022",
+    "country": "France",
+    "region": "Pauillac",
+    "type": "Red",
+    "status": "Other",
+    "exclusive": false,
+    "size": "750ml",
+    "vintage": "2022",
+    "price": 680.0,
+    "promo_price": 585.0,
+    "grape": "79% Cabernet Sauvignon, 21% Merlot",
+    "tasting_note": "Aromas of cassis and plums mingled with rose petal, tobacco leaf and pencil shavings. Medium to full-bodied, velvety and layered with excellent structure and a long finish.",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 95,
+        "maxScore": 100
+      },
+      {
+        "source": "JS",
+        "score": 97,
+        "maxScore": 100
+      }
+    ],
+    "image_url": "/bottle-shots/PGL220.png",
+    "promotion": "bordeaux2022"
+  },
+  {
+    "id": "PLB220",
+    "name": "Château Lynch-Bages - Pauillac 5ème Cru GCC 2022",
+    "brand": "Bordeaux 2022",
+    "country": "France",
+    "region": "Pauillac",
+    "type": "Red",
+    "status": "Other",
+    "exclusive": false,
+    "size": "750ml",
+    "vintage": "2022",
+    "price": 1050.0,
+    "promo_price": 955.0,
+    "grape": "66% Cabernet Sauvignon, 28% Merlot, 3% Cabernet Franc, 3% Petit Verdot",
+    "tasting_note": "Rich aromatic palette of black and red fruits — blackcurrant, Morello cherry — topped by spicy notes with impressively mature tannins and remarkable acidity.",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 96,
+        "maxScore": 100
+      },
+      {
+        "source": "JS",
+        "score": 99,
+        "maxScore": 100
+      }
+    ],
+    "image_url": "/bottle-shots/PLB220.png",
+    "promotion": "bordeaux2022"
+  },
+  {
+    "id": "PMRW220",
+    "name": "Aile d'Argent - Bordeaux Blanc 2022",
+    "brand": "Bordeaux 2022",
+    "country": "France",
+    "region": "Bordeaux",
+    "type": "White",
+    "status": "Other",
+    "exclusive": false,
+    "size": "750ml",
+    "vintage": "2022",
+    "price": 1180.0,
+    "promo_price": 1045.0,
+    "grape": "52% Sauvignon Blanc, 39% Sémillon, 8% Sauvignon Gris, 1% Muscadelle",
+    "tasting_note": "Citrus fruit aromas elevated by subtle touches of verbena and acacia honey. Generous and well-balanced, ripe white fruit flavours with appealing minerality and pleasant freshness.",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 91,
+        "maxScore": 100
+      },
+      {
+        "source": "JS",
+        "score": 97,
+        "maxScore": 100
+      }
+    ],
+    "image_url": "/bottle-shots/PMRW220.png",
+    "promotion": "bordeaux2022"
+  },
+  {
+    "id": "PPCM220",
+    "name": "Pastourelle de Clerc Milon - Pauillac 2022",
+    "brand": "Bordeaux 2022",
+    "country": "France",
+    "region": "Pauillac",
+    "type": "Red",
+    "status": "Other",
+    "exclusive": false,
+    "size": "750ml",
+    "vintage": "2022",
+    "price": 260.0,
+    "promo_price": 228.0,
+    "grape": "52% Cabernet Sauvignon, 40% Merlot, 5% Cabernet Franc, 2% Carménère, 1% Petit Verdot",
+    "tasting_note": "Wild bilberry and liquorice notes. Precision, freshness and opulence building a delightful harmonious wine with an elegant, persistent finish.",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 90,
+        "maxScore": 100
+      },
+      {
+        "source": "JS",
+        "score": 93,
+        "maxScore": 100
+      }
+    ],
+    "image_url": "/bottle-shots/PPCM220.png",
+    "promotion": "bordeaux2022"
+  },
+  {
+    "id": "PPM220",
+    "name": "Le Petit Mouton de Mouton Rothschild - Pauillac 2022",
+    "brand": "Bordeaux 2022",
+    "country": "France",
+    "region": "Pauillac",
+    "type": "Red",
+    "status": "Other",
+    "exclusive": false,
+    "size": "750ml",
+    "vintage": "2022",
+    "price": 1680.0,
+    "promo_price": 1500.0,
+    "grape": "71% Cabernet Sauvignon, 19% Merlot, 7% Cabernet Franc, 3% Petit Verdot",
+    "tasting_note": "Remarkably intense aromas of black cherry and blackcurrant mingling with vanilla. Silky, creamy structure with richness and generosity, lifted by smoky, graphite and chocolate notes. Luscious finish.",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 93,
+        "maxScore": 100
+      },
+      {
+        "source": "JS",
+        "score": 96,
+        "maxScore": 100
+      },
+      {
+        "source": "JR",
+        "score": 17,
+        "maxScore": 20
+      }
+    ],
+    "image_url": "/bottle-shots/PPM220.png",
+    "promotion": "bordeaux2022"
   }
 ]

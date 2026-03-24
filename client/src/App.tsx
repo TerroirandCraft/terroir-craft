@@ -16,6 +16,7 @@ import { CartProvider } from "@/components/CartContext";
 import { AuthProvider } from "@/components/AuthContext";
 import MemberPage from "@/pages/MemberPage";
 import FineRarePage from "@/pages/FineRarePage";
+import PromotionPage from "@/pages/PromotionPage";
 import BrandDetailPage from "@/pages/BrandDetailPage";
 
 function App() {
@@ -36,6 +37,8 @@ function App() {
                 <Route path="/sommelier" component={SommelierPage} />
                 <Route path="/member" component={MemberPage} />
                 <Route path="/fine-rare" component={FineRarePage} />
+                <Route path="/promotions/:id" component={PromotionPage} />
+                <Route path="/promotions" component={PromotionPage} />
                 <Route component={NotFound} />
               </Switch>
             </Layout>

@@ -1,7 +1,8 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useRef } from "react";
 import { Link, useLocation } from "wouter";
 import { useHashLocation } from "wouter/use-hash-location";
-import { ShoppingCart, Menu, X, Wine, Bot, UserCircle } from "lucide-react";
+import { ShoppingCart, Menu, X, Wine, Bot, UserCircle, ChevronDown, Tag } from "lucide-react";
+import { PROMOTIONS } from "@/pages/PromotionPage";
 import { useCart } from "./CartContext";
 import { useAuth } from "./AuthContext";
 import tcLogo from "@/assets/tc-logo.jpg";
@@ -20,6 +21,9 @@ export default function Layout({ children }: { children: ReactNode }) {
   const { totalItems } = useCart();
   const { member, isLoggedIn } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [promoOpen, setPromoOpen] = useState(false);
+  const promoRef = useRef<HTMLDivElement>(null);
+  const promoList = Object.values(PROMOTIONS);
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
@@ -67,6 +71,45 @@ export default function Layout({ children }: { children: ReactNode }) {
                 </a>
               </Link>
             ))}
+
+            {/* Promotions Dropdown */}
+            {promoList.length > 0 && (
+              <div className="relative" ref={promoRef}>
+                <button
+                  onClick={() => setPromoOpen(o => !o)}
+                  onBlur={(e) => { if (!promoRef.current?.contains(e.relatedTarget as Node)) setPromoOpen(false); }}
+                  className={`flex items-center gap-1 px-4 py-2 rounded-md text-sm font-medium font-body transition-colors ${
+                    location.startsWith('/promotions')
+                      ? "text-red-600 bg-red-500/10 font-semibold"
+                      : "text-red-600/80 hover:text-red-600 hover:bg-red-500/8 font-semibold"
+                  }`}
+                  data-testid="nav-promotions"
+                >
+                  <Tag className="w-3.5 h-3.5" />
+                  Promotions
+                  <ChevronDown className={`w-3 h-3 transition-transform ${promoOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                {promoOpen && (
+                  <div className="absolute top-full left-0 mt-1 w-64 bg-white dark:bg-[hsl(20,12%,10%)] border border-border rounded-xl shadow-xl overflow-hidden z-50">
+                    {promoList.map(promo => (
+                      <Link key={promo.id} href={`/promotions/${promo.id}`}>
+                        <a
+                          onClick={() => setPromoOpen(false)}
+                          className="flex items-start gap-3 px-4 py-3 hover:bg-muted transition-colors"
+                        >
+                          <Tag className="w-4 h-4 text-red-500 mt-0.5 shrink-0" />
+                          <div>
+                            <p className="font-body text-sm font-semibold text-foreground">{promo.title}</p>
+                            <p className="font-body text-xs text-muted-foreground">{promo.subtitle}</p>
+                          </div>
+                        </a>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </nav>
 
           {/* Right actions */}
@@ -131,6 +174,18 @@ export default function Layout({ children }: { children: ReactNode }) {
                 >
                   <span>{link.label}</span>
                   <span className={`text-xs ${link.isGold ? "text-amber-500/60" : "text-muted-foreground"}`}>{link.labelZh}</span>
+                </a>
+              </Link>
+            ))}
+            {/* Promotions in mobile */}
+            {promoList.map(promo => (
+              <Link key={promo.id} href={`/promotions/${promo.id}`}>
+                <a
+                  className="flex items-center justify-between px-4 py-3 rounded-md text-sm font-medium transition-colors text-red-600/90 hover:bg-red-500/8 font-semibold"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <span className="flex items-center gap-2"><Tag className="w-3.5 h-3.5" />{promo.title}</span>
+                  <span className="text-xs text-red-400/60">限時優惠</span>
                 </a>
               </Link>
             ))}
