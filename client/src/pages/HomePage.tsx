@@ -263,16 +263,13 @@ export default function HomePage() {
             {REGIONS.map((region) => (
               <a
                 key={region.country}
-                href={(region as any).isBrand
-                  ? `/#/wines?brand=Hydrodol`
-                  : `/#/wines?country=${encodeURIComponent(region.country)}`
-                }
+                href="#"
                 onClick={(e) => {
                   e.preventDefault();
-                  const target = (region as any).isBrand
-                    ? '/#/wines?brand=Hydrodol'
-                    : `/#/wines?country=${encodeURIComponent(region.country)}`;
-                  window.location.href = target;
+                  const hashTarget = (region as any).isBrand
+                    ? '/wines?brand=Hydrodol'
+                    : `/wines?country=${encodeURIComponent(region.country)}`;
+                  window.location.hash = hashTarget;
                 }}
                 className="group relative overflow-hidden rounded-xl cursor-pointer block"
                 style={{ aspectRatio: "3/4" }}
