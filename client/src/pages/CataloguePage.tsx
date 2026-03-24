@@ -32,9 +32,8 @@ export default function CataloguePage() {
   const [location] = useLocation();
 
   const applyHashParams = () => {
-    const fullHash = window.location.hash; // e.g. #/wines?country=France
-    const hashSearch = fullHash.includes("?") ? fullHash.split("?")[1] : "";
-    const params = new URLSearchParams(hashSearch);
+    // wouter navigate() puts query params in window.location.search (not inside hash)
+    const params = new URLSearchParams(window.location.search);
     const countryParam = params.get("country");
     const brandParam = params.get("brand");
     if (countryParam && COUNTRIES.includes(countryParam)) {

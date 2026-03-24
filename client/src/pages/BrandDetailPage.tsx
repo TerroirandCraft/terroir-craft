@@ -4,27 +4,36 @@ import { ArrowLeft, Globe, MapPin, Grape, Star, ChevronRight } from "lucide-reac
 import type { Product } from "@/lib/products";
 import { BRAND_INFO, formatPrice } from "@/lib/products";
 import WineCard from "@/components/WineCard";
+import { API_BASE } from "@/lib/queryClient";
 
-// Winery logo URLs — official winery websites / press kits
-const BRAND_LOGOS: Record<string, string> = {
-  "Mollydooker":               "https://mollydookerwines.com.au/wp-content/uploads/2019/01/mollydooker-logo.png",
-  "Tscharke":                  "https://tscharke.au/cdn/shop/files/tscharke-logo.png",
-  "Champagne Boizel":          "https://www.boizel.com/wp-content/uploads/2021/05/boizel-logo.png",
-  "Château de Saint Cosme":    "https://winebow-files.s3.amazonaws.com/public/2023-04/st-cosme-logo.png",
-  "Kopke":                     "https://kopke1638.com/wp-content/uploads/2022/03/kopke-logo.png",
-  "Morey-Coffinet":            "https://www.morey-coffinet.com/media/cache/logo/logo.png",
-  "Maison Morey-Coffinet":     "https://www.morey-coffinet.com/media/cache/logo/logo.png",
-  "Vereinigte Hospitien":      "https://www.weingut.vereinigtehospitien.de/images/logo.png",
-  "Sherwood":                  "https://www.sherwood.co.nz/assets/images/sherwood-logo.png",
-  "Levrier Wines by Jo Irvine":"https://images.wineselectors.com.au/media/brand/LEVRI-logo.png",
-  "Realm Cellars":             "https://realmcellars.com/wp-content/uploads/2022/01/realm-logo-black.png",
-  "Pasqua":                    "https://www.pasqua.it/wp-content/themes/pasqua/assets/images/logo.png",
-  "Canmak":                    "https://www.canmak.com/assets/images/logo.png",
-  "Carinena":                  "https://www.carinena.com/wp-content/uploads/2020/04/logo-carinena.png",
-  "Tierra de Cubas":           "https://www.tierradecubas.com/images/logo.png",
-  "TEMPERAMENT":               "https://www.tscharke.com.au/media/logo/default/temperament-logo.png",
-  "CF EMPRESS":                "https://images.vivino.com/users/cfempress/logo.png",
+// Local brand logo files (from /brand-logos/ directory)
+const BRAND_LOGO_FILES: Record<string, string> = {
+  "Mollydooker":                 "Mollydooker.webp",
+  "Canmak":                      "Canmak.jpeg",
+  "Champagne Boizel":            "Champagne Boizel.jpeg",
+  "Château d'Issan":             "Chateau D'Issan.png",
+  "Château de Saint Cosme":      "Chateau de Saint Cosme.jpg",
+  "Crystallum":                  "Crystallum.png",
+  "Kopke":                       "Kopke.png",
+  "La Dame de Montrose":         "La Dame de Montrose.png",
+  "Le Baron de Brane":           "Le Baron de Brane.png",
+  "Les Pagodes de Cos":          "Les Pagodes de Cos.jpeg",
+  "Levrier Wines by Jo Irvine":  "Levrier Wines by Jo Irvine.webp",
+  "Maison Morey-Coffinet":       "Morey Coffinet.png",
+  "Morey-Coffinet":              "Morey Coffinet.png",
+  "Pasqua":                      "Pasqua.png",
+  "Realm Cellars":               "Realm Cellars.webp",
+  "Sherwood":                    "Sherwood.jpg",
+  "Tierra de Cubas":             "Tierra de Cubas.png",
+  "Tscharke":                    "Tscharke.png",
+  "Vereinigte Hospitien":        "Vereinigte Hospitien.webp",
+  "Hydrodol":                    "Hydrodol.jpg",
 };
+
+function getBrandLogoSrc(brand: string): string | null {
+  const file = BRAND_LOGO_FILES[brand];
+  return file ? `${API_BASE}/brand-logos/${encodeURIComponent(file)}` : null;
+}
 
 // Hero/banner image for each brand (vineyard/winery atmosphere shots)
 const BRAND_HERO: Record<string, string> = {
@@ -76,17 +85,20 @@ function BrandHero({ brand, info }: { brand: string; info: typeof BRAND_INFO[str
         <div className="flex flex-col md:flex-row items-start md:items-center gap-8">
           {/* Logo box */}
           <div className="w-28 h-28 md:w-36 md:h-36 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 flex items-center justify-center shrink-0 overflow-hidden">
-            <img
-              src={BRAND_LOGOS[brand]}
-              alt={`${brand} logo`}
-              className="w-full h-full object-contain p-4"
-              onError={(e) => {
-                // Fallback: show brand initials
-                const el = e.currentTarget;
-                el.style.display = 'none';
-                el.parentElement!.innerHTML = `<span class="font-display text-3xl font-bold text-white/80">${brand.substring(0,2).toUpperCase()}</span>`;
-              }}
-            />
+            {getBrandLogoSrc(brand) ? (
+              <img
+                src={getBrandLogoSrc(brand)!}
+                alt={`${brand} logo`}
+                className="w-full h-full object-contain p-4"
+                onError={(e) => {
+                  const el = e.currentTarget;
+                  el.style.display = 'none';
+                  el.parentElement!.innerHTML = `<span class="font-display text-3xl font-bold text-white/80">${brand.substring(0,2).toUpperCase()}</span>`;
+                }}
+              />
+            ) : (
+              <span className="font-display text-3xl font-bold text-white/80">{brand.substring(0,2).toUpperCase()}</span>
+            )}
           </div>
 
           {/* Brand info */}

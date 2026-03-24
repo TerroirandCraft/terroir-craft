@@ -1,4 +1,5 @@
-import { Link, useLocation } from "wouter";
+import { Link } from "wouter";
+import { navigate } from "wouter/use-hash-location";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { ArrowRight, Bot, Globe, Star, Package, ChevronRight, Instagram, Facebook } from "lucide-react";
@@ -266,10 +267,10 @@ export default function HomePage() {
                 href="#"
                 onClick={(e) => {
                   e.preventDefault();
-                  const hashTarget = (region as any).isBrand
+                  const target = (region as any).isBrand
                     ? '/wines?brand=Hydrodol'
                     : `/wines?country=${encodeURIComponent(region.country)}`;
-                  window.location.hash = hashTarget;
+                  navigate(target);
                 }}
                 className="group relative overflow-hidden rounded-xl cursor-pointer block"
                 style={{ aspectRatio: "3/4" }}
