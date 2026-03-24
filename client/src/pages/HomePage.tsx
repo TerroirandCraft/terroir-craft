@@ -380,7 +380,7 @@ export default function HomePage() {
               { label: "Exclusive Importers", desc: "Direct from winery, no middlemen" },
               { label: "23 Brands", desc: "Handpicked from 10 countries" },
               { label: "Fine Wine Advisory", desc: "Investment & authentication" },
-              { label: "HK & Macau", desc: "Same-day delivery available" },
+              { label: "HK & Macau", desc: "Prompt and secure delivery" },
             ].map(item => (
               <div key={item.label} className="bg-white/10 rounded-lg p-5">
                 <div className="font-display text-base font-medium mb-1">{item.label}</div>
