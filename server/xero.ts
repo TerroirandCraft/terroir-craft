@@ -9,7 +9,16 @@ export const xero = new XeroClient({
   clientId: XERO_CLIENT_ID,
   clientSecret: XERO_CLIENT_SECRET,
   redirectUris: [XERO_REDIRECT_URI],
-  scopes: ["openid", "profile", "email", "accounting.transactions", "accounting.contacts", "offline_access"],
+  scopes: [
+    "openid",
+    "profile",
+    "email",
+    "offline_access",
+    "accounting.transactions",
+    "accounting.transactions.read",
+    "accounting.contacts",
+    "accounting.contacts.read",
+  ],
 });
 
 // ── Token storage (in-memory, persists across requests in same process) ────
