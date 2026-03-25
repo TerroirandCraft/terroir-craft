@@ -9,14 +9,15 @@ export const xero = new XeroClient({
   clientId: XERO_CLIENT_ID,
   clientSecret: XERO_CLIENT_SECRET,
   redirectUris: [XERO_REDIRECT_URI],
+  // New granular scopes required for apps created after 2 March 2026
   scopes: [
     "openid",
     "profile",
     "email",
     "offline_access",
-    "accounting.transactions",
-    "accounting.transactions.read",
-    "accounting.contacts",
+    "accounting.invoices",        // create/read invoices
+    "accounting.invoices.read",
+    "accounting.contacts",        // create/read contacts (unchanged)
     "accounting.contacts.read",
   ],
 });
