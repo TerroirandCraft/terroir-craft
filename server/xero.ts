@@ -3,7 +3,8 @@ import { XeroClient } from "xero-node";
 // ── Xero credentials ───────────────────────────────────────────────────────
 const XERO_CLIENT_ID = process.env.XERO_CLIENT_ID || "2CCF339348184115A8DA65454817F574";
 const XERO_CLIENT_SECRET = process.env.XERO_CLIENT_SECRET || "aWYx_6-jUnEt1lVsI9PKv3bmSJWlQ4zeBzm-BZpVr55l1pg4";
-const XERO_REDIRECT_URI = process.env.XERO_REDIRECT_URI || "https://terroir-craft-production.up.railway.app/api/xero/callback";
+// Trim whitespace/newlines to avoid OAuth redirect_uri mismatch
+const XERO_REDIRECT_URI = (process.env.XERO_REDIRECT_URI || "https://terroir-craft-production.up.railway.app/api/xero/callback").trim();
 
 export const xero = new XeroClient({
   clientId: XERO_CLIENT_ID,
