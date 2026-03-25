@@ -1,17 +1,22 @@
+import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingCart, Trash2, Plus, Minus, ArrowRight, Package, Star } from "lucide-react";
+import { ShoppingCart, Trash2, Plus, Minus, ArrowRight, Package, Star, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useCart } from "@/components/CartContext";
 import { useAuth } from "@/components/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { formatPrice } from "@/lib/products";
+import { getReferral, setReferral, clearReferral } from "@/lib/referral";
 
 export default function CartPage() {
   const { items, removeFromCart, updateQty, clearCart, totalItems, totalPrice } = useCart();
   const { member, isLoggedIn, refreshMember } = useAuth();
   const { toast } = useToast();
   const [, navigate] = useLocation();
+  const [referralCode, setReferralCode] = useState(getReferral() || "");
+  const [isOrdering, setIsOrdering] = useState(false);
 
   if (items.length === 0) {
     return (
@@ -39,23 +44,52 @@ export default function CartPage() {
   const pointsWillEarn = Math.floor(orderTotal / 5) + (!member?.bonus_first_order ? 100 : 0);
 
   const handleCheckout = async () => {
-    if (isLoggedIn && member) {
-      try {
-        const res = await apiRequest("POST", `/api/members/${member.id}/purchase`, { totalHKD: orderTotal });
-        const data = await res.json();
-        if (res.ok) {
-          await refreshMember();
-          clearCart();
-          toast({
-            title: `+${data.pointsEarned} 積分已加入！`,
-            description: `你現有 ${data.member.points.toLocaleString()} 積分 🎉`,
-          });
-          return;
-        }
-      } catch {}
+    if (!isLoggedIn || !member) {
+      toast({ title: "Please login first", description: "Login or register to place an order.", variant: "destructive" });
+      return;
     }
-    // Non-member fallback
-    alert("To place an order, please contact:\n\n📧 info@terroirandcraft.com\n📞 +852 2981 8868\n\nOr via WhatsApp for fastest response.");
+
+    setIsOrdering(true);
+    try {
+      // Save referral code if entered manually
+      if (referralCode.trim()) setReferral(referralCode.trim());
+      const ref = getReferral();
+
+      // Create order + Xero invoice
+      const orderRes = await apiRequest("POST", "/api/orders", {
+        customerName: member.name,
+        customerEmail: member.email,
+        memberId: member.id,
+        referredBy: ref || undefined,
+        items: items.map(i => ({
+          name: i.product.name,
+          itemCode: i.product.id,
+          quantity: i.quantity,
+          unitPrice: i.product.promo_price ?? i.product.price,
+        })),
+      });
+      const orderData = await orderRes.json();
+
+      // Record points
+      try {
+        const pointsRes = await apiRequest("POST", `/api/members/${member.id}/purchase`, { totalHKD: orderTotal });
+        const pointsData = await pointsRes.json();
+        if (pointsRes.ok) await refreshMember();
+        toast({
+          title: `Order Confirmed! ${orderData.invoiceNumber ? `(${orderData.invoiceNumber})` : ""}`,
+          description: `+${pointsData.pointsEarned || 0} pts added · Invoice sent to ${member.email}`,
+        });
+      } catch {
+        toast({ title: "Order Confirmed!", description: orderData.message || "Invoice will be sent to your email." });
+      }
+
+      clearCart();
+      clearReferral();
+    } catch (err) {
+      toast({ title: "Order failed", description: "Please try again or contact us.", variant: "destructive" });
+    } finally {
+      setIsOrdering(false);
+    }
   };
 
   return (
@@ -184,15 +218,33 @@ export default function CartPage() {
                 </Link>
               )}
 
+              {/* Referral Code input */}
+              <div className="mb-4">
+                <label className="font-body text-xs text-muted-foreground uppercase tracking-wide mb-1.5 block flex items-center gap-1.5">
+                  <Tag className="w-3 h-3" /> Referral Code （介紹人代碼）
+                </label>
+                <Input
+                  placeholder="e.g. ALAN"
+                  value={referralCode}
+                  onChange={e => setReferralCode(e.target.value.toUpperCase())}
+                  className="font-body text-sm h-9"
+                  data-testid="referral-code-input"
+                />
+                {getReferral() && (
+                  <p className="font-body text-[11px] text-emerald-600 mt-1">✓ Referred by: {getReferral()}</p>
+                )}
+              </div>
+
               {/* Checkout CTA */}
               <div className="space-y-3">
                 <Button
                   className="w-full bg-[hsl(355,62%,28%)] hover:bg-[hsl(355,62%,22%)] text-white font-body"
                   onClick={handleCheckout}
+                  disabled={isOrdering}
                   data-testid="checkout-btn"
                 >
-                  Proceed to Checkout
-                  <ArrowRight className="ml-2 w-4 h-4" />
+                  {isOrdering ? "Processing..." : "Place Order"}
+                  {!isOrdering && <ArrowRight className="ml-2 w-4 h-4" />}
                 </Button>
                 <a href="mailto:info@terroirandcraft.com?subject=Wine Order Enquiry">
                   <Button variant="outline" className="w-full font-body text-sm">

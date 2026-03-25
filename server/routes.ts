@@ -7,6 +7,7 @@ import crypto from "crypto";
 import { readFileSync } from "fs";
 import { join } from "path";
 import { getStockMap, appendMember, initMembersSheet } from "./googleSheets";
+import { xero, setXeroTokens, isXeroConnected, createXeroInvoice } from "./xero";
 
 // Load Fine & Rare data once at startup
 let fineRareData: unknown[] = [];
@@ -383,6 +384,80 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
       res.json({ member: safe, pointsEarned: earnedPoints + (!member.bonus_first_order ? 100 : 0) });
     } catch (err) {
       res.status(500).json({ error: "Failed to record purchase" });
+    }
+  });
+
+  // ── Xero OAuth ────────────────────────────────────────────────────────────
+  // Step 1: redirect to Xero login
+  app.get("/api/xero/connect", async (_req, res) => {
+    try {
+      const url = await xero.buildConsentUrl();
+      res.redirect(url);
+    } catch (err) {
+      res.status(500).json({ error: "Failed to build Xero consent URL" });
+    }
+  });
+
+  // Step 2: Xero redirects back with code
+  app.get("/api/xero/callback", async (req, res) => {
+    try {
+      const tokenSet = await xero.apiCallback(req.url);
+      await xero.updateTenants();
+      const tenantId = xero.tenants[0]?.tenantId;
+      if (!tenantId) throw new Error("No Xero tenant found");
+      setXeroTokens(tokenSet, tenantId);
+      console.log(`[Xero] Connected! Tenant: ${xero.tenants[0]?.tenantName}`);
+      res.send(`<html><body style="font-family:sans-serif;text-align:center;padding:60px">
+        <h2>✅ Xero Connected!</h2>
+        <p>Terroir & Craft is now connected to Xero.</p>
+        <p>Tenant: <strong>${xero.tenants[0]?.tenantName}</strong></p>
+        <p><a href="/#/">Return to website</a></p>
+      </body></html>`);
+    } catch (err) {
+      console.error("[Xero] Callback error:", err);
+      res.status(500).send("Xero connection failed. Please try again.");
+    }
+  });
+
+  // Status check
+  app.get("/api/xero/status", (_req, res) => {
+    res.json({ connected: isXeroConnected() });
+  });
+
+  // ── Order API (creates Xero Invoice) ─────────────────────────────────────────
+  app.post("/api/orders", async (req, res) => {
+    try {
+      const { customerName, customerEmail, items, referredBy, memberId } = req.body;
+
+      if (!customerName || !customerEmail || !items || !Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({ error: "Missing required order fields" });
+      }
+
+      // Generate order reference
+      const orderRef = `TC-${Date.now().toString(36).toUpperCase()}`;
+
+      // Create Xero invoice (non-blocking on failure)
+      const invoiceNumber = await createXeroInvoice({
+        customerName,
+        customerEmail,
+        items,
+        referredBy,
+        orderRef,
+      });
+
+      console.log(`[Order] ${orderRef} created | Customer: ${customerEmail} | Ref: ${referredBy || 'direct'} | Invoice: ${invoiceNumber || 'pending'}`);
+
+      res.json({
+        success: true,
+        orderRef,
+        invoiceNumber,
+        message: invoiceNumber
+          ? `Order confirmed. Invoice ${invoiceNumber} sent to ${customerEmail}.`
+          : `Order confirmed. Invoice will be sent to ${customerEmail} shortly.`,
+      });
+    } catch (err) {
+      console.error("[Order] Error:", err);
+      res.status(500).json({ error: "Failed to process order" });
     }
   });
 
