@@ -24,6 +24,7 @@ export default function CataloguePage() {
   const [typeFilter, setTypeFilter] = useState("All Types");
   const [countryFilter, setCountryFilter] = useState("All Countries");
   const [brandFilter, setBrandFilter] = useState<string | null>(null);
+  const [priceMin, setPriceMin] = useState<number>(0);
   const [priceMax, setPriceMax] = useState<number>(10000);
   const [sort, setSort] = useState("default");
   const [showFilters, setShowFilters] = useState(false);
@@ -77,7 +78,7 @@ export default function CataloguePage() {
       if (typeFilter !== "All Types") results = results.filter(p => p.type === typeFilter);
       if (countryFilter !== "All Countries") results = results.filter(p => p.country === countryFilter);
     }
-    results = results.filter(p => p.price === 0 || p.price <= priceMax);
+    results = results.filter(p => p.price === 0 || (p.price >= priceMin && p.price <= priceMax));
 
     switch (sort) {
       case "price-asc": results.sort((a, b) => a.price - b.price); break;
@@ -90,13 +91,13 @@ export default function CataloguePage() {
       }); break;
     }
     return results;
-  }, [products, search, typeFilter, countryFilter, brandFilter, priceMax, sort]);
+  }, [products, search, typeFilter, countryFilter, brandFilter, priceMin, priceMax, sort]);
 
   const activeFilters = [
     brandFilter ? `Brand: ${brandFilter}` : null,
     typeFilter !== "All Types" ? typeFilter : null,
     countryFilter !== "All Countries" ? countryFilter : null,
-    priceMax < 10000 ? `≤ HK$${priceMax}` : null,
+    (priceMin > 0 || priceMax < 10000) ? `HK$${priceMin.toLocaleString()} – ${priceMax >= 10000 ? 'No limit' : 'HK$' + priceMax.toLocaleString()}` : null,
   ].filter(Boolean);
 
   return (
@@ -237,20 +238,50 @@ export default function CataloguePage() {
                 ))}
               </div>
             </div>
-            <div>
-              <label className="font-body text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2 block">
-                Max Price: HK${priceMax >= 10000 ? "No limit" : priceMax.toLocaleString()}
-              </label>
-              <input
-                type="range"
-                min={100} max={10000} step={100}
-                value={priceMax}
-                onChange={e => setPriceMax(Number(e.target.value))}
-                className="w-full accent-[hsl(355,62%,28%)]"
-                data-testid="price-range"
-              />
-              <div className="flex justify-between text-xs text-muted-foreground mt-1 font-body">
-                <span>HK$100</span><span>No limit</span>
+            <div className="space-y-3">
+              {/* Min price slider */}
+              <div>
+                <div className="flex justify-between items-center mb-1">
+                  <label className="font-body text-xs font-medium text-muted-foreground uppercase tracking-wide">Min Price</label>
+                  <span className="font-body text-xs font-semibold text-foreground">HK${priceMin.toLocaleString()}</span>
+                </div>
+                <input
+                  type="range"
+                  min={0} max={9900} step={100}
+                  value={priceMin}
+                  onChange={e => {
+                    const v = Number(e.target.value);
+                    setPriceMin(v);
+                    if (v >= priceMax) setPriceMax(Math.min(10000, v + 100));
+                  }}
+                  className="w-full accent-[hsl(355,62%,28%)] cursor-pointer"
+                  data-testid="price-min"
+                />
+                <div className="flex justify-between text-[10px] text-muted-foreground/60 font-body">
+                  <span>HK$0</span><span>HK$9,900</span>
+                </div>
+              </div>
+              {/* Max price slider */}
+              <div>
+                <div className="flex justify-between items-center mb-1">
+                  <label className="font-body text-xs font-medium text-muted-foreground uppercase tracking-wide">Max Price</label>
+                  <span className="font-body text-xs font-semibold text-foreground">{priceMax >= 10000 ? 'No limit' : 'HK$' + priceMax.toLocaleString()}</span>
+                </div>
+                <input
+                  type="range"
+                  min={100} max={10000} step={100}
+                  value={priceMax}
+                  onChange={e => {
+                    const v = Number(e.target.value);
+                    setPriceMax(v);
+                    if (v <= priceMin) setPriceMin(Math.max(0, v - 100));
+                  }}
+                  className="w-full accent-[hsl(355,62%,28%)] cursor-pointer"
+                  data-testid="price-max"
+                />
+                <div className="flex justify-between text-[10px] text-muted-foreground/60 font-body">
+                  <span>HK$100</span><span>No limit</span>
+                </div>
               </div>
             </div>
           </div>
@@ -266,14 +297,14 @@ export default function CataloguePage() {
                   if (f?.startsWith("Brand:")) setBrandFilter(null);
                   if (f === typeFilter) setTypeFilter("All Types");
                   if (f === countryFilter) setCountryFilter("All Countries");
-                  if (f?.startsWith("≤")) setPriceMax(10000);
+                  if (f?.startsWith("HK$")) { setPriceMax(10000); setPriceMin(0); }
                 }}>
                   <X className="w-3 h-3" />
                 </button>
               </span>
             ))}
             <button
-              onClick={() => { setBrandFilter(null); setTypeFilter("All Types"); setCountryFilter("All Countries"); setPriceMax(10000); }}
+              onClick={() => { setBrandFilter(null); setTypeFilter("All Types"); setCountryFilter("All Countries"); setPriceMax(10000); setPriceMin(0); }}
               className="text-xs text-muted-foreground hover:text-foreground font-body underline"
             >
               Clear all
@@ -304,7 +335,7 @@ export default function CataloguePage() {
           <div className="text-center py-20">
             <p className="font-display text-2xl text-muted-foreground mb-3">No wines found</p>
             <p className="font-body text-sm text-muted-foreground mb-6">Try adjusting your filters or search term.</p>
-            <Button variant="outline" onClick={() => { setSearch(""); setTypeFilter("All Types"); setCountryFilter("All Countries"); setPriceMax(10000); }}>
+            <Button variant="outline" onClick={() => { setSearch(""); setTypeFilter("All Types"); setCountryFilter("All Countries"); setPriceMax(10000); setPriceMin(0); }}>
               Clear filters
             </Button>
           </div>
