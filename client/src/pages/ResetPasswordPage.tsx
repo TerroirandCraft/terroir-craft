@@ -11,9 +11,12 @@ export default function ResetPasswordPage() {
   const [, navigate] = useLocation();
   const { toast } = useToast();
 
-  // Read token from hash query string: /#/reset-password?token=xxx
-  const token = new URLSearchParams(window.location.search).get("token") ||
-    new URLSearchParams(window.location.hash.split("?")[1] || "").get("token") || "";
+  // Hash routing: URL is /#/reset-password?token=xxx
+  // token lives after the "?" inside the hash fragment
+  const hashQuery = window.location.hash.includes("?") 
+    ? window.location.hash.split("?")[1] 
+    : window.location.search.replace("?", "");
+  const token = new URLSearchParams(hashQuery).get("token") || "";
 
   const [form, setForm] = useState({ password: "", confirm: "" });
   const [err, setErr] = useState("");
@@ -49,7 +52,7 @@ export default function ResetPasswordPage() {
           </p>
           <Button
             className="bg-[hsl(355,62%,28%)] hover:bg-[hsl(355,62%,22%)] text-white font-body"
-            onClick={() => navigate("/members")}
+            onClick={() => navigate("/member")}
           >
             返回登入頁面
           </Button>
@@ -69,7 +72,7 @@ export default function ResetPasswordPage() {
           </p>
           <Button
             className="bg-[hsl(355,62%,28%)] hover:bg-[hsl(355,62%,22%)] text-white font-body"
-            onClick={() => navigate("/members")}
+            onClick={() => navigate("/member")}
           >
             前往登入 Login
           </Button>
@@ -133,7 +136,7 @@ export default function ResetPasswordPage() {
           <p className="text-center text-sm font-body text-muted-foreground">
             <button
               className="text-[hsl(355,62%,28%)] underline"
-              onClick={() => navigate("/members")}
+              onClick={() => navigate("/member")}
             >
               返回登入
             </button>
