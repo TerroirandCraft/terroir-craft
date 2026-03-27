@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingCart, Trash2, Plus, Minus, ArrowRight, Package, Star, Tag } from "lucide-react";
+import { ShoppingCart, Trash2, Plus, Minus, ArrowRight, Package, Star, Tag, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/components/CartContext";
@@ -17,6 +17,7 @@ export default function CartPage() {
   const [, navigate] = useLocation();
   const [referralCode, setReferralCode] = useState(getReferral() || "");
   const [isOrdering, setIsOrdering] = useState(false);
+  const [isPaying, setIsPaying] = useState(false);
 
   if (items.length === 0) {
     return (
@@ -89,6 +90,41 @@ export default function CartPage() {
       toast({ title: "Order failed", description: "Please try again or contact us.", variant: "destructive" });
     } finally {
       setIsOrdering(false);
+    }
+  };
+
+  // Payment Asia — redirect to hosted payment page
+  const handlePayNow = async () => {
+    if (!isLoggedIn || !member) {
+      toast({ title: "Please login first", description: "Login or register to pay.", variant: "destructive" });
+      return;
+    }
+    setIsPaying(true);
+    try {
+      if (referralCode.trim()) setReferral(referralCode.trim());
+      const ref = getReferral();
+      const orderRef = `TC-${Date.now().toString(36).toUpperCase()}`;
+      const subject = items.map(i => i.product.name.split(" - ").pop()).join(", ").substring(0, 64);
+
+      const res = await apiRequest("POST", "/api/payment/create", {
+        merchantReference: orderRef,
+        amount: orderTotal,
+        customerName: member.name,
+        customerEmail: member.email,
+        subject,
+      });
+      const data = await res.json();
+
+      if (data.success && data.paymentUrl) {
+        // Redirect to Payment Asia hosted page
+        window.location.href = data.paymentUrl;
+      } else {
+        toast({ title: "Payment failed", description: data.error || "Please try again.", variant: "destructive" });
+      }
+    } catch (err) {
+      toast({ title: "Payment error", description: "Please try again or contact us.", variant: "destructive" });
+    } finally {
+      setIsPaying(false);
     }
   };
 
@@ -237,14 +273,28 @@ export default function CartPage() {
 
               {/* Checkout CTA */}
               <div className="space-y-3">
+                {/* Primary: Pay via Payment Asia */}
                 <Button
-                  className="w-full bg-[hsl(355,62%,28%)] hover:bg-[hsl(355,62%,22%)] text-white font-body"
+                  className="w-full bg-[hsl(355,62%,28%)] hover:bg-[hsl(355,62%,22%)] text-white font-body font-semibold h-12"
+                  onClick={handlePayNow}
+                  disabled={isPaying || isOrdering}
+                  data-testid="pay-now-btn"
+                >
+                  <CreditCard className="mr-2 w-4 h-4" />
+                  {isPaying ? "Redirecting to payment..." : `Pay HK$${orderTotal.toLocaleString()} Now`}
+                </Button>
+                <p className="text-center text-[10px] text-muted-foreground font-body">
+                  Visa / Mastercard · PayMe · FPS · Alipay · WeChat Pay · Octopus
+                </p>
+                {/* Secondary: Manual order */}
+                <Button
+                  variant="outline"
+                  className="w-full font-body text-sm text-muted-foreground"
                   onClick={handleCheckout}
-                  disabled={isOrdering}
+                  disabled={isOrdering || isPaying}
                   data-testid="checkout-btn"
                 >
-                  {isOrdering ? "Processing..." : "Place Order"}
-                  {!isOrdering && <ArrowRight className="ml-2 w-4 h-4" />}
+                  {isOrdering ? "Processing..." : "Place Order (Pay Later)"}
                 </Button>
                 <a href="mailto:info@terroirandcraft.com?subject=Wine Order Enquiry">
                   <Button variant="outline" className="w-full font-body text-sm">

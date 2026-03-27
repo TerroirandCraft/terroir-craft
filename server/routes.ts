@@ -8,6 +8,7 @@ import { readFileSync } from "fs";
 import { join } from "path";
 import { getStockMap, appendMember, initMembersSheet } from "./googleSheets";
 import { xero, setXeroTokens, isXeroConnected, createXeroInvoice } from "./xero";
+import { createPayment, verifyCallbackSignature } from "./paymentAsia";
 
 // Load Fine & Rare data once at startup
 let fineRareData: unknown[] = [];
@@ -385,6 +386,57 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     } catch (err) {
       res.status(500).json({ error: "Failed to record purchase" });
     }
+  });
+
+  // ── Payment Asia ───────────────────────────────────────────────────────────
+  // Create payment — returns payment_url to redirect customer
+  app.post("/api/payment/create", async (req, res) => {
+    try {
+      const { merchantReference, amount, customerName, customerEmail, customerPhone, subject } = req.body;
+      if (!merchantReference || !amount || !customerName || !customerEmail) {
+        return res.status(400).json({ error: "Missing required fields" });
+      }
+      const result = await createPayment({
+        merchantReference,
+        amount: Number(amount),
+        customerName,
+        customerEmail,
+        customerPhone,
+        subject: subject || "Terroir & Craft Order",
+      });
+      res.json(result);
+    } catch (err) {
+      res.status(500).json({ error: "Payment creation failed" });
+    }
+  });
+
+  // Callback from Payment Asia (POST webhook)
+  app.post("/api/payment/callback", async (req, res) => {
+    try {
+      const body = req.body as Record<string, string>;
+      console.log("[PaymentAsia] Callback received:", JSON.stringify(body));
+
+      // Verify signature (optional but recommended)
+      // const valid = verifyCallbackSignature(body);
+
+      const { merchant_reference, status, amount, currency } = body;
+      const isPaid = status === "paid" || status === "success" || status === "SUCCESS" || status === "PAID";
+
+      if (isPaid && merchant_reference) {
+        console.log(`[PaymentAsia] Payment confirmed: ${merchant_reference} HKD ${amount}`);
+        // Here you could update order status, trigger Xero invoice, etc.
+      }
+
+      res.json({ status: "ok" });
+    } catch (err) {
+      res.status(500).json({ error: "Callback processing failed" });
+    }
+  });
+
+  // Return URL after payment (GET — redirect customer back to site)
+  app.get("/api/payment/return", (req, res) => {
+    const ref = req.query.ref as string;
+    res.redirect(`/#/payment-result?ref=${ref || ""}`);
   });
 
   // ── Xero OAuth ────────────────────────────────────────────────────────────
