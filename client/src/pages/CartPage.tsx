@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingCart, Trash2, Plus, Minus, ArrowRight, Package, Star, Tag, CreditCard } from "lucide-react";
+import { ShoppingCart, Trash2, Plus, Minus, ArrowRight, Package, Star, Tag, CreditCard, MapPin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/components/CartContext";
@@ -10,6 +10,29 @@ import { apiRequest } from "@/lib/queryClient";
 import { formatPrice } from "@/lib/products";
 import { getReferral, setReferral, clearReferral } from "@/lib/referral";
 
+// HK Districts for dropdown
+const HK_DISTRICTS = [
+  "Hong Kong Island — Central & Western 中西區",
+  "Hong Kong Island — Wan Chai 灣仔",
+  "Hong Kong Island — Eastern 東區",
+  "Hong Kong Island — Southern 南區",
+  "Kowloon — Yau Tsim Mong 油尖旺",
+  "Kowloon — Sham Shui Po 深水埗",
+  "Kowloon — Kowloon City 九龍城",
+  "Kowloon — Wong Tai Sin 黃大仙",
+  "Kowloon — Kwun Tong 觀塘",
+  "New Territories — Kwai Tsing 葵青",
+  "New Territories — Tsuen Wan 荃灣",
+  "New Territories — Tuen Mun 屯門",
+  "New Territories — Yuen Long 元朗",
+  "New Territories — North 北區",
+  "New Territories — Tai Po 大埔",
+  "New Territories — Sha Tin 沙田",
+  "New Territories — Sai Kung 西貢",
+  "New Territories — Islands 離島",
+  "Macau 澳門",
+];
+
 export default function CartPage() {
   const { items, removeFromCart, updateQty, clearCart, totalItems, totalPrice } = useCart();
   const { member, isLoggedIn, refreshMember } = useAuth();
@@ -18,6 +41,11 @@ export default function CartPage() {
   const [referralCode, setReferralCode] = useState(getReferral() || "");
   const [isOrdering, setIsOrdering] = useState(false);
   const [isPaying, setIsPaying] = useState(false);
+
+  // Delivery info — pre-fill from member profile
+  const [phone, setPhone] = useState(member?.phone || "");
+  const [address, setAddress] = useState((member as any)?.address || "");
+  const [district, setDistrict] = useState((member as any)?.district || "");
 
   if (items.length === 0) {
     return (
@@ -44,24 +72,43 @@ export default function CartPage() {
   const orderTotal = totalPrice + deliveryFee;
   const pointsWillEarn = Math.floor(orderTotal / 5) + (!member?.bonus_first_order ? 100 : 0);
 
+  // Save delivery info to member profile
+  const saveDeliveryInfo = async () => {
+    if (!member) return;
+    try {
+      await apiRequest("PATCH", `/api/members/${member.id}/delivery`, {
+        phone: phone.trim(),
+        address: address.trim(),
+        district: district.trim(),
+      });
+    } catch {
+      // Non-blocking — don't fail checkout if this fails
+    }
+  };
+
   const handleCheckout = async () => {
     if (!isLoggedIn || !member) {
       toast({ title: "Please login first", description: "Login or register to place an order.", variant: "destructive" });
       return;
     }
+    if (!address.trim() || !district.trim()) {
+      toast({ title: "送貨地址必填", description: "請填寫送貨地址及地區", variant: "destructive" });
+      return;
+    }
 
     setIsOrdering(true);
     try {
-      // Save referral code if entered manually
+      await saveDeliveryInfo();
       if (referralCode.trim()) setReferral(referralCode.trim());
       const ref = getReferral();
 
-      // Create order + Xero invoice
       const orderRes = await apiRequest("POST", "/api/orders", {
         customerName: member.name,
         customerEmail: member.email,
         memberId: member.id,
         referredBy: ref || undefined,
+        deliveryAddress: `${address.trim()}, ${district.trim()}`,
+        customerPhone: phone.trim() || member.phone,
         items: items.map(i => ({
           name: i.product.name,
           itemCode: i.product.id,
@@ -71,7 +118,6 @@ export default function CartPage() {
       });
       const orderData = await orderRes.json();
 
-      // Record points
       try {
         const pointsRes = await apiRequest("POST", `/api/members/${member.id}/purchase`, { totalHKD: orderTotal });
         const pointsData = await pointsRes.json();
@@ -93,16 +139,20 @@ export default function CartPage() {
     }
   };
 
-  // Payment Asia — redirect to hosted payment page
   const handlePayNow = async () => {
     if (!isLoggedIn || !member) {
       toast({ title: "Please login first", description: "Login or register to pay.", variant: "destructive" });
       return;
     }
+    if (!address.trim() || !district.trim()) {
+      toast({ title: "送貨地址必填", description: "請填寫送貨地址及地區", variant: "destructive" });
+      return;
+    }
+
     setIsPaying(true);
     try {
+      await saveDeliveryInfo();
       if (referralCode.trim()) setReferral(referralCode.trim());
-      const ref = getReferral();
       const orderRef = `TC-${Date.now().toString(36).toUpperCase()}`;
       const subject = items.map(i => i.product.name.split(" - ").pop()).join(", ").substring(0, 64);
 
@@ -111,12 +161,12 @@ export default function CartPage() {
         amount: orderTotal,
         customerName: member.name,
         customerEmail: member.email,
+        customerPhone: phone.trim() || member.phone,
         subject,
       });
       const data = await res.json();
 
       if (data.success && data.paymentUrl) {
-        // Redirect to Payment Asia hosted page
         window.location.href = data.paymentUrl;
       } else {
         toast({ title: "Payment failed", description: data.error || "Please try again.", variant: "destructive" });
@@ -143,7 +193,6 @@ export default function CartPage() {
           <div className="lg:col-span-2 space-y-3">
             {items.map(item => (
               <div key={item.product.id} className="bg-card border border-border rounded-xl p-4 flex gap-4 items-start" data-testid={`cart-item-${item.product.id}`}>
-                {/* Mini bottle */}
                 <div
                   className="w-14 h-20 rounded-lg flex items-center justify-center shrink-0"
                   style={{ background: "linear-gradient(160deg, hsl(20,10%,12%), hsl(355,62%,28%,0.2))" }}
@@ -154,8 +203,6 @@ export default function CartPage() {
                     <rect x="12" y="9" width="6" height="7" rx="1.5" fill="#7B1F2E" opacity="0.9" />
                   </svg>
                 </div>
-
-                {/* Info */}
                 <div className="flex-1 min-w-0">
                   <p className="font-body text-xs text-muted-foreground mb-0.5">{item.product.brand}</p>
                   <h3 className="font-display text-sm font-medium text-foreground leading-snug line-clamp-2 mb-1">
@@ -168,8 +215,6 @@ export default function CartPage() {
                     {formatPrice(item.product.price)} each
                   </p>
                 </div>
-
-                {/* Qty + remove */}
                 <div className="flex flex-col items-end gap-3 shrink-0">
                   <button
                     onClick={() => removeFromCart(item.product.id)}
@@ -179,19 +224,11 @@ export default function CartPage() {
                     <Trash2 className="w-4 h-4" />
                   </button>
                   <div className="flex items-center gap-1 border border-border rounded-md">
-                    <button
-                      onClick={() => updateQty(item.product.id, item.quantity - 1)}
-                      className="p-1.5 text-muted-foreground hover:text-foreground"
-                      data-testid={`qty-minus-${item.product.id}`}
-                    >
+                    <button onClick={() => updateQty(item.product.id, item.quantity - 1)} className="p-1.5 text-muted-foreground hover:text-foreground" data-testid={`qty-minus-${item.product.id}`}>
                       <Minus className="w-3.5 h-3.5" />
                     </button>
                     <span className="px-2 text-sm font-body font-medium w-8 text-center">{item.quantity}</span>
-                    <button
-                      onClick={() => updateQty(item.product.id, item.quantity + 1)}
-                      className="p-1.5 text-muted-foreground hover:text-foreground"
-                      data-testid={`qty-plus-${item.product.id}`}
-                    >
+                    <button onClick={() => updateQty(item.product.id, item.quantity + 1)} className="p-1.5 text-muted-foreground hover:text-foreground" data-testid={`qty-plus-${item.product.id}`}>
                       <Plus className="w-3.5 h-3.5" />
                     </button>
                   </div>
@@ -205,6 +242,57 @@ export default function CartPage() {
             <button onClick={clearCart} className="font-body text-xs text-muted-foreground hover:text-destructive transition-colors flex items-center gap-1.5 mt-2">
               <Trash2 className="w-3.5 h-3.5" /> Clear cart
             </button>
+
+            {/* Delivery Info — shown when logged in */}
+            {isLoggedIn && (
+              <div className="bg-card border border-border rounded-xl p-5 mt-2 space-y-4">
+                <div>
+                  <h3 className="font-display text-base font-medium mb-0.5">送貨資料 Delivery Info</h3>
+                  <p className="font-body text-xs text-muted-foreground">資料會儲存至你的會員帳戶</p>
+                </div>
+
+                {/* Phone */}
+                <div className="relative">
+                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    placeholder="聯絡電話 Contact number"
+                    value={phone}
+                    onChange={e => setPhone(e.target.value)}
+                    className="pl-9 font-body"
+                    data-testid="delivery-phone"
+                  />
+                </div>
+
+                {/* District */}
+                <div className="relative">
+                  <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none z-10" />
+                  <select
+                    value={district}
+                    onChange={e => setDistrict(e.target.value)}
+                    className="w-full pl-9 pr-4 h-10 rounded-md border border-input bg-background font-body text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                    data-testid="delivery-district"
+                  >
+                    <option value="">選擇地區 Select District *</option>
+                    {HK_DISTRICTS.map(d => (
+                      <option key={d} value={d}>{d}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Address */}
+                <div className="relative">
+                  <MapPin className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                  <textarea
+                    placeholder="送貨地址 Delivery address (樓層、單位、街道、大廈) *"
+                    value={address}
+                    onChange={e => setAddress(e.target.value)}
+                    rows={3}
+                    className="w-full pl-9 pr-4 py-2.5 rounded-md border border-input bg-background font-body text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+                    data-testid="delivery-address"
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Summary */}
@@ -233,7 +321,7 @@ export default function CartPage() {
                 </div>
               </div>
 
-              {/* Points preview for logged-in members */}
+              {/* Points preview */}
               {isLoggedIn && (
                 <div className="mb-4 flex items-center gap-2.5 bg-[hsl(355,62%,28%)]/8 border border-[hsl(355,62%,28%)]/20 rounded-lg p-3">
                   <Star className="w-4 h-4 text-[hsl(355,62%,28%)] shrink-0" />
@@ -254,7 +342,7 @@ export default function CartPage() {
                 </Link>
               )}
 
-              {/* Referral Code input */}
+              {/* Referral Code */}
               <div className="mb-4">
                 <label className="font-body text-xs text-muted-foreground uppercase tracking-wide mb-1.5 block flex items-center gap-1.5">
                   <Tag className="w-3 h-3" /> Referral Code （介紹人代碼）
@@ -271,9 +359,8 @@ export default function CartPage() {
                 )}
               </div>
 
-              {/* Checkout CTA */}
+              {/* Checkout CTAs */}
               <div className="space-y-3">
-                {/* Primary: Pay via Payment Asia */}
                 <Button
                   className="w-full bg-[hsl(355,62%,28%)] hover:bg-[hsl(355,62%,22%)] text-white font-body font-semibold h-12"
                   onClick={handlePayNow}
@@ -286,7 +373,6 @@ export default function CartPage() {
                 <p className="text-center text-[10px] text-muted-foreground font-body">
                   Visa / Mastercard · PayMe · FPS · Alipay · WeChat Pay · Octopus
                 </p>
-                {/* Secondary: Manual order */}
                 <Button
                   variant="outline"
                   className="w-full font-body text-sm text-muted-foreground"

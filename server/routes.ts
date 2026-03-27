@@ -362,6 +362,23 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     }
   });
 
+  // Update delivery info (phone, address, district)
+  app.patch("/api/members/:id/delivery", async (req, res) => {
+    try {
+      const id = Number(req.params.id);
+      const { phone, address, district } = req.body;
+      const updated = await storage.updateMember(id, {
+        ...(phone !== undefined && { phone }),
+        ...(address !== undefined && { address } as any),
+        ...(district !== undefined && { district } as any),
+      });
+      const { password_hash: _, ...safe } = updated;
+      res.json(safe);
+    } catch (err) {
+      res.status(500).json({ error: "Failed to update delivery info" });
+    }
+  });
+
   // Record purchase — award points + first-order bonus
   app.post("/api/members/:id/purchase", async (req, res) => {
     try {

@@ -97,6 +97,9 @@ app.use((req, res, next) => {
         expires_at BIGINT NOT NULL
       )
     `);
+    // Add new columns if they don't exist (safe migrations)
+    await db.execute(sql`ALTER TABLE members ADD COLUMN IF NOT EXISTS address TEXT DEFAULT ''`);
+    await db.execute(sql`ALTER TABLE members ADD COLUMN IF NOT EXISTS district TEXT DEFAULT ''`);
     console.log("[DB] Tables ready");
   } catch (err) {
     console.error("[DB] Table creation error:", err);

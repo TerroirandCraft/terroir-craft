@@ -42,6 +42,9 @@ export const members = pgTable("members", {
   bonus_facebook: boolean("bonus_facebook").notNull().default(false),
   bonus_first_order: boolean("bonus_first_order").notNull().default(false),
   created_at: text("created_at").notNull().default(""),
+  // Delivery info (updated at checkout)
+  address: text("address").default(""),
+  district: text("district").default(""),
 });
 
 // ─── Points Log ─────────────────────────────────────────────────────────────
