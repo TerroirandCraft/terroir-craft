@@ -38,7 +38,9 @@ export interface PaymentResponse {
 }
 
 export async function createPayment(req: PaymentRequest): Promise<PaymentResponse> {
+  // All params including auth in body
   const params: Record<string, string> = {
+    merchant_token: PA_MERCHANT_TOKEN,
     merchant_reference: req.merchantReference,
     currency: "HKD",
     amount: req.amount.toFixed(2),
@@ -48,23 +50,22 @@ export async function createPayment(req: PaymentRequest): Promise<PaymentRespons
     customer_phone: req.customerPhone || "",
     customer_country: "HK",
     subject: req.subject.substring(0, 64),
-    // All supported networks — PA page lets customer choose
     network: "Alipay,WeChatPay,FPS,CreditCard,Octopus,PayMe",
     return_url: `${BASE_URL}/api/payment/return?ref=${req.merchantReference}`,
     notify_url: `${BASE_URL}/api/payment/callback`,
     type: "Sale",
   };
 
-  // Add signature
-  params.signature = buildSignature(params);
+  // Signature: HMAC-SHA256 excluding merchant_token
+  const { merchant_token: _, ...signParams } = params;
+  params.signature = buildSignature(signParams);
 
   try {
     const response = await fetch(PA_LIVE_URL, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "merchant-token": PA_MERCHANT_TOKEN,
-        "api-key": PA_API_KEY,
+        "accept": "application/json",
+        "content-type": "application/json",
       },
       body: JSON.stringify(params),
     });
