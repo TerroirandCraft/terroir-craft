@@ -149,10 +149,88 @@ function RegisterForm({ onSuccess }: { onSuccess: (m: any) => void }) {
   );
 }
 
+// ─── Forgot Password Form ────────────────────────────────────────────────────
+function ForgotPasswordForm({ onBack }: { onBack: () => void }) {
+  const [email, setEmail] = useState("");
+  const [sent, setSent] = useState(false);
+  const [err, setErr] = useState("");
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      const res = await apiRequest("POST", "/api/members/forgot-password", { email });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed");
+      return data;
+    },
+    onSuccess: () => setSent(true),
+    onError: (e: any) => setErr(e.message),
+  });
+
+  if (sent) {
+    return (
+      <div className="space-y-4 text-center">
+        <div className="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center mx-auto">
+          <Mail className="w-6 h-6 text-green-600" />
+        </div>
+        <p className="font-display text-lg">電郵已發送！</p>
+        <p className="font-body text-sm text-muted-foreground">
+          如果此電郵已登記，你會收到重設連結。請檢查收件箱（包括垃圾郵件）。<br/>
+          <span className="text-xs">If the email is registered, you'll receive a reset link. Check your inbox and spam folder.</span>
+        </p>
+        <Button
+          variant="outline"
+          className="font-body w-full"
+          onClick={onBack}
+        >
+          返回登入 Back to Login
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      <div>
+        <p className="font-body text-sm text-muted-foreground mb-4">
+          輸入你的登記電郵，我們會發送重設連結給你。<br/>
+          <span className="text-xs">Enter your registered email and we'll send you a reset link.</span>
+        </p>
+      </div>
+      <div className="relative">
+        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+        <Input
+          type="email"
+          placeholder="Email address"
+          value={email}
+          onChange={e => { setEmail(e.target.value); setErr(""); }}
+          className="pl-9 font-body"
+          data-testid="forgot-email"
+        />
+      </div>
+      {err && <p className="text-sm text-red-500 font-body">{err}</p>}
+      <Button
+        className="w-full bg-[hsl(355,62%,28%)] hover:bg-[hsl(355,62%,22%)] text-white font-body"
+        onClick={() => mutation.mutate()}
+        disabled={mutation.isPending}
+        data-testid="forgot-submit"
+      >
+        {mutation.isPending ? "發送中..." : "發送重設連結 Send Reset Link"}
+      </Button>
+      <button
+        className="w-full text-center text-sm font-body text-muted-foreground hover:text-foreground transition-colors"
+        onClick={onBack}
+      >
+        ← 返回登入
+      </button>
+    </div>
+  );
+}
+
 // ─── Login Form ─────────────────────────────────────────────────────────────
 function LoginForm({ onSuccess }: { onSuccess: (m: any) => void }) {
   const [form, setForm] = useState({ email: "", password: "" });
   const [err, setErr] = useState("");
+  const [showForgot, setShowForgot] = useState(false);
 
   const mutation = useMutation({
     mutationFn: async () => {
@@ -164,6 +242,10 @@ function LoginForm({ onSuccess }: { onSuccess: (m: any) => void }) {
     onSuccess,
     onError: (e: any) => setErr(e.message),
   });
+
+  if (showForgot) {
+    return <ForgotPasswordForm onBack={() => setShowForgot(false)} />;
+  }
 
   return (
     <div className="space-y-4">
@@ -188,6 +270,15 @@ function LoginForm({ onSuccess }: { onSuccess: (m: any) => void }) {
           className="pl-9 font-body"
           data-testid="login-password"
         />
+      </div>
+      <div className="flex justify-end">
+        <button
+          className="text-xs font-body text-muted-foreground hover:text-[hsl(355,62%,28%)] transition-colors underline"
+          onClick={() => setShowForgot(true)}
+          data-testid="forgot-link"
+        >
+          忘記密碼？ Forgot password?
+        </button>
       </div>
       {err && <p className="text-sm text-red-500 font-body">{err}</p>}
       <Button

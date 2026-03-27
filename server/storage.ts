@@ -67,6 +67,28 @@ let memberIdCounter = 1;
 const pointsLogStore: PointsLogEntry[] = [];
 let pointsLogIdCounter = 1;
 
+// In-memory password reset tokens { token -> { memberId, expiresAt } }
+const resetTokenStore: Map<string, { memberId: number; expiresAt: number }> = new Map();
+
+export function storeResetToken(memberId: number, token: string): void {
+  // Expire old tokens for this member
+  for (const [k, v] of resetTokenStore.entries()) {
+    if (v.memberId === memberId) resetTokenStore.delete(k);
+  }
+  resetTokenStore.set(token, { memberId, expiresAt: Date.now() + 60 * 60 * 1000 }); // 1 hour
+}
+
+export function consumeResetToken(token: string): number | null {
+  const entry = resetTokenStore.get(token);
+  if (!entry) return null;
+  if (Date.now() > entry.expiresAt) {
+    resetTokenStore.delete(token);
+    return null;
+  }
+  resetTokenStore.delete(token); // single-use
+  return entry.memberId;
+}
+
 // Tier calculation
 function calcTier(points: number): string {
   if (points >= 3000) return "Platinum";

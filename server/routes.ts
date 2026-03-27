@@ -7,6 +7,8 @@ import crypto from "crypto";
 import { readFileSync } from "fs";
 import { join } from "path";
 import { getStockMap, appendMember, initMembersSheet } from "./googleSheets";
+import { storeResetToken, consumeResetToken } from "./storage";
+import { sendPasswordResetEmail } from "./email";
 import { xero, setXeroTokens, isXeroConnected, createXeroInvoice } from "./xero";
 import { createPayment, verifyCallbackSignature } from "./paymentAsia";
 
@@ -385,6 +387,55 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
       res.json({ member: safe, pointsEarned: earnedPoints + (!member.bonus_first_order ? 100 : 0) });
     } catch (err) {
       res.status(500).json({ error: "Failed to record purchase" });
+    }
+  });
+
+  // ── Password Reset ──────────────────────────────────────────────────────────
+  // Step 1: request reset link
+  app.post("/api/members/forgot-password", async (req, res) => {
+    try {
+      const { email } = req.body;
+      if (!email) return res.status(400).json({ error: "Email required" });
+
+      const member = await storage.getMemberByEmail(email.toLowerCase().trim());
+      // Always return 200 — don't reveal whether email exists
+      if (!member) {
+        console.log(`[Reset] No member found for ${email}`);
+        return res.json({ ok: true });
+      }
+
+      // Generate secure random token
+      const token = crypto.randomBytes(32).toString("hex");
+      storeResetToken(member.id, token);
+
+      const baseUrl = process.env.BASE_URL || "https://terroir-craft-production.up.railway.app";
+      await sendPasswordResetEmail(member.email, member.name, token, baseUrl);
+
+      res.json({ ok: true });
+    } catch (err) {
+      console.error("[Reset] forgot-password error:", err);
+      // Still return ok to not leak info
+      res.json({ ok: true });
+    }
+  });
+
+  // Step 2: submit new password using token
+  app.post("/api/members/reset-password", async (req, res) => {
+    try {
+      const { token, password } = req.body;
+      if (!token || !password) return res.status(400).json({ error: "Token and password required" });
+      if (password.length < 6) return res.status(400).json({ error: "密碼最少 6 個字元" });
+
+      const memberId = consumeResetToken(token);
+      if (!memberId) return res.status(400).json({ error: "連結已失效或已使用，請重新申請" });
+
+      await storage.updateMember(memberId, { password_hash: hashPassword(password) });
+      console.log(`[Reset] Password reset for member ${memberId}`);
+
+      res.json({ ok: true });
+    } catch (err) {
+      console.error("[Reset] reset-password error:", err);
+      res.status(500).json({ error: "Reset failed" });
     }
   });
 

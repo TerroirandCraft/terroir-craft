@@ -19,6 +19,7 @@ import FineRarePage from "@/pages/FineRarePage";
 import PromotionPage from "@/pages/PromotionPage";
 import TermsPage from "@/pages/TermsPage";
 import BrandDetailPage from "@/pages/BrandDetailPage";
+import ResetPasswordPage from "@/pages/ResetPasswordPage";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
                 <Route path="/promotions/:id" component={PromotionPage} />
                 <Route path="/promotions" component={PromotionPage} />
                 <Route path="/terms" component={TermsPage} />
+                <Route path="/reset-password" component={ResetPasswordPage} />
                 <Route component={NotFound} />
               </Switch>
             </Layout>
