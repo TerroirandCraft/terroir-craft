@@ -297,7 +297,13 @@ export default function Layout({ children }: { children: ReactNode }) {
           </div>
 
           <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-white/40">
-            <p>© 2025 Terroir & Craft 天地人酒業. All rights reserved.</p>
+            <div className="flex flex-wrap items-center gap-3">
+              <p>© 2026 Terroir & Craft 天地人酒業. All rights reserved.</p>
+              <span className="text-white/20">·</span>
+              <Link href="/terms">
+                <a className="hover:text-white/70 transition-colors underline underline-offset-2">Terms & Conditions 服務條款</a>
+              </Link>
+            </div>
             <a
               href="https://www.perplexity.ai/computer"
               target="_blank"

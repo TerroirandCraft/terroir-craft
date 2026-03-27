@@ -17,6 +17,7 @@ import { AuthProvider } from "@/components/AuthContext";
 import MemberPage from "@/pages/MemberPage";
 import FineRarePage from "@/pages/FineRarePage";
 import PromotionPage from "@/pages/PromotionPage";
+import TermsPage from "@/pages/TermsPage";
 import BrandDetailPage from "@/pages/BrandDetailPage";
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
                 <Route path="/fine-rare" component={FineRarePage} />
                 <Route path="/promotions/:id" component={PromotionPage} />
                 <Route path="/promotions" component={PromotionPage} />
+                <Route path="/terms" component={TermsPage} />
                 <Route component={NotFound} />
               </Switch>
             </Layout>
