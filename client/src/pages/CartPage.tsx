@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { ShoppingCart, Trash2, Plus, Minus, ArrowRight, Package, Star, Tag, CreditCard, MapPin, Phone } from "lucide-react";
+import { API_BASE } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/components/CartContext";
@@ -193,15 +194,20 @@ export default function CartPage() {
           <div className="lg:col-span-2 space-y-3">
             {items.map(item => (
               <div key={item.product.id} className="bg-card border border-border rounded-xl p-4 flex gap-4 items-start" data-testid={`cart-item-${item.product.id}`}>
-                <div
-                  className="w-14 h-20 rounded-lg flex items-center justify-center shrink-0"
-                  style={{ background: "linear-gradient(160deg, hsl(20,10%,12%), hsl(355,62%,28%,0.2))" }}
+                <div className="w-14 h-20 rounded-lg overflow-hidden shrink-0 flex items-center justify-center bg-[hsl(20,10%,12%)]"
                 >
-                  <svg viewBox="0 0 30 60" className="h-16 w-auto" fill="none" aria-hidden="true">
-                    <path d="M10 22 C8 25 7 32 7 40 L7 52 C7 55 10 57 15 57 C20 57 23 55 23 52 L23 40 C23 32 22 25 20 22 L20 14 L10 14 Z"
-                      fill="#7B1F2E" opacity="0.9" />
-                    <rect x="12" y="9" width="6" height="7" rx="1.5" fill="#7B1F2E" opacity="0.9" />
-                  </svg>
+                  {item.product.image_url ? (
+                    <img
+                      src={`${API_BASE}${item.product.image_url}`}
+                      alt={item.product.name}
+                      className="h-full w-full object-contain"
+                    />
+                  ) : (
+                    <svg viewBox="0 0 30 60" className="h-16 w-auto" fill="none" aria-hidden="true">
+                      <path d="M10 22 C8 25 7 32 7 40 L7 52 C7 55 10 57 15 57 C20 57 23 55 23 52 L23 40 C23 32 22 25 20 22 L20 14 L10 14 Z" fill="#7B1F2E" opacity="0.9" />
+                      <rect x="12" y="9" width="6" height="7" rx="1.5" fill="#7B1F2E" opacity="0.9" />
+                    </svg>
+                  )}
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-body text-xs text-muted-foreground mb-0.5">{item.product.brand}</p>

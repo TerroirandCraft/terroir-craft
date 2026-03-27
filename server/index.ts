@@ -2,8 +2,6 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
 import { createServer } from "http";
-import { db } from "./db";
-import { members, pointsLog, resetTokens } from "@shared/schema";
 import { sql } from "drizzle-orm";
 
 const app = express();
@@ -64,7 +62,9 @@ app.use((req, res, next) => {
 
 (async () => {
   // ── Create DB tables if they don't exist ──────────────────────────────────
-  try {
+  if (!process.env.DATABASE_URL) {
+    console.warn("[DB] DATABASE_URL not set — running without persistent member storage");
+  } else try {
     await db.execute(sql`
       CREATE TABLE IF NOT EXISTS members (
         id SERIAL PRIMARY KEY,
