@@ -1,4 +1,4 @@
-import { pgTable, text, integer, real, serial, boolean, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, text, integer, real, serial, boolean, bigint } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -57,6 +57,13 @@ export const insertProductSchema = createInsertSchema(products);
 export const insertChatMessageSchema = createInsertSchema(chatMessages).omit({ id: true });
 export const insertMemberSchema = createInsertSchema(members).omit({ id: true });
 export const insertPointsLogSchema = createInsertSchema(pointsLog).omit({ id: true });
+
+// ─── Reset Tokens ────────────────────────────────────────────────────────────
+export const resetTokens = pgTable("reset_tokens", {
+  token: text("token").primaryKey(),
+  member_id: integer("member_id").notNull(),
+  expires_at: bigint("expires_at", { mode: "number" }).notNull(), // Unix ms
+});
 
 export type Product = typeof products.$inferSelect;
 export type InsertProduct = z.infer<typeof insertProductSchema>;

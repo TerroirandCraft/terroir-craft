@@ -2,6 +2,9 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
 import { createServer } from "http";
+import { db } from "./db";
+import { members, pointsLog, resetTokens } from "@shared/schema";
+import { sql } from "drizzle-orm";
 
 const app = express();
 const httpServer = createServer(app);
@@ -60,6 +63,45 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  // ── Create DB tables if they don't exist ──────────────────────────────────
+  try {
+    await db.execute(sql`
+      CREATE TABLE IF NOT EXISTS members (
+        id SERIAL PRIMARY KEY,
+        email TEXT NOT NULL UNIQUE,
+        name TEXT NOT NULL,
+        phone TEXT NOT NULL DEFAULT '',
+        password_hash TEXT NOT NULL,
+        points INTEGER NOT NULL DEFAULT 0,
+        tier TEXT NOT NULL DEFAULT 'Silver',
+        bonus_newsletter BOOLEAN NOT NULL DEFAULT FALSE,
+        bonus_ig BOOLEAN NOT NULL DEFAULT FALSE,
+        bonus_facebook BOOLEAN NOT NULL DEFAULT FALSE,
+        bonus_first_order BOOLEAN NOT NULL DEFAULT FALSE,
+        created_at TEXT NOT NULL DEFAULT ''
+      )
+    `);
+    await db.execute(sql`
+      CREATE TABLE IF NOT EXISTS points_log (
+        id SERIAL PRIMARY KEY,
+        member_id INTEGER NOT NULL,
+        delta INTEGER NOT NULL,
+        reason TEXT NOT NULL,
+        created_at TEXT NOT NULL DEFAULT ''
+      )
+    `);
+    await db.execute(sql`
+      CREATE TABLE IF NOT EXISTS reset_tokens (
+        token TEXT PRIMARY KEY,
+        member_id INTEGER NOT NULL,
+        expires_at BIGINT NOT NULL
+      )
+    `);
+    console.log("[DB] Tables ready");
+  } catch (err) {
+    console.error("[DB] Table creation error:", err);
+  }
+
   await registerRoutes(httpServer, app);
 
   app.use((err: any, _req: Request, res: Response, next: NextFunction) => {

@@ -7,7 +7,7 @@ import crypto from "crypto";
 import { readFileSync } from "fs";
 import { join } from "path";
 import { getStockMap, appendMember, initMembersSheet } from "./googleSheets";
-import { storeResetToken, consumeResetToken } from "./storage";
+import { storeResetToken, consumeResetToken } from "./storage"; // now async (PostgreSQL)
 import { sendPasswordResetEmail } from "./email";
 import { xero, setXeroTokens, isXeroConnected, createXeroInvoice } from "./xero";
 import { createPayment, verifyCallbackSignature } from "./paymentAsia";
@@ -406,7 +406,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
 
       // Generate secure random token
       const token = crypto.randomBytes(32).toString("hex");
-      storeResetToken(member.id, token);
+      await storeResetToken(member.id, token);
 
       const baseUrl = process.env.BASE_URL || "https://terroir-craft-production.up.railway.app";
       await sendPasswordResetEmail(member.email, member.name, token, baseUrl);
@@ -426,7 +426,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
       if (!token || !password) return res.status(400).json({ error: "Token and password required" });
       if (password.length < 6) return res.status(400).json({ error: "密碼最少 6 個字元" });
 
-      const memberId = consumeResetToken(token);
+      const memberId = await consumeResetToken(token);
       if (!memberId) return res.status(400).json({ error: "連結已失效或已使用，請重新申請" });
 
       await storage.updateMember(memberId, { password_hash: hashPassword(password) });

@@ -1,7 +1,10 @@
 import type { Product, ChatMessage, InsertChatMessage, Member, InsertMember, PointsLogEntry } from "@shared/schema";
+import { members, pointsLog, resetTokens } from "@shared/schema";
+import { db } from "./db";
+import { eq, desc } from "drizzle-orm";
 import productsData from "./products.json";
 
-// Type for raw product JSON
+// ── Raw product type ──────────────────────────────────────────────────────────
 interface RawProduct {
   id: string;
   name: string;
@@ -22,7 +25,6 @@ interface RawProduct {
   exclusive?: boolean;
 }
 
-// Tasting note additions per product type
 const tastingNotesByType: Record<string, string> = {
   "Red": "Rich fruit character, structured tannins, elegant finish",
   "White": "Crisp acidity, fresh citrus and stone fruit, mineral driven",
@@ -45,7 +47,6 @@ const foodPairingByType: Record<string, string> = {
   "Makgeolli": "Korean BBQ, spicy food, dim sum, light snacks",
 };
 
-// Enrich products with descriptions
 const enrichedProducts: Product[] = (productsData as RawProduct[]).map(p => ({
   ...p,
   description: `${p.brand} ${p.name.replace(p.brand + ' - ', '')} from ${p.region || p.country}. ${p.vintage && p.vintage !== 'NV' ? 'Vintage ' + p.vintage + '.' : p.vintage === 'NV' ? 'Non-vintage.' : ''} ${p.size} bottle.`,
@@ -54,83 +55,47 @@ const enrichedProducts: Product[] = (productsData as RawProduct[]).map(p => ({
   image_url: p.image_url || "",
 }));
 
-// In-memory chat store
+// ── In-memory chat store ──────────────────────────────────────────────────────
 const chatStore: Map<string, ChatMessage[]> = new Map();
 let chatIdCounter = 1;
 
-// In-memory member store
-const memberStore: Map<number, Member> = new Map();
-const memberEmailIndex: Map<string, number> = new Map();
-let memberIdCounter = 1;
-
-// In-memory points log
-const pointsLogStore: PointsLogEntry[] = [];
-let pointsLogIdCounter = 1;
-
-// In-memory password reset tokens { token -> { memberId, expiresAt } }
-const resetTokenStore: Map<string, { memberId: number; expiresAt: number }> = new Map();
-
-export function storeResetToken(memberId: number, token: string): void {
-  // Expire old tokens for this member
-  for (const [k, v] of resetTokenStore.entries()) {
-    if (v.memberId === memberId) resetTokenStore.delete(k);
-  }
-  resetTokenStore.set(token, { memberId, expiresAt: Date.now() + 60 * 60 * 1000 }); // 1 hour
-}
-
-export function consumeResetToken(token: string): number | null {
-  const entry = resetTokenStore.get(token);
-  if (!entry) return null;
-  if (Date.now() > entry.expiresAt) {
-    resetTokenStore.delete(token);
-    return null;
-  }
-  resetTokenStore.delete(token); // single-use
-  return entry.memberId;
-}
-
-// Tier calculation
+// ── Tier calculation ──────────────────────────────────────────────────────────
 function calcTier(points: number): string {
   if (points >= 3000) return "Platinum";
   if (points >= 1000) return "Gold";
   return "Silver";
 }
 
+// ── Storage interface ─────────────────────────────────────────────────────────
 export interface IStorage {
-  // Products
+  // Products (in-memory, read-only)
   getAllProducts(): Promise<Product[]>;
   getProductById(id: string): Promise<Product | undefined>;
   searchProducts(query: string, filters: { type?: string; country?: string; minPrice?: number; maxPrice?: number }): Promise<Product[]>;
   getProductsByBrand(brand: string): Promise<Product[]>;
-  
-  // Chat
+
+  // Chat (in-memory)
   getChatHistory(sessionId: string): Promise<ChatMessage[]>;
   addChatMessage(msg: InsertChatMessage): Promise<ChatMessage>;
   clearChatHistory(sessionId: string): Promise<void>;
 
-  // Members
+  // Members (PostgreSQL)
   createMember(data: InsertMember): Promise<Member>;
   getMemberByEmail(email: string): Promise<Member | undefined>;
   getMemberById(id: number): Promise<Member | undefined>;
   updateMember(id: number, patch: Partial<Member>): Promise<Member>;
 
-  // Points
+  // Points (PostgreSQL)
   addPoints(memberId: number, delta: number, reason: string): Promise<Member>;
   getPointsLog(memberId: number): Promise<PointsLogEntry[]>;
 }
 
 export const storage: IStorage = {
-  async getAllProducts(): Promise<Product[]> {
-    return enrichedProducts;
-  },
-
-  async getProductById(id: string): Promise<Product | undefined> {
-    return enrichedProducts.find(p => p.id === id);
-  },
-
-  async searchProducts(query: string, filters: { type?: string; country?: string; minPrice?: number; maxPrice?: number }): Promise<Product[]> {
+  // ── Products ──────────────────────────────────────────────────────────────
+  async getAllProducts() { return enrichedProducts; },
+  async getProductById(id) { return enrichedProducts.find(p => p.id === id); },
+  async searchProducts(query, filters) {
     let results = enrichedProducts;
-    
     if (query) {
       const q = query.toLowerCase();
       results = results.filter(p =>
@@ -141,111 +106,115 @@ export const storage: IStorage = {
         p.type.toLowerCase().includes(q)
       );
     }
-    
-    if (filters.type) {
-      results = results.filter(p => p.type.toLowerCase() === filters.type!.toLowerCase());
-    }
-    if (filters.country) {
-      results = results.filter(p => p.country.toLowerCase() === filters.country!.toLowerCase());
-    }
-    if (filters.minPrice !== undefined) {
-      results = results.filter(p => p.price >= filters.minPrice!);
-    }
-    if (filters.maxPrice !== undefined) {
-      results = results.filter(p => p.price <= filters.maxPrice!);
-    }
-    
+    if (filters.type) results = results.filter(p => p.type.toLowerCase() === filters.type!.toLowerCase());
+    if (filters.country) results = results.filter(p => p.country.toLowerCase() === filters.country!.toLowerCase());
+    if (filters.minPrice !== undefined) results = results.filter(p => p.price >= filters.minPrice!);
+    if (filters.maxPrice !== undefined) results = results.filter(p => p.price <= filters.maxPrice!);
     return results;
   },
-
-  async getProductsByBrand(brand: string): Promise<Product[]> {
+  async getProductsByBrand(brand) {
     return enrichedProducts.filter(p => p.brand.toLowerCase() === brand.toLowerCase());
   },
 
-  async getChatHistory(sessionId: string): Promise<ChatMessage[]> {
-    return chatStore.get(sessionId) || [];
-  },
-
-  async addChatMessage(msg: InsertChatMessage): Promise<ChatMessage> {
+  // ── Chat ──────────────────────────────────────────────────────────────────
+  async getChatHistory(sessionId) { return chatStore.get(sessionId) || []; },
+  async addChatMessage(msg) {
     const message: ChatMessage = { ...msg, id: chatIdCounter++ };
     const history = chatStore.get(msg.session_id) || [];
     history.push(message);
     chatStore.set(msg.session_id, history);
     return message;
   },
+  async clearChatHistory(sessionId) { chatStore.delete(sessionId); },
 
-  async clearChatHistory(sessionId: string): Promise<void> {
-    chatStore.delete(sessionId);
-  },
-
-  // ── Members ──────────────────────────────────────────────────────────────
+  // ── Members (PostgreSQL) ──────────────────────────────────────────────────
   async createMember(data: InsertMember): Promise<Member> {
-    const id = memberIdCounter++;
     const now = new Date().toISOString();
-    const member: Member = {
+    const [member] = await db.insert(members).values({
       ...data,
-      id,
-      points: 50, // registration bonus
+      points: 50, // welcome bonus
       tier: "Silver",
-      bonus_newsletter: data.bonus_newsletter ?? false,
-      bonus_ig: data.bonus_ig ?? false,
-      bonus_facebook: data.bonus_facebook ?? false,
-      bonus_first_order: data.bonus_first_order ?? false,
+      bonus_newsletter: false,
+      bonus_ig: false,
+      bonus_facebook: false,
+      bonus_first_order: false,
       created_at: now,
-      phone: data.phone ?? "",
-    };
-    memberStore.set(id, member);
-    memberEmailIndex.set(data.email.toLowerCase(), id);
-    // Log signup bonus
-    pointsLogStore.push({
-      id: pointsLogIdCounter++,
-      member_id: id,
+    }).returning();
+
+    // Log welcome bonus
+    await db.insert(pointsLog).values({
+      member_id: member.id,
       delta: 50,
       reason: "Welcome bonus — account registration",
       created_at: now,
     });
+
     return member;
   },
 
   async getMemberByEmail(email: string): Promise<Member | undefined> {
-    const id = memberEmailIndex.get(email.toLowerCase());
-    if (id === undefined) return undefined;
-    return memberStore.get(id);
+    const [member] = await db.select().from(members).where(eq(members.email, email.toLowerCase()));
+    return member;
   },
 
   async getMemberById(id: number): Promise<Member | undefined> {
-    return memberStore.get(id);
+    const [member] = await db.select().from(members).where(eq(members.id, id));
+    return member;
   },
 
   async updateMember(id: number, patch: Partial<Member>): Promise<Member> {
-    const existing = memberStore.get(id);
-    if (!existing) throw new Error(`Member ${id} not found`);
-    const updated = { ...existing, ...patch };
-    memberStore.set(id, updated);
+    const [updated] = await db.update(members).set(patch).where(eq(members.id, id)).returning();
+    if (!updated) throw new Error(`Member ${id} not found`);
     return updated;
   },
 
-  // ── Points ───────────────────────────────────────────────────────────────
+  // ── Points (PostgreSQL) ───────────────────────────────────────────────────
   async addPoints(memberId: number, delta: number, reason: string): Promise<Member> {
-    const member = memberStore.get(memberId);
+    const member = await this.getMemberById(memberId);
     if (!member) throw new Error(`Member ${memberId} not found`);
     const newPoints = Math.max(0, member.points + delta);
     const newTier = calcTier(newPoints);
-    const updated = { ...member, points: newPoints, tier: newTier };
-    memberStore.set(memberId, updated);
-    pointsLogStore.push({
-      id: pointsLogIdCounter++,
+
+    const [updated] = await db.update(members)
+      .set({ points: newPoints, tier: newTier })
+      .where(eq(members.id, memberId))
+      .returning();
+
+    await db.insert(pointsLog).values({
       member_id: memberId,
       delta,
       reason,
       created_at: new Date().toISOString(),
     });
+
     return updated;
   },
 
   async getPointsLog(memberId: number): Promise<PointsLogEntry[]> {
-    return pointsLogStore
-      .filter(e => e.member_id === memberId)
-      .sort((a, b) => b.id - a.id); // newest first
+    return db.select().from(pointsLog)
+      .where(eq(pointsLog.member_id, memberId))
+      .orderBy(desc(pointsLog.id));
   },
 };
+
+// ── Reset Token helpers (PostgreSQL) ─────────────────────────────────────────
+export async function storeResetToken(memberId: number, token: string): Promise<void> {
+  // Delete any existing tokens for this member first
+  await db.delete(resetTokens).where(eq(resetTokens.member_id, memberId));
+  await db.insert(resetTokens).values({
+    token,
+    member_id: memberId,
+    expires_at: Date.now() + 60 * 60 * 1000, // 1 hour
+  });
+}
+
+export async function consumeResetToken(token: string): Promise<number | null> {
+  const [entry] = await db.select().from(resetTokens).where(eq(resetTokens.token, token));
+  if (!entry) return null;
+  if (Date.now() > entry.expires_at) {
+    await db.delete(resetTokens).where(eq(resetTokens.token, token));
+    return null;
+  }
+  await db.delete(resetTokens).where(eq(resetTokens.token, token));
+  return entry.member_id;
+}
