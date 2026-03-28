@@ -148,8 +148,7 @@ const FEATURED_BRANDS_ROW2 = [
   { name: "Kopke",                    logo: "Kopke.png" },
   { name: "Vereinigte Hospitien",     logo: "Vereinigte Hospitien.webp" },
   { name: "Tscharke",                 logo: "Tscharke.png" },
-  { name: "Crystallum",               logo: "Crystallum.png" },
-  { name: "Château d'Issan",          logo: "Chateau D'Issan.png" },
+  { name: "Hydrodol",                 logo: "Hydrodol.jpg" },
   { name: "Sherwood",                 logo: "Sherwood.jpg" },
   { name: "Tierra de Cubas",          logo: "Tierra de Cubas.png" },
 ];
@@ -281,15 +280,15 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* Row 2 — remaining brands, slightly smaller */}
-          <div className="grid grid-cols-4 sm:grid-cols-7 gap-3 mb-10">
+          {/* Row 2 — remaining brands */}
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 mb-10">
             {FEATURED_BRANDS_ROW2.map(({ name, logo }) => (
               <Link key={name} href="/brands">
-                <a className="group flex items-center justify-center bg-white rounded-xl border border-border hover:border-[hsl(355,62%,28%)]/50 hover:shadow-sm transition-all duration-200 p-4 h-20">
+                <a className="group flex items-center justify-center bg-white rounded-2xl border border-border hover:border-[hsl(355,62%,28%)]/50 hover:shadow-md transition-all duration-200 p-5 h-28">
                   <img
                     src={`${API_BASE}/brand-logos/${encodeURIComponent(logo)}`}
                     alt={name}
-                    className="max-h-10 max-w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-200"
+                    className="max-h-14 max-w-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-200"
                     onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
                   />
                 </a>
