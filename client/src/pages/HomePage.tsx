@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { navigate } from "wouter/use-hash-location";
 import WorldMap from "@/components/WorldMap";
 import { useQuery } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
+import { apiRequest, API_BASE } from "@/lib/queryClient";
 import { ArrowRight, Bot, Globe, Star, Package, ChevronRight, Instagram, Facebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -134,15 +134,24 @@ const SERVICES = [
   },
 ];
 
-const FEATURED_BRANDS = [
-  "Mollydooker",
-  "Chateau de Saint Cosme",
-  "Morey Coffinet",
-  "Kopke",
-  "Realm Cellars",
-  "Vereinigte Hospitien",
-  "Champagne Boizel",
-  "Tscharke",
+// Row 1 (hero brands — must appear first)
+const FEATURED_BRANDS_ROW1 = [
+  { name: "Mollydooker",              logo: "Mollydooker.webp" },
+  { name: "Chateau de Saint Cosme",   logo: "Chateau de Saint Cosme.jpg" },
+  { name: "Realm Cellars",            logo: "Realm Cellars.webp" },
+  { name: "Maison Morey-Coffinet",    logo: "Morey Coffinet.png" },
+  { name: "Champagne Boizel",         logo: "Champagne Boizel.jpeg" },
+];
+
+// Row 2 (remaining exclusive brands)
+const FEATURED_BRANDS_ROW2 = [
+  { name: "Kopke",                    logo: "Kopke.png" },
+  { name: "Vereinigte Hospitien",     logo: "Vereinigte Hospitien.webp" },
+  { name: "Tscharke",                 logo: "Tscharke.png" },
+  { name: "Crystallum",               logo: "Crystallum.png" },
+  { name: "Château d'Issan",          logo: "Chateau D'Issan.png" },
+  { name: "Sherwood",                 logo: "Sherwood.jpg" },
+  { name: "Tierra de Cubas",          logo: "Tierra de Cubas.png" },
 ];
 
 const SOCIAL_POSTS = [
@@ -376,26 +385,47 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── BRANDS STRIP ─── */}
-      <section className="py-16 bg-muted/30">
+      {/* ─── BRANDS LOGO GRID ─── */}
+      <section className="py-20 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10">
+          <div className="text-center mb-12">
             <p className="font-body text-xs tracking-[0.2em] uppercase text-[hsl(355,62%,28%)] mb-3">Exclusive Agency</p>
             <h2 className="font-display text-3xl font-light text-foreground">Our Brands</h2>
           </div>
-          <div className="flex flex-wrap justify-center gap-3">
-            {FEATURED_BRANDS.map(brand => (
-              <Link key={brand} href={`/brands`}>
-                <a className="inline-flex items-center gap-2 px-5 py-2.5 bg-card border border-border rounded-full text-sm font-body font-medium text-foreground hover:border-[hsl(355,62%,28%)] hover:text-[hsl(355,62%,28%)] transition-colors card-hover">
-                  {brand}
-                  <span className="text-xs text-muted-foreground">
-                    {brandCounts[brand] || 0}
-                  </span>
+
+          {/* Row 1 — hero brands, larger */}
+          <div className="grid grid-cols-3 sm:grid-cols-5 gap-4 mb-4">
+            {FEATURED_BRANDS_ROW1.map(({ name, logo }) => (
+              <Link key={name} href="/brands">
+                <a className="group flex items-center justify-center bg-white rounded-2xl border border-border hover:border-[hsl(355,62%,28%)]/50 hover:shadow-md transition-all duration-200 p-5 h-28">
+                  <img
+                    src={`${API_BASE}/brand-logos/${encodeURIComponent(logo)}`}
+                    alt={name}
+                    className="max-h-16 max-w-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-200"
+                    onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                  />
                 </a>
               </Link>
             ))}
           </div>
-          <div className="text-center mt-6">
+
+          {/* Row 2 — remaining brands, slightly smaller */}
+          <div className="grid grid-cols-4 sm:grid-cols-7 gap-3 mb-10">
+            {FEATURED_BRANDS_ROW2.map(({ name, logo }) => (
+              <Link key={name} href="/brands">
+                <a className="group flex items-center justify-center bg-white rounded-xl border border-border hover:border-[hsl(355,62%,28%)]/50 hover:shadow-sm transition-all duration-200 p-4 h-20">
+                  <img
+                    src={`${API_BASE}/brand-logos/${encodeURIComponent(logo)}`}
+                    alt={name}
+                    className="max-h-10 max-w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-200"
+                    onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                  />
+                </a>
+              </Link>
+            ))}
+          </div>
+
+          <div className="text-center">
             <Link href="/brands">
               <Button variant="outline" className="font-body">
                 View All 23 Brands <ArrowRight className="ml-2 w-4 h-4" />
