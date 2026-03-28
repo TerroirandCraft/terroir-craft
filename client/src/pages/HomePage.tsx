@@ -257,6 +257,56 @@ export default function HomePage() {
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent" />
       </section>
 
+      {/* ─── BRANDS LOGO GRID ─── */}
+      <section className="py-20 bg-muted/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <p className="font-body text-xs tracking-[0.2em] uppercase text-[hsl(355,62%,28%)] mb-3">Exclusive Agency</p>
+            <h2 className="font-display text-3xl font-light text-foreground">Our Brands</h2>
+          </div>
+
+          {/* Row 1 — hero brands, larger */}
+          <div className="grid grid-cols-3 sm:grid-cols-5 gap-4 mb-4">
+            {FEATURED_BRANDS_ROW1.map(({ name, logo }) => (
+              <Link key={name} href="/brands">
+                <a className="group flex items-center justify-center bg-white rounded-2xl border border-border hover:border-[hsl(355,62%,28%)]/50 hover:shadow-md transition-all duration-200 p-5 h-28">
+                  <img
+                    src={`${API_BASE}/brand-logos/${encodeURIComponent(logo)}`}
+                    alt={name}
+                    className="max-h-16 max-w-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-200"
+                    onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                  />
+                </a>
+              </Link>
+            ))}
+          </div>
+
+          {/* Row 2 — remaining brands, slightly smaller */}
+          <div className="grid grid-cols-4 sm:grid-cols-7 gap-3 mb-10">
+            {FEATURED_BRANDS_ROW2.map(({ name, logo }) => (
+              <Link key={name} href="/brands">
+                <a className="group flex items-center justify-center bg-white rounded-xl border border-border hover:border-[hsl(355,62%,28%)]/50 hover:shadow-sm transition-all duration-200 p-4 h-20">
+                  <img
+                    src={`${API_BASE}/brand-logos/${encodeURIComponent(logo)}`}
+                    alt={name}
+                    className="max-h-10 max-w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-200"
+                    onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                  />
+                </a>
+              </Link>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link href="/brands">
+              <Button variant="outline" className="font-body">
+                View All 23 Brands <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ─── REGION EXPLORER ─── */}
       <section className="py-16 bg-[hsl(30,15%,96%)] border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -382,56 +432,6 @@ export default function HomePage() {
               ))}
             </div>
           )}
-        </div>
-      </section>
-
-      {/* ─── BRANDS LOGO GRID ─── */}
-      <section className="py-20 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
-            <p className="font-body text-xs tracking-[0.2em] uppercase text-[hsl(355,62%,28%)] mb-3">Exclusive Agency</p>
-            <h2 className="font-display text-3xl font-light text-foreground">Our Brands</h2>
-          </div>
-
-          {/* Row 1 — hero brands, larger */}
-          <div className="grid grid-cols-3 sm:grid-cols-5 gap-4 mb-4">
-            {FEATURED_BRANDS_ROW1.map(({ name, logo }) => (
-              <Link key={name} href="/brands">
-                <a className="group flex items-center justify-center bg-white rounded-2xl border border-border hover:border-[hsl(355,62%,28%)]/50 hover:shadow-md transition-all duration-200 p-5 h-28">
-                  <img
-                    src={`${API_BASE}/brand-logos/${encodeURIComponent(logo)}`}
-                    alt={name}
-                    className="max-h-16 max-w-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-200"
-                    onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                  />
-                </a>
-              </Link>
-            ))}
-          </div>
-
-          {/* Row 2 — remaining brands, slightly smaller */}
-          <div className="grid grid-cols-4 sm:grid-cols-7 gap-3 mb-10">
-            {FEATURED_BRANDS_ROW2.map(({ name, logo }) => (
-              <Link key={name} href="/brands">
-                <a className="group flex items-center justify-center bg-white rounded-xl border border-border hover:border-[hsl(355,62%,28%)]/50 hover:shadow-sm transition-all duration-200 p-4 h-20">
-                  <img
-                    src={`${API_BASE}/brand-logos/${encodeURIComponent(logo)}`}
-                    alt={name}
-                    className="max-h-10 max-w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-200"
-                    onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                  />
-                </a>
-              </Link>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <Link href="/brands">
-              <Button variant="outline" className="font-body">
-                View All 23 Brands <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
-            </Link>
-          </div>
         </div>
       </section>
 
