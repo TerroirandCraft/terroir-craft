@@ -275,6 +275,79 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ─── SHOP BY OCCASION ─── */}
+      <section className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10">
+            <p className="font-body text-xs tracking-[0.2em] uppercase text-[hsl(355,62%,28%)] mb-3">Shop by Occasion</p>
+            <h2 className="font-display text-3xl md:text-4xl font-light text-foreground">
+              Find the Perfect Bottle
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {[
+              {
+                label: "Dinner Pairing",
+                labelZh: "餐酒配搭",
+                img: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80&auto=format&fit=crop",
+                filter: "type=Red",
+              },
+              {
+                label: "Gifts",
+                labelZh: "送禮之選",
+                img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=800&q=80&auto=format&fit=crop",
+                filter: "",
+              },
+              {
+                label: "Under HK$300",
+                labelZh: "HK$300 以下",
+                img: "https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?w=800&q=80&auto=format&fit=crop",
+                filter: "max=300",
+              },
+              {
+                label: "Easy-Drinking Reds",
+                labelZh: "易飲紅酒",
+                img: "https://images.unsplash.com/photo-1504279577054-acfeccf8fc52?w=800&q=80&auto=format&fit=crop",
+                filter: "type=Red",
+              },
+              {
+                label: "Champagne & Sparkling",
+                labelZh: "香檳及氣泡酒",
+                img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&auto=format&fit=crop",
+                filter: "type=Champagne",
+              },
+              {
+                label: "Staff Picks",
+                labelZh: "員工精選",
+                img: "https://images.unsplash.com/photo-1474722883778-792e7990302f?w=800&q=80&auto=format&fit=crop",
+                filter: "",
+              },
+            ].map((cat) => (
+              <Link key={cat.label} href={`/wines${cat.filter ? "?" + cat.filter : ""}`}>
+                <a className="relative group rounded-xl overflow-hidden block aspect-[4/3] cursor-pointer">
+                  {/* Background image */}
+                  <div
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                    style={{ backgroundImage: `url('${cat.img}')` }}
+                  />
+                  {/* Dark overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/70 transition-all duration-300" />
+                  {/* Text */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <h3 className="font-display text-xl text-white font-light leading-tight">{cat.label}</h3>
+                    <p className="font-body text-xs text-white/60 mt-0.5">{cat.labelZh}</p>
+                  </div>
+                  {/* Arrow */}
+                  <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    <ArrowRight className="w-4 h-4 text-white" />
+                  </div>
+                </a>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─── BRANDS LOGO GRID ─── */}
       <section className="py-20 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -350,75 +423,27 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── SHOP BY OCCASION ─── */}
-      <section className="py-20 bg-background">
+      {/* ─── REGION EXPLORER ─── */}
+      <section className="py-16 bg-[hsl(30,15%,96%)] border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10">
-            <p className="font-body text-xs tracking-[0.2em] uppercase text-[hsl(355,62%,28%)] mb-3">Shop by Occasion</p>
+            <p className="font-body text-xs tracking-[0.25em] uppercase text-[hsl(355,62%,28%)] mb-3">Shop by Origin</p>
             <h2 className="font-display text-3xl md:text-4xl font-light text-foreground">
-              Find the Perfect Bottle
+              Explore by Region 按產區選酒
             </h2>
+            <p className="font-body text-sm text-muted-foreground mt-3">
+              Click any region to browse our exclusive selection
+            </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {[
-              {
-                label: "Dinner Pairing",
-                labelZh: "餐酒配搭",
-                img: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80&auto=format&fit=crop",
-                filter: "type=Red",
-              },
-              {
-                label: "Gifts",
-                labelZh: "送禮之選",
-                img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=800&q=80&auto=format&fit=crop",
-                filter: "",
-              },
-              {
-                label: "Under HK$300",
-                labelZh: "HK$300 以下",
-                img: "https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?w=800&q=80&auto=format&fit=crop",
-                filter: "max=300",
-              },
-              {
-                label: "Easy-Drinking Reds",
-                labelZh: "易飲紅酒",
-                img: "https://images.unsplash.com/photo-1504279577054-acfeccf8fc52?w=800&q=80&auto=format&fit=crop",
-                filter: "type=Red",
-              },
-              {
-                label: "Champagne & Sparkling",
-                labelZh: "香檳及氣泡酒",
-                img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&auto=format&fit=crop",
-                filter: "type=Champagne",
-              },
-              {
-                label: "Staff Picks",
-                labelZh: "員工精選",
-                img: "https://images.unsplash.com/photo-1474722883778-792e7990302f?w=800&q=80&auto=format&fit=crop",
-                filter: "",
-              },
-            ].map((cat) => (
-              <Link key={cat.label} href={`/wines${cat.filter ? "?" + cat.filter : ""}`}>
-                <a className="relative group rounded-xl overflow-hidden block aspect-[4/3] cursor-pointer">
-                  {/* Background image */}
-                  <div
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                    style={{ backgroundImage: `url('${cat.img}')` }}
-                  />
-                  {/* Dark overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/70 transition-all duration-300" />
-                  {/* Text */}
-                  <div className="absolute bottom-0 left-0 right-0 p-5">
-                    <h3 className="font-display text-xl text-white font-light leading-tight">{cat.label}</h3>
-                    <p className="font-body text-xs text-white/60 mt-0.5">{cat.labelZh}</p>
-                  </div>
-                  {/* Arrow */}
-                  <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    <ArrowRight className="w-4 h-4 text-white" />
-                  </div>
-                </a>
-              </Link>
-            ))}
+
+          <WorldMap />
+
+          <div className="text-center mt-8">
+            <Link href="/wines">
+              <Button variant="outline" className="font-body border-[hsl(355,62%,28%)] text-[hsl(355,62%,28%)] hover:bg-[hsl(355,62%,28%)] hover:text-white">
+                View All 112 Wines <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
