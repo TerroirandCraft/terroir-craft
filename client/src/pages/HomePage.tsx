@@ -197,63 +197,82 @@ export default function HomePage() {
   return (
     <div>
       {/* ─── HERO ─── */}
-      <section
-        className="relative min-h-[80vh] flex items-center justify-center overflow-hidden"
-        style={{
-          background: "linear-gradient(135deg, hsl(20,12%,10%) 0%, hsl(355,50%,15%) 60%, hsl(355,62%,22%) 100%)",
-        }}
-      >
-        {/* Decorative vine texture */}
+      <section className="relative overflow-hidden" style={{ minHeight: "clamp(500px, 75vh, 760px)", display: "flex", alignItems: "center" }}>
+        {/* Background photo */}
         <div
-          className="absolute inset-0 opacity-5"
+          className="absolute inset-0"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundImage: "url('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1600&q=80&auto=format&fit=crop')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         />
+        {/* Dark overlay */}
+        <div className="absolute inset-0" style={{ background: "linear-gradient(100deg, rgba(26,13,16,0.92) 0%, rgba(26,13,16,0.65) 55%, rgba(26,13,16,0.25) 100%)" }} />
 
-        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center text-white">
-          <p className="font-body text-sm tracking-[0.25em] uppercase text-white/60 mb-6">
-            Terroir & Craft 天地人酒業
-          </p>
-          <h1 className="font-display font-light text-5xl md:text-6xl lg:text-7xl leading-tight mb-6">
-            Every Bottle,<br />
-            <em className="italic text-[hsl(355,60%,70%)]">a Better Story!</em>
-          </h1>
-          <p className="font-body text-base md:text-lg text-white/70 max-w-2xl mx-auto mb-3 leading-relaxed">
-            We source from mindful wineries that put quality, people and planet first.
-          </p>
-          <p className="font-body text-sm md:text-base text-white/55 max-w-2xl mx-auto mb-10 leading-relaxed">
-            For wine lovers who enjoy exploring new regions and building a fine-wine cellar with purpose.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link href="/wines">
-              <Button
-                size="lg"
-                className="bg-[hsl(355,62%,28%)] hover:bg-[hsl(355,62%,22%)] text-white border-0 px-8 font-body font-medium"
-                data-testid="hero-shop-btn"
-              >
-                Shop Wines
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
-            </Link>
-            <Link href="/sommelier">
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white/30 text-white hover:bg-white/10 px-8 font-body font-medium backdrop-blur-sm"
-                data-testid="hero-sommelier-btn"
-              >
-                <Bot className="mr-2 w-4 h-4" />
-                Ask AI Sommelier
-              </Button>
-            </Link>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-20 w-full" style={{ paddingBottom: "6rem" }}>
+          <div className="max-w-2xl">
+            <p className="font-body text-xs tracking-[0.18em] uppercase mb-5 flex items-center gap-3" style={{ color: "#c9a05a" }}>
+              <span style={{ display: "inline-block", width: 28, height: 1, background: "#c9a05a" }} />
+              Hong Kong's Curated Wine Merchant
+            </p>
+            <h1 className="font-display font-light leading-tight mb-6" style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)", color: "#f5ede8" }}>
+              Find the right bottle<br />
+              for tonight &mdash; or<br />
+              <em className="italic" style={{ color: "#e8d4c0" }}>the one worth keeping.</em>
+            </h1>
+            <p className="font-body text-base leading-relaxed mb-10 max-w-xl" style={{ color: "rgba(245,237,232,0.72)" }}>
+              From approachable everyday wines to collectible fine bottles, Terroir &amp; Craft brings together importer-selected wines for drinking, gifting, and collecting in Hong Kong.
+            </p>
+            <div className="flex flex-wrap items-center gap-4">
+              <Link href="/wines">
+                <Button
+                  size="lg"
+                  className="px-8 font-body font-medium border-0 text-white"
+                  style={{ background: "#9a7940" }}
+                  data-testid="hero-shop-btn"
+                >
+                  Shop Wines
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </Link>
+              <Link href="/sommelier">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="px-8 font-body font-medium backdrop-blur-sm"
+                  style={{ borderColor: "rgba(245,237,232,0.3)", color: "rgba(245,237,232,0.85)" }}
+                  data-testid="hero-sommelier-btn"
+                >
+                  <Bot className="mr-2 w-4 h-4" />
+                  Ask AI Sommelier
+                </Button>
+              </Link>
+            </div>
           </div>
-
-
         </div>
 
         {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent" style={{ zIndex: 2 }} />
+
+        {/* Stats bar */}
+        <div className="absolute bottom-0 left-0 right-0" style={{ zIndex: 3, borderTop: "1px solid rgba(255,255,255,0.08)", background: "rgba(26,13,16,0.55)", backdropFilter: "blur(8px)" }}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="hidden sm:flex">
+              {[
+                { num: "23", label: "Exclusive Brands" },
+                { num: "140+", label: "Curated SKUs" },
+                { num: "10+", label: "Wine Regions" },
+                { num: "HK & MO", label: "Local Delivery" },
+              ].map((s, i) => (
+                <div key={i} className="flex-1 py-4 px-6" style={{ borderRight: i < 3 ? "1px solid rgba(255,255,255,0.08)" : undefined }}>
+                  <div className="font-display font-light" style={{ fontSize: "clamp(1.25rem, 2vw, 1.75rem)", color: "#e8d4c0", lineHeight: 1 }}>{s.num}</div>
+                  <div className="font-body text-xs mt-1" style={{ color: "rgba(245,237,232,0.45)", letterSpacing: "0.06em" }}>{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* ─── BRANDS LOGO GRID ─── */}
@@ -331,31 +350,145 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── SERVICES ─── */}
+      {/* ─── SHOP BY OCCASION ─── */}
       <section className="py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
-            <p className="font-body text-xs tracking-[0.2em] uppercase text-[hsl(355,62%,28%)] mb-3">Our Services</p>
+          <div className="text-center mb-10">
+            <p className="font-body text-xs tracking-[0.2em] uppercase text-[hsl(355,62%,28%)] mb-3">Shop by Occasion</p>
             <h2 className="font-display text-3xl md:text-4xl font-light text-foreground">
-              More Than a Wine Shop
+              Find the Perfect Bottle
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {SERVICES.map(s => (
-              <div key={s.title} className="bg-card rounded-lg p-8 border border-border card-hover">
-                <div className="w-12 h-12 rounded-md bg-[hsl(355,62%,28%)]/10 flex items-center justify-center mb-5">
-                  <s.icon className="w-6 h-6 text-[hsl(355,62%,28%)]" />
-                </div>
-                <h3 className="font-display text-xl font-medium mb-1 text-foreground">{s.title}</h3>
-                <p className="font-body text-xs text-muted-foreground mb-3">{s.titleZh}</p>
-                <p className="font-body text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {[
+              {
+                label: "Dinner Pairing",
+                labelZh: "餐酒配搭",
+                img: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80&auto=format&fit=crop",
+                filter: "type=Red",
+              },
+              {
+                label: "Gifts",
+                labelZh: "送禮之選",
+                img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=800&q=80&auto=format&fit=crop",
+                filter: "",
+              },
+              {
+                label: "Under HK$300",
+                labelZh: "HK$300 以下",
+                img: "https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?w=800&q=80&auto=format&fit=crop",
+                filter: "max=300",
+              },
+              {
+                label: "Easy-Drinking Reds",
+                labelZh: "易飲紅酒",
+                img: "https://images.unsplash.com/photo-1504279577054-acfeccf8fc52?w=800&q=80&auto=format&fit=crop",
+                filter: "type=Red",
+              },
+              {
+                label: "Champagne & Sparkling",
+                labelZh: "香檳及氣泡酒",
+                img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&auto=format&fit=crop",
+                filter: "type=Champagne",
+              },
+              {
+                label: "Staff Picks",
+                labelZh: "員工精選",
+                img: "https://images.unsplash.com/photo-1474722883778-792e7990302f?w=800&q=80&auto=format&fit=crop",
+                filter: "",
+              },
+            ].map((cat) => (
+              <Link key={cat.label} href={`/wines${cat.filter ? "?" + cat.filter : ""}`}>
+                <a className="relative group rounded-xl overflow-hidden block aspect-[4/3] cursor-pointer">
+                  {/* Background image */}
+                  <div
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                    style={{ backgroundImage: `url('${cat.img}')` }}
+                  />
+                  {/* Dark overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/70 transition-all duration-300" />
+                  {/* Text */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <h3 className="font-display text-xl text-white font-light leading-tight">{cat.label}</h3>
+                    <p className="font-body text-xs text-white/60 mt-0.5">{cat.labelZh}</p>
+                  </div>
+                  {/* Arrow */}
+                  <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    <ArrowRight className="w-4 h-4 text-white" />
+                  </div>
+                </a>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── WHY TERROIR & CRAFT ─── */}
+      <section className="py-20 bg-muted/30 border-t border-border border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <p className="font-body text-xs tracking-[0.2em] uppercase text-[hsl(355,62%,28%)] mb-3">Why Terroir &amp; Craft</p>
+            <h2 className="font-display text-3xl md:text-4xl font-light text-foreground">
+              The Difference You Can Taste
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-0 divide-y md:divide-y-0 md:divide-x divide-border">
+            {[
+              {
+                icon: (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-7 h-7 text-[hsl(355,62%,28%)]">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" strokeLinecap="round" strokeLinejoin="round"/>
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M8 12c0-2.2 1.8-4 4-4s4 1.8 4 4" strokeLinecap="round"/>
+                  </svg>
+                ),
+                title: "Curated by Importer",
+                titleZh: "直接進口",
+                desc: "Every bottle is personally selected. We import directly from the winery — no middlemen, better pricing, and genuine provenance guaranteed.",
+              },
+              {
+                icon: (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-7 h-7 text-[hsl(355,62%,28%)]">
+                    <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                ),
+                title: "Exclusive Agency",
+                titleZh: "獨家代理",
+                desc: "23 brands available exclusively through us in Hong Kong. We provide first-hand quality assurance and impeccable storage conditions from source to your door.",
+              },
+              {
+                icon: (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-7 h-7 text-[hsl(355,62%,28%)]">
+                    <path d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                ),
+                title: "Hong Kong Delivery",
+                titleZh: "本地送貨",
+                desc: "Prompt and secure delivery across Hong Kong and Macau. Free delivery on orders over HK$1,000.",
+              },
+              {
+                icon: (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-7 h-7 text-[hsl(355,62%,28%)]">
+                    <path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                ),
+                title: "Everyday to Rare",
+                titleZh: "日常至珍稀",
+                desc: "Approachable weeknight bottles alongside collectible fine wines. One curated destination for every occasion and every level of wine enthusiasm.",
+              },
+            ].map((item, i) => (
+              <div key={i} className="px-8 py-6 md:py-0 first:pl-0 last:pr-0">
+                <div className="mb-4">{item.icon}</div>
+                <h3 className="font-body text-base font-semibold text-foreground mb-0.5">{item.title}</h3>
+                <p className="font-body text-xs text-muted-foreground mb-3">{item.titleZh}</p>
+                <p className="font-body text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ─── ABOUT STRIP ─── */}
+            {/* ─── ABOUT STRIP ─── */}
       <section className="bg-[hsl(355,62%,28%)] text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div>
@@ -477,7 +610,69 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── SOCIAL MEDIA ─── */}
+      {/* ─── FOR TRADE ─── */}
+      <section className="py-20 bg-background border-t border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+              <p className="font-body text-xs tracking-[0.2em] uppercase text-[hsl(355,62%,28%)] mb-4">For Trade</p>
+              <h2 className="font-display text-3xl md:text-4xl font-light text-foreground mb-6 leading-tight">
+                Supplying restaurants, bars,<br />and hospitality partners<br />in Hong Kong
+              </h2>
+              <p className="font-body text-sm text-muted-foreground leading-relaxed mb-8">
+                We work with fine dining restaurants, boutique hotels, wine bars, and corporate clients across Hong Kong and Macau. Our portfolio offers exclusive labels, flexible ordering, and dedicated account management.
+              </p>
+              <Link href="/about">
+                <Button className="bg-[hsl(355,62%,28%)] hover:bg-[hsl(355,62%,22%)] text-white font-body">
+                  Contact Us
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { title: "Exclusive Labels", desc: "Differentiate your list with brands only available through us in HK & Macau.", icon: "🏷️" },
+                { title: "Reliable Supply", desc: "Direct import ensures consistent stock and competitive lead times.", icon: "📦" },
+                { title: "First-Hand Quality", desc: "Impeccable storage from source to cellar — we guarantee condition.", icon: "✓" },
+                { title: "Staff Education", desc: "Producer tastings and staff training sessions available on request.", icon: "🎓" },
+              ].map((f, i) => (
+                <div key={i} className="bg-muted/40 rounded-xl p-5 border border-border">
+                  <div className="text-lg mb-2">{f.icon}</div>
+                  <h4 className="font-body text-sm font-semibold text-foreground mb-1">{f.title}</h4>
+                  <p className="font-body text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── MEMBER JOIN ─── */}
+      <section className="py-16 bg-[hsl(355,62%,28%)]/5 border-t border-border">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+          <p className="font-body text-xs tracking-[0.2em] uppercase text-[hsl(355,62%,28%)] mb-3">Member Club</p>
+          <h2 className="font-display text-3xl md:text-4xl font-light text-foreground mb-4">
+            Join & Earn Rewards
+          </h2>
+          <p className="font-body text-sm text-muted-foreground leading-relaxed mb-8 max-w-xl mx-auto">
+            Join our member club for exclusive benefits: earn points with every purchase, enjoy member-only offers, and get early access to new arrivals and limited bottles.
+          </p>
+          <div className="flex flex-wrap justify-center gap-3 mb-6">
+            {["Welcome +50 pts", "每 HK$5 賺 1 積分", "首單 +100 pts", "Silver / Gold / Platinum"].map(b => (
+              <span key={b} className="font-body text-xs px-4 py-1.5 rounded-full bg-[hsl(355,62%,28%)]/10 text-[hsl(355,62%,28%)] border border-[hsl(355,62%,28%)]/20">
+                {b}
+              </span>
+            ))}
+          </div>
+          <Link href="/member">
+            <Button className="bg-[hsl(355,62%,28%)] hover:bg-[hsl(355,62%,22%)] text-white font-body px-10">
+              Join Now 立即登記
+            </Button>
+          </Link>
+        </div>
+      </section>
+
+            {/* ─── SOCIAL MEDIA ─── */}
       <section className="py-16 bg-muted/20 border-t border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10">

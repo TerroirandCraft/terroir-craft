@@ -1,7 +1,7 @@
-import { ReactNode, useState, useRef } from "react";
+import { ReactNode, useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { useHashLocation } from "wouter/use-hash-location";
-import { ShoppingCart, Menu, X, Wine, Bot, UserCircle, ChevronDown, Tag } from "lucide-react";
+import { ShoppingCart, Menu, X, Wine, Bot, UserCircle, ChevronDown, Tag, Sun, Moon } from "lucide-react";
 import { PROMOTIONS } from "@/pages/PromotionPage";
 import { useCart } from "./CartContext";
 import { useAuth } from "./AuthContext";
@@ -10,6 +10,8 @@ import tcLogo from "@/assets/tc-logo.jpg";
 const navLinks: { href: string; label: string; labelZh: string; isGold?: boolean }[] = [
   { href: "/", label: "Home", labelZh: "首頁" },
   { href: "/wines", label: "Wines", labelZh: "酒款" },
+  { href: "/wines#by-occasion", label: "By Occasion", labelZh: "場合選酒" },
+  { href: "/wines#new-arrivals", label: "New Arrivals", labelZh: "最新到貨" },
   { href: "/brands", label: "Brands", labelZh: "品牌" },
   { href: "/fine-rare", label: "Fine & Rare", labelZh: "珍稀藏酒", isGold: true },
   { href: "/sommelier", label: "AI Sommelier", labelZh: "AI 侍酒師" },
@@ -24,6 +26,14 @@ export default function Layout({ children }: { children: ReactNode }) {
   const [promoOpen, setPromoOpen] = useState(false);
   const promoRef = useRef<HTMLDivElement>(null);
   const promoList = Object.values(PROMOTIONS);
+
+  // Dark mode toggle — reads system preference, no localStorage
+  const [darkMode, setDarkMode] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches
+  );
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", darkMode);
+  }, [darkMode]);
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
@@ -114,6 +124,14 @@ export default function Layout({ children }: { children: ReactNode }) {
 
           {/* Right actions */}
           <div className="flex items-center gap-2">
+            {/* Dark mode toggle */}
+            <button
+              onClick={() => setDarkMode(d => !d)}
+              className="p-2 rounded-md hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+              aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
             {/* Member icon */}
             <Link href="/member">
               <a
