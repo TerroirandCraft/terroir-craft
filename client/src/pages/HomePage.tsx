@@ -306,21 +306,24 @@ export default function HomePage() {
               },
               {
                 label: "Easy-Drinking Reds",
-                labelZh: "易飲紅酒",
-                img: "https://images.unsplash.com/photo-1504279577054-acfeccf8fc52?w=800&q=80&auto=format&fit=crop",
+                labelZh: "Smooth, juicy and approachable",
+                img: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80&auto=format&fit=crop",
                 filter: "type=Red",
+                overlay: "linear-gradient(to top, rgba(50,15,15,0.88) 0%, rgba(50,15,15,0.25) 60%, rgba(50,15,15,0.0) 100%)",
               },
               {
                 label: "Champagne & Sparkling",
-                labelZh: "香檳及氣泡酒",
-                img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&auto=format&fit=crop",
+                labelZh: "Celebrate with fine bubbles",
+                img: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&q=80&auto=format&fit=crop",
                 filter: "type=Champagne",
+                overlay: "linear-gradient(to top, rgba(20,16,8,0.85) 0%, rgba(20,16,8,0.2) 60%, rgba(20,16,8,0.0) 100%)",
               },
               {
                 label: "Staff Picks",
-                labelZh: "員工精選",
-                img: "https://images.unsplash.com/photo-1474722883778-792e7990302f?w=800&q=80&auto=format&fit=crop",
+                labelZh: "Our current top picks",
+                img: "https://images.unsplash.com/photo-1547595628-c61a29f496f0?w=800&q=80&auto=format&fit=crop",
                 filter: "",
+                overlay: "linear-gradient(to top, rgba(8,20,28,0.90) 0%, rgba(8,20,28,0.3) 60%, rgba(8,20,28,0.0) 100%)",
               },
               {
                 label: "HK Hotpot 打邊爐",
@@ -334,7 +337,7 @@ export default function HomePage() {
                 img: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=800&q=80&auto=format&fit=crop",
                 filter: "type=Red",
               },
-            ].map((cat) => (
+            ].map((cat: any) => (
               <Link key={cat.label} href={`/wines${cat.filter ? "?" + cat.filter : ""}`}>
                 <a className="relative group rounded-xl overflow-hidden block aspect-[4/3] cursor-pointer">
                   {/* Background image */}
@@ -342,12 +345,15 @@ export default function HomePage() {
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
                     style={{ backgroundImage: `url('${cat.img}')` }}
                   />
-                  {/* Dark overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/70 transition-all duration-300" />
+                  {/* Overlay — custom per card or default */}
+                  <div
+                    className="absolute inset-0 transition-all duration-300"
+                    style={{ background: cat.overlay || "linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.28) 60%, rgba(0,0,0,0.0) 100%)" }}
+                  />
                   {/* Text */}
                   <div className="absolute bottom-0 left-0 right-0 p-5">
                     <h3 className="font-display text-xl text-white font-light leading-tight">{cat.label}</h3>
-                    <p className="font-body text-xs text-white/60 mt-0.5">{cat.labelZh}</p>
+                    <p className="font-body text-xs mt-1" style={{ color: "rgba(255,255,255,0.65)" }}>{cat.labelZh}</p>
                   </div>
                   {/* Arrow */}
                   <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
