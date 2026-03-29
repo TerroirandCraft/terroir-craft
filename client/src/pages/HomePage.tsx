@@ -325,7 +325,7 @@ export default function HomePage() {
               {
                 label: "HK Hotpot 打邊爐",
                 labelZh: "火鍋配酒",
-                img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=800&q=80&auto=format&fit=crop",
+                img: `${API_BASE}/hotpot.jpg`,
                 filter: "",
               },
               {
