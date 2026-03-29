@@ -322,6 +322,18 @@ export default function HomePage() {
                 img: "https://images.unsplash.com/photo-1474722883778-792e7990302f?w=800&q=80&auto=format&fit=crop",
                 filter: "",
               },
+              {
+                label: "HK Hotpot 打邊爐",
+                labelZh: "火鍋配酒",
+                img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=800&q=80&auto=format&fit=crop",
+                filter: "",
+              },
+              {
+                label: "BBQ & Grill",
+                labelZh: "BBQ 燒烤配酒",
+                img: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=800&q=80&auto=format&fit=crop",
+                filter: "type=Red",
+              },
             ].map((cat) => (
               <Link key={cat.label} href={`/wines${cat.filter ? "?" + cat.filter : ""}`}>
                 <a className="relative group rounded-xl overflow-hidden block aspect-[4/3] cursor-pointer">
@@ -392,56 +404,6 @@ export default function HomePage() {
             <Link href="/brands">
               <Button variant="outline" className="font-body">
                 View All 23 Brands <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── REGION EXPLORER ─── */}
-      <section className="py-16 bg-[hsl(30,15%,96%)] border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10">
-            <p className="font-body text-xs tracking-[0.25em] uppercase text-[hsl(355,62%,28%)] mb-3">Shop by Origin</p>
-            <h2 className="font-display text-3xl md:text-4xl font-light text-foreground">
-              Explore by Region 按產區選酒
-            </h2>
-            <p className="font-body text-sm text-muted-foreground mt-3">
-              Click any region to browse our exclusive selection
-            </p>
-          </div>
-
-          <WorldMap />
-
-          <div className="text-center mt-8">
-            <Link href="/wines">
-              <Button variant="outline" className="font-body border-[hsl(355,62%,28%)] text-[hsl(355,62%,28%)] hover:bg-[hsl(355,62%,28%)] hover:text-white">
-                View All 112 Wines <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── REGION EXPLORER ─── */}
-      <section className="py-16 bg-[hsl(30,15%,96%)] border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10">
-            <p className="font-body text-xs tracking-[0.25em] uppercase text-[hsl(355,62%,28%)] mb-3">Shop by Origin</p>
-            <h2 className="font-display text-3xl md:text-4xl font-light text-foreground">
-              Explore by Region 按產區選酒
-            </h2>
-            <p className="font-body text-sm text-muted-foreground mt-3">
-              Click any region to browse our exclusive selection
-            </p>
-          </div>
-
-          <WorldMap />
-
-          <div className="text-center mt-8">
-            <Link href="/wines">
-              <Button variant="outline" className="font-body border-[hsl(355,62%,28%)] text-[hsl(355,62%,28%)] hover:bg-[hsl(355,62%,28%)] hover:text-white">
-                View All 112 Wines <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </Link>
           </div>
