@@ -297,9 +297,9 @@ export default function HomePage() {
               {
                 label: "Champagne & Sparkling",
                 labelZh: "Celebrate with fine bubbles",
-                img: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&q=80&auto=format&fit=crop",
+                img: "https://images.unsplash.com/photo-1578911373434-0cb395d2cbfb?w=800&q=80&auto=format&fit=crop",
                 filter: "type=Champagne",
-                overlay: "linear-gradient(to top, rgba(20,16,8,0.85) 0%, rgba(20,16,8,0.2) 60%, rgba(20,16,8,0.0) 100%)",
+                overlay: "linear-gradient(to top, rgba(12,10,6,0.88) 0%, rgba(12,10,6,0.25) 60%, rgba(12,10,6,0.0) 100%)",
               },
               {
                 label: "Staff Picks",
