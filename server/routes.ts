@@ -457,15 +457,43 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   });
 
   // ── Payment Asia ───────────────────────────────────────────────────────────
-  // Create payment — generates HTML auto-submit form to Payment Asia hosted page
+  // In-memory pending orders store { merchantReference -> order details }
+  // Survives until payment callback confirms or 24h TTL
+  const pendingOrders = new Map<string, {
+    customerName: string;
+    customerEmail: string;
+    memberId?: number;
+    referredBy?: string;
+    amount: number;
+    items: Array<{ name: string; itemCode: string; quantity: number; unitPrice: number }>;
+    createdAt: number;
+  }>();
+
+  // Create payment — stores order details + gets Payment Asia URL
   app.post("/api/payment/create", async (req, res) => {
     try {
-      const { merchantReference, amount, customerName, customerEmail, customerPhone, subject } = req.body;
+      const { merchantReference, amount, customerName, customerEmail, customerPhone, subject, memberId, referredBy, items } = req.body;
       if (!merchantReference || !amount || !customerName || !customerEmail) {
         return res.status(400).json({ error: "Missing required fields" });
       }
 
-      // Get customer IP from request
+      // Store order details so callback can open Xero invoice
+      pendingOrders.set(merchantReference, {
+        customerName,
+        customerEmail,
+        memberId,
+        referredBy,
+        amount: Number(amount),
+        items: items || [],
+        createdAt: Date.now(),
+      });
+
+      // Clean up old pending orders (>24h)
+      const cutoff = Date.now() - 24 * 60 * 60 * 1000;
+      for (const [k, v] of pendingOrders.entries()) {
+        if (v.createdAt < cutoff) pendingOrders.delete(k);
+      }
+
       const customerIp = (req.headers["x-forwarded-for"] as string || req.socket.remoteAddress || "127.0.0.1")
         .split(",")[0].trim();
 
@@ -488,24 +516,71 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
 
   // Callback from Payment Asia (POST webhook)
   app.post("/api/payment/callback", async (req, res) => {
+    // Must respond quickly — Payment Asia expects fast response
+    res.json({ status: "ok" });
+
     try {
       const body = req.body as Record<string, string>;
       console.log("[PaymentAsia] Callback received:", JSON.stringify(body));
 
-      // Verify signature (optional but recommended)
-      // const valid = verifyCallbackSignature(body);
+      const { merchant_reference, status, amount } = body;
+      // Per Payment Asia docs: status=1 means SUCCESS
+      const isPaid = status === "1" || status === "paid" || status === "success" || status === "SUCCESS";
 
-      const { merchant_reference, status, amount, currency } = body;
-      const isPaid = status === "paid" || status === "success" || status === "SUCCESS" || status === "PAID";
-
-      if (isPaid && merchant_reference) {
-        console.log(`[PaymentAsia] Payment confirmed: ${merchant_reference} HKD ${amount}`);
-        // Here you could update order status, trigger Xero invoice, etc.
+      if (!isPaid || !merchant_reference) {
+        console.log(`[PaymentAsia] Not a successful payment. Status: ${status}`);
+        return;
       }
 
-      res.json({ status: "ok" });
+      console.log(`[PaymentAsia] Payment confirmed: ${merchant_reference} HKD ${amount}`);
+
+      // Retrieve stored order details
+      const order = pendingOrders.get(merchant_reference);
+      if (!order) {
+        console.warn(`[PaymentAsia] No pending order found for ${merchant_reference}`);
+        return;
+      }
+
+      pendingOrders.delete(merchant_reference); // consume it
+
+      // 1. Create Xero invoice (this also emails the customer)
+      if (isXeroConnected() && order.items.length > 0) {
+        try {
+          const invoiceNumber = await createXeroInvoice({
+            customerName: order.customerName,
+            customerEmail: order.customerEmail,
+            items: order.items,
+            referredBy: order.referredBy,
+            orderRef: merchant_reference,
+          });
+          console.log(`[PaymentAsia] Xero invoice created: ${invoiceNumber} for ${order.customerEmail}`);
+        } catch (xeroErr) {
+          console.error("[PaymentAsia] Xero invoice error:", xeroErr);
+        }
+      } else {
+        console.warn("[PaymentAsia] Xero not connected or no items — skipping invoice");
+      }
+
+      // 2. Award loyalty points to member
+      if (order.memberId) {
+        try {
+          const member = await storage.getMemberById(order.memberId);
+          if (member) {
+            const pts = Math.floor(order.amount / 5);
+            await storage.addPoints(order.memberId, pts, `Purchase HK$${order.amount} (${merchant_reference})`);
+            if (!member.bonus_first_order) {
+              await storage.updateMember(order.memberId, { bonus_first_order: true });
+              await storage.addPoints(order.memberId, 100, "First order bonus");
+            }
+            console.log(`[PaymentAsia] Points awarded to member ${order.memberId}`);
+          }
+        } catch (ptsErr) {
+          console.error("[PaymentAsia] Points error:", ptsErr);
+        }
+      }
+
     } catch (err) {
-      res.status(500).json({ error: "Callback processing failed" });
+      console.error("[PaymentAsia] Callback processing error:", err);
     }
   });
 

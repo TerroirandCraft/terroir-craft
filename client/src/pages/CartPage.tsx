@@ -164,6 +164,14 @@ export default function CartPage() {
         customerEmail: member.email,
         customerPhone: phone.trim() || member.phone,
         subject,
+        memberId: member.id,
+        referredBy: getReferral() || undefined,
+        items: items.map(i => ({
+          name: i.product.name,
+          itemCode: i.product.id,
+          quantity: i.quantity,
+          unitPrice: i.product.promo_price ?? i.product.price,
+        })),
       });
       const data = await res.json();
 
