@@ -10,7 +10,7 @@ import { getStockMap, appendMember, initMembersSheet } from "./googleSheets";
 import { storeResetToken, consumeResetToken } from "./storage"; // now async (PostgreSQL)
 import { sendPasswordResetEmail } from "./email";
 import { xero, setXeroTokens, isXeroConnected, createXeroInvoice } from "./xero";
-import { createPayment, verifyCallbackSignature } from "./paymentAsia";
+import { createPaymentForm, verifyCallbackSignature } from "./paymentAsia";
 
 // Load Fine & Rare data once at startup
 let fineRareData: unknown[] = [];
@@ -457,23 +457,32 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   });
 
   // ── Payment Asia ───────────────────────────────────────────────────────────
-  // Create payment — returns payment_url to redirect customer
+  // Create payment — generates HTML auto-submit form to Payment Asia hosted page
   app.post("/api/payment/create", async (req, res) => {
     try {
       const { merchantReference, amount, customerName, customerEmail, customerPhone, subject } = req.body;
       if (!merchantReference || !amount || !customerName || !customerEmail) {
         return res.status(400).json({ error: "Missing required fields" });
       }
-      const result = await createPayment({
+
+      // Get customer IP from request
+      const customerIp = (req.headers["x-forwarded-for"] as string || req.socket.remoteAddress || "127.0.0.1")
+        .split(",")[0].trim();
+
+      const result = createPaymentForm({
         merchantReference,
         amount: Number(amount),
         customerName,
         customerEmail,
         customerPhone,
+        customerIp,
         subject: subject || "Terroir & Craft Order",
       });
+
+      // Return the HTML form — client will write it to a new page and submit
       res.json(result);
     } catch (err) {
+      console.error("[PaymentAsia] create error:", err);
       res.status(500).json({ error: "Payment creation failed" });
     }
   });
