@@ -6,7 +6,7 @@ import type { Product } from "@shared/schema";
 import crypto from "crypto";
 import { readFileSync } from "fs";
 import { join } from "path";
-import { getStockMap, appendMember, initMembersSheet, checkStockAvailability, deductStock } from "./googleSheets";
+import { getStockMap, appendMember, initMembersSheet, checkStockAvailability } from "./googleSheets";
 import { storeResetToken, consumeResetToken } from "./storage"; // now async (PostgreSQL)
 import { sendPasswordResetEmail } from "./email";
 import { xero, setXeroTokens, isXeroConnected, createXeroInvoice } from "./xero";
@@ -562,12 +562,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
 
       pendingOrders.delete(merchant_reference); // consume it
 
-      // 1. Deduct stock from Google Sheets
-      if (order.items.length > 0) {
-        await deductStock(order.items.map(i => ({ itemCode: i.itemCode, quantity: i.quantity })));
-      }
-
-      // 2. Create Xero invoice (AUTHORISED + PAID + email customer)
+      // 1. Create Xero invoice (AUTHORISED + PAID + email customer)
       if (isXeroConnected() && order.items.length > 0) {
         try {
           const invoiceNumber = await createXeroInvoice({

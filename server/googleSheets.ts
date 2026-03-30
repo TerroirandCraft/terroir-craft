@@ -24,7 +24,7 @@ const MEMBERS_SHEET_TAB = "工作表1";
 let stockCache: Record<string, number> = {};
 let stockCacheTime = 0;
 let stockRowIndex: Record<string, number> = {}; // itemCode → row number (1-based)
-const CACHE_TTL_MS = 2 * 60 * 1000; // 2 minutes
+const CACHE_TTL_MS = 30 * 1000; // 30 seconds — as fresh as possible without hammering the API
 
 export async function getStockMap(forceRefresh = false): Promise<Record<string, number>> {
   const now = Date.now();
