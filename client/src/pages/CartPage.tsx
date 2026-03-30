@@ -167,15 +167,8 @@ export default function CartPage() {
       });
       const data = await res.json();
 
-      if (data.success && data.htmlForm) {
-        // Write the auto-submit HTML form to a new document
-        // This POSTs directly to Payment Asia hosted page
-        const newWin = window.open("", "_self");
-        if (newWin) {
-          newWin.document.open();
-          newWin.document.write(data.htmlForm);
-          newWin.document.close();
-        }
+      if (data.success && data.paymentUrl) {
+        window.location.href = data.paymentUrl;
       } else {
         toast({ title: "Payment failed", description: data.error || "Please try again.", variant: "destructive" });
       }

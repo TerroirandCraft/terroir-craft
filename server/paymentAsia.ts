@@ -19,7 +19,6 @@ function phpEncode(str: string): string {
 }
 
 // ── Signature: SHA-512 of http_build_query(sorted fields) + secret ────────────
-// Matches PHP: hash('SHA512', http_build_query($fields) . $secret)
 function buildSignature(params: Record<string, string>): string {
   const sorted = Object.keys(params)
     .sort()
@@ -40,12 +39,11 @@ export interface PaymentRequest {
 
 export interface PaymentResponse {
   success: boolean;
-  htmlForm?: string;
   paymentUrl?: string;
   error?: string;
 }
 
-export function createPaymentForm(req: PaymentRequest): PaymentResponse {
+export async function createPayment(req: PaymentRequest): Promise<PaymentResponse> {
   const firstName = req.customerName.split(" ")[0] || req.customerName;
   const lastName = req.customerName.split(" ").slice(1).join(" ") || req.customerName;
 
@@ -66,34 +64,47 @@ export function createPaymentForm(req: PaymentRequest): PaymentResponse {
     subject: req.subject.substring(0, 255),
   };
 
-  // Generate signature (before adding sign field)
   fields.sign = buildSignature(fields);
 
-  // Generic gateway URL: /generic/[Merchant Token]
   const actionUrl = `${PA_GATEWAY_BASE}/generic/${PA_MERCHANT_TOKEN}`;
 
-  const hiddenInputs = Object.entries(fields)
-    .map(([k, v]) => `<input type="hidden" name="${k}" value="${v.replace(/"/g, "&quot;")}" />`)
-    .join("\n    ");
+  try {
+    // POST form to Payment Asia — it returns 302 redirect to hosted payment page
+    const params = new URLSearchParams(fields);
+    const response = await fetch(actionUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Accept": "text/html,application/json",
+      },
+      body: params.toString(),
+      redirect: "manual", // Don't follow redirect — we want the Location header
+    });
 
-  const htmlForm = `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8"/>
-  <title>Redirecting to secure payment...</title>
-  <style>body{font-family:sans-serif;text-align:center;padding:3rem;color:#333;}</style>
-</head>
-<body onload="document.forms['payment'].submit();">
-  <p>Redirecting to secure payment page...</p>
-  <p style="font-size:0.875rem;color:#999;">Please do not close this window.</p>
-  <form method="POST" action="${actionUrl}" name="payment" accept-charset="utf-8">
-    ${hiddenInputs}
-  </form>
-</body>
-</html>`;
+    console.log("[PaymentAsia] Response status:", response.status);
 
-  console.log("[PaymentAsia] Form created:", req.merchantReference, "→", actionUrl);
-  return { success: true, htmlForm, paymentUrl: actionUrl };
+    if (response.status === 302) {
+      // Get the redirect URL from Location header
+      let location = response.headers.get("location") || "";
+
+      // Fix protocol-relative URLs (//payment.pa-sys.com/...)
+      if (location.startsWith("//")) {
+        location = "https:" + location;
+      }
+
+      console.log("[PaymentAsia] Payment URL:", location);
+      return { success: true, paymentUrl: location };
+    }
+
+    // Non-redirect response — check for error
+    const text = await response.text();
+    console.error("[PaymentAsia] Unexpected response:", response.status, text.substring(0, 200));
+    return { success: false, error: `Unexpected response: ${response.status}` };
+
+  } catch (err: any) {
+    console.error("[PaymentAsia] Error:", err);
+    return { success: false, error: err.message };
+  }
 }
 
 // ── Verify callback signature from Payment Asia datafeed ──────────────────────

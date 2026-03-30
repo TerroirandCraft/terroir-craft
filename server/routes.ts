@@ -10,7 +10,7 @@ import { getStockMap, appendMember, initMembersSheet } from "./googleSheets";
 import { storeResetToken, consumeResetToken } from "./storage"; // now async (PostgreSQL)
 import { sendPasswordResetEmail } from "./email";
 import { xero, setXeroTokens, isXeroConnected, createXeroInvoice } from "./xero";
-import { createPaymentForm, verifyCallbackSignature } from "./paymentAsia";
+import { createPayment, verifyCallbackSignature } from "./paymentAsia";
 
 // Load Fine & Rare data once at startup
 let fineRareData: unknown[] = [];
@@ -469,7 +469,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
       const customerIp = (req.headers["x-forwarded-for"] as string || req.socket.remoteAddress || "127.0.0.1")
         .split(",")[0].trim();
 
-      const result = createPaymentForm({
+      const result = await createPayment({
         merchantReference,
         amount: Number(amount),
         customerName,
@@ -479,7 +479,6 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
         subject: subject || "Terroir & Craft Order",
       });
 
-      // Return the HTML form — client will write it to a new page and submit
       res.json(result);
     } catch (err) {
       console.error("[PaymentAsia] create error:", err);
