@@ -6,7 +6,7 @@ import type { Product } from "@shared/schema";
 import crypto from "crypto";
 import { readFileSync } from "fs";
 import { join } from "path";
-import { getStockMap, appendMember, initMembersSheet } from "./googleSheets";
+import { getStockMap, appendMember, initMembersSheet, checkStockAvailability, deductStock } from "./googleSheets";
 import { storeResetToken, consumeResetToken } from "./storage"; // now async (PostgreSQL)
 import { sendPasswordResetEmail } from "./email";
 import { xero, setXeroTokens, isXeroConnected, createXeroInvoice } from "./xero";
@@ -458,10 +458,14 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
 
   // ── Payment Asia ───────────────────────────────────────────────────────────
   // In-memory pending orders store { merchantReference -> order details }
-  // Survives until payment callback confirms or 24h TTL
   const pendingOrders = new Map<string, {
     customerName: string;
     customerEmail: string;
+    customerPhone?: string;
+    deliveryAddress?: string;
+    isGift?: boolean;
+    recipientName?: string;
+    recipientPhone?: string;
     memberId?: number;
     referredBy?: string;
     amount: number;
@@ -477,10 +481,25 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
         return res.status(400).json({ error: "Missing required fields" });
       }
 
+      // Stock availability check before redirecting to payment
+      if (items && items.length > 0) {
+        const stockCheck = await checkStockAvailability(items);
+        if (!stockCheck.ok) {
+          return res.status(409).json({ error: `Stock issue: ${stockCheck.issues.join(", ")}` });
+        }
+      }
+
+      const { isGift, recipientName, recipientPhone, deliveryAddress } = req.body;
+
       // Store order details so callback can open Xero invoice
       pendingOrders.set(merchantReference, {
         customerName,
         customerEmail,
+        customerPhone,
+        deliveryAddress,
+        isGift: !!isGift,
+        recipientName,
+        recipientPhone,
         memberId,
         referredBy,
         amount: Number(amount),
@@ -543,15 +562,26 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
 
       pendingOrders.delete(merchant_reference); // consume it
 
-      // 1. Create Xero invoice (this also emails the customer)
+      // 1. Deduct stock from Google Sheets
+      if (order.items.length > 0) {
+        await deductStock(order.items.map(i => ({ itemCode: i.itemCode, quantity: i.quantity })));
+      }
+
+      // 2. Create Xero invoice (AUTHORISED + PAID + email customer)
       if (isXeroConnected() && order.items.length > 0) {
         try {
           const invoiceNumber = await createXeroInvoice({
             customerName: order.customerName,
             customerEmail: order.customerEmail,
+            customerPhone: order.customerPhone,
+            deliveryAddress: order.deliveryAddress,
+            isGift: order.isGift,
+            recipientName: order.recipientName,
+            recipientPhone: order.recipientPhone,
             items: order.items,
             referredBy: order.referredBy,
             orderRef: merchant_reference,
+            amountPaid: order.amount,
           });
           console.log(`[PaymentAsia] Xero invoice created: ${invoiceNumber} for ${order.customerEmail}`);
         } catch (xeroErr) {

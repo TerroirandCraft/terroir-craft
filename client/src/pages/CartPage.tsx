@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingCart, Trash2, Plus, Minus, ArrowRight, Package, Star, Tag, CreditCard, MapPin, Phone } from "lucide-react";
+import { ShoppingCart, Trash2, Plus, Minus, ArrowRight, Package, Star, Tag, CreditCard, MapPin, Phone, Gift, User } from "lucide-react";
 import { API_BASE } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -47,6 +47,11 @@ export default function CartPage() {
   const [phone, setPhone] = useState(member?.phone || "");
   const [address, setAddress] = useState((member as any)?.address || "");
   const [district, setDistrict] = useState((member as any)?.district || "");
+
+  // Gift toggle
+  const [isGift, setIsGift] = useState(false);
+  const [recipientName, setRecipientName] = useState("");
+  const [recipientPhone, setRecipientPhone] = useState("");
 
   if (items.length === 0) {
     return (
@@ -166,6 +171,10 @@ export default function CartPage() {
         subject,
         memberId: member.id,
         referredBy: getReferral() || undefined,
+        deliveryAddress: `${address.trim()}, ${district.trim()}`,
+        isGift,
+        recipientName: isGift ? recipientName.trim() : undefined,
+        recipientPhone: isGift ? recipientPhone.trim() : undefined,
         items: items.map(i => ({
           name: i.product.name,
           itemCode: i.product.id,
@@ -260,16 +269,68 @@ export default function CartPage() {
             {/* Delivery Info — shown when logged in */}
             {isLoggedIn && (
               <div className="bg-card border border-border rounded-xl p-5 mt-2 space-y-4">
-                <div>
-                  <h3 className="font-display text-base font-medium mb-0.5">送貨資料 Delivery Info</h3>
-                  <p className="font-body text-xs text-muted-foreground">資料會儲存至你的會員帳戶</p>
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 className="font-display text-base font-medium mb-0.5">送貨資料 Delivery Info</h3>
+                    <p className="font-body text-xs text-muted-foreground">資料會儲存至你的會員帳戶</p>
+                  </div>
+                  {/* Gift toggle */}
+                  <button
+                    type="button"
+                    onClick={() => setIsGift(g => !g)}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-body font-medium transition-all ${
+                      isGift
+                        ? "bg-[hsl(355,62%,28%)] text-white border-[hsl(355,62%,28%)]"
+                        : "bg-background text-muted-foreground border-border hover:border-[hsl(355,62%,28%)]/50"
+                    }`}
+                    data-testid="gift-toggle"
+                  >
+                    <Gift className="w-3.5 h-3.5" />
+                    送禮 Gift
+                  </button>
                 </div>
 
-                {/* Phone */}
+                {/* Gift notice */}
+                {isGift && (
+                  <div className="bg-[hsl(355,62%,28%)]/8 border border-[hsl(355,62%,28%)]/20 rounded-lg p-3">
+                    <p className="font-body text-xs text-[hsl(355,62%,28%)] leading-relaxed">
+                      🎁 送禮模式：我們會隨訂單附上 Delivery Note，<strong>不顯示價格</strong>。可場合填寫收禮人資料。
+                    </p>
+                  </div>
+                )}
+
+                {/* Recipient info (gift only) */}
+                {isGift && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 bg-muted/30 rounded-lg border border-border">
+                    <p className="font-body text-xs font-medium text-foreground col-span-full">收禮人資料 Recipient</p>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                      <Input
+                        placeholder="收禮人姓名 Recipient name"
+                        value={recipientName}
+                        onChange={e => setRecipientName(e.target.value)}
+                        className="pl-9 font-body"
+                        data-testid="recipient-name"
+                      />
+                    </div>
+                    <div className="relative">
+                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                      <Input
+                        placeholder="收禮人電話 Recipient phone"
+                        value={recipientPhone}
+                        onChange={e => setRecipientPhone(e.target.value)}
+                        className="pl-9 font-body"
+                        data-testid="recipient-phone"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Buyer phone */}
                 <div className="relative">
                   <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
-                    placeholder="聯絡電話 Contact number"
+                    placeholder="購買人聯絡電話 Your contact number"
                     value={phone}
                     onChange={e => setPhone(e.target.value)}
                     className="pl-9 font-body"

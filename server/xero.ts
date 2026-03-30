@@ -54,9 +54,15 @@ export interface OrderItem {
 export interface CreateInvoiceParams {
   customerName: string;
   customerEmail: string;
+  customerPhone?: string;
+  deliveryAddress?: string;
+  recipientName?: string;    // For gifts: recipient name
+  recipientPhone?: string;   // For gifts: recipient phone
+  isGift?: boolean;          // If true: delivery note only, no prices
   items: OrderItem[];
-  referredBy?: string;   // sales rep code e.g. "ALAN"
-  orderRef: string;      // internal order reference
+  referredBy?: string;       // sales rep code e.g. "ALAN"
+  orderRef: string;          // internal order reference
+  amountPaid?: number;       // Total amount already paid via Payment Asia
 }
 
 export async function createXeroInvoice(params: CreateInvoiceParams): Promise<string | null> {
@@ -99,29 +105,42 @@ export async function createXeroInvoice(params: CreateInvoiceParams): Promise<st
       contactId = created.body.contacts![0].contactID!;
     }
 
-    // 2. Build line items — all using account code 202 (Online Store)
-    const lineItems = params.items.map(item => ({
-      description: item.name,
-      itemCode: item.itemCode,
-      quantity: item.quantity,
-      unitAmount: item.unitPrice,
-      accountCode: "202",   // Online Store account
-      taxType: "NONE",
-    }));
+    // 2. Build line items — try item code first, fallback to description only
+    const lineItems = params.items.map(item => {
+      const base: any = {
+        description: item.name,
+        quantity: item.quantity,
+        unitAmount: item.unitPrice,
+        accountCode: "202",
+        taxType: "NONE",
+      };
+      // Only add itemCode if it looks like a valid TC item code (e.g. TCAU-MO0123)
+      if (item.itemCode && /^[A-Z]{2,6}-/.test(item.itemCode)) {
+        base.itemCode = item.itemCode;
+      }
+      return base;
+    });
 
-    // 3. Build reference string with referred by
-    const reference = params.referredBy
+    // 3. Reference includes delivery info
+    let reference = params.referredBy
       ? `${params.orderRef} | Ref: ${params.referredBy}`
       : params.orderRef;
+    if (params.isGift && params.recipientName) {
+      reference += ` | GIFT to: ${params.recipientName} ${params.recipientPhone || ""}`;
+    }
+    if (params.deliveryAddress) {
+      reference += ` | Delivery: ${params.deliveryAddress}`;
+    }
 
-    // 4. Create invoice
+    // 4. Create AUTHORISED invoice
+    const today = new Date().toISOString().split("T")[0];
     const invoiceResp = await xero.accountingApi.createInvoices(tenantId, {
       invoices: [{
         type: "ACCREC" as any,
         contact: { contactID: contactId },
         lineItems,
-        date: new Date().toISOString().split("T")[0],
-        dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+        date: today,
+        dueDate: today, // Already paid
         reference,
         status: "AUTHORISED" as any,
         currencyCode: "HKD" as any,
@@ -131,12 +150,29 @@ export async function createXeroInvoice(params: CreateInvoiceParams): Promise<st
     const invoice = invoiceResp.body.invoices?.[0];
     const invoiceId = invoice?.invoiceID;
     const invoiceNumber = invoice?.invoiceNumber;
+    const invoiceTotal = invoice?.total ?? params.amountPaid ?? 0;
 
-    // 5. Send invoice email to customer
+    // 5. Mark invoice as PAID (payment already received via Payment Asia)
+    if (invoiceId && invoiceTotal > 0) {
+      try {
+        // Find the HKD bank account or use undeposited funds (account 090)
+        await xero.accountingApi.createPayment(tenantId, {
+          invoice: { invoiceID: invoiceId },
+          account: { code: "090" }, // Undeposited Funds — change to your bank account code if needed
+          amount: invoiceTotal,
+          date: today,
+        } as any);
+        console.log(`[Xero] Invoice ${invoiceNumber} marked as PAID`);
+      } catch (paidErr) {
+        console.warn("[Xero] Could not mark as paid (invoice still created):", paidErr);
+      }
+    }
+
+    // 6. Email invoice/receipt to customer (skip if gift — they get delivery note separately)
     if (invoiceId) {
       try {
         await xero.accountingApi.emailInvoice(tenantId, invoiceId, {});
-        console.log(`[Xero] Invoice ${invoiceNumber} created and emailed to ${params.customerEmail}`);
+        console.log(`[Xero] Invoice ${invoiceNumber} emailed to ${params.customerEmail}`);
       } catch (emailErr) {
         console.warn("[Xero] Invoice created but email failed:", emailErr);
       }

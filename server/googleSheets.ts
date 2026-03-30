@@ -16,18 +16,19 @@ function getAuth() {
 
 // ── Sheet IDs ──────────────────────────────────────────────────────────────
 const STOCK_SHEET_ID = "1k5mUs69iPYHSi6WoeVD1hrls4dnlI-yMBRIOIq8dRVg";
-const STOCK_SHEET_TAB = "Item Master"; // W=總庫存, A=Item Code
+const STOCK_SHEET_TAB = "Item Master"; // A=Item Code, W=總庫存
 const MEMBERS_SHEET_ID = "1knojavzlakQAQjPLMhhAwpPNsUhuSkhISVYEyIOpD_U";
 const MEMBERS_SHEET_TAB = "工作表1";
 
-// ── Stock cache (15 minutes) ───────────────────────────────────────────────
+// ── Stock cache (2 minutes — short enough to catch recent changes) ─────────
 let stockCache: Record<string, number> = {};
 let stockCacheTime = 0;
-const CACHE_TTL_MS = 15 * 60 * 1000;
+let stockRowIndex: Record<string, number> = {}; // itemCode → row number (1-based)
+const CACHE_TTL_MS = 2 * 60 * 1000; // 2 minutes
 
-export async function getStockMap(): Promise<Record<string, number>> {
+export async function getStockMap(forceRefresh = false): Promise<Record<string, number>> {
   const now = Date.now();
-  if (now - stockCacheTime < CACHE_TTL_MS && Object.keys(stockCache).length > 0) {
+  if (!forceRefresh && now - stockCacheTime < CACHE_TTL_MS && Object.keys(stockCache).length > 0) {
     return stockCache;
   }
 
@@ -35,7 +36,6 @@ export async function getStockMap(): Promise<Record<string, number>> {
     const auth = getAuth();
     const sheets = google.sheets({ version: "v4", auth });
 
-    // Read columns A (item code) and W (stock) — rows 2 onwards
     const res = await sheets.spreadsheets.values.get({
       spreadsheetId: STOCK_SHEET_ID,
       range: `${STOCK_SHEET_TAB}!A:W`,
@@ -43,6 +43,7 @@ export async function getStockMap(): Promise<Record<string, number>> {
 
     const rows = res.data.values || [];
     const map: Record<string, number> = {};
+    const rowIdx: Record<string, number> = {};
 
     for (let i = 1; i < rows.length; i++) {
       const row = rows[i];
@@ -51,21 +52,93 @@ export async function getStockMap(): Promise<Record<string, number>> {
       if (itemCode) {
         const stock = stockRaw !== undefined && stockRaw !== "" ? Number(stockRaw) : 999;
         map[itemCode] = isNaN(stock) ? 999 : stock;
+        rowIdx[itemCode] = i + 1; // Sheets rows are 1-based, +1 for header row
       }
     }
 
     stockCache = map;
+    stockRowIndex = rowIdx;
     stockCacheTime = now;
     console.log(`[Sheets] Stock cache updated: ${Object.keys(map).length} items`);
     return map;
   } catch (err) {
     console.error("[Sheets] Failed to fetch stock:", err);
-    return stockCache; // Return stale cache on error
+    return stockCache;
   }
 }
 
-export function getStockStatus(stock: number): "in_stock" | "out_of_stock" {
-  return stock > 0 ? "in_stock" : "out_of_stock";
+export function getStockStatus(stock: number): "in_stock" | "low_stock" | "out_of_stock" {
+  if (stock <= 0) return "out_of_stock";
+  if (stock <= 3) return "low_stock";
+  return "in_stock";
+}
+
+// ── Check if items are available (for checkout validation) ─────────────────
+export async function checkStockAvailability(
+  items: Array<{ itemCode: string; quantity: number; name: string }>
+): Promise<{ ok: boolean; issues: string[] }> {
+  const stockMap = await getStockMap(true); // Always fresh check at checkout
+  const issues: string[] = [];
+
+  for (const item of items) {
+    const stock = stockMap[item.itemCode];
+    if (stock === undefined) continue; // Item not tracked in sheet — allow
+    if (stock < item.quantity) {
+      if (stock === 0) {
+        issues.push(`${item.name} is out of stock`);
+      } else {
+        issues.push(`${item.name}: only ${stock} available (requested ${item.quantity})`);
+      }
+    }
+  }
+
+  return { ok: issues.length === 0, issues };
+}
+
+// ── Deduct stock after confirmed payment ───────────────────────────────────
+export async function deductStock(
+  items: Array<{ itemCode: string; quantity: number }>
+): Promise<void> {
+  try {
+    const auth = getAuth();
+    const sheets = google.sheets({ version: "v4", auth });
+
+    // Refresh cache to get latest row indices
+    await getStockMap(true);
+
+    const requests = [];
+    for (const item of items) {
+      const rowNum = stockRowIndex[item.itemCode];
+      const currentStock = stockCache[item.itemCode];
+
+      if (rowNum === undefined || currentStock === undefined || currentStock >= 999) {
+        console.log(`[Sheets] Skipping stock deduct for ${item.itemCode} (not tracked)`);
+        continue;
+      }
+
+      const newStock = Math.max(0, currentStock - item.quantity);
+
+      requests.push(
+        sheets.spreadsheets.values.update({
+          spreadsheetId: STOCK_SHEET_ID,
+          range: `${STOCK_SHEET_TAB}!W${rowNum}`,
+          valueInputOption: "USER_ENTERED",
+          requestBody: { values: [[newStock]] },
+        })
+      );
+
+      // Update local cache immediately
+      stockCache[item.itemCode] = newStock;
+      console.log(`[Sheets] Stock deducted: ${item.itemCode} ${currentStock} → ${newStock}`);
+    }
+
+    await Promise.all(requests);
+    // Invalidate cache so next read gets fresh data
+    stockCacheTime = 0;
+  } catch (err) {
+    console.error("[Sheets] Failed to deduct stock:", err);
+    // Non-blocking — don't fail the order
+  }
 }
 
 // ── Write new member to TC Website Members sheet ───────────────────────────
@@ -79,7 +152,6 @@ export async function appendMember(data: {
   try {
     const auth = getAuth();
     const sheets = google.sheets({ version: "v4", auth });
-
     const now = new Date().toLocaleString("zh-HK", { timeZone: "Asia/Hong_Kong" });
 
     await sheets.spreadsheets.values.append({
@@ -88,21 +160,14 @@ export async function appendMember(data: {
       valueInputOption: "USER_ENTERED",
       requestBody: {
         values: [[
-          now,                    // A: 登記日期
-          data.name,              // B: 姓名
-          data.email,             // C: Email
-          data.phone || "",       // D: 電話
-          data.points,            // E: 積分
-          data.source,            // F: 來源
-          "",                     // G: 備註
+          now, data.name, data.email, data.phone || "",
+          data.points, data.source, "",
         ]],
       },
     });
-
     console.log(`[Sheets] New member appended: ${data.email}`);
   } catch (err) {
     console.error("[Sheets] Failed to append member:", err);
-    // Don't throw — member registration should still succeed even if Sheets fails
   }
 }
 
@@ -111,23 +176,18 @@ export async function initMembersSheet() {
   try {
     const auth = getAuth();
     const sheets = google.sheets({ version: "v4", auth });
-
     const res = await sheets.spreadsheets.values.get({
       spreadsheetId: MEMBERS_SHEET_ID,
       range: `${MEMBERS_SHEET_TAB}!A1:G1`,
     });
-
     const firstRow = res.data.values?.[0];
     if (!firstRow || firstRow[0] !== "登記日期") {
       await sheets.spreadsheets.values.update({
         spreadsheetId: MEMBERS_SHEET_ID,
         range: `${MEMBERS_SHEET_TAB}!A1:G1`,
         valueInputOption: "USER_ENTERED",
-        requestBody: {
-          values: [["登記日期", "姓名", "Email", "電話", "積分", "來源", "備註"]],
-        },
+        requestBody: { values: [["登記日期", "姓名", "Email", "電話", "積分", "來源", "備註"]] },
       });
-      console.log("[Sheets] Members sheet headers initialised");
     }
   } catch (err) {
     console.error("[Sheets] Failed to init members sheet:", err);
