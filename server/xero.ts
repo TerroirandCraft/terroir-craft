@@ -76,7 +76,29 @@ export async function createXeroInvoice(params: CreateInvoiceParams): Promise<st
 
     const tenantId = xeroTenantId!;
 
-    // 1. Find or create contact
+    // 1. Find or create contact (with delivery address)
+    // Build address object if we have delivery info
+    const addressLines: any[] = [];
+    if (params.deliveryAddress) {
+      // deliveryAddress format: "Unit, Floor, Building, Street, District — District Name"
+      // Split on " — " to get city from district
+      const parts = params.deliveryAddress.split(" — ");
+      const streetPart = parts[0] || params.deliveryAddress;
+      const cityPart = parts[1] || "Hong Kong";
+      addressLines.push({
+        addressType: "STREET",
+        addressLine1: streetPart,
+        city: cityPart,
+        country: "HK",
+      });
+    }
+    const contactPayload: any = {
+      name: params.customerName,
+      emailAddress: params.customerEmail,
+    };
+    if (params.customerPhone) contactPayload.phones = [{ phoneType: "MOBILE", phoneNumber: params.customerPhone }];
+    if (addressLines.length > 0) contactPayload.addresses = addressLines;
+
     let contactId: string;
     try {
       const existing = await xero.accountingApi.getContacts(
@@ -85,22 +107,25 @@ export async function createXeroInvoice(params: CreateInvoiceParams): Promise<st
         [params.customerEmail]
       );
       if (existing.body.contacts && existing.body.contacts.length > 0) {
-        contactId = existing.body.contacts[0].contactID!;
+        // Update contact name/address to latest info
+        const existingContact = existing.body.contacts[0];
+        contactId = existingContact.contactID!;
+        try {
+          await xero.accountingApi.updateContact(tenantId, contactId, {
+            contacts: [{ ...contactPayload, contactID: contactId }],
+          });
+        } catch (updateErr) {
+          console.warn("[Xero] Could not update contact:", updateErr);
+        }
       } else {
         const created = await xero.accountingApi.createContacts(tenantId, {
-          contacts: [{
-            name: params.customerName,
-            emailAddress: params.customerEmail,
-          }],
+          contacts: [contactPayload],
         });
         contactId = created.body.contacts![0].contactID!;
       }
     } catch {
       const created = await xero.accountingApi.createContacts(tenantId, {
-        contacts: [{
-          name: params.customerName,
-          emailAddress: params.customerEmail,
-        }],
+        contacts: [contactPayload],
       });
       contactId = created.body.contacts![0].contactID!;
     }
@@ -121,16 +146,14 @@ export async function createXeroInvoice(params: CreateInvoiceParams): Promise<st
       return base;
     });
 
-    // 3. Reference includes delivery info
+    // 3. Reference — keep it short (order ref + sales rep + gift flag only)
     let reference = params.referredBy
       ? `${params.orderRef} | Ref: ${params.referredBy}`
       : params.orderRef;
     if (params.isGift && params.recipientName) {
-      reference += ` | GIFT to: ${params.recipientName} ${params.recipientPhone || ""}`;
+      reference += ` | GIFT to: ${params.recipientName}${params.recipientPhone ? " " + params.recipientPhone : ""}`;
     }
-    if (params.deliveryAddress) {
-      reference += ` | Delivery: ${params.deliveryAddress}`;
-    }
+    // Delivery address is stored on the contact — no need to repeat in reference
 
     // 4. Create AUTHORISED invoice
     const today = new Date().toISOString().split("T")[0];
@@ -152,29 +175,29 @@ export async function createXeroInvoice(params: CreateInvoiceParams): Promise<st
     const invoiceNumber = invoice?.invoiceNumber;
     const invoiceTotal = invoice?.total ?? params.amountPaid ?? 0;
 
-    // 5. Mark invoice as PAID (payment already received via Payment Asia)
+    // 5. Email invoice to customer FIRST while still AUTHORISED
+    //    (Xero API does not allow emailing a PAID invoice)
+    if (invoiceId && !params.isGift) {
+      try {
+        await xero.accountingApi.emailInvoice(tenantId, invoiceId, {});
+        console.log(`[Xero] Invoice ${invoiceNumber} emailed to ${params.customerEmail}`);
+      } catch (emailErr) {
+        console.warn("[Xero] Invoice created but email failed:", emailErr);
+      }
+    }
+
+    // 6. THEN mark invoice as PAID (payment already received via Payment Asia)
     if (invoiceId && invoiceTotal > 0) {
       try {
-        // Find the HKD bank account or use undeposited funds (account 090)
         await xero.accountingApi.createPayment(tenantId, {
           invoice: { invoiceID: invoiceId },
-          account: { code: "090" }, // Undeposited Funds — change to your bank account code if needed
+          account: { code: "090" }, // Undeposited Funds
           amount: invoiceTotal,
           date: today,
         } as any);
         console.log(`[Xero] Invoice ${invoiceNumber} marked as PAID`);
       } catch (paidErr) {
         console.warn("[Xero] Could not mark as paid (invoice still created):", paidErr);
-      }
-    }
-
-    // 6. Email invoice/receipt to customer (skip if gift — they get delivery note separately)
-    if (invoiceId) {
-      try {
-        await xero.accountingApi.emailInvoice(tenantId, invoiceId, {});
-        console.log(`[Xero] Invoice ${invoiceNumber} emailed to ${params.customerEmail}`);
-      } catch (emailErr) {
-        console.warn("[Xero] Invoice created but email failed:", emailErr);
       }
     }
 
