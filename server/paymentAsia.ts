@@ -4,7 +4,11 @@ import crypto from "crypto";
 const PA_MERCHANT_TOKEN = process.env.PA_MERCHANT_TOKEN || "1c650466-5b69-4c18-8a13-a86aa29744c0";
 const PA_MERCHANT_SECRET = process.env.PA_MERCHANT_SECRET || "1c6c6b0e-d920-47a0-b468-a5e767ca39fd";
 
-const PA_GATEWAY_BASE = "https://payment.pa-sys.com/app/page";
+// Toggle: set PA_SANDBOX=true in Railway env to use sandbox
+const PA_SANDBOX = process.env.PA_SANDBOX === "true";
+const PA_GATEWAY_BASE = PA_SANDBOX
+  ? "https://payment-sandbox.pa-sys.com/app/page"
+  : "https://payment.pa-sys.com/app/page";
 const BASE_URL = process.env.BASE_URL || "https://terroir-craft-production.up.railway.app";
 
 // ── PHP-compatible urlencode: spaces become +, like PHP's urlencode() ─────────
