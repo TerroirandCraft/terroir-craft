@@ -142,15 +142,16 @@ export default function CataloguePage() {
         <div className="max-w-7xl mx-auto">
           {occasionFilter ? (
             <>
-              <div className="flex items-center gap-3 mb-3">
-                <button
-                  onClick={() => { setOccasionFilter(null); window.history.pushState({}, "", window.location.pathname); }}
-                  className="font-body text-xs text-white/60 hover:text-white transition-colors flex items-center gap-1"
-                >
-                  ← All Wines
-                </button>
-                <span className="text-white/30">/</span>
-                <p className="font-body text-xs tracking-[0.2em] uppercase text-white/60">Shop by Occasion</p>
+              {/* Back button — prominent so customers can easily return */}
+              <button
+                onClick={() => { setOccasionFilter(null); window.history.pushState({}, "", window.location.pathname); }}
+                className="inline-flex items-center gap-2 mb-5 px-4 py-2 rounded-full bg-white/15 hover:bg-white/25 transition-colors font-body text-sm text-white font-medium"
+              >
+                <span className="text-base leading-none">←</span>
+                瀏覽全部酒款 View All Wines
+              </button>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="font-body text-[11px] tracking-[0.2em] uppercase text-white/50">Shop by Occasion</span>
               </div>
               <h1 className="font-display text-4xl md:text-5xl font-light mb-2">{OCCASION_LABELS[occasionFilter]}</h1>
               <p className="font-body text-white/70 text-sm">{filtered.length} wines curated for this occasion</p>
