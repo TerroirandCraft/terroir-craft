@@ -9,7 +9,9 @@ const PA_SANDBOX = process.env.PA_SANDBOX === "true";
 const PA_GATEWAY_BASE = PA_SANDBOX
   ? "https://payment-sandbox.pa-sys.com/app/page"
   : "https://payment.pa-sys.com/app/page";
-const BASE_URL = process.env.BASE_URL || "https://terroir-craft-production.up.railway.app";
+// Always use www. — apex domain (no www) has no Railway DNS record
+const RAW_BASE_URL = process.env.BASE_URL || "https://terroir-craft-production.up.railway.app";
+const BASE_URL = RAW_BASE_URL.replace("://terroirandcraft.online", "://www.terroirandcraft.online");
 
 // ── PHP-compatible urlencode: spaces become +, like PHP's urlencode() ─────────
 function phpEncode(str: string): string {
