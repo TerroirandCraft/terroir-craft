@@ -23,6 +23,7 @@ import BrandDetailPage from "@/pages/BrandDetailPage";
 import ResetPasswordPage from "@/pages/ResetPasswordPage";
 import OccasionPage from "@/pages/OccasionPage";
 import PaymentResultPage from "@/pages/PaymentResultPage";
+import NewArrivalsPage from "@/pages/NewArrivalsPage";
 
 // Custom hook: strips query string from hash path so wouter matches routes correctly.
 // e.g. #/payment-result?ref=TC-xxx → path is "/payment-result" (query preserved in window.location)
@@ -57,6 +58,7 @@ function App() {
                 <Route path="/terms" component={TermsPage} />
                 <Route path="/reset-password" component={ResetPasswordPage} />
                 <Route path="/occasion" component={OccasionPage} />
+                <Route path="/new-arrivals" component={NewArrivalsPage} />
                 <Route path="/payment-result" component={PaymentResultPage} />
                 <Route component={NotFound} />
               </Switch>
