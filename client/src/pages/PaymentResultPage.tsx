@@ -1,31 +1,45 @@
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
-import { CheckCircle, XCircle, Clock, ShoppingBag, Home } from "lucide-react";
+import { CheckCircle, Clock, ShoppingBag, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/CartContext";
 
 export default function PaymentResultPage() {
-  const { clearCart } = useCart();
+  let clearCart: (() => void) | undefined;
+  try {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const cart = useCart();
+    clearCart = cart.clearCart;
+  } catch {
+    // CartContext may not be available in some edge cases
+  }
+
   const [ref, setRef] = useState("");
   const [status, setStatus] = useState<"success" | "pending" | "unknown">("pending");
 
   useEffect(() => {
-    // Get ref from hash query: /#/payment-result?ref=TC-xxx
-    const hashQuery = window.location.hash.includes("?")
-      ? window.location.hash.split("?")[1]
-      : window.location.search;
-    const params = new URLSearchParams(hashQuery);
-    const refParam = params.get("ref") || "";
-    setRef(refParam);
+    try {
+      // Get ref from hash query: /#/payment-result?ref=TC-xxx
+      // Hash looks like: #/payment-result?ref=TC-xxx
+      const hash = window.location.hash; // e.g. "#/payment-result?ref=TC-MNEDUVXE"
+      const qIndex = hash.indexOf("?");
+      const hashQuery = qIndex !== -1 ? hash.slice(qIndex + 1) : window.location.search.slice(1);
+      const params = new URLSearchParams(hashQuery);
+      const refParam = params.get("ref") || "";
+      setRef(refParam);
 
-    // If we landed here, payment was completed (Payment Asia only redirects on completion)
-    // Clear cart since payment went through
-    if (refParam) {
-      setStatus("success");
-      clearCart();
-    } else {
+      // If we landed here, payment was completed (Payment Asia only redirects on completion)
+      if (refParam) {
+        setStatus("success");
+        try { clearCart?.(); } catch { /* ignore */ }
+      } else {
+        setStatus("unknown");
+      }
+    } catch (e) {
+      console.error("[PaymentResult] useEffect error:", e);
       setStatus("unknown");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -82,7 +96,7 @@ export default function PaymentResultPage() {
           </>
         )}
 
-        {status === "unknown" && (
+        {(status === "pending" || status === "unknown") && (
           <>
             <div className="w-20 h-20 rounded-full bg-amber-100 flex items-center justify-center mx-auto">
               <Clock className="w-10 h-10 text-amber-600" />

@@ -703,9 +703,16 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   });
 
   // Return URL after payment (GET — redirect customer back to site)
+  // Use HTML meta refresh + JS redirect so it works even if browser caches the page
   app.get("/api/payment/return", (req, res) => {
-    const ref = req.query.ref as string;
-    res.redirect(`/#/payment-result?ref=${ref || ""}`);
+    const ref = (req.query.ref as string) || "";
+    const dest = `/#/payment-result?ref=${encodeURIComponent(ref)}`;
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    res.setHeader("Cache-Control", "no-store");
+    res.send(`<!DOCTYPE html><html><head>
+<meta http-equiv="refresh" content="0;url=${dest}">
+<script>window.location.replace(${JSON.stringify(dest)});</script>
+</head><body>Redirecting... <a href="${dest}">Click here</a></body></html>`);
   });
 
   // ── Xero OAuth ────────────────────────────────────────────────────────────
