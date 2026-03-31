@@ -21,6 +21,7 @@ import TermsPage from "@/pages/TermsPage";
 import BrandDetailPage from "@/pages/BrandDetailPage";
 import ResetPasswordPage from "@/pages/ResetPasswordPage";
 import OccasionPage from "@/pages/OccasionPage";
+import PaymentResultPage from "@/pages/PaymentResultPage";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
                 <Route path="/terms" component={TermsPage} />
                 <Route path="/reset-password" component={ResetPasswordPage} />
                 <Route path="/occasion" component={OccasionPage} />
+                <Route path="/payment-result" component={PaymentResultPage} />
                 <Route component={NotFound} />
               </Switch>
             </Layout>
