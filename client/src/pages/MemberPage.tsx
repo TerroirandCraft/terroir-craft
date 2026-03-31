@@ -6,8 +6,8 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/components/AuthContext";
 import {
-  User, Mail, Lock, Phone, Star, Gift, Instagram, Facebook,
-  Newspaper, ShoppingBag, ChevronRight, LogOut, Award, TrendingUp
+  User, Mail, Lock, Phone, Star, Gift, Instagram,
+  Newspaper, ShoppingBag, ChevronRight, LogOut, Award, TrendingUp, Tag
 } from "lucide-react";
 
 // ─── Tier config ─────────────────────────────────────────────────────────────
@@ -56,15 +56,7 @@ const BONUS_ACTIONS = [
     points: 20,
     flag: "bonus_ig" as const,
     href: "https://www.instagram.com/terroirandcraft",
-  },
-  {
-    key: "facebook",
-    icon: Facebook,
-    label: "Like on Facebook",
-    labelZh: "Like Facebook 專頁",
-    points: 20,
-    flag: "bonus_facebook" as const,
-    href: "https://www.facebook.com/terroirandcraft",
+    note: "自願申領，毋須驗證是否已 Follow",
   },
 ];
 
@@ -489,36 +481,53 @@ function MemberDashboard() {
 
       {/* Tier benefits */}
       <div className="bg-card border border-border rounded-xl p-5">
-        <h3 className="font-display text-lg font-medium mb-4">會員等級 Tiers</h3>
+        <h3 className="font-display text-lg font-medium mb-1">會員等級 Tiers</h3>
+        <p className="font-body text-xs text-muted-foreground mb-4">折扣僅適用於獨家品牌常規商品 · Fine & Rare、促銷及 Promotion 商品不適用</p>
         <div className="space-y-3">
-          {(["Silver", "Gold", "Platinum"] as const).map(t => {
+          {([
+            { key: "Silver", discount: "5%", discountZh: "九五折" },
+            { key: "Gold", discount: "8%", discountZh: "九二折" },
+            { key: "Platinum", discount: "10%", discountZh: "九折" },
+          ] as const).map(({ key: t, discount, discountZh }) => {
             const tc = TIERS[t];
             const isActive = member.tier === t;
             return (
               <div
                 key={t}
-                className={`flex items-center gap-3 p-3 rounded-lg border transition-all ${
+                className={`flex items-start gap-3 p-4 rounded-lg border transition-all ${
                   isActive ? "border-[hsl(355,62%,28%)] bg-[hsl(355,62%,28%)]/5" : "border-border"
                 }`}
               >
-                <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${tc.color} flex items-center justify-center`}>
+                <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${tc.color} flex items-center justify-center shrink-0 mt-0.5`}>
                   <Award className="w-4 h-4 text-white" />
                 </div>
-                <div className="flex-1">
-                  <p className="font-body text-sm font-semibold">{tc.label}</p>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <p className="font-body text-sm font-semibold">{tc.label}</p>
+                    <span className="font-body text-xs px-2 py-0.5 rounded-full bg-[hsl(355,62%,28%)]/10 text-[hsl(355,62%,28%)] font-medium">
+                      {discount} off
+                    </span>
+                  </div>
                   <p className="font-body text-xs text-muted-foreground">
                     {t === "Silver" && "0 – 999 pts"}
                     {t === "Gold" && "1,000 – 2,999 pts"}
                     {t === "Platinum" && "3,000+ pts"}
                   </p>
+                  <p className="font-body text-xs text-muted-foreground mt-1">
+                    <Tag className="w-3 h-3 inline mr-1" />
+                    獨家品牌常規商品 {discountZh}
+                  </p>
                 </div>
                 {isActive && (
-                  <span className="font-body text-xs text-[hsl(355,62%,28%)] font-medium">當前等級</span>
+                  <span className="font-body text-xs text-[hsl(355,62%,28%)] font-medium shrink-0">當前等級</span>
                 )}
               </div>
             );
           })}
         </div>
+        <p className="font-body text-[11px] text-muted-foreground mt-3 leading-relaxed">
+          ⚠️ Fine & Rare、Bordeaux 2022 Promotion 及其他特價商品均不適用會員折扣
+        </p>
       </div>
 
       {/* Logout */}
