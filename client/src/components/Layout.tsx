@@ -10,7 +10,7 @@ import tcLogo from "@/assets/tc-logo.jpg";
 const navLinks: { href: string; label: string; labelZh: string; isGold?: boolean }[] = [
   { href: "/", label: "Home", labelZh: "首頁" },
   { href: "/wines#new-arrivals", label: "New Arrivals", labelZh: "最新到貨" },
-  { href: "/wines#by-occasion", label: "By Occasion", labelZh: "場合選酒" },
+  { href: "/occasion", label: "By Occasion", labelZh: "場合選酒" },
   { href: "/brands", label: "Brands", labelZh: "品牌" },
   { href: "/wines", label: "Wines", labelZh: "酒款" },
   { href: "/fine-rare", label: "Fine & Rare", labelZh: "珍稀藏酒", isGold: true },
