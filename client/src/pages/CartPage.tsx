@@ -456,9 +456,14 @@ export default function CartPage() {
                       </button>
                     </div>
                     {usePoints && pointsDiscount > 0 && (
-                      <p className="font-body text-xs text-green-600 mt-2">
-                        扣減 {formatPrice(pointsDiscount)}（用了 {pointsUsed.toLocaleString()} pts）
-                      </p>
+                      <div className="flex justify-between items-center mt-2">
+                        <span className="font-body text-xs text-green-600">
+                          扣減 {formatPrice(pointsDiscount)}
+                        </span>
+                        <span className="font-body text-xs text-green-600">
+                          用了 {pointsUsed.toLocaleString()} pts
+                        </span>
+                      </div>
                     )}
                   </div>
                 )}

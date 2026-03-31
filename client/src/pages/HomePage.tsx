@@ -185,11 +185,11 @@ export default function HomePage() {
     queryKey: ["/api/products"],
   });
 
-  // Featured: mix of types, best value
-  const featured = products
-    .filter(p => ["Mollydooker", "Chateau de Saint Cosme", "Morey Coffinet", "Kopke", "Champagne Boizel"].includes(p.brand))
-    .filter(p => p.price > 0 && p.price < 1000)
-    .slice(0, 8);
+  // Staff Picks: from /api/occasions/staffpicks
+  const { data: staffPickProducts = [] } = useQuery<Product[]>({
+    queryKey: ["/api/occasions/staffpicks"],
+  });
+  const featured = staffPickProducts.slice(0, 8);
 
   const brandCounts: Record<string, number> = {};
   products.forEach(p => { brandCounts[p.brand] = (brandCounts[p.brand] || 0) + 1; });
@@ -505,7 +505,7 @@ export default function HomePage() {
             <div>
               <p className="font-body text-xs tracking-[0.2em] uppercase text-[hsl(355,62%,28%)] mb-3">Featured 精選</p>
               <h2 className="font-display text-3xl md:text-4xl font-light text-foreground">
-                Editor's Picks
+                Staff Picks
               </h2>
             </div>
             <Link href="/wines">

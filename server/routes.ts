@@ -112,42 +112,76 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   const OCCASIONS: Record<string, { itemCodes?: string[]; autoFilter?: Record<string, string> }> = {
     gifts: {
       itemCodes: [
-        "TCAU-MO0123", "TCAU-MO0522", "TCAU-MO0622", "TCAU-MO0623",
-        "TCAU-LBJ0216", "TCFR-CB06NV", "TCFR-CB01NV", "TCFR-CB03NV",
-        "TCPO-KO0937", "TCPO-KO1012", "TCPO-KO09NVHF",
+        "TCAU-MO0123", "TCAU-MO0223", "TCAU-MO0522", "TCAU-TS0821", "TCAU-TS0921",
+        "TCFR-CB01NV", "TCFR-CB06NV", "TCFR-CB0415",
+        "TCFR-MC0523", "TCFR-MC0623", "TCFR-MC0823", "TCFR-MC0923", "TCFR-MC1123", "TCFR-MC1223",
+        "TCFR-SC0223", "TCFR-SC0723", "TCFR-SC0522", "TCFR-SC1123", "TCFR-SC1423",
+        "TCGE-VH0522",
+        "TCPO-KO05NV", "TCPO-KO06NV", "TCPO-KO07NV", "TCPO-KO0937", "TCPO-KO1012",
+        "TCUS-RC0118MG", "TCUS-RC0121HF", "TCUS-RC0121MG", "TCUS-RC0421", "TCUS-RC0421HF",
+        "TCUS-RC0621", "TCUS-RC0721", "TCUS-RC0921",
+        "ECS220", "GCH220", "JBE220", "JTA220", "MDI220", "MRS220", "OFO220",
+        "PAM220", "PCL220", "PCM220", "PDM220", "PGL220", "PLB220", "PMRW220", "PPM220",
       ],
     },
     under300: {
-      // Auto: all products with effective price (promo or regular) <= 300
       autoFilter: { maxPrice: "300" },
     },
     champagne: {
-      // Auto: all Champagne or Sparkling type products
       autoFilter: { types: "Champagne,Sparkling" },
     },
     easyreds: {
       itemCodes: [
         "TCAU-MO0324", "TCAU-MO0422", "TCAU-MO0823", "TCAU-MO0923",
-        "TCAU-TS0121", "TCAU-TS0222", "TCAU-TS0321", "TCAU-TS0322",
-        "TCAU-LBJ0120",
+        "TCAU-TS0121", "TCAU-TS0222", "TCAU-TS0321", "TCAU-TS0322", "TCAU-TS0423",
+        "TCAU-LBJ0120", "TCAU-LBJ0216",
         "OTHER-01", "OTHER-06", "OTHER-10",
+        "TCFR-MC1023",
+        "TCFR-SC0323", "TCFR-SC0522", "TCFR-SC0624", "TCFR-SC0823", "TCFR-SC09NV",
       ],
     },
     staffpicks: {
       itemCodes: [
         "TCAU-MO0123", "TCAU-MO0522", "TCAU-TS0222", "TCAU-TS0821", "TCAU-TS0921",
         "TCAU-LBJ0216", "TCFR-CB06NV",
+        "TCFR-MC0323", "TCFR-MC0423", "TCFR-MC0523", "TCFR-MC0623", "TCFR-MC0723",
+        "TCFR-SC0123", "TCFR-SC1123", "TCFR-SC1223", "TCFR-SC1423",
+        "DAFR-DN0121",
+        "TCGE-VH0121", "TCGE-VH0723",
+        "TCKR-CA01NV",
+        "TCPO-KO05NV", "TCPO-KO07NV", "TCPO-KO0937",
+        "VINSA-CC0123",
+        "TCUS-RC0122", "TCUS-RC0324", "TCUS-RC0421", "TCUS-RC0621", "TCUS-RC0721",
+        "ECS220", "GCH220", "MDI220", "MRS220", "PLB220", "PMRW220",
       ],
     },
     bbq: {
       itemCodes: [
         "TCAU-MO0622", "TCAU-MO0623", "TCAU-MO1023", "TCAU-MO1125",
-        "TCAU-TS0423", "TCFR-CB01NV", "TCFR-CB03NV",
+        "TCAU-TS0322", "TCAU-TS0423", "TCAU-LBJ0120",
+        "TCFR-CB01NV", "TCFR-CB03NV",
+        "TCFR-SC0123", "TCFR-SC0223", "TCFR-SC0323", "TCFR-SC09NV", "TCFR-SC13NV",
+        "TCGE-VH0223", "TCGE-VH0323",
+        "VINIT-PQ0324",
+        "TCKR-CA01NV", "TCKR-CA02NV", "TCKR-CA03NV", "TCKR-CA04NV",
+        "TCNZ-SH0123", "TCNZ-SH0224",
+        "TCPO-KO01NV", "TCPO-KO02NV",
+        "TCSP-TC0214",
+        "TCUS-RC0223",
       ],
     },
     hotpot: {
       itemCodes: [
-        "TCAU-MO1125", "TCAU-MO1224", "TCAU-TS0121", "TCAU-TS0322", "TCAU-LBJ0120",
+        "TCAU-MO1125", "TCAU-MO1224", "TCAU-TS0121",
+        "TCFR-MC0123", "TCFR-MC0223", "TCFR-MC1023", "TCFR-MC1122",
+        "TCFR-SC0522",
+        "TCGE-VH0121", "TCGE-VH0422", "TCGE-VH0623",
+        "VINIT-PQ0324",
+        "TCKR-CA01NV", "TCKR-CA02NV", "TCKR-CA03NV", "TCKR-CA04NV",
+        "TCNZ-SH0423",
+        "TCPO-KO03NV",
+        "TCCA-PG",
+        "TCUS-RC0324",
       ],
     },
   };
