@@ -1,5 +1,6 @@
 import { Switch, Route, Router as WouterRouter } from "wouter";
 import { useHashLocation } from "wouter/use-hash-location";
+import { useCallback } from "react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
@@ -23,12 +24,22 @@ import ResetPasswordPage from "@/pages/ResetPasswordPage";
 import OccasionPage from "@/pages/OccasionPage";
 import PaymentResultPage from "@/pages/PaymentResultPage";
 
+// Custom hook: strips query string from hash path so wouter matches routes correctly.
+// e.g. #/payment-result?ref=TC-xxx → path is "/payment-result" (query preserved in window.location)
+function useHashLocationNoQuery(): [string, (to: string) => void] {
+  const [loc, navigate] = useHashLocation();
+  // Strip query string from the path (everything after ?)
+  const cleanLoc = loc.split("?")[0];
+  const stableNavigate = useCallback((to: string) => navigate(to), [navigate]);
+  return [cleanLoc, stableNavigate];
+}
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <CartProvider>
-          <WouterRouter hook={useHashLocation}>
+          <WouterRouter hook={useHashLocationNoQuery}>
             <Layout>
               <Switch>
                 <Route path="/" component={HomePage} />
