@@ -722,21 +722,27 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   // Step 2: Xero redirects back with code
   app.get("/api/xero/callback", async (req, res) => {
     try {
-      const tokenSet = await xero.apiCallback(req.url);
+      // xero-node needs the FULL callback URL (not just path) to validate state + exchange code
+      const protocol = req.headers["x-forwarded-proto"] || "https";
+      const host = req.headers["x-forwarded-host"] || req.headers.host || "terroir-craft-production.up.railway.app";
+      const fullCallbackUrl = `${protocol}://${host}${req.url}`;
+      console.log("[Xero] Full callback URL:", fullCallbackUrl);
+
+      const tokenSet = await xero.apiCallback(fullCallbackUrl);
       await xero.updateTenants();
       const tenantId = xero.tenants[0]?.tenantId;
       if (!tenantId) throw new Error("No Xero tenant found");
       setXeroTokens(tokenSet, tenantId);
       console.log(`[Xero] Connected! Tenant: ${xero.tenants[0]?.tenantName}`);
       res.send(`<html><body style="font-family:sans-serif;text-align:center;padding:60px">
-        <h2>✅ Xero Connected!</h2>
-        <p>Terroir & Craft is now connected to Xero.</p>
+        <h2>&#x2705; Xero Connected!</h2>
+        <p>Terroir &amp; Craft is now connected to Xero.</p>
         <p>Tenant: <strong>${xero.tenants[0]?.tenantName}</strong></p>
         <p><a href="/#/">Return to website</a></p>
       </body></html>`);
-    } catch (err) {
-      console.error("[Xero] Callback error:", err);
-      res.status(500).send("Xero connection failed. Please try again.");
+    } catch (err: any) {
+      console.error("[Xero] Callback error:", err?.message || err);
+      res.status(500).send(`Xero connection failed: ${err?.message || "Unknown error"}. <a href="/api/xero/connect">Try again</a>`);
     }
   });
 
