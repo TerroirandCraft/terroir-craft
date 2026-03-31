@@ -28,15 +28,24 @@ export default function CataloguePage() {
   const [priceMax, setPriceMax] = useState<number>(10000);
   const [sort, setSort] = useState("default");
   const [showFilters, setShowFilters] = useState(false);
+  const [occasionFilter, setOccasionFilter] = useState<string | null>(null);
 
-  // Read ?country= and ?brand= from URL hash query string
+  // Read ?country= and ?brand= and ?occasion= from URL
   const [location] = useLocation();
 
   const applyHashParams = () => {
-    // wouter navigate() puts query params in window.location.search (not inside hash)
     const params = new URLSearchParams(window.location.search);
     const countryParam = params.get("country");
     const brandParam = params.get("brand");
+    const occasionParam = params.get("occasion");
+
+    if (occasionParam) {
+      setOccasionFilter(occasionParam);
+      setCountryFilter("All Countries");
+      setBrandFilter(null);
+      return;
+    }
+    setOccasionFilter(null);
     if (countryParam && COUNTRIES.includes(countryParam)) {
       setCountryFilter(countryParam);
       setBrandFilter(null);
@@ -52,17 +61,40 @@ export default function CataloguePage() {
 
   useEffect(() => {
     applyHashParams();
-    // Also listen for hashchange so clicking same-page region cards works
     window.addEventListener("hashchange", applyHashParams);
     return () => window.removeEventListener("hashchange", applyHashParams);
   }, [location]);
+
+  // Fetch occasion products if needed
+  const { data: occasionProducts = [] } = useQuery<Product[]>({
+    queryKey: ["/api/occasions", occasionFilter],
+    queryFn: async () => {
+      const { apiRequest } = await import("@/lib/queryClient");
+      const res = await apiRequest("GET", `/api/occasions/${occasionFilter}`);
+      return res.json();
+    },
+    enabled: !!occasionFilter,
+  });
 
   const { data: products = [], isLoading } = useQuery<Product[]>({
     queryKey: ["/api/products"],
   });
 
+  // Use occasion products if occasion filter is active
+  const baseProducts = occasionFilter ? occasionProducts : products;
+
+  const OCCASION_LABELS: Record<string, string> = {
+    gifts: "Gifts 送禮之選",
+    under300: "Under HK$300",
+    easyreds: "Easy-Drinking Reds",
+    champagne: "Champagne & Sparkling",
+    staffpicks: "Staff Picks 員工精選",
+    hotpot: "HK Hotpot 打邊爐",
+    bbq: "BBQ & Grill",
+  };
+
   const filtered = useMemo(() => {
-    let results = [...products];
+    let results = [...baseProducts];
     if (search.trim()) {
       const q = search.toLowerCase();
       results = results.filter(p =>
@@ -72,13 +104,16 @@ export default function CataloguePage() {
         p.region.toLowerCase().includes(q)
       );
     }
-    if (brandFilter) {
-      results = results.filter(p => p.brand.toLowerCase() === brandFilter.toLowerCase());
-    } else {
-      if (typeFilter !== "All Types") results = results.filter(p => p.type === typeFilter);
-      if (countryFilter !== "All Countries") results = results.filter(p => p.country === countryFilter);
+    // Skip other filters when occasion is active
+    if (!occasionFilter) {
+      if (brandFilter) {
+        results = results.filter(p => p.brand.toLowerCase() === brandFilter.toLowerCase());
+      } else {
+        if (typeFilter !== "All Types") results = results.filter(p => p.type === typeFilter);
+        if (countryFilter !== "All Countries") results = results.filter(p => p.country === countryFilter);
+      }
+      results = results.filter(p => p.price === 0 || (p.price >= priceMin && p.price <= priceMax));
     }
-    results = results.filter(p => p.price === 0 || (p.price >= priceMin && p.price <= priceMax));
 
     switch (sort) {
       case "price-asc": results.sort((a, b) => a.price - b.price); break;
@@ -91,7 +126,7 @@ export default function CataloguePage() {
       }); break;
     }
     return results;
-  }, [products, search, typeFilter, countryFilter, brandFilter, priceMin, priceMax, sort]);
+  }, [baseProducts, occasionFilter, search, typeFilter, countryFilter, brandFilter, priceMin, priceMax, sort]);
 
   const activeFilters = [
     brandFilter ? `Brand: ${brandFilter}` : null,
@@ -105,9 +140,28 @@ export default function CataloguePage() {
       {/* Header */}
       <div className="bg-[hsl(355,62%,28%)] text-white py-12 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
-          <p className="font-body text-xs tracking-[0.2em] uppercase text-white/60 mb-3">Our Collection</p>
-          <h1 className="font-display text-4xl md:text-5xl font-light mb-2">Wine Catalogue 酒款目錄</h1>
-          <p className="font-body text-white/70 text-sm">{products.length} wines across 23 exclusive brands</p>
+          {occasionFilter ? (
+            <>
+              <div className="flex items-center gap-3 mb-3">
+                <button
+                  onClick={() => { setOccasionFilter(null); window.history.pushState({}, "", window.location.pathname); }}
+                  className="font-body text-xs text-white/60 hover:text-white transition-colors flex items-center gap-1"
+                >
+                  ← All Wines
+                </button>
+                <span className="text-white/30">/</span>
+                <p className="font-body text-xs tracking-[0.2em] uppercase text-white/60">Shop by Occasion</p>
+              </div>
+              <h1 className="font-display text-4xl md:text-5xl font-light mb-2">{OCCASION_LABELS[occasionFilter]}</h1>
+              <p className="font-body text-white/70 text-sm">{filtered.length} wines curated for this occasion</p>
+            </>
+          ) : (
+            <>
+              <p className="font-body text-xs tracking-[0.2em] uppercase text-white/60 mb-3">Our Collection</p>
+              <h1 className="font-display text-4xl md:text-5xl font-light mb-2">Wine Catalogue 酒款目錄</h1>
+              <p className="font-body text-white/70 text-sm">{products.length} wines across 23 exclusive brands</p>
+            </>
+          )}
         </div>
       </div>
 

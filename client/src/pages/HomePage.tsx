@@ -270,58 +270,52 @@ export default function HomePage() {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {[
               {
-                label: "Dinner Pairing",
-                labelZh: "餐酒配搭",
-                img: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80&auto=format&fit=crop",
-                filter: "type=Red",
-              },
-              {
                 label: "Gifts",
                 labelZh: "送禮之選",
                 img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=800&q=80&auto=format&fit=crop",
-                filter: "",
+                occasion: "gifts",
               },
               {
                 label: "Under HK$300",
-                labelZh: "HK$300 以下",
+                labelZh: "包括 Promotion 價低於 HK$300",
                 img: "https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?w=800&q=80&auto=format&fit=crop",
-                filter: "max=300",
+                occasion: "under300",
               },
               {
                 label: "Easy-Drinking Reds",
                 labelZh: "Smooth, juicy and approachable",
                 img: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80&auto=format&fit=crop",
-                filter: "type=Red",
+                occasion: "easyreds",
                 overlay: "linear-gradient(to top, rgba(50,15,15,0.88) 0%, rgba(50,15,15,0.25) 60%, rgba(50,15,15,0.0) 100%)",
               },
               {
                 label: "Champagne & Sparkling",
                 labelZh: "Celebrate with fine bubbles",
                 img: `${API_BASE}/champagne-boizel.jpg`,
-                filter: "type=Champagne",
+                occasion: "champagne",
                 overlay: "linear-gradient(to top, rgba(8,6,3,0.88) 0%, rgba(8,6,3,0.25) 60%, rgba(8,6,3,0.0) 100%)",
               },
               {
                 label: "Staff Picks",
                 labelZh: "Our current top picks",
                 img: "https://images.unsplash.com/photo-1547595628-c61a29f496f0?w=800&q=80&auto=format&fit=crop",
-                filter: "",
+                occasion: "staffpicks",
                 overlay: "linear-gradient(to top, rgba(8,20,28,0.90) 0%, rgba(8,20,28,0.3) 60%, rgba(8,20,28,0.0) 100%)",
               },
               {
                 label: "HK Hotpot 打邊爐",
                 labelZh: "火鍋配酒",
                 img: `${API_BASE}/hotpot.jpg`,
-                filter: "",
+                occasion: "hotpot",
               },
               {
                 label: "BBQ & Grill",
                 labelZh: "BBQ 燒烤配酒",
                 img: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=800&q=80&auto=format&fit=crop",
-                filter: "type=Red",
+                occasion: "bbq",
               },
             ].map((cat: any) => (
-              <Link key={cat.label} href={`/wines${cat.filter ? "?" + cat.filter : ""}`}>
+              <Link key={cat.label} href={`/wines?occasion=${cat.occasion}`}>
                 <a className="relative group rounded-xl overflow-hidden block aspect-[4/3] cursor-pointer">
                   {/* Background image */}
                   <div

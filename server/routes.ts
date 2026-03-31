@@ -104,6 +104,85 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     res.json(fineRareData);
   });
 
+  // ── Occasions ───────────────────────────────────────────────────────────
+  // Item codes per occasion (from TC catalogue mapping)
+  const OCCASIONS: Record<string, { itemCodes?: string[]; autoFilter?: Record<string, string> }> = {
+    gifts: {
+      itemCodes: [
+        "TCAU-MO0123", "TCAU-MO0522", "TCAU-MO0622", "TCAU-MO0623",
+        "TCAU-LBJ0216", "TCFR-CB06NV", "TCFR-CB01NV", "TCFR-CB03NV",
+        "TCPO-KO0937", "TCPO-KO1012", "TCPO-KO09NVHF",
+      ],
+    },
+    under300: {
+      // Auto: all products with effective price (promo or regular) <= 300
+      autoFilter: { maxPrice: "300" },
+    },
+    champagne: {
+      // Auto: all Champagne or Sparkling type products
+      autoFilter: { types: "Champagne,Sparkling" },
+    },
+    easyreds: {
+      itemCodes: [
+        "TCAU-MO0324", "TCAU-MO0422", "TCAU-MO0823", "TCAU-MO0923",
+        "TCAU-TS0121", "TCAU-TS0222", "TCAU-TS0321", "TCAU-TS0322",
+        "TCAU-LBJ0120",
+        "OTHER-01", "OTHER-06", "OTHER-10",
+      ],
+    },
+    staffpicks: {
+      itemCodes: [
+        "TCAU-MO0123", "TCAU-MO0522", "TCAU-TS0222", "TCAU-TS0821", "TCAU-TS0921",
+        "TCAU-LBJ0216", "TCFR-CB06NV",
+      ],
+    },
+    bbq: {
+      itemCodes: [
+        "TCAU-MO0622", "TCAU-MO0623", "TCAU-MO1023", "TCAU-MO1125",
+        "TCAU-TS0423", "TCFR-CB01NV", "TCFR-CB03NV",
+      ],
+    },
+    hotpot: {
+      itemCodes: [
+        "TCAU-MO1125", "TCAU-MO1224", "TCAU-TS0121", "TCAU-TS0322", "TCAU-LBJ0120",
+      ],
+    },
+  };
+
+  app.get("/api/occasions/:occasion", async (req, res) => {
+    try {
+      const occ = OCCASIONS[req.params.occasion.toLowerCase()];
+      if (!occ) return res.status(404).json({ error: "Unknown occasion" });
+
+      const allProducts = await storage.getAllProducts();
+
+      let result;
+      if (occ.autoFilter) {
+        const { maxPrice, types } = occ.autoFilter;
+        result = allProducts.filter(p => {
+          const effectivePrice = (p as any).promo_price ?? p.price;
+          if (maxPrice && effectivePrice > Number(maxPrice)) return false;
+          if (types) {
+            const typeList = types.split(",");
+            if (!typeList.some(t => p.type.toLowerCase() === t.toLowerCase())) return false;
+          }
+          return true;
+        });
+      } else if (occ.itemCodes) {
+        const codeSet = new Set(occ.itemCodes);
+        result = allProducts.filter(p => codeSet.has(p.id));
+        // Sort to match the order in itemCodes
+        result.sort((a, b) => occ.itemCodes!.indexOf(a.id) - occ.itemCodes!.indexOf(b.id));
+      } else {
+        result = allProducts;
+      }
+
+      res.json(result);
+    } catch (err) {
+      res.status(500).json({ error: "Failed to fetch occasion products" });
+    }
+  });
+
   // Get all products
   app.get("/api/products", async (req, res) => {
     try {
