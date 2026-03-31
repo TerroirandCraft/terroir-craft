@@ -224,8 +224,10 @@ export default function CartPage() {
       } else {
         toast({ title: "Payment failed", description: data.error || "Please try again.", variant: "destructive" });
       }
-    } catch (err) {
-      toast({ title: "Payment error", description: "Please try again or contact us.", variant: "destructive" });
+    } catch (err: any) {
+      // Show actual server error so we can debug
+      const msg = err?.message || "Please try again or contact us.";
+      toast({ title: "Payment error", description: msg, variant: "destructive" });
     } finally {
       setIsPaying(false);
     }

@@ -31,16 +31,37 @@ const AuthContext = createContext<AuthContextValue>({
   refreshMember: async () => {},
 });
 
-// Persist member id in memory (no localStorage — sandboxed iframe blocks it)
-let _cachedMemberId: number | null = null;
+// Persist member id in sessionStorage (survives page refresh, cleared on browser close)
+// Falls back to in-memory if sessionStorage is unavailable (sandboxed iframe)
+function getStoredMemberId(): number | null {
+  try { const v = sessionStorage.getItem("tc_member_id"); return v ? Number(v) : null; } catch { return null; }
+}
+function setStoredMemberId(id: number | null) {
+  try {
+    if (id === null) sessionStorage.removeItem("tc_member_id");
+    else sessionStorage.setItem("tc_member_id", String(id));
+  } catch { /* ignore */ }
+}
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [member, setMember] = useState<MemberProfile | null>(null);
 
+  // On mount: restore session if stored
+  useEffect(() => {
+    const storedId = getStoredMemberId();
+    if (storedId) {
+      apiRequest("GET", `/api/members/${storedId}`)
+        .then(r => r.json())
+        .then(data => { if (data && !data.error) setMember(data); else setStoredMemberId(null); })
+        .catch(() => setStoredMemberId(null));
+    }
+  }, []);
+
   const refreshMember = async () => {
-    if (!_cachedMemberId) return;
+    const storedId = getStoredMemberId();
+    if (!storedId) return;
     try {
-      const res = await apiRequest("GET", `/api/members/${_cachedMemberId}`);
+      const res = await apiRequest("GET", `/api/members/${storedId}`);
       const data = await res.json();
       if (data && !data.error) setMember(data);
     } catch {
@@ -49,12 +70,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const login = (m: MemberProfile) => {
-    _cachedMemberId = m.id;
+    setStoredMemberId(m.id);
     setMember(m);
   };
 
   const logout = () => {
-    _cachedMemberId = null;
+    setStoredMemberId(null);
     setMember(null);
   };
 
