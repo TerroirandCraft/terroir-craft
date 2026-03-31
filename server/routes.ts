@@ -720,29 +720,66 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   });
 
   // Step 2: Xero redirects back with code
+  // Bypass xero-node state check (fails on Railway CDN) — exchange code directly
   app.get("/api/xero/callback", async (req, res) => {
     try {
-      // xero-node needs the FULL callback URL (not just path) to validate state + exchange code
-      const protocol = req.headers["x-forwarded-proto"] || "https";
-      const host = req.headers["x-forwarded-host"] || req.headers.host || "terroir-craft-production.up.railway.app";
-      const fullCallbackUrl = `${protocol}://${host}${req.url}`;
-      console.log("[Xero] Full callback URL:", fullCallbackUrl);
+      const code = req.query.code as string;
+      if (!code) throw new Error("No authorization code received from Xero");
 
-      const tokenSet = await xero.apiCallback(fullCallbackUrl);
-      await xero.updateTenants();
-      const tenantId = xero.tenants[0]?.tenantId;
-      if (!tenantId) throw new Error("No Xero tenant found");
-      setXeroTokens(tokenSet, tenantId);
-      console.log(`[Xero] Connected! Tenant: ${xero.tenants[0]?.tenantName}`);
-      res.send(`<html><body style="font-family:sans-serif;text-align:center;padding:60px">
-        <h2>&#x2705; Xero Connected!</h2>
+      const XERO_CLIENT_ID = process.env.XERO_CLIENT_ID || "2CCF339348184115A8DA65454817F574";
+      const XERO_CLIENT_SECRET = process.env.XERO_CLIENT_SECRET || "aWYx_6-jUnEt1lVsI9PKv3bmSJWlQ4zeBzm-BZpVr55l1pg4";
+      const XERO_REDIRECT_URI = (process.env.XERO_REDIRECT_URI || "https://terroir-craft-production.up.railway.app/api/xero/callback").trim();
+
+      // Exchange code for tokens directly (no state check)
+      const tokenResp = await fetch("https://identity.xero.com/connect/token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Authorization": "Basic " + Buffer.from(`${XERO_CLIENT_ID}:${XERO_CLIENT_SECRET}`).toString("base64"),
+        },
+        body: new URLSearchParams({
+          grant_type: "authorization_code",
+          code,
+          redirect_uri: XERO_REDIRECT_URI,
+        }).toString(),
+      });
+
+      if (!tokenResp.ok) {
+        const errText = await tokenResp.text();
+        throw new Error(`Token exchange failed (${tokenResp.status}): ${errText}`);
+      }
+
+      const tokens = await tokenResp.json() as any;
+      console.log("[Xero] Tokens received, fetching tenants...");
+
+      // Set tokens on xero client so invoice calls work
+      xero.setTokenSet(tokens);
+
+      // Get tenants
+      const tenantsResp = await fetch("https://api.xero.com/connections", {
+        headers: { "Authorization": `Bearer ${tokens.access_token}` },
+      });
+      const tenants = await tenantsResp.json() as any[];
+      if (!tenants || tenants.length === 0) throw new Error("No Xero organisations found. Make sure you authorised the correct account.");
+
+      const tenantId = tenants[0].tenantId;
+      const tenantName = tenants[0].tenantName;
+      setXeroTokens(tokens, tenantId);
+
+      console.log(`[Xero] Connected! Tenant: ${tenantName} (${tenantId})`);
+      res.send(`<html><body style="font-family:sans-serif;text-align:center;padding:60px;color:#333">
+        <h2 style="color:#2e7d32">&#x2705; Xero Connected!</h2>
         <p>Terroir &amp; Craft is now connected to Xero.</p>
-        <p>Tenant: <strong>${xero.tenants[0]?.tenantName}</strong></p>
-        <p><a href="/#/">Return to website</a></p>
+        <p>Organisation: <strong>${tenantName}</strong></p>
+        <p style="margin-top:2rem"><a href="/#/" style="color:#6b1d2a">Return to website</a></p>
       </body></html>`);
     } catch (err: any) {
       console.error("[Xero] Callback error:", err?.message || err);
-      res.status(500).send(`Xero connection failed: ${err?.message || "Unknown error"}. <a href="/api/xero/connect">Try again</a>`);
+      res.status(500).send(`<html><body style="font-family:sans-serif;text-align:center;padding:60px;color:#333">
+        <h2 style="color:#c62828">Xero connection failed</h2>
+        <p>${err?.message || "Unknown error"}</p>
+        <p><a href="/api/xero/connect" style="color:#6b1d2a">Try again</a></p>
+      </body></html>`);
     }
   });
 
