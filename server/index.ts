@@ -100,6 +100,29 @@ app.use((req, res, next) => {
     // Add new columns if they don't exist (safe migrations)
     await db.execute(sql`ALTER TABLE members ADD COLUMN IF NOT EXISTS address TEXT DEFAULT ''`);
     await db.execute(sql`ALTER TABLE members ADD COLUMN IF NOT EXISTS district TEXT DEFAULT ''`);
+
+    // Orders table — permanent sales record, written immediately on payment callback
+    await db.execute(sql`
+      CREATE TABLE IF NOT EXISTS orders (
+        id SERIAL PRIMARY KEY,
+        order_ref TEXT NOT NULL UNIQUE,
+        customer_name TEXT NOT NULL,
+        customer_email TEXT NOT NULL,
+        customer_phone TEXT NOT NULL DEFAULT '',
+        delivery_address TEXT NOT NULL DEFAULT '',
+        is_gift BOOLEAN NOT NULL DEFAULT FALSE,
+        recipient_name TEXT NOT NULL DEFAULT '',
+        items_json TEXT NOT NULL DEFAULT '[]',
+        amount_paid NUMERIC NOT NULL DEFAULT 0,
+        points_redeemed INTEGER NOT NULL DEFAULT 0,
+        referred_by TEXT NOT NULL DEFAULT '',
+        member_id INTEGER,
+        xero_invoice TEXT NOT NULL DEFAULT '',
+        xero_status TEXT NOT NULL DEFAULT 'pending',
+        email_status TEXT NOT NULL DEFAULT 'pending',
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      )
+    `);
     console.log("[DB] Tables ready");
   } catch (err) {
     console.error("[DB] Table creation error:", err);

@@ -11,6 +11,9 @@ import { storeResetToken, consumeResetToken } from "./storage"; // now async (Po
 import { sendPasswordResetEmail } from "./email";
 import { xero, setXeroTokens, isXeroConnected, createXeroInvoice } from "./xero";
 import { createPayment, verifyCallbackSignature } from "./paymentAsia";
+import { sendOrderNotificationToAdmin, sendOrderConfirmationToCustomer } from "./email";
+import { db } from "./db";
+import { sql } from "drizzle-orm";
 
 // Load Fine & Rare data once at startup
 let fineRareData: unknown[] = [];
@@ -643,7 +646,71 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
 
       pendingOrders.delete(merchant_reference); // consume it
 
-      // 1. Create Xero invoice (AUTHORISED + PAID + email customer)
+      // STEP 1: Save order to PostgreSQL IMMEDIATELY — this is the safety net
+      // Even if Xero/email fail, this record is permanent
+      let dbOrderId: number | null = null;
+      try {
+        const result = await db.execute(sql`
+          INSERT INTO orders (
+            order_ref, customer_name, customer_email, customer_phone,
+            delivery_address, is_gift, recipient_name, items_json,
+            amount_paid, points_redeemed, referred_by, member_id
+          ) VALUES (
+            ${merchant_reference},
+            ${order.customerName},
+            ${order.customerEmail},
+            ${order.customerPhone || ""},
+            ${order.deliveryAddress || ""},
+            ${order.isGift || false},
+            ${order.recipientName || ""},
+            ${JSON.stringify(order.items)},
+            ${order.amount},
+            ${order.pointsRedeemed || 0},
+            ${order.referredBy || ""},
+            ${order.memberId ?? null}
+          )
+          ON CONFLICT (order_ref) DO NOTHING
+          RETURNING id
+        `);
+        dbOrderId = (result.rows?.[0] as any)?.id ?? null;
+        console.log(`[Order] Saved to DB: ${merchant_reference} (id=${dbOrderId})`);
+      } catch (dbErr) {
+        console.error("[Order] DB save failed:", dbErr);
+      }
+
+      // STEP 2: Send admin notification email immediately
+      sendOrderNotificationToAdmin(
+        merchant_reference,
+        order.customerName,
+        order.customerEmail,
+        order.customerPhone,
+        order.deliveryAddress,
+        order.items,
+        order.amount,
+        order.referredBy,
+        order.isGift || false,
+        order.recipientName,
+      ).catch(e => console.error("[Order] Admin email error:", e));
+
+      // STEP 3: Send customer confirmation email (via Resend as backup, regardless of Xero)
+      let customerEmailStatus = "pending";
+      try {
+        await sendOrderConfirmationToCustomer(
+          merchant_reference,
+          order.customerName,
+          order.customerEmail,
+          order.items,
+          order.amount,
+        );
+        customerEmailStatus = "sent";
+      } catch (emailErr) {
+        console.error("[Order] Customer email error:", emailErr);
+        customerEmailStatus = "failed";
+      }
+
+      // STEP 4: Create Xero invoice (AUTHORISED + PAID + Xero's own email)
+      let xeroInvoice = "";
+      let xeroStatus = "skipped";
       if (isXeroConnected() && order.items.length > 0) {
         try {
           const invoiceNumber = await createXeroInvoice({
@@ -659,15 +726,30 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
             orderRef: merchant_reference,
             amountPaid: order.amount,
           });
-          console.log(`[PaymentAsia] Xero invoice created: ${invoiceNumber} for ${order.customerEmail}`);
+          xeroInvoice = invoiceNumber || "";
+          xeroStatus = invoiceNumber ? "created" : "failed";
+          console.log(`[PaymentAsia] Xero invoice: ${invoiceNumber} for ${order.customerEmail}`);
         } catch (xeroErr) {
           console.error("[PaymentAsia] Xero invoice error:", xeroErr);
+          xeroStatus = "error";
         }
       } else {
-        console.warn("[PaymentAsia] Xero not connected or no items — skipping invoice");
+        xeroStatus = isXeroConnected() ? "no_items" : "not_connected";
+        console.warn(`[PaymentAsia] Xero skipped: ${xeroStatus}`);
       }
 
-      // 2. Award / deduct loyalty points
+      // Update DB record with Xero + email status
+      if (dbOrderId) {
+        db.execute(sql`
+          UPDATE orders SET
+            xero_invoice = ${xeroInvoice},
+            xero_status = ${xeroStatus},
+            email_status = ${customerEmailStatus}
+          WHERE id = ${dbOrderId}
+        `).catch(e => console.error("[Order] DB update failed:", e));
+      }
+
+      // STEP 5: Award / deduct loyalty points
       if (order.memberId) {
         try {
           const member = await storage.getMemberById(order.memberId);
@@ -829,6 +911,29 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     } catch (err) {
       console.error("[Order] Error:", err);
       res.status(500).json({ error: "Failed to process order" });
+    }
+  });
+
+  // ── Admin: view all orders from DB ───────────────────────────────────────────
+  // Protected by simple secret key in header or query
+  app.get("/api/admin/orders", async (req, res) => {
+    const secret = req.query.secret || req.headers["x-admin-secret"];
+    if (secret !== (process.env.ADMIN_SECRET || "tc-admin-2026")) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    try {
+      const result = await db.execute(sql`
+        SELECT id, order_ref, customer_name, customer_email, customer_phone,
+               delivery_address, is_gift, recipient_name, items_json,
+               amount_paid, points_redeemed, referred_by, member_id,
+               xero_invoice, xero_status, email_status, created_at
+        FROM orders
+        ORDER BY created_at DESC
+        LIMIT 200
+      `);
+      res.json({ orders: result.rows });
+    } catch (err) {
+      res.status(500).json({ error: "Failed to fetch orders" });
     }
   });
 
