@@ -819,10 +819,10 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   });
 
   // Return URL after payment (GET — redirect customer back to site)
-  // Use HTML meta refresh + JS redirect so it works even if browser caches the page
+  // Always redirect to www.terroirandcraft.online — Railway URL is only for API calls
   app.get("/api/payment/return", (req, res) => {
     const ref = (req.query.ref as string) || "";
-    const dest = `/#/payment-result?ref=${encodeURIComponent(ref)}`;
+    const dest = `https://www.terroirandcraft.online/#/payment-result?ref=${encodeURIComponent(ref)}`;
     res.setHeader("Content-Type", "text/html; charset=utf-8");
     res.setHeader("Cache-Control", "no-store");
     res.send(`<!DOCTYPE html><html><head>
