@@ -53,6 +53,9 @@ export default function CartPage() {
   const [recipientName, setRecipientName] = useState("");
   const [recipientPhone, setRecipientPhone] = useState("");
 
+  // Points redemption
+  const [usePoints, setUsePoints] = useState(false);
+
   if (items.length === 0) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center px-4">
@@ -74,8 +77,39 @@ export default function CartPage() {
     );
   }
 
-  const deliveryFee = totalPrice >= 1000 ? 0 : 80;
-  const orderTotal = totalPrice + deliveryFee;
+  // ── Tier discount (exclusive brand items only) ─────────────────────────────
+  const TIER_DISCOUNT: Record<string, number> = { Silver: 0.05, Gold: 0.08, Platinum: 0.10 };
+  const tierDiscountRate = isLoggedIn && member ? (TIER_DISCOUNT[member.tier] || 0) : 0;
+
+  // Calculate subtotal with tier discount applied to exclusive items only
+  const subtotalWithDiscount = items.reduce((sum, item) => {
+    const basePrice = item.product.promo_price ?? item.product.price;
+    const lineTotal = basePrice * item.quantity;
+    // Apply tier discount only to exclusive brand items (not promo_price items)
+    const isExclusive = (item.product as any).exclusive === true;
+    const isPromo = !!item.product.promo_price;
+    const discountedLine = isExclusive && !isPromo
+      ? lineTotal * (1 - tierDiscountRate)
+      : lineTotal;
+    return sum + discountedLine;
+  }, 0);
+
+  const tierSavings = totalPrice - subtotalWithDiscount;
+
+  // ── Points redemption ─────────────────────────────────────────────────────
+  const POINTS_TO_HKD = 0.10; // 100 pts = HK$10
+  const MIN_POINTS_REDEEM = 100;
+  const availablePoints = member?.points || 0;
+  const maxRedeemable = Math.floor(availablePoints / MIN_POINTS_REDEEM) * MIN_POINTS_REDEEM; // round down to 100s
+  const pointsDiscount = usePoints && maxRedeemable >= MIN_POINTS_REDEEM
+    ? Math.min(maxRedeemable * POINTS_TO_HKD, subtotalWithDiscount) // cap at subtotal, applies to all items
+    : 0;
+  const pointsUsed = pointsDiscount / POINTS_TO_HKD; // how many pts being used
+
+  // ── Final totals ─────────────────────────────────────────────────────────
+  const subtotalAfterAll = subtotalWithDiscount - pointsDiscount;
+  const deliveryFee = subtotalAfterAll >= 1000 ? 0 : 80;
+  const orderTotal = subtotalAfterAll + deliveryFee;
   const pointsWillEarn = Math.floor(orderTotal / 5) + (!member?.bonus_first_order ? 100 : 0);
 
   // Save delivery info to member profile
@@ -175,6 +209,7 @@ export default function CartPage() {
         isGift,
         recipientName: isGift ? recipientName.trim() : undefined,
         recipientPhone: isGift ? recipientPhone.trim() : undefined,
+        pointsRedeemed: usePoints ? pointsUsed : 0,
         items: items.map(i => ({
           name: i.product.name,
           itemCode: i.product.id,
@@ -375,19 +410,75 @@ export default function CartPage() {
             <div className="bg-card border border-border rounded-xl p-6 sticky top-20">
               <h2 className="font-display text-xl font-medium mb-5">Order Summary</h2>
               <div className="space-y-3 text-sm font-body mb-5">
+                {/* Original subtotal */}
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Subtotal ({totalItems} items)</span>
                   <span>{formatPrice(totalPrice)}</span>
                 </div>
+
+                {/* Tier discount row */}
+                {isLoggedIn && tierSavings > 0 && (
+                  <div className="flex justify-between text-green-600">
+                    <span className="flex items-center gap-1">
+                      <Tag className="w-3.5 h-3.5" />
+                      {member?.tier} discount ({tierDiscountRate * 100}%)
+                    </span>
+                    <span>-{formatPrice(tierSavings)}</span>
+                  </div>
+                )}
+
+                {/* Points redemption toggle */}
+                {isLoggedIn && availablePoints >= MIN_POINTS_REDEEM && (
+                  <div className={`rounded-lg border p-3 transition-all ${
+                    usePoints ? "border-[hsl(355,62%,28%)] bg-[hsl(355,62%,28%)]/5" : "border-border bg-muted/20"
+                  }`}>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-body text-xs font-medium text-foreground">
+                          用積分抵扣 Use Points
+                        </p>
+                        <p className="font-body text-[11px] text-muted-foreground mt-0.5">
+                          {availablePoints.toLocaleString()} pts 可用 · 最多扣 {formatPrice(maxRedeemable * POINTS_TO_HKD)}
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => setUsePoints(u => !u)}
+                        className={`relative w-10 h-5 rounded-full transition-colors ${
+                          usePoints ? "bg-[hsl(355,62%,28%)]" : "bg-muted-foreground/30"
+                        }`}
+                        data-testid="use-points-toggle"
+                      >
+                        <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${
+                          usePoints ? "translate-x-5" : "translate-x-0.5"
+                        }`} />
+                      </button>
+                    </div>
+                    {usePoints && pointsDiscount > 0 && (
+                      <p className="font-body text-xs text-green-600 mt-2">
+                        扣減 {formatPrice(pointsDiscount)}（用了 {pointsUsed.toLocaleString()} pts）
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {/* Points discount row */}
+                {usePoints && pointsDiscount > 0 && (
+                  <div className="flex justify-between text-green-600">
+                    <span>積分抵扣 Points redemption</span>
+                    <span>-{formatPrice(pointsDiscount)}</span>
+                  </div>
+                )}
+
+                {/* Delivery */}
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Delivery</span>
                   <span className={deliveryFee === 0 ? "text-green-600 font-medium" : ""}>
                     {deliveryFee === 0 ? "Free" : formatPrice(deliveryFee)}
                   </span>
                 </div>
-                {totalPrice < 1000 && (
+                {subtotalAfterAll < 1000 && (
                   <p className="text-xs text-muted-foreground bg-muted/50 rounded p-2">
-                    Add {formatPrice(1000 - totalPrice)} more for free delivery
+                    Add {formatPrice(1000 - subtotalAfterAll)} more for free delivery
                   </p>
                 )}
                 <div className="border-t border-border pt-3 flex justify-between font-semibold text-base">
@@ -396,7 +487,7 @@ export default function CartPage() {
                 </div>
               </div>
 
-              {/* Points preview */}
+              {/* Points to earn */}
               {isLoggedIn && (
                 <div className="mb-4 flex items-center gap-2.5 bg-[hsl(355,62%,28%)]/8 border border-[hsl(355,62%,28%)]/20 rounded-lg p-3">
                   <Star className="w-4 h-4 text-[hsl(355,62%,28%)] shrink-0" />

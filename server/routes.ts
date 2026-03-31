@@ -469,6 +469,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     memberId?: number;
     referredBy?: string;
     amount: number;
+    pointsRedeemed?: number;
     items: Array<{ name: string; itemCode: string; quantity: number; unitPrice: number }>;
     createdAt: number;
   }>();
@@ -489,7 +490,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
         }
       }
 
-      const { isGift, recipientName, recipientPhone, deliveryAddress } = req.body;
+      const { isGift, recipientName, recipientPhone, deliveryAddress, pointsRedeemed } = req.body;
 
       // Store order details so callback can open Xero invoice
       pendingOrders.set(merchantReference, {
@@ -503,6 +504,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
         memberId,
         referredBy,
         amount: Number(amount),
+        pointsRedeemed: Number(pointsRedeemed) || 0,
         items: items || [],
         createdAt: Date.now(),
       });
@@ -586,18 +588,30 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
         console.warn("[PaymentAsia] Xero not connected or no items — skipping invoice");
       }
 
-      // 2. Award loyalty points to member
+      // 2. Award / deduct loyalty points
       if (order.memberId) {
         try {
           const member = await storage.getMemberById(order.memberId);
           if (member) {
+            // Deduct redeemed points first
+            if (order.pointsRedeemed && order.pointsRedeemed > 0) {
+              await storage.addPoints(
+                order.memberId,
+                -order.pointsRedeemed,
+                `Points redeemed at checkout (${merchant_reference})`
+              );
+            }
+            // Award earn points on final amount paid
             const pts = Math.floor(order.amount / 5);
-            await storage.addPoints(order.memberId, pts, `Purchase HK$${order.amount} (${merchant_reference})`);
+            if (pts > 0) {
+              await storage.addPoints(order.memberId, pts, `Purchase HK$${order.amount} (${merchant_reference})`);
+            }
+            // First order bonus
             if (!member.bonus_first_order) {
               await storage.updateMember(order.memberId, { bonus_first_order: true });
               await storage.addPoints(order.memberId, 100, "First order bonus");
             }
-            console.log(`[PaymentAsia] Points awarded to member ${order.memberId}`);
+            console.log(`[PaymentAsia] Points: -${order.pointsRedeemed || 0} redeemed, +${pts} earned`);
           }
         } catch (ptsErr) {
           console.error("[PaymentAsia] Points error:", ptsErr);
