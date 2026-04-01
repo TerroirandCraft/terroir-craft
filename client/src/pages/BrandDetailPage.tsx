@@ -167,26 +167,35 @@ export default function BrandDetailPage() {
       {cfg.feature && (
         <section style={{ background: cfg.sectionBg, padding: "64px 0" }}>
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            {/* Label + Heading */}
+            {/* Label + Heading — use Satisfy (font-script) */}
             <p className="font-body text-xs tracking-[0.3em] uppercase mb-3" style={{ color: cfg.accent }}>
               {cfg.feature.label}
             </p>
-            <h2 className="font-script mb-10" style={{ fontSize: "clamp(2rem,4vw,2.8rem)", color: "#2A1A08", fontStyle: "normal" }}>
+            <h2 className="font-script mb-10" style={{ fontSize: "clamp(2rem,4vw,2.8rem)", color: "#2A1A08", fontStyle: "normal", fontFamily: "'Satisfy', cursive" }}>
               {cfg.feature.heading}
             </h2>
 
             {/* Two columns */}
             <div className="flex flex-col md:flex-row gap-10 md:gap-14 items-start">
-              {/* Left: visual + description */}
+              {/* Left: real photo OR coloured box + description */}
               <div className="flex-1 min-w-0">
-                <div className="w-full rounded-2xl flex flex-col items-center justify-center py-10 px-6 mb-6"
-                  style={{ background: cfg.feature.visual.bg, aspectRatio: "16/9" }}>
-                  <span className="font-body text-sm text-white/70 uppercase tracking-widest mb-1">{cfg.feature.visual.line1}</span>
-                  <span className="font-script text-white text-center" style={{ fontSize: "clamp(1.6rem,3vw,2.2rem)", fontStyle: "normal" }}>
-                    {cfg.feature.visual.line2}
-                  </span>
-                  <span className="text-4xl mt-4">🍾</span>
-                </div>
+                {cfg.feature.image ? (
+                  <img
+                    src={`${API_BASE}${cfg.feature.image}`}
+                    alt={cfg.feature.heading}
+                    className="w-full rounded-2xl shadow-lg mb-6 object-cover"
+                    style={{ aspectRatio: "4/3", maxHeight: 340 }}
+                  />
+                ) : (
+                  <div className="w-full rounded-2xl flex flex-col items-center justify-center py-10 px-6 mb-6"
+                    style={{ background: cfg.feature.visual.bg, aspectRatio: "16/9" }}>
+                    <span className="font-body text-sm text-white/70 uppercase tracking-widest mb-1">{cfg.feature.visual.line1}</span>
+                    <span style={{ fontFamily: "'Satisfy', cursive", fontSize: "clamp(1.6rem,3vw,2.2rem)", color: "white" }}>
+                      {cfg.feature.visual.line2}
+                    </span>
+                    <span className="text-4xl mt-4">🍾</span>
+                  </div>
+                )}
                 <p className="font-body text-sm leading-relaxed" style={{ color: "#4A3010", lineHeight: 1.9 }}>
                   {cfg.feature.body}
                 </p>

@@ -2,25 +2,21 @@
 // Add entries here as each brand gets a custom page design
 
 export interface BrandConfig {
-  // Hero gradient colors
   heroGradient: { from: string; to: string };
-  // Accent / CTA color
   accent: string;
-  // Section background (parchment / cream etc.)
   sectionBg: string;
-  // Text color on hero
   heroText: string;
-  // Optional: special feature section (e.g. The Mollydooker Shake)
   feature?: {
-    label: string;       // e.g. "BRAND SIGNATURE"
-    heading: string;     // e.g. "The Mollydooker Shake"
-    body: string;        // Description paragraph
-    visual: {            // Left-side coloured box content
+    label: string;
+    heading: string;
+    body: string;
+    image?: string;       // Real photo URL/path — shown instead of coloured box
+    visual: {
       bg: string;
       line1: string;
       line2: string;
     };
-    youtubeId: string;   // YouTube video ID
+    youtubeId: string;
     videoCaption: string;
   };
 }
@@ -35,13 +31,14 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
       label: "BRAND SIGNATURE",
       heading: "The Mollydooker Shake",
       body: "Before opening any Mollydooker bottle, give it a vigorous shake for 30–60 seconds. This unique technique — invented by winemaker Sparky Marquis — reintegrates CO₂ and dissolves oxygen, unlocking the wine's full fruit expression instantly. No decanting needed.",
+      image: "/mollydooker-shake.jpg",
       visual: {
         bg: "#D94F2B",
         line1: "Do The",
         line2: "Mollydooker Shake",
       },
       youtubeId: "mfbap3Ihdbs",
-      videoCaption: "Sparky Marquis demonstrates the Mollydooker Shake technique",
+      videoCaption: "Luke Marquis demonstrates the Mollydooker Shake technique",
     },
   },
 };
