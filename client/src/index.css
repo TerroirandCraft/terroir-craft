@@ -97,9 +97,10 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Josefin Sans', system-ui, sans-serif;
     min-height: 100dvh;
     line-height: 1.6;
+    letter-spacing: 0.04em;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -136,7 +137,8 @@
   }
 
   .font-body {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Josefin Sans', system-ui, sans-serif;
+    letter-spacing: 0.04em;
   }
 
   .text-tc-burgundy { color: hsl(var(--tc-burgundy)); }
