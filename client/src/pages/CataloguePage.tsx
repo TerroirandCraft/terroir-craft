@@ -153,7 +153,7 @@ export default function CataloguePage() {
               <div className="flex items-center gap-2 mb-2">
                 <span className="font-body text-[11px] tracking-[0.2em] uppercase text-white/50">Shop by Occasion</span>
               </div>
-              <h1 className="font-display text-4xl md:text-5xl font-light mb-2">{OCCASION_LABELS[occasionFilter]}</h1>
+              <h1 className="font-script text-5xl md:text-6xl mb-2" style={{fontStyle:'normal'}}>{OCCASION_LABELS[occasionFilter]}</h1>
               <p className="font-body text-white/70 text-sm">{filtered.length} wines curated for this occasion</p>
             </>
           ) : (

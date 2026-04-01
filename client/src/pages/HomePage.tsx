@@ -329,7 +329,7 @@ export default function HomePage() {
                   />
                   {/* Text */}
                   <div className="absolute bottom-0 left-0 right-0 p-5">
-                    <h3 className="font-display text-xl text-white font-light leading-tight">{cat.label}</h3>
+                    <h3 className="font-script text-2xl text-white leading-tight">{cat.label}</h3>
                     <p className="font-body text-xs mt-1" style={{ color: "rgba(255,255,255,0.65)" }}>{cat.labelZh}</p>
                   </div>
                   {/* Arrow */}

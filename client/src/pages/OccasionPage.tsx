@@ -95,7 +95,7 @@ export default function OccasionPage() {
                 />
                 {/* Text */}
                 <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <h2 className="font-display text-2xl text-white font-light leading-tight mb-1">
+                  <h2 className="font-script text-3xl text-white leading-tight mb-1">
                     {occ.label}
                   </h2>
                   <p className="font-body text-xs text-white/65 mb-3">{occ.descZh}</p>

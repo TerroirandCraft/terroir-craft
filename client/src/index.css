@@ -103,7 +103,8 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-style: italic;
     line-height: 1.2;
     text-wrap: balance;
   }
@@ -125,7 +126,13 @@
 /* Custom utility classes */
 @layer utilities {
   .font-display {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-style: italic;
+  }
+
+  .font-script {
+    font-family: 'Satisfy', cursive;
+    font-style: normal;
   }
 
   .font-body {
