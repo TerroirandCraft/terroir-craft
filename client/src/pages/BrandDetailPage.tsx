@@ -1,12 +1,13 @@
 import { useParams, Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, Globe, MapPin, Grape, Star, ChevronRight } from "lucide-react";
+import { ArrowLeft, Globe, MapPin, Star } from "lucide-react";
 import type { Product } from "@/lib/products";
 import { BRAND_INFO, formatPrice } from "@/lib/products";
 import WineCard from "@/components/WineCard";
 import { API_BASE } from "@/lib/queryClient";
+import { getBrandConfig } from "@/lib/brandConfig";
 
-// Local brand logo files (from /brand-logos/ directory)
+// Local brand logo files
 const BRAND_LOGO_FILES: Record<string, string> = {
   "Mollydooker":                 "Mollydooker.webp",
   "Canmak":                      "Canmak.jpeg",
@@ -35,108 +36,6 @@ function getBrandLogoSrc(brand: string): string | null {
   return file ? `${API_BASE}/brand-logos/${encodeURIComponent(file)}` : null;
 }
 
-// Hero/banner image for each brand (vineyard/winery atmosphere shots)
-const BRAND_HERO: Record<string, string> = {
-  "Mollydooker":               "https://mollydookerwines.com.au/wp-content/uploads/2019/06/mollydooker-vineyard.jpg",
-  "Tscharke":                  "https://tscharke.au/cdn/shop/files/tscharke-vineyard.jpg",
-  "Champagne Boizel":          "https://www.boizel.com/wp-content/uploads/2021/05/boizel-cellar.jpg",
-  "Château de Saint Cosme":    "https://winebow-files.s3.amazonaws.com/public/2023-04/st-cosme-estate.jpg",
-  "Kopke":                     "https://kopke1638.com/wp-content/uploads/2022/03/kopke-douro.jpg",
-  "Morey-Coffinet":            "https://www.morey-coffinet.com/media/cache/hero/vineyard.jpg",
-  "Vereinigte Hospitien":      "https://www.weingut.vereinigtehospitien.de/images/vineyard.jpg",
-  "Realm Cellars":             "https://realmcellars.com/wp-content/uploads/2022/01/realm-vineyard.jpg",
-};
-
-function BrandHero({ brand, info }: { brand: string; info: typeof BRAND_INFO[string] | undefined }) {
-  // Derive a colour per brand region
-  const heroColors: Record<string, { from: string; to: string }> = {
-    "Mollydooker":               { from: "#1a0a2e", to: "#3B1F5E" },
-    "Tscharke":                  { from: "#2C1A0E", to: "#6B3A1F" },
-    "Champagne Boizel":          { from: "#1C1708", to: "#5C4A10" },
-    "Château de Saint Cosme":    { from: "#1A0D0D", to: "#6B1A1A" },
-    "Kopke":                     { from: "#1A0A00", to: "#6B2200" },
-    "Morey-Coffinet":            { from: "#0D1A10", to: "#1A4A2A" },
-    "Maison Morey-Coffinet":     { from: "#0D1A10", to: "#1A4A2A" },
-    "Vereinigte Hospitien":      { from: "#0A1A2A", to: "#1A3A5A" },
-    "Sherwood":                  { from: "#0A1E10", to: "#1A4A20" },
-    "Levrier Wines by Jo Irvine":{ from: "#1E1008", to: "#5A2A10" },
-    "Realm Cellars":             { from: "#0A0A1E", to: "#1A1A5A" },
-  };
-  const colors = heroColors[brand] || { from: "#1A0D0D", to: "#6B2233" };
-
-  return (
-    <div
-      className="relative py-16 px-6 overflow-hidden"
-      style={{ background: `linear-gradient(135deg, ${colors.from} 0%, ${colors.to} 100%)` }}
-    >
-      {/* Subtle texture overlay */}
-      <div className="absolute inset-0 opacity-10"
-        style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }}
-      />
-
-      <div className="max-w-6xl mx-auto relative">
-        {/* Back button */}
-        <Link href="/brands">
-          <a className="inline-flex items-center gap-1.5 text-white/60 hover:text-white font-body text-sm mb-8 transition-colors">
-            <ArrowLeft className="w-4 h-4" /> All Brands
-          </a>
-        </Link>
-
-        <div className="flex flex-col md:flex-row items-start md:items-center gap-8">
-          {/* Logo box */}
-          <div className="w-28 h-28 md:w-36 md:h-36 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 flex items-center justify-center shrink-0 overflow-hidden">
-            {getBrandLogoSrc(brand) ? (
-              <img
-                src={getBrandLogoSrc(brand)!}
-                alt={`${brand} logo`}
-                className="w-full h-full object-contain p-4"
-                onError={(e) => {
-                  const el = e.currentTarget;
-                  el.style.display = 'none';
-                  el.parentElement!.innerHTML = `<span class="font-display text-3xl font-bold text-white/80">${brand.substring(0,2).toUpperCase()}</span>`;
-                }}
-              />
-            ) : (
-              <span className="font-display text-3xl font-bold text-white/80">{brand.substring(0,2).toUpperCase()}</span>
-            )}
-          </div>
-
-          {/* Brand info */}
-          <div className="flex-1">
-            <div className="flex items-center gap-3 mb-3">
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-sm bg-amber-500/20 border border-amber-400/40 text-amber-300 font-body text-xs font-semibold tracking-widest uppercase">
-                <Star className="w-3 h-3 fill-amber-300" /> Exclusive Agency
-              </span>
-            </div>
-            <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-light text-white mb-3 leading-tight">
-              {brand}
-            </h1>
-            {info?.country && (
-              <div className="flex items-center gap-1.5 text-white/60 font-body text-sm mb-4">
-                <MapPin className="w-3.5 h-3.5" /> {info.country}
-                {info.website && (
-                  <>
-                    <span className="mx-2 text-white/30">·</span>
-                    <a href={info.website} target="_blank" rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-amber-300/80 hover:text-amber-300 transition-colors">
-                      <Globe className="w-3.5 h-3.5" /> Official Website
-                    </a>
-                  </>
-                )}
-              </div>
-            )}
-            {info?.description && (
-              <p className="font-body text-white/75 text-base leading-relaxed max-w-2xl">
-                {info.description}
-              </p>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function BrandDetailPage() {
   const { brand: brandSlug } = useParams<{ brand: string }>();
   const brand = decodeURIComponent(brandSlug || "");
@@ -148,90 +47,197 @@ export default function BrandDetailPage() {
   const brandProducts = products.filter(
     p => p.brand.toLowerCase() === brand.toLowerCase()
   );
-
   const info = BRAND_INFO[brand];
-
-  // Derive actual brand name from products if URL slug differs slightly
   const actualBrand = brandProducts[0]?.brand || brand;
+  const cfg = getBrandConfig(actualBrand);
 
-  // Group products by type
   const byType: Record<string, Product[]> = {};
   brandProducts.forEach(p => {
     const t = p.type || "Other";
     if (!byType[t]) byType[t] = [];
     byType[t].push(p);
   });
-
   const typeOrder = ["Red", "White", "Sparkling", "Champagne", "Sparkling Red", "Rose", "Fortified", "Makgeolli", "Other"];
   const sortedTypes = Object.keys(byType).sort((a, b) => {
-    const ai = typeOrder.indexOf(a);
-    const bi = typeOrder.indexOf(b);
+    const ai = typeOrder.indexOf(a); const bi = typeOrder.indexOf(b);
     return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
   });
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-muted-foreground font-body text-sm">Loading...</div>
-      </div>
-    );
-  }
+  const isLight = cfg.heroText !== "#ffffff";
+  const logoSrc = getBrandLogoSrc(actualBrand);
 
-  if (brandProducts.length === 0) {
-    return (
-      <div className="min-h-screen bg-background">
-        <div className="max-w-6xl mx-auto px-4 py-20 text-center">
-          <Link href="/brands">
-            <a className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground font-body text-sm mb-8">
-              <ArrowLeft className="w-4 h-4" /> Back to Brands
-            </a>
-          </Link>
-          <p className="font-body text-muted-foreground">Brand not found.</p>
-        </div>
+  if (isLoading) return (
+    <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="text-muted-foreground font-body text-sm">Loading...</div>
+    </div>
+  );
+
+  if (brandProducts.length === 0) return (
+    <div className="min-h-screen bg-background">
+      <div className="max-w-6xl mx-auto px-4 py-20 text-center">
+        <Link href="/brands">
+          <a className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground font-body text-sm mb-8">
+            <ArrowLeft className="w-4 h-4" /> Back to Brands
+          </a>
+        </Link>
+        <p className="font-body text-muted-foreground">Brand not found.</p>
       </div>
-    );
-  }
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero */}
-      <BrandHero brand={actualBrand} info={info} />
 
-      {/* Stats bar */}
-      <div className="border-b border-border bg-muted/30">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap gap-6">
-          <div className="font-body text-sm">
-            <span className="text-muted-foreground">{actualBrand === "Hydrodol" ? "Products available" : "Wines available"}</span>
-            <span className="ml-2 font-semibold text-foreground">{brandProducts.length}</span>
-          </div>
-          {Object.entries(byType).map(([type, items]) => (
-            <div key={type} className="font-body text-sm">
-              <span className="text-muted-foreground">{type}</span>
-              <span className="ml-1.5 font-semibold text-foreground">{items.length}</span>
+      {/* ── HERO ── */}
+      <div style={{ background: `linear-gradient(135deg, ${cfg.heroGradient.from} 0%, ${cfg.heroGradient.to} 100%)`, padding: "28px 0 52px" }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          {/* Back */}
+          <Link href="/brands">
+            <a className="inline-flex items-center gap-1.5 font-body text-sm mb-8 transition-colors"
+              style={{ color: isLight ? "#6B4A20" : "rgba(255,255,255,0.6)" }}>
+              <ArrowLeft className="w-4 h-4" /> All Brands
+            </a>
+          </Link>
+
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-8">
+            {/* Logo */}
+            <div className="w-32 h-32 md:w-40 md:h-40 rounded-2xl border flex items-center justify-center shrink-0 overflow-hidden"
+              style={{ background: isLight ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.1)", borderColor: isLight ? "rgba(0,0,0,0.1)" : "rgba(255,255,255,0.2)" }}>
+              {logoSrc ? (
+                <img src={logoSrc} alt={`${actualBrand} logo`} className="w-full h-full object-contain p-3"
+                  onError={e => { e.currentTarget.style.display='none'; e.currentTarget.parentElement!.innerHTML = `<span class="font-script text-3xl" style="color:${cfg.accent}">${actualBrand.substring(0,2)}</span>`; }} />
+              ) : (
+                <span className="font-script text-3xl" style={{ color: cfg.accent }}>{actualBrand.substring(0,2)}</span>
+              )}
             </div>
-          ))}
-          <div className="font-body text-sm">
-            <span className="text-muted-foreground">From</span>
-            <span className="ml-2 font-semibold text-foreground">
-              {formatPrice(Math.min(...brandProducts.map(p => p.price).filter(p => p > 0)))}
-            </span>
+
+            {/* Info */}
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full font-body text-xs font-semibold tracking-widest uppercase"
+                  style={{ background: `${cfg.accent}22`, border: `1px solid ${cfg.accent}55`, color: cfg.accent }}>
+                  <Star className="w-3 h-3 fill-current" /> Exclusive Agency
+                </span>
+              </div>
+              <h1 className="font-display mb-2 leading-tight" style={{ fontSize: "clamp(2.2rem,5vw,3.5rem)", color: cfg.heroText }}>
+                {actualBrand}
+              </h1>
+              {info?.country && (
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-body text-sm mb-4"
+                  style={{ color: isLight ? "#6B4A20" : "rgba(255,255,255,0.6)" }}>
+                  <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" />{info.country}</span>
+                  {info.website && (
+                    <a href={info.website} target="_blank" rel="noopener noreferrer"
+                      className="flex items-center gap-1 transition-colors hover:opacity-80"
+                      style={{ color: cfg.accent }}>
+                      <Globe className="w-3.5 h-3.5" /> Official Website →
+                    </a>
+                  )}
+                </div>
+              )}
+              {info?.description && (
+                <p className="font-body text-sm leading-relaxed max-w-2xl"
+                  style={{ color: isLight ? "#4A3010" : "rgba(255,255,255,0.75)" }}>
+                  {info.description}
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Wine grid — grouped by type */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 space-y-10">
+      {/* ── STATS BAR ── */}
+      <div className="border-b border-border bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap gap-5">
+          <span className="font-body text-xs text-muted-foreground">
+            {brandProducts.length} {actualBrand === "Hydrodol" ? "products" : "wines"} available
+          </span>
+          {Object.entries(byType).map(([type, items]) => (
+            <span key={type} className="font-body text-xs text-muted-foreground">
+              {type} <strong className="text-foreground">{items.length}</strong>
+            </span>
+          ))}
+          <span className="font-body text-xs text-muted-foreground">
+            From <strong className="text-foreground">{formatPrice(Math.min(...brandProducts.map(p => p.price).filter(p => p > 0)))}</strong>
+          </span>
+        </div>
+      </div>
+
+      {/* ── BRAND FEATURE SECTION (e.g. Mollydooker Shake) ── */}
+      {cfg.feature && (
+        <section style={{ background: cfg.sectionBg, padding: "64px 0" }}>
+          <div className="max-w-6xl mx-auto px-4 sm:px-6">
+            {/* Label + Heading */}
+            <p className="font-body text-xs tracking-[0.3em] uppercase mb-3" style={{ color: cfg.accent }}>
+              {cfg.feature.label}
+            </p>
+            <h2 className="font-script mb-10" style={{ fontSize: "clamp(2rem,4vw,2.8rem)", color: "#2A1A08", fontStyle: "normal" }}>
+              {cfg.feature.heading}
+            </h2>
+
+            {/* Two columns */}
+            <div className="flex flex-col md:flex-row gap-10 md:gap-14 items-start">
+              {/* Left: visual + description */}
+              <div className="flex-1 min-w-0">
+                <div className="w-full rounded-2xl flex flex-col items-center justify-center py-10 px-6 mb-6"
+                  style={{ background: cfg.feature.visual.bg, aspectRatio: "16/9" }}>
+                  <span className="font-body text-sm text-white/70 uppercase tracking-widest mb-1">{cfg.feature.visual.line1}</span>
+                  <span className="font-script text-white text-center" style={{ fontSize: "clamp(1.6rem,3vw,2.2rem)", fontStyle: "normal" }}>
+                    {cfg.feature.visual.line2}
+                  </span>
+                  <span className="text-4xl mt-4">🍾</span>
+                </div>
+                <p className="font-body text-sm leading-relaxed" style={{ color: "#4A3010", lineHeight: 1.9 }}>
+                  {cfg.feature.body}
+                </p>
+              </div>
+
+              {/* Right: YouTube embed */}
+              <div className="flex-1 min-w-0">
+                <p className="font-body text-xs tracking-[0.25em] uppercase mb-3" style={{ color: cfg.accent }}>
+                  Watch the technique
+                </p>
+                <div className="w-full overflow-hidden rounded-2xl shadow-xl" style={{ aspectRatio: "16/9" }}>
+                  <iframe
+                    src={`https://www.youtube.com/embed/${cfg.feature.youtubeId}`}
+                    title={cfg.feature.heading}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full"
+                    style={{ border: "none", display: "block" }}
+                  />
+                </div>
+                <p className="font-body text-xs mt-3 italic" style={{ color: "#888" }}>
+                  {cfg.feature.videoCaption}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── WINE GRID ── */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 space-y-12">
+        {/* Section heading with accent underline */}
+        <div>
+          <h2 className="font-display text-3xl mb-3" style={{ color: "#2A1A08" }}>Our Range</h2>
+          <div className="h-0.5 w-14 rounded-full" style={{ background: cfg.accent }} />
+        </div>
+
         {sortedTypes.map(type => (
           <section key={type}>
             <div className="flex items-center gap-3 mb-5">
-              <h2 className="font-display text-xl font-medium text-foreground">{actualBrand === "Hydrodol" ? type : `${type} Wines`}</h2>
+              <h3 className="font-body text-xs tracking-widest uppercase" style={{ color: cfg.accent }}>
+                {actualBrand === "Hydrodol" ? type : `${type} Wines`}
+              </h3>
               <div className="flex-1 h-px bg-border" />
-              <span className="font-body text-xs text-muted-foreground">{byType[type].length} {actualBrand === "Hydrodol" ? (byType[type].length === 1 ? 'product' : 'products') : (byType[type].length === 1 ? 'wine' : 'wines')}</span>
+              <span className="font-body text-xs text-muted-foreground">
+                {byType[type].length} {actualBrand === "Hydrodol" ? "products" : "wines"}
+              </span>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {byType[type]
                 .sort((a, b) => {
-                  // Sort by vintage desc, then name
                   const av = parseInt(a.vintage) || 0;
                   const bv = parseInt(b.vintage) || 0;
                   if (bv !== av) return bv - av;
@@ -239,8 +245,7 @@ export default function BrandDetailPage() {
                 })
                 .map(product => (
                   <WineCard key={product.id} product={product} />
-                ))
-              }
+                ))}
             </div>
           </section>
         ))}
