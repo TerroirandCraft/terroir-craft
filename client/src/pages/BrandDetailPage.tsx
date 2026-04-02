@@ -15,7 +15,7 @@ const BRAND_LOGO_FILES: Record<string, string> = {
   "Château d'Issan":             "Chateau D'Issan.png",
   "Château de Saint Cosme":      "Chateau de Saint Cosme.jpg",
   "Crystallum":                  "Crystallum.png",
-  "Kopke":                       "Kopke.png",
+  "Kopke":                       "Kopke.jpg",
   "La Dame de Montrose":         "La Dame de Montrose.png",
   "Le Baron de Brane":           "Le Baron de Brane.png",
   "Les Pagodes de Cos":          "Les Pagodes de Cos.jpeg",
