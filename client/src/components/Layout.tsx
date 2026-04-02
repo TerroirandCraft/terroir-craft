@@ -28,9 +28,8 @@ export default function Layout({ children }: { children: ReactNode }) {
   const promoList = Object.values(PROMOTIONS);
 
   // Dark mode toggle — reads system preference, no localStorage
-  const [darkMode, setDarkMode] = useState(() =>
-    typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches
-  );
+  // Default: always light mode (day mode) regardless of OS setting
+  const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);

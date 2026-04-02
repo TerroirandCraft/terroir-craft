@@ -11,6 +11,7 @@ export interface BrandConfig {
     year: string;
     tagline: string;
     yearFont?: string;
+    yearColor?: string;   // defaults to accent color
   };
   // Optional booklet / brochure download section
   booklet?: {
@@ -19,6 +20,7 @@ export interface BrandConfig {
     description: string;
     downloadUrl: string;
     downloadLabel: string;
+    coverImage?: string;
   };
   feature?: {
     label: string;
@@ -58,20 +60,22 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
   "Château de Saint Cosme": {
     heroBg: "/sc-chapel.jpg",
     heroGradient: { from: "#2C1A0E", to: "#4A2E1A" },
-    accent: "#C8391A",
+    accent: "#8B6914",
     sectionBg: "#F5EDD0",
     heroText: "#ffffff",
     heritage: {
-      year: "1490",
+      year: "Est. 1570",
       tagline: "GIGONDAS · RHÔNE VALLEY · 15TH GENERATION",
       yearFont: "Cinzel",
+      yearColor: "#ffffff",
     },
     booklet: {
-      label: "2026 VINTAGE BOOKLET",
+      label: "2024 VINTAGE BOOKLET",
       heading: "From the Cellar",
       description: "Louis Barruol's annual booklet — a beautifully written account of the vintage, the philosophy behind Saint Cosme's winemaking, and the stories that shape each bottle.",
       downloadUrl: "/saint-cosme-booklet-2026.pdf",
-      downloadLabel: "Download Booklet 2026",
+      downloadLabel: "Download 2024 Vintage Booklet",
+      coverImage: "/sc-booklet-cover.jpg",
     },
     feature: {
       label: "ESTATE & TERROIR",

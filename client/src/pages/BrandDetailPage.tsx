@@ -111,7 +111,7 @@ export default function BrandDetailPage() {
               fontFamily: `'${cfg.heritage.yearFont || "Cinzel"}', serif`,
               fontSize: "clamp(6rem,15vw,11rem)",
               fontWeight: 900,
-              color: cfg.accent,
+              color: cfg.heritage.yearColor || cfg.accent,
               opacity: 0.18,
               lineHeight: 1,
               letterSpacing: "0.05em",
@@ -182,7 +182,7 @@ export default function BrandDetailPage() {
                 fontFamily: `'${cfg.heritage.yearFont || "Cinzel"}', serif`,
                 fontSize: "clamp(3.5rem,8vw,6rem)",
                 fontWeight: 900,
-                color: cfg.accent,
+                color: cfg.heritage.yearColor || cfg.accent,
                 lineHeight: 1,
                 letterSpacing: "0.06em",
               }}>{cfg.heritage.year}</div>
@@ -219,25 +219,35 @@ export default function BrandDetailPage() {
 
       {/* ── BOOKLET DOWNLOAD SECTION ── */}
       {cfg.booklet && (
-        <section style={{ background: cfg.sectionBg, borderBottom: `1px solid ${cfg.accent}22` }}>
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
-            <div className="flex flex-col md:flex-row items-center gap-8 md:gap-14">
-              {/* Left: booklet icon visual */}
-              <div className="shrink-0 w-28 h-36 rounded-xl flex flex-col items-center justify-center shadow-lg"
-                style={{ background: cfg.accent }}>
-                <BookOpen className="w-10 h-10 text-white mb-2" />
-                <span className="font-body text-white text-xs tracking-widest uppercase text-center px-2"
-                  style={{ fontSize: 10, letterSpacing: "0.2em" }}>{cfg.booklet.label}</span>
-              </div>
+        <section style={{ background: cfg.sectionBg, borderBottom: `1px solid ${cfg.accent}33` }}>
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14">
+            <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+              {/* Left: booklet cover image or icon */}
+              {cfg.booklet.coverImage ? (
+                <div className="shrink-0 w-44 shadow-2xl rounded-xl overflow-hidden" style={{ aspectRatio: "3/4" }}>
+                  <img
+                    src={`${API_BASE}${cfg.booklet.coverImage}`}
+                    alt="Booklet cover"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ) : (
+                <div className="shrink-0 w-28 h-36 rounded-xl flex flex-col items-center justify-center shadow-lg"
+                  style={{ background: cfg.accent }}>
+                  <BookOpen className="w-10 h-10 text-white mb-2" />
+                  <span className="font-body text-white text-xs tracking-widest uppercase text-center px-2"
+                    style={{ fontSize: 10, letterSpacing: "0.2em" }}>{cfg.booklet.label}</span>
+                </div>
+              )}
               {/* Right: text + download */}
               <div className="flex-1">
                 <p className="font-body text-xs tracking-widest uppercase mb-2" style={{ color: cfg.accent }}>
                   {cfg.booklet.label}
                 </p>
-                <h2 className="font-display text-2xl mb-3" style={{ color: isLight ? "#2A1A08" : cfg.accent }}>
+                <h2 className="font-display text-2xl mb-3" style={{ color: "#1A0D08" }}>
                   {cfg.booklet.heading}
                 </h2>
-                <p className="font-body text-sm leading-relaxed mb-5" style={{ color: isLight ? "#4A3010" : "rgba(255,255,255,0.7)", maxWidth: 560 }}>
+                <p className="font-body text-sm leading-relaxed mb-6" style={{ color: "#3A2010", maxWidth: 520 }}>
                   {cfg.booklet.description}
                 </p>
                 <a
@@ -245,8 +255,8 @@ export default function BrandDetailPage() {
                   download
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-lg font-body text-sm font-semibold text-white transition-opacity hover:opacity-85"
-                  style={{ background: cfg.accent, letterSpacing: "0.05em" }}
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-lg font-body text-sm font-semibold transition-opacity hover:opacity-85"
+                  style={{ background: cfg.accent, color: "#fff", letterSpacing: "0.05em" }}
                 >
                   <Download className="w-4 h-4" />
                   {cfg.booklet.downloadLabel}
