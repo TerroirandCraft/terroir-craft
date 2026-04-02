@@ -6,6 +6,14 @@ export interface BrandConfig {
   accent: string;
   sectionBg: string;
   heroText: string;
+  // Optional full-bleed hero background image (overrides gradient)
+  heroBg?: string;
+  // Heritage callout — large gold year + tagline overlaid on hero
+  heritage?: {
+    year: string;         // e.g. "1638"
+    tagline: string;      // e.g. "THE OLDEST PORT WINE HOUSE"
+    yearFont?: string;    // Google Font name for the year
+  };
   feature?: {
     label: string;
     heading: string;
@@ -39,6 +47,27 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
       },
       youtubeId: "mfbap3Ihdbs",
       videoCaption: "Luke Marquis demonstrates the Mollydooker Shake technique",
+    },
+  },
+  "Kopke": {
+    heroBg: "/kopke-cellar.jpg",
+    heroGradient: { from: "#0d0b08", to: "#1a1410" },
+    accent: "#eb9d00",
+    sectionBg: "#0d0b08",
+    heroText: "#ffffff",
+    heritage: {
+      year: "1638",
+      tagline: "THE OLDEST PORT WINE HOUSE",
+      yearFont: "Cinzel",
+    },
+    feature: {
+      label: "DOURO VALLEY",
+      heading: "Where It All Begins",
+      body: "High above the Douro River, Kopke's estate vineyards produce the finest Touriga Nacional and Touriga Franca grapes. The dramatic terraced hillsides, carved from schist rock over centuries, give Kopke Port its unmistakable depth and complexity — a tradition kept alive since 1638.",
+      image: "/kopke-vineyard.jpg",
+      visual: { bg: "#1a1410", line1: "Est.", line2: "1638" },
+      youtubeId: "",
+      videoCaption: "",
     },
   },
 };

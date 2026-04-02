@@ -89,8 +89,37 @@ export default function BrandDetailPage() {
     <div className="min-h-screen bg-background">
 
       {/* ── HERO ── */}
-      <div style={{ background: `linear-gradient(135deg, ${cfg.heroGradient.from} 0%, ${cfg.heroGradient.to} 100%)`, padding: "28px 0 52px" }}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div style={{
+        background: cfg.heroBg
+          ? `url(${API_BASE}${cfg.heroBg}) center/cover no-repeat`
+          : `linear-gradient(135deg, ${cfg.heroGradient.from} 0%, ${cfg.heroGradient.to} 100%)`,
+        padding: "28px 0 52px",
+        position: "relative",
+      }}>
+        {/* Dark overlay for readability when using bg image */}
+        {cfg.heroBg && (
+          <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.62)", pointerEvents: "none" }} />
+        )}
+        {/* Heritage year + tagline watermark */}
+        {cfg.heritage && (
+          <div style={{
+            position: "absolute", inset: 0, display: "flex", flexDirection: "column",
+            alignItems: "flex-end", justifyContent: "flex-end",
+            padding: "32px 40px", pointerEvents: "none", zIndex: 1,
+          }}>
+            <div style={{
+              fontFamily: `'${cfg.heritage.yearFont || "Cinzel"}', serif`,
+              fontSize: "clamp(6rem,15vw,11rem)",
+              fontWeight: 900,
+              color: cfg.accent,
+              opacity: 0.18,
+              lineHeight: 1,
+              letterSpacing: "0.05em",
+              userSelect: "none",
+            }}>{cfg.heritage.year}</div>
+          </div>
+        )}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6" style={{ position: "relative", zIndex: 2 }}>
           {/* Back */}
           <Link href="/brands">
             <a className="inline-flex items-center gap-1.5 font-body text-sm mb-8 transition-colors"
@@ -143,6 +172,29 @@ export default function BrandDetailPage() {
               )}
             </div>
           </div>
+
+          {/* Heritage callout — prominent year + tagline */}
+          {cfg.heritage && (
+            <div className="mt-10 pt-8" style={{ borderTop: `1px solid ${cfg.accent}33` }}>
+              <div style={{
+                fontFamily: `'${cfg.heritage.yearFont || "Cinzel"}', serif`,
+                fontSize: "clamp(3.5rem,8vw,6rem)",
+                fontWeight: 900,
+                color: cfg.accent,
+                lineHeight: 1,
+                letterSpacing: "0.06em",
+              }}>{cfg.heritage.year}</div>
+              <div style={{
+                fontFamily: `'${cfg.heritage.yearFont || "Cinzel"}', serif`,
+                fontSize: "clamp(0.7rem,1.5vw,0.95rem)",
+                fontWeight: 400,
+                color: "rgba(255,255,255,0.85)",
+                letterSpacing: "0.35em",
+                textTransform: "uppercase",
+                marginTop: 8,
+              }}>{cfg.heritage.tagline}</div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -196,30 +248,34 @@ export default function BrandDetailPage() {
                     <span className="text-4xl mt-4">🍾</span>
                   </div>
                 )}
-                <p className="font-body text-sm leading-relaxed" style={{ color: "#4A3010", lineHeight: 1.9 }}>
+                <p className="font-body text-sm leading-relaxed" style={{ color: isLight ? "#4A3010" : "rgba(255,255,255,0.75)", lineHeight: 1.9 }}>
                   {cfg.feature.body}
                 </p>
               </div>
 
-              {/* Right: YouTube embed */}
-              <div className="flex-1 min-w-0">
-                <p className="font-body text-xs tracking-[0.25em] uppercase mb-3" style={{ color: cfg.accent }}>
-                  Watch the technique
-                </p>
-                <div className="w-full overflow-hidden rounded-2xl shadow-xl" style={{ aspectRatio: "16/9" }}>
-                  <iframe
-                    src={`https://www.youtube.com/embed/${cfg.feature.youtubeId}`}
-                    title={cfg.feature.heading}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full"
-                    style={{ border: "none", display: "block" }}
-                  />
+              {/* Right: YouTube embed (only if youtubeId provided) */}
+              {cfg.feature.youtubeId && (
+                <div className="flex-1 min-w-0">
+                  <p className="font-body text-xs tracking-[0.25em] uppercase mb-3" style={{ color: cfg.accent }}>
+                    Watch the technique
+                  </p>
+                  <div className="w-full overflow-hidden rounded-2xl shadow-xl" style={{ aspectRatio: "16/9" }}>
+                    <iframe
+                      src={`https://www.youtube.com/embed/${cfg.feature.youtubeId}`}
+                      title={cfg.feature.heading}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                      style={{ border: "none", display: "block" }}
+                    />
+                  </div>
+                  {cfg.feature.videoCaption && (
+                    <p className="font-body text-xs mt-3 italic" style={{ color: "#888" }}>
+                      {cfg.feature.videoCaption}
+                    </p>
+                  )}
                 </div>
-                <p className="font-body text-xs mt-3 italic" style={{ color: "#888" }}>
-                  {cfg.feature.videoCaption}
-                </p>
-              </div>
+              )}
             </div>
           </div>
         </section>
