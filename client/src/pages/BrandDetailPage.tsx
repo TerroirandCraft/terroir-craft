@@ -190,9 +190,7 @@ export default function BrandDetailPage() {
                 fontFamily: `'${cfg.heritage.yearFont || "Cinzel"}', serif`,
                 fontSize: "clamp(0.7rem,1.5vw,0.95rem)",
                 fontWeight: 400,
-                color: cfg.heritage.yearColor
-                  ? (cfg.heritage.yearColor === "#1A0D08" ? "rgba(26,13,8,0.7)" : "rgba(255,255,255,0.85)")
-                  : "rgba(255,255,255,0.85)",
+                color: "rgba(255,255,255,0.75)",
                 letterSpacing: "0.35em",
                 textTransform: "uppercase",
                 marginTop: 8,
