@@ -26,7 +26,8 @@ export interface BrandConfig {
     label: string;
     heading: string;
     body: string;
-    image?: string;       // Real photo URL/path — shown instead of coloured box
+    image?: string;
+    imageCaption?: string;
     visual: {
       bg: string;
       line1: string;
@@ -82,6 +83,7 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
       heading: "Ancient Vines, Limestone Soul",
       body: "The estate's vineyards sit on the limestone slopes of Gigondas, home to century-old Grenache vines whose roots reach deep into the schist. Every vine tells a story — of seasons survived, harvests given, and a terroir unlike anywhere else in the Rhône.",
       image: "/sc-vines.jpg",
+      imageCaption: "Le Poste — Gigondas",
       visual: { bg: "#2C1A0E", line1: "Est.", line2: "1490" },
       youtubeId: "",
       videoCaption: "",

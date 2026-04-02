@@ -286,12 +286,19 @@ export default function BrandDetailPage() {
               {/* Left: real photo OR coloured box + description */}
               <div className="flex-1 min-w-0">
                 {cfg.feature.image ? (
-                  <img
-                    src={`${API_BASE}${cfg.feature.image}`}
-                    alt={cfg.feature.heading}
-                    className="w-full rounded-2xl shadow-lg mb-6 object-cover"
-                    style={{ aspectRatio: "4/3", maxHeight: 340 }}
-                  />
+                  <div className="mb-6">
+                    <img
+                      src={`${API_BASE}${cfg.feature.image}`}
+                      alt={cfg.feature.heading}
+                      className="w-full rounded-2xl shadow-lg object-cover"
+                      style={{ aspectRatio: "4/3", maxHeight: 340 }}
+                    />
+                    {cfg.feature.imageCaption && (
+                      <p className="font-body text-xs mt-2 italic" style={{ color: "#6B4A20", letterSpacing: "0.05em" }}>
+                        {cfg.feature.imageCaption}
+                      </p>
+                    )}
+                  </div>
                 ) : (
                   <div className="w-full rounded-2xl flex flex-col items-center justify-center py-10 px-6 mb-6"
                     style={{ background: cfg.feature.visual.bg, aspectRatio: "16/9" }}>
@@ -302,7 +309,7 @@ export default function BrandDetailPage() {
                     <span className="text-4xl mt-4">🍾</span>
                   </div>
                 )}
-                <p className="font-body text-sm leading-relaxed" style={{ color: isLight ? "#4A3010" : "rgba(255,255,255,0.75)", lineHeight: 1.9 }}>
+                <p className="font-body text-sm leading-relaxed" style={{ color: "#1A0D08", lineHeight: 1.9 }}>
                   {cfg.feature.body}
                 </p>
               </div>
