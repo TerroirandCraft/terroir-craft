@@ -55,7 +55,7 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
       videoCaption: "Luke Marquis demonstrates the Mollydooker Shake technique",
     },
   },
-  "Chateau de Saint Cosme": {
+  "Château de Saint Cosme": {
     heroBg: "/sc-chapel.jpg",
     heroGradient: { from: "#2C1A0E", to: "#4A2E1A" },
     accent: "#C8391A",
@@ -115,5 +115,10 @@ export const DEFAULT_BRAND_CONFIG: BrandConfig = {
 };
 
 export function getBrandConfig(brand: string): BrandConfig {
-  return BRAND_CONFIG[brand] || DEFAULT_BRAND_CONFIG;
+  // Exact match first
+  if (BRAND_CONFIG[brand]) return BRAND_CONFIG[brand];
+  // Case-insensitive / accent-insensitive fallback
+  const lower = brand.toLowerCase();
+  const match = Object.keys(BRAND_CONFIG).find(k => k.toLowerCase() === lower);
+  return match ? BRAND_CONFIG[match] : DEFAULT_BRAND_CONFIG;
 }
