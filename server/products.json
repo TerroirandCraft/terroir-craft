@@ -21,7 +21,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCAU-MO0123.png"
+    "image_url": "/bottle-shots/TCAU-MO0123.jpg"
   },
   {
     "id": "TCAU-MO0222",
@@ -117,7 +117,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCAU-MO0422.png"
+    "image_url": "/bottle-shots/TCAU-MO0422.jpg"
   },
   {
     "id": "TCAU-MO0522",
@@ -175,7 +175,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCAU-MO0622.png"
+    "image_url": "/bottle-shots/TCAU-MO0622.jpg"
   },
   {
     "id": "TCAU-MO0623",
@@ -277,7 +277,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCAU-MO1023.png"
+    "image_url": "/bottle-shots/TCAU-MO1023.jpg"
   },
   {
     "id": "TCAU-MO1124",
@@ -331,7 +331,7 @@
     "tasting_note": "Elegant white wine expressing Verdelho character. Aromatic with citrus, stone fruit and floral notes. Crisp acidity with balanced structure. Medium-bodied with refreshing, clean finish. Source: Mollydooker",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCAU-MO1224.png"
+    "image_url": "/bottle-shots/TCAU-MO1224.jpg"
   },
   {
     "id": "TCAU-TS0121",
@@ -1048,7 +1048,7 @@
     ],
     "phonetic": "Gigondas [zhee-gon-DAH]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC0123.png"
+    "image_url": "/bottle-shots/TCFR-SC0123.jpg"
   },
   {
     "id": "TCFR-SC0223",
@@ -1103,7 +1103,7 @@
     ],
     "phonetic": "Saint-Joseph [san zhoh-ZEF]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC0323.png"
+    "image_url": "/bottle-shots/TCFR-SC0323.jpg"
   },
   {
     "id": "TCFR-SC0423",
@@ -1128,7 +1128,7 @@
     ],
     "phonetic": "Gigondas [zhee-gon-DAH]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC0423.png"
+    "image_url": "/bottle-shots/TCFR-SC0423.jpg"
   },
   {
     "id": "TCFR-SC0723",
@@ -1153,7 +1153,7 @@
     ],
     "phonetic": "Gigondas [zhee-gon-DAH]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC0723.png"
+    "image_url": "/bottle-shots/TCFR-SC0723.jpg"
   },
   {
     "id": "TCFR-SC0522",
@@ -1203,7 +1203,7 @@
     ],
     "phonetic": "Côtes du Rhône [koht doo RONE]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC0624.png"
+    "image_url": "/bottle-shots/TCFR-SC0624.jpg"
   },
   {
     "id": "TCFR-SC0823",
@@ -1228,7 +1228,7 @@
     ],
     "phonetic": "Crozes-Hermitage [KROZ air-mee-TAHZH]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC0823.png"
+    "image_url": "/bottle-shots/TCFR-SC0823.jpg"
   },
   {
     "id": "TCFR-SC09NV",
@@ -1253,7 +1253,7 @@
     ],
     "phonetic": "Château de Saint Cosme [sha-TOH duh san KOZM]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC09NV.png"
+    "image_url": "/bottle-shots/TCFR-SC09NV.jpg"
   },
   {
     "id": "TCFR-SC1023",
@@ -1278,7 +1278,7 @@
     ],
     "phonetic": "Côte-Rôtie [koht roh-TEE]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC1023.png"
+    "image_url": "/bottle-shots/TCFR-SC1023.jpg"
   },
   {
     "id": "TCFR-SC1123",
@@ -1303,7 +1303,7 @@
     ],
     "phonetic": "Gigondas [zhee-gon-DAH]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC1123.png"
+    "image_url": "/bottle-shots/TCFR-SC1123.jpg"
   },
   {
     "id": "TCFR-SC1223",
@@ -1328,7 +1328,7 @@
     ],
     "phonetic": "Château de Saint Cosme [sha-TOH duh san KOZM]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC1223.png"
+    "image_url": "/bottle-shots/TCFR-SC1223.jpg"
   },
   {
     "id": "TCFR-SC13NV",
@@ -1353,7 +1353,7 @@
     ],
     "phonetic": "Château de Saint Cosme [sha-TOH duh san KOZM]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC13NV.png"
+    "image_url": "/bottle-shots/TCFR-SC13NV.jpg"
   },
   {
     "id": "TCFR-SC1423",
@@ -1378,7 +1378,7 @@
     ],
     "phonetic": "Condrieu [kon-DREE-uh]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC1423.png"
+    "image_url": "/bottle-shots/TCFR-SC1423.jpg"
   },
   {
     "id": "DAFR-DN0121",
@@ -1426,7 +1426,7 @@
     "tasting_note": "Sparkling Riesling. Fresh, aromatic with citrus notes. Crisp acidity with elegant bubbles. Light-bodied, refreshing character. Fine effervescence. Source: Vereinigte Hospitien",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCGE-VH0121.png"
+    "image_url": "/bottle-shots/TCGE-VH0121.jpg"
   },
   {
     "id": "TCGE-VH0223",
@@ -1462,7 +1462,7 @@
     "tasting_note": "Shy but fragrant nose. Very pure and balanced palate. Super-taut and clean. Honeysuckle and yellow peach notes. Light-bodied with crisp acidity. Source: Decanter",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCGE-VH0422.png"
+    "image_url": "/bottle-shots/TCGE-VH0422.jpg"
   },
   {
     "id": "TCGE-VH0522",
@@ -1516,7 +1516,7 @@
     "tasting_note": "Dry Mosel Riesling. Fresh citrus and stone fruit. Crisp acidity with mineral complexity. Light-bodied, elegant, refreshing. Green apple and citrus. Source: Wine Secret HK",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCGE-VH0623.png"
+    "image_url": "/bottle-shots/TCGE-VH0623.jpg"
   },
   {
     "id": "TCGE-VH0723",
@@ -1869,7 +1869,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCPO-KO04NVSET.png"
+    "image_url": "/bottle-shots/TCPO-KO04NVSET.jpg"
   },
   {
     "id": "TCPO-KO05NV",
@@ -1941,7 +1941,7 @@
     "tasting_note": "Late Bottled Vintage Port. Rich dark fruits. Full-bodied with firm structure. Mature complexity without decanting. Source: Kopke",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCPO-KO08NV.png"
+    "image_url": "/bottle-shots/TCPO-KO08NV.jpg"
   },
   {
     "id": "TCPO-KO0937",
@@ -1965,7 +1965,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCPO-KO0937.png"
+    "image_url": "/bottle-shots/TCPO-KO0937.jpg"
   },
   {
     "id": "TCPO-KO1012",
@@ -1983,7 +1983,7 @@
     "tasting_note": "Vintage Port from excellent year. Deep dark fruits. Full-bodied with firm structure. Age-worthy wine. Source: Kopke",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCPO-KO1012.png"
+    "image_url": "/bottle-shots/TCPO-KO1012.jpg"
   },
   {
     "id": "TCPO-KO09NVHF",
@@ -2266,7 +2266,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCUS-RC0621.png"
+    "image_url": "/bottle-shots/TCUS-RC0621.jpg"
   },
   {
     "id": "TCUS-RC0721",
