@@ -67,7 +67,7 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
       year: "Est. 1570",
       tagline: "GIGONDAS · RHÔNE VALLEY · 15TH GENERATION",
       yearFont: "Cinzel",
-      yearColor: "#ffffff",
+      yearColor: "#1A0D08",
     },
     booklet: {
       label: "2024 VINTAGE BOOKLET",
