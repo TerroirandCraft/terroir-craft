@@ -63,8 +63,8 @@ export const BRAND_INFO: Record<string, { country: string; description: string; 
     website: "https://mollydookerwines.com",
   },
   "Château de Saint Cosme": {
-    country: "France",
-    description: "One of the oldest estates in the southern Rhône, with vineyard history dating to the 15th century. Saint Cosme produces benchmark Gigondas and Châteauneuf-du-Pape with extraordinary depth and elegance.",
+    country: "France · Gigondas, Rhône Valley",
+    description: "Established in 1490, Château de Saint Cosme is the most celebrated estate in Gigondas and one of the Rhône Valley's oldest family domaines. Winemaker Louis Barruol, the 15th generation at the helm, combines deep respect for tradition with a visionary approach to terroir expression. The estate's ancient vines and limestone soils produce wines of remarkable depth, elegance, and minerality — benchmark examples that define the essence of Gigondas.\n\n創立於1490年的聖寇斯姆酒莊（Château de Saint Cosme），是吉攻達斯（Gigondas）最具代表性、亦是當地最傑出的酒莊。第十五代莊主兼釀酒師 Louis Barruol，以對風土的深刻理解與精細釀造手法，呈現出酒莊百年傳統的靈魂。莊園古老葡萄藤和石灰岩土壤孕育出層次豐富、優雅且礦物感鮮明的佳釀，成為南隆河產區品質與真誠的象徵。",
     website: "https://saintcosme.com",
   },
   "Morey-Coffinet": {

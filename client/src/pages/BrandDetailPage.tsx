@@ -1,6 +1,6 @@
 import { useParams, Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, Globe, MapPin, Star } from "lucide-react";
+import { ArrowLeft, Globe, MapPin, Star, BookOpen, Download } from "lucide-react";
 import type { Product } from "@/lib/products";
 import { BRAND_INFO, formatPrice } from "@/lib/products";
 import WineCard from "@/components/WineCard";
@@ -165,10 +165,12 @@ export default function BrandDetailPage() {
                 </div>
               )}
               {info?.description && (
-                <p className="font-body text-sm leading-relaxed max-w-2xl"
-                  style={{ color: isLight ? "#4A3010" : "rgba(255,255,255,0.75)" }}>
-                  {info.description}
-                </p>
+                <div className="font-body text-sm leading-relaxed max-w-2xl space-y-3"
+                  style={{ color: isLight ? "#4A3010" : "rgba(255,255,255,0.8)" }}>
+                  {info.description.split("\n\n").map((para, i) => (
+                    <p key={i}>{para}</p>
+                  ))}
+                </div>
               )}
             </div>
           </div>
@@ -214,6 +216,46 @@ export default function BrandDetailPage() {
           </span>
         </div>
       </div>
+
+      {/* ── BOOKLET DOWNLOAD SECTION ── */}
+      {cfg.booklet && (
+        <section style={{ background: cfg.sectionBg, borderBottom: `1px solid ${cfg.accent}22` }}>
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+            <div className="flex flex-col md:flex-row items-center gap-8 md:gap-14">
+              {/* Left: booklet icon visual */}
+              <div className="shrink-0 w-28 h-36 rounded-xl flex flex-col items-center justify-center shadow-lg"
+                style={{ background: cfg.accent }}>
+                <BookOpen className="w-10 h-10 text-white mb-2" />
+                <span className="font-body text-white text-xs tracking-widest uppercase text-center px-2"
+                  style={{ fontSize: 10, letterSpacing: "0.2em" }}>{cfg.booklet.label}</span>
+              </div>
+              {/* Right: text + download */}
+              <div className="flex-1">
+                <p className="font-body text-xs tracking-widest uppercase mb-2" style={{ color: cfg.accent }}>
+                  {cfg.booklet.label}
+                </p>
+                <h2 className="font-display text-2xl mb-3" style={{ color: isLight ? "#2A1A08" : cfg.accent }}>
+                  {cfg.booklet.heading}
+                </h2>
+                <p className="font-body text-sm leading-relaxed mb-5" style={{ color: isLight ? "#4A3010" : "rgba(255,255,255,0.7)", maxWidth: 560 }}>
+                  {cfg.booklet.description}
+                </p>
+                <a
+                  href={`${API_BASE}${cfg.booklet.downloadUrl}`}
+                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-lg font-body text-sm font-semibold text-white transition-opacity hover:opacity-85"
+                  style={{ background: cfg.accent, letterSpacing: "0.05em" }}
+                >
+                  <Download className="w-4 h-4" />
+                  {cfg.booklet.downloadLabel}
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── BRAND FEATURE SECTION (e.g. Mollydooker Shake) ── */}
       {cfg.feature && (

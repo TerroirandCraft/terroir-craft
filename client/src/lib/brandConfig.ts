@@ -6,13 +6,19 @@ export interface BrandConfig {
   accent: string;
   sectionBg: string;
   heroText: string;
-  // Optional full-bleed hero background image (overrides gradient)
   heroBg?: string;
-  // Heritage callout — large gold year + tagline overlaid on hero
   heritage?: {
-    year: string;         // e.g. "1638"
-    tagline: string;      // e.g. "THE OLDEST PORT WINE HOUSE"
-    yearFont?: string;    // Google Font name for the year
+    year: string;
+    tagline: string;
+    yearFont?: string;
+  };
+  // Optional booklet / brochure download section
+  booklet?: {
+    label: string;
+    heading: string;
+    description: string;
+    downloadUrl: string;
+    downloadLabel: string;
   };
   feature?: {
     label: string;
@@ -47,6 +53,34 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
       },
       youtubeId: "mfbap3Ihdbs",
       videoCaption: "Luke Marquis demonstrates the Mollydooker Shake technique",
+    },
+  },
+  "Chateau de Saint Cosme": {
+    heroBg: "/sc-chapel.jpg",
+    heroGradient: { from: "#2C1A0E", to: "#4A2E1A" },
+    accent: "#C8391A",
+    sectionBg: "#F5EDD0",
+    heroText: "#ffffff",
+    heritage: {
+      year: "1490",
+      tagline: "GIGONDAS · RHÔNE VALLEY · 15TH GENERATION",
+      yearFont: "Cinzel",
+    },
+    booklet: {
+      label: "2026 VINTAGE BOOKLET",
+      heading: "From the Cellar",
+      description: "Louis Barruol's annual booklet — a beautifully written account of the vintage, the philosophy behind Saint Cosme's winemaking, and the stories that shape each bottle.",
+      downloadUrl: "/saint-cosme-booklet-2026.pdf",
+      downloadLabel: "Download Booklet 2026",
+    },
+    feature: {
+      label: "ESTATE & TERROIR",
+      heading: "Ancient Vines, Limestone Soul",
+      body: "The estate's vineyards sit on the limestone slopes of Gigondas, home to century-old Grenache vines whose roots reach deep into the schist. Every vine tells a story — of seasons survived, harvests given, and a terroir unlike anywhere else in the Rhône.",
+      image: "/sc-vines.jpg",
+      visual: { bg: "#2C1A0E", line1: "Est.", line2: "1490" },
+      youtubeId: "",
+      videoCaption: "",
     },
   },
   "Kopke": {
