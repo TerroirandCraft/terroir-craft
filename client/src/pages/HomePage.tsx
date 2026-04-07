@@ -137,15 +137,15 @@ const SERVICES = [
 // Row 1 (hero brands — must appear first)
 const FEATURED_BRANDS_ROW1 = [
   { name: "Mollydooker",              logo: "Mollydooker.webp" },
-  { name: "Chateau de Saint Cosme",   logo: "Chateau de Saint Cosme.jpg" },
+  { name: "Château de Saint Cosme",   logo: "Chateau de Saint Cosme.jpg" },
   { name: "Realm Cellars",            logo: "Realm Cellars.webp" },
-  { name: "Maison Morey-Coffinet",    logo: "Morey Coffinet.png" },
+  { name: "Morey-Coffinet",           logo: "Morey Coffinet.png" },
   { name: "Champagne Boizel",         logo: "Champagne Boizel.jpeg" },
 ];
 
 // Row 2 (remaining exclusive brands)
 const FEATURED_BRANDS_ROW2 = [
-  { name: "Kopke",                    logo: "Kopke.png" },
+  { name: "Kopke",                    logo: "Kopke.jpg" },
   { name: "Vereinigte Hospitien",     logo: "Vereinigte Hospitien.webp" },
   { name: "Tscharke",                 logo: "Tscharke.png" },
   { name: "Hydrodol",                 logo: "Hydrodol.jpg" },
@@ -432,8 +432,8 @@ export default function HomePage() {
                     <path d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 ),
-                title: "Hong Kong Delivery",
-                titleZh: "本地送貨",
+                title: "Hong Kong & Macau Delivery",
+                titleZh: "香港及澳門送貨",
                 desc: "Prompt and secure delivery across Hong Kong and Macau. Free delivery on orders over HK$1,000.",
               },
               {
