@@ -311,7 +311,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 
       {/* WhatsApp floating button */}
       <a
-        href="https://wa.me/85229818868"
+        href="https://wa.me/85298055609"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Contact us on WhatsApp"
