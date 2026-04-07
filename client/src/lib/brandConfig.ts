@@ -96,7 +96,7 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
     sectionBg: "#0d0b08",
     heroText: "#ffffff",
     heritage: {
-      year: "1638",
+      year: "Est. 1638",
       tagline: "THE OLDEST PORT WINE HOUSE",
       yearFont: "Cinzel",
     },
