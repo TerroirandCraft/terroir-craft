@@ -58,8 +58,8 @@ export const WINE_TYPE_COLORS: Record<string, string> = {
 
 export const BRAND_INFO: Record<string, { country: string; description: string; website?: string }> = {
   "Mollydooker": {
-    country: "Australia",
-    description: "Mollydooker (Australian slang for 'left-hander') crafts powerful, lush wines from McLaren Vale. Renowned for their signature blue-bottle Velvet Glove Shiraz and exuberant fruit-driven style.",
+    country: "Australia · McLaren Vale, South Australia",
+    description: "Mollydooker — Australian slang for \'left-hander\' — is one of Australia\'s most celebrated cult wine producers, founded by the husband-and-wife team Sparky and Sarah Marquis in McLaren Vale. Known for their bold, fruit-forward reds that routinely score 95+ points, Mollydooker has built a devoted global following for wines that deliver extraordinary richness, concentration and pure Australian character. Their signature Mollydooker Shake technique — vigorously shaking the bottle before opening — unlocks the wine\'s full fruit expression, and has become a beloved ritual among fans worldwide. From the accessible Boxer Shiraz to the legendary Velvet Glove, every Mollydooker wine is a celebration of life, fun, and the extraordinary terroir of McLaren Vale.\n\nMollydooker（澳洲俚語「左撇子」）由夫妻檔 Sparky 與 Sarah Marquis 在南澳麥克拉倫谷創立，是澳洲最受追捧的邪教酒莊之一。以大膽奔放、果味十足的紅酒著稱，分數常達 95+ 分，深受全球愛酒人士追捧。招牌的「Mollydooker Shake」搖瓶技巧——開瓶前用力搖晃 30-60 秒——讓葡萄酒的果味全面爆發，已成為粉絲間深入人心的儀式。從入門款 Boxer Shiraz 到傳奇 Velvet Glove，每一款 Mollydooker 都是對麥克拉倫谷風土與生活熱情的禮讚。",
     website: "https://mollydookerwines.com",
   },
   "Château de Saint Cosme": {
@@ -77,8 +77,8 @@ export const BRAND_INFO: Record<string, { country: string; description: string; 
     description: "The négociant arm of the renowned Morey Coffinet domaine, extending their Burgundian expertise to a wider range of acclaimed appellations.",
   },
   "Kopke": {
-    country: "Portugal",
-    description: "The world's oldest Port wine house, established in 1638. Kopke's Tawny Ports and rare Colheitas represent over 380 years of winemaking mastery in the Douro Valley.",
+    country: "Portugal · Douro Valley & Vila Nova de Gaia",
+    description: "Kopke holds the extraordinary distinction of being the world\'s oldest Port wine house, with roots stretching back to 1638 when Christiano Kopke first established trade between Germany and Portugal. Over nearly four centuries, Kopke has built an unrivalled legacy of Tawny Ports, rare Colheitas and White Ports that stand as benchmarks of the Douro Valley\'s finest terroir. Their aged Tawnies — matured in century-old oak lodges in Vila Nova de Gaia — develop extraordinary complexity: notes of dried fruit, walnut, toffee and spice that can only come from decades of patient ageing. For collectors and connoisseurs, Kopke\'s vintage-dated Colheitas represent some of the most historically significant and emotionally evocative wines in the world.\n\nKopke 是全球歷史最悠久的波特酒莊，創立於 1638 年，當年由德國商人 Christiano Kopke 在葡萄牙開創波特酒貿易。近四個世紀以來，酒莊以其卓越的 Tawny Port、珍稀年份 Colheita 及白波特酒奠定了杜羅河谷的標誌地位。在維拉·諾瓦·德蓋亞的百年老橡木桶中緩慢陳年，展現出乾果、核桃、太妃糖與香料的複雜層次——那是唯有時間方能賦予的深度。對於收藏家和品鑒家而言，Kopke 的年份 Colheita 是世界上最具歷史意義、最扣人心弦的佳釀之一。",
     website: "https://kopke1638.com",
   },
   "Realm Cellars": {
