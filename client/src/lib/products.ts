@@ -82,26 +82,28 @@ export const BRAND_INFO: Record<string, { country: string; description: string; 
     website: "https://kopke1638.com",
   },
   "Realm Cellars": {
-    country: "USA",
-    description: "A cult Napa Valley producer crafting some of California's most sought-after wines. Realm's The Bard and single-vineyard reds command the highest critical acclaim.",
+    country: "USA · Napa Valley, California",
+    description: "Realm Cellars is one of Napa Valley's most sought-after cult producers, founded in 2003 with a singular vision: to craft wines that reflect the extraordinary diversity of Napa's greatest vineyards. Working with iconic sites including Beckstoffer To Kalon and Farella Vineyard, Realm produces Cabernet Sauvignon of breathtaking precision and complexity. Demand consistently exceeds supply, and their wines are considered among the most coveted in California.\n\nRealm Cellars 是納帕谷最炙手可熱的精品酒莊之一，創立於 2003 年，專注呈現納帕頂級葡萄園的卓越多樣性。與 Beckstoffer To Kalon、Farella 等傳奇葡萄園建立長期合作，釀造出精準度與複雜度令人窒息的赤霞珠。需求遠超供應，被視為加州最珍貴的收藏之一。",
+    website: "https://www.realmcellars.com",
   },
   "Vereinigte Hospitien": {
-    country: "Germany",
-    description: "A legendary Mosel estate founded in 1804, producing exceptional Rieslings from world-class vineyards including Scharzhofberger. Centuries of tradition meet impeccable precision.",
-    website: "https://www.weingut.vereinigtehospitien.de",
+    country: "Germany · Mosel & Saar",
+    description: "Vereinigte Hospitien is Germany's oldest wine estate, with records of viticulture dating back to 1286 and ancient Roman wine cellars beneath the town of Trier. Founded through the merger of several historic charitable foundations, their wines — primarily from the great Mosel and Saar vineyards including Scharzhofberger and Ayler Kupp — are among the most historically significant Rieslings in the world. The tradition of stewardship, precision and Prädikat excellence continues in every bottle.\n\nVereinigte Hospitien 是德國歷史最悠久的葡萄酒莊，葡萄種植記錄可追溯至 1286 年，地下更保存有古羅馬時代的酒窖。其出品——主要來自摩澤爾與薩爾河的頂級葡萄園，包括 Scharzhofberger 及 Ayler Kupp——被視為全球最具歷史意義的麗絲玲之一。數百年傳承、精準與 Prädikat 優質標準始終是每一瓶佳釀的核心。",
+    website: "https://weingut.vereinigtehospitien.de/en",
   },
   "Tscharke": {
-    country: "Australia",
-    description: "A boutique Barossa producer championing alternative Mediterranean varieties. Tscharke's Grenache and Montepulciano showcase the Barossa's ability to excel beyond Shiraz.",
+    country: "Australia · Barossa Valley",
+    description: "Tscharke is a sixth-generation family estate in the Barossa Valley, farming heritage Grenache, Shiraz and Mataro vines that date back to the 1840s. Winemaker Damien Tscharke is a passionate advocate for organic and biodynamic farming, working the ancient soils by hand to produce wines of extraordinary concentration, depth and authenticity. The estate's old-vine Grenache in particular has drawn international acclaim as a benchmark example of Barossa terroir at its finest.\n\nTscharke 是巴羅薩谷的第六代家族酒莊，擁有可追溯至 1840 年代的古老 Grenache、Shiraz 及 Mataro 葡萄藤。釀酒師 Damien Tscharke 以有機及生物動力法耕作古老土壤，釀造出濃郁、深邃且充滿個性的佳釀。酒莊的老藤 Grenache 尤其享譽國際，被視為巴羅薩風土的標誌性詮釋。",
+    website: "https://tscharke.com.au",
   },
   "Sherwood": {
-    country: "New Zealand",
-    description: "Established in 1987 in Waipara Valley, Sherwood Estate crafts pure, elegant expressions of Pinot Noir and Sauvignon Blanc from one of New Zealand's most exciting cool-climate regions.",
+    country: "New Zealand · Waipara Valley",
+    description: "Sherwood Estate is one of Waipara Valley's pioneering wineries, crafting elegant cool-climate wines since 1987. Nestled in the foothills of North Canterbury, the estate's free-draining limestone soils and long sunny days with cool nights create ideal conditions for Pinot Noir and Riesling of remarkable purity and finesse. Winemaker Dayne Sherwood applies minimal intervention techniques to let the vineyard's natural character speak clearly in every bottle.\n\nSherwood Estate 是新西蘭 Waipara Valley 的先驅酒莊之一，自 1987 年起致力釀造優雅的涼爽氣候葡萄酒。排水良好的石灰岩土壤配合漫長晴朗的白天與清涼夜晚，為黑皮諾和麗絲玲提供理想環境，展現出純淨而精緻的風土個性。",
     website: "https://www.sherwood.co.nz",
   },
   "Champagne Boizel": {
-    country: "France",
-    description: "A distinguished Champagne house since 1834, crafting elegant, fine-textured Champagnes. Boizel is celebrated for their consistency, refinement, and classic Champenois style.",
+    country: "France · Épernay, Champagne",
+    description: "Champagne Boizel is one of the great Grandes Marques of Épernay, founded in 1834 by Julie Boizel — a pioneering woman in the male-dominated Champagne trade. Now in the sixth generation of family ownership, Boizel crafts Champagnes of extraordinary refinement and consistency, blending wines from over 250 growers across the finest Champagne crus. Their signature style — fresh, precise, and elegantly aged — has earned loyal followings from connoisseurs worldwide.\n\nChampagne Boizel 是香檳區最具聲望的頂級酒莊之一，由 Julie Boizel 於 1834 年創立，是香檳貿易史上罕見的女性先驅。時至今日，酒莊已傳承至第六代家族成員，以超過 250 個葡萄園的佳釀精心調配，呈現出清新、精準、優雅陳年的標誌性風格，深受全球品鑒家珍視。",
     website: "https://www.boizel.com",
   },
   "Crystallum": {
@@ -109,21 +111,24 @@ export const BRAND_INFO: Record<string, { country: string; description: string; 
     description: "A benchmark South African producer from the Hemel-en-Aarde Valley, making world-class Chardonnay that rivals the finest Burgundy.",
   },
   "Levrier Wines by Jo Irvine": {
-    country: "Australia",
-    description: "Winemaker Jo Irvine crafts precise, single-vineyard expressions from the Barossa and Eden Valley. Fine, elegant wines that challenge Barossa's big-and-bold reputation.",
+    country: "Australia · Barossa Valley",
+    description: "Levrier Wines is the passion project of renowned Barossa winemaker Jo Irvine, dedicated to rescuing and celebrating the Barossa's forgotten grape varietals — Dolcetto, Lagrein, Tempranillo and more — rarely found anywhere else in Australia. Jo's philosophy: let the ancient Barossa soils speak with minimal intervention and deep respect for old-vine heritage. The Levrier label (named after the elegant greyhound) reflects wines of remarkable depth, complexity and personality.\n\nLevrier Wines 是巴羅薩名釀酒師 Jo Irvine 的心血之作，致力於拯救並頌揚巴羅薩被遺忘的稀有品種——Dolcetto、Lagrein、Tempranillo 等。Jo 的釀酒哲學：讓巴羅薩古老土壤自由表達，以最低干預尊重老藤遺產。Levrier（以優雅靈緹犬命名）的每一款酒都展現出深邃、複雜且充滿個性的風格。",
+    website: "https://levrierwines.com.au",
   },
   "Pasqua": {
-    country: "Italy",
-    description: "One of Italy's most innovative family wine producers, crafting vibrant Prosecco and Moscato d'Asti with exceptional freshness and approachability.",
+    country: "Italy · Verona, Veneto",
+    description: "Pasqua Vigneti e Cantine was founded in 1925 by three brothers in Verona and has grown into one of Italy's most innovative wine families. Under the bold philosophy of 'House of the Unconventional,' Pasqua pushes boundaries with experimental projects — including the iconic '11 Minutes' Rosé, named for the precise time the grape skins spend in contact with the juice. From Appassimento-style reds to vibrant Soave whites, every Pasqua wine challenges expectations.\n\nPasqua 由三兄弟於 1925 年在意大利維羅納創立，歷經百年發展成為意大利最具創新精神的釀酒家族之一。秉持「非傳統之家」哲學，包括標誌性的「11 Minutes」玫瑰紅酒——以葡萄皮與果汁接觸的精確時間命名。從 Appassimento 紅酒到清新 Soave 白酒，每款佳釀都挑戰固有期待。",
+    website: "https://www.pasqua.it/en",
   },
   "Canmak": {
-    country: "Korea",
-    description: "Korea's finest Makgeolli producer, offering traditional rice brew in refreshing modern formats — a unique, approachable alternative to wine.",
+    country: "South Korea",
+    description: "Canmak brings the ancient Korean tradition of Makgeolli into the modern era with a fresh, approachable style. Made from fermented rice with a naturally low 5% alcohol, Canmak's lightly sparkling, milky-white brew offers a delicate balance of gentle sweetness and soft acidity — refreshing, sessionable, and endlessly food-friendly. Available in Original, Peach, Green Grape and Mango, Canmak is the perfect gateway to Korea's rich fermented beverage culture.\n\nCanmak 將古老的韓國막걸리（濁酒）傳統以現代方式重新演繹，廣受好評。以天然發酵米釀造，酒精濃度僅 5%，輕微起泡的乳白色酒液帶來甜酸平衡的清新口感，清爽易飲且極具配餐百搭性。現有 Original、桃子、青提及芒果四款口味，是探索韓國豐富發酵飲品文化的最佳入門之選。",
+    website: "https://canmakofficial.com",
   },
   "Hydrodol": {
     country: "Australia",
-    description: "HYDRODOL® is Australia's leading hangover prevention and wellness supplement brand, established in 2001 by Substance Pty Ltd. 100% Vegan, Australian-made supplements designed to support your body before, during and after a big night. Exclusively distributed in Hong Kong by Terroir & Craft Co., Ltd.",
-    website: "https://www.hydrodolhongkong.com",
+    description: "Hydrodol is Australia's leading hangover supplement, developed in 2006 by Australian researchers to support rehydration, recovery and mental clarity after drinking. Each sachet delivers a precisely formulated blend of electrolytes, B vitamins, milk thistle and antioxidants — taken before or after drinking to help your body process alcohol more efficiently. Trusted by over one million Australians every year, Hydrodol is the smart companion for anyone who loves good wine but values feeling great the next morning.\n\nHydrodol 是澳洲最受信賴的宿醉恢復補充品，由澳洲研究團隊於 2006 年研發，專為支援飲酒後的補水、恢復及精神清晰度而設計。精心配製的配方含有電解質、維他命 B 群、奶薊草及抗氧化劑——於飲酒前後服用，幫助身體更有效代謝酒精。每年逾百萬澳洲人選用 Hydrodol，是熱愛美酒又重視第二天感覺的最佳伴侶。",
+    website: "https://hydrodol.com.au",
   },
 };
 

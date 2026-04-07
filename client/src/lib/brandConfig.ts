@@ -89,6 +89,103 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
       videoCaption: "",
     },
   },
+  // ── Champagne Boizel ─────────────────────────────────────────────────────
+  "Champagne Boizel": {
+    heroBg: "/boizel-hero.jpg",
+    heroGradient: { from: "#1C1C1C", to: "#2E2A26" },
+    accent: "#C8A96E",
+    sectionBg: "#1A1815",
+    heroText: "#ffffff",
+    heritage: { year: "Est. 1834", tagline: "MAISON FONDÉE EN 1834 · ÉPERNAY", yearFont: "Cinzel", yearColor: "#C8A96E" },
+  },
+
+  // ── Sherwood Estate ───────────────────────────────────────────────────────
+  "Sherwood": {
+    heroBg: "/sherwood-hero.jpg",
+    heroGradient: { from: "#2E3D2A", to: "#4A6741" },
+    accent: "#4A6741",
+    sectionBg: "#F2EDE5",
+    heroText: "#ffffff",
+    heritage: { year: "Est. 1987", tagline: "WAIPARA VALLEY · NEW ZEALAND", yearFont: "Cinzel", yearColor: "#ffffff" },
+  },
+
+  // ── Tscharke ──────────────────────────────────────────────────────────────
+  "Tscharke": {
+    heroBg: "/tscharke-hero.jpg",
+    heroGradient: { from: "#08200B", to: "#0E3012" },
+    accent: "#7AB86A",
+    sectionBg: "#0d1a0f",
+    heroText: "#ffffff",
+    heritage: { year: "Est. 1847", tagline: "BAROSSA VALLEY · SIX GENERATIONS", yearFont: "Cinzel", yearColor: "#7AB86A" },
+    feature: {
+      label: "OLD VINES · ORGANIC",
+      heading: "Ancient Roots",
+      body: "Damien Tscharke farms heritage Grenache, Shiraz and Mataro vines planted in the 1840s using organic and biodynamic methods. The ancient soils of the Barossa yield wines of extraordinary concentration and authenticity — a living connection to six generations of family history.",
+      image: "/tscharke-hero.jpg",
+      visual: { bg: "#08200B", line1: "Est.", line2: "1847" },
+      youtubeId: "",
+      videoCaption: "",
+    },
+  },
+
+  // ── Realm Cellars ─────────────────────────────────────────────────────────
+  "Realm Cellars": {
+    heroBg: "/realm-hero.jpg",
+    heroGradient: { from: "#F2EDE4", to: "#EAE2D6" },
+    accent: "#2C1810",
+    sectionBg: "#FFFFFF",
+    heroText: "#1A1410",
+    heritage: { year: "Est. 2003", tagline: "NAPA VALLEY · CALIFORNIA", yearFont: "Cinzel", yearColor: "#2C1810" },
+  },
+
+  // ── Pasqua ────────────────────────────────────────────────────────────────
+  "Pasqua": {
+    heroBg: "/pasqua-hero.jpg",
+    heroGradient: { from: "#8B2A12", to: "#6F3520" },
+    accent: "#F4B942",
+    sectionBg: "#FDF6F0",
+    heroText: "#ffffff",
+    heritage: { year: "Est. 1925", tagline: "HOUSE OF THE UNCONVENTIONAL · VERONA", yearFont: "Cinzel", yearColor: "#F4B942" },
+  },
+
+  // ── Levrier Wines by Jo Irvine ────────────────────────────────────────────
+  "Levrier Wines by Jo Irvine": {
+    heroBg: "/levrier-hero.jpg",
+    heroGradient: { from: "#2A1240", to: "#735490" },
+    accent: "#CC9E29",
+    sectionBg: "#1A0A2E",
+    heroText: "#ffffff",
+    heritage: { year: "Barossa", tagline: "FORGOTTEN VARIETALS · BAROSSA VALLEY", yearFont: "Josefin Sans", yearColor: "#735490" },
+  },
+
+  // ── Vereinigte Hospitien ──────────────────────────────────────────────────
+  "Vereinigte Hospitien": {
+    heroBg: "/vh-hero.jpg",
+    heroGradient: { from: "#F6EFEB", to: "#EDE3DB" },
+    accent: "#2C332F",
+    sectionBg: "#F6EFEB",
+    heroText: "#1A1E1A",
+    heritage: { year: "Est. 1286", tagline: "GERMANY'S OLDEST WINE CELLAR · MOSEL", yearFont: "Cinzel", yearColor: "#2C332F" },
+  },
+
+  // ── Canmak ────────────────────────────────────────────────────────────────
+  "Canmak": {
+    heroBg: "/canmak-hero.png",
+    heroGradient: { from: "#FAFAFA", to: "#FFF0F8" },
+    accent: "#E8507A",
+    sectionBg: "#FFFFFF",
+    heroText: "#1A1A1A",
+  },
+
+  // ── Hydrodol ──────────────────────────────────────────────────────────────
+  "Hydrodol": {
+    heroBg: "/hydrodol-hero.jpg",
+    heroGradient: { from: "#3A8FC9", to: "#C84B8F" },
+    accent: "#3A8FC9",
+    sectionBg: "#F0F8FF",
+    heroText: "#ffffff",
+  },
+
   "Morey-Coffinet": {
     heroBg: "/mc-vineyard.jpg",
     heroGradient: { from: "#0a0a0a", to: "#1a1a1a" },
