@@ -89,6 +89,23 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
       videoCaption: "",
     },
   },
+  "Morey-Coffinet": {
+    heroBg: "/mc-vineyard.jpg",
+    heroGradient: { from: "#0a0a0a", to: "#1a1a1a" },
+    accent: "#C8A84B",
+    sectionBg: "#f8f6f2",
+    heroText: "#ffffff",
+    feature: {
+      label: "WINEMAKER · THIBAULT MOREY",
+      heading: "From the Cave",
+      body: "Thibault Morey works from the family cave in Chassagne-Montrachet, practising organic and biodynamic viticulture across their finest parcels. Low yields, hand harvesting and sensitive oak ageing allow each cru to express its distinctive limestone terroir with precision and purity.",
+      image: "/mc-cellar.jpg",
+      imageCaption: "Thibault Morey in the cave — Chassagne-Montrachet",
+      visual: { bg: "#0a0a0a", line1: "Est.", line2: "c. 1980" },
+      youtubeId: "",
+      videoCaption: "",
+    },
+  },
   "Kopke": {
     heroBg: "/kopke-cellar.jpg",
     heroGradient: { from: "#0d0b08", to: "#1a1410" },

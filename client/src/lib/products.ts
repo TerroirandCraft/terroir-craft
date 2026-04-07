@@ -68,8 +68,8 @@ export const BRAND_INFO: Record<string, { country: string; description: string; 
     website: "https://saintcosme.com",
   },
   "Morey-Coffinet": {
-    country: "France",
-    description: "A celebrated Burgundy domaine in Chassagne-Montrachet, crafting some of the finest Premier and Grand Cru white Burgundies. Restrained, mineral-driven Chardonnays of exceptional purity.",
+    country: "France · Chassagne-Montrachet, Côte de Beaune",
+    description: "Domaine Morey-Coffinet stands out as one of the most exciting domaines in Chassagne-Montrachet, uniting the historic Morey and Coffinet families at the heart of Burgundy's \"golden triangle.\" Founded around 1980 by Michel Morey and his wife Fabienne Coffinet, the estate brings together some of the village's finest parcels, including prestigious sites in Chassagne-Montrachet, Puligny-Montrachet and Grand Cru Bâtard-Montrachet. Today, winemaker Thibault Morey, the new generation at the helm, is renowned for crafting white Burgundies of precision, elegance and mineral-driven tension that perfectly express their limestone-rich terroirs. Under his leadership, the domaine has embraced organic and biodynamic viticulture, focusing on low yields, meticulous vineyard work and sensitive élevage to highlight purity, energy and finesse in every cuvée.\n\nDomaine Morey-Coffinet 位於布根地金丘核心地帶的 Chassagne-Montrachet，由當地兩大傳奇家族 Morey 與 Coffinet 聯婚而成，是區內最具潛力和備受關注的頂尖酒莊之一。現任釀酒師 Thibault Morey 承接家族衣鉢，以細致優雅、礦物感鮮明和張力十足的白酒見稱，被視為新一代 Chassagne-Montrachet 代表人物之一。酒莊已全面採用有機及生物動力法種植，嚴控產量並以溫和陳釀手法，將風土個性精準呈現於每一瓶佳釀之中。",
     website: "https://www.morey-coffinet.com",
   },
   "Maison Morey-Coffinet": {
