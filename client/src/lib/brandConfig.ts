@@ -116,7 +116,7 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
     accent: "#7AB86A",
     sectionBg: "#0d1a0f",
     heroText: "#ffffff",
-    heritage: { year: "Est. 1847", tagline: "BAROSSA VALLEY · SIX GENERATIONS", yearFont: "Cinzel", yearColor: "#7AB86A" },
+    heritage: { year: "Barossa Valley", tagline: "SIX GENERATIONS · ORGANIC BIODYNAMIC", yearFont: "Cinzel", yearColor: "#7AB86A" },
     feature: {
       label: "OLD VINES · ORGANIC",
       heading: "Ancient Roots",
@@ -134,8 +134,8 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
     heroGradient: { from: "#F2EDE4", to: "#EAE2D6" },
     accent: "#2C1810",
     sectionBg: "#FFFFFF",
-    heroText: "#1A1410",
-    heritage: { year: "Est. 2003", tagline: "NAPA VALLEY · CALIFORNIA", yearFont: "Cinzel", yearColor: "#2C1810" },
+    heroText: "#ffffff",
+    heritage: { year: "Est. 2003", tagline: "NAPA VALLEY · CALIFORNIA", yearFont: "Cinzel", yearColor: "#ffffff" },
   },
 
   // ── Pasqua ────────────────────────────────────────────────────────────────
@@ -161,11 +161,11 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
   // ── Vereinigte Hospitien ──────────────────────────────────────────────────
   "Vereinigte Hospitien": {
     heroBg: "/vh-hero.jpg",
-    heroGradient: { from: "#F6EFEB", to: "#EDE3DB" },
-    accent: "#2C332F",
+    heroGradient: { from: "#1A1208", to: "#2E2218" },
+    accent: "#C8A96E",
     sectionBg: "#F6EFEB",
-    heroText: "#1A1E1A",
-    heritage: { year: "Est. 1286", tagline: "GERMANY'S OLDEST WINE CELLAR · MOSEL", yearFont: "Cinzel", yearColor: "#2C332F" },
+    heroText: "#ffffff",
+    heritage: { year: "Est. 1286", tagline: "GERMANY'S OLDEST WINE CELLAR · MOSEL", yearFont: "Cinzel", yearColor: "#C8A96E" },
   },
 
   // ── Canmak ────────────────────────────────────────────────────────────────
@@ -174,7 +174,7 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
     heroGradient: { from: "#FAFAFA", to: "#FFF0F8" },
     accent: "#E8507A",
     sectionBg: "#FFFFFF",
-    heroText: "#1A1A1A",
+    heroText: "#ffffff",
   },
 
   // ── Hydrodol ──────────────────────────────────────────────────────────────
