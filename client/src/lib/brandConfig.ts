@@ -40,10 +40,11 @@ export interface BrandConfig {
 
 export const BRAND_CONFIG: Record<string, BrandConfig> = {
   "Mollydooker": {
-    heroGradient: { from: "#F5EDD8", to: "#E8C87A" },
+    heroBg: "/mollydooker-hero.jpg",
+    heroGradient: { from: "#F5C200", to: "#D94F2B" },
     accent: "#D94F2B",
     sectionBg: "#F5EDD8",
-    heroText: "#2A1A08",
+    heroText: "#ffffff",
     feature: {
       label: "BRAND SIGNATURE",
       heading: "The Mollydooker Shake",
