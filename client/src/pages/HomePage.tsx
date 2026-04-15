@@ -3,12 +3,241 @@ import { navigate } from "wouter/use-hash-location";
 import WorldMap from "@/components/WorldMap";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest, API_BASE } from "@/lib/queryClient";
-import { ArrowRight, Bot, Globe, Star, Package, ChevronRight, Instagram, Facebook } from "lucide-react";
+import { ArrowRight, Bot, Globe, Star, Package, ChevronRight, Instagram, Facebook, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import WineCard from "@/components/WineCard";
 import type { Product } from "@/lib/products";
 import { BRAND_INFO } from "@/lib/products";
+import { useState, useEffect, useCallback, useRef } from "react";
+
+// ─── HERO CAROUSEL SLIDES ─────────────────────────────────────────────────
+// Edit this array to change hero content — no code changes needed
+const HERO_SLIDES = [
+  {
+    id: "main",
+    bg: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1600&q=80&auto=format&fit=crop",
+    overlay: "linear-gradient(100deg, rgba(26,13,16,0.92) 0%, rgba(26,13,16,0.65) 55%, rgba(26,13,16,0.25) 100%)",
+    eyebrow: "Hong Kong's Curated Wine Merchant",
+    eyebrowColor: "#c9a05a",
+    heading: "Find the right bottle\nfor tonight — or\nthe one worth keeping.",
+    body: "From approachable everyday wines to collectible fine bottles, Terroir & Craft brings together importer-selected wines for drinking, gifting, and collecting in Hong Kong.",
+    cta1: { label: "Shop Wines", href: "/wines" },
+    cta2: { label: "Ask AI Sommelier", href: "/sommelier", icon: "bot" },
+  },
+  {
+    id: "mollydooker",
+    bg: `${API_BASE}/mollydooker-hero.jpg`,
+    overlay: "linear-gradient(100deg, rgba(10,5,0,0.82) 0%, rgba(10,5,0,0.50) 55%, rgba(10,5,0,0.15) 100%)",
+    eyebrow: "Exclusive Agency · McLaren Vale",
+    eyebrowColor: "#F5C200",
+    heading: "Mollydooker\nWhere Wine Goes\nto Have Fun.",
+    body: "Bold, fruit-forward reds from McLaren Vale. 95+ points. The iconic Mollydooker Shake. Now available in Hong Kong.",
+    cta1: { label: "Explore Mollydooker", href: "/brands/Mollydooker" },
+    cta2: null,
+    accentColor: "#D94F2B",
+  },
+  {
+    id: "member",
+    bg: "https://images.unsplash.com/photo-1470158499416-75be9aa0c4db?w=1600&q=80&auto=format&fit=crop",
+    overlay: "linear-gradient(100deg, rgba(20,10,30,0.93) 0%, rgba(20,10,30,0.70) 55%, rgba(20,10,30,0.30) 100%)",
+    eyebrow: "Member Rewards",
+    eyebrowColor: "#C8A96E",
+    heading: "登記即送\n1,000 積分\n= HK$100 優惠",
+    body: "Join free today. Earn points on every purchase — redeem anytime. Silver, Gold and Platinum tiers with exclusive discounts.",
+    cta1: { label: "Join Free 立即登記", href: "/member" },
+    cta2: { label: "Learn More", href: "/member" },
+    badge: "FREE TO JOIN",
+  },
+  {
+    id: "saintcosme",
+    bg: `${API_BASE}/sc-chapel.jpg`,
+    overlay: "linear-gradient(100deg, rgba(20,10,5,0.90) 0%, rgba(20,10,5,0.60) 55%, rgba(20,10,5,0.20) 100%)",
+    eyebrow: "Exclusive Agency · Gigondas, Rhône",
+    eyebrowColor: "#C8391A",
+    heading: "Château de\nSaint Cosme\nEst. 1570.",
+    body: "The most celebrated estate in Gigondas. 15th generation winemaker Louis Barruol. Ancient vines, limestone soul.",
+    cta1: { label: "Discover the Domaine", href: "/brands/Ch%C3%A2teau%20de%20Saint%20Cosme" },
+    cta2: null,
+    accentColor: "#C8391A",
+  },
+  {
+    id: "staffpicks",
+    bg: "https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?w=1600&q=80&auto=format&fit=crop",
+    overlay: "linear-gradient(100deg, rgba(10,15,25,0.90) 0%, rgba(10,15,25,0.62) 55%, rgba(10,15,25,0.20) 100%)",
+    eyebrow: "Our Team's Favourites",
+    eyebrowColor: "#c9a05a",
+    heading: "Staff Picks\nHandpicked for\nyou this season.",
+    body: "Our team tastes hundreds of wines so you don't have to. These are the bottles we're most excited about right now.",
+    cta1: { label: "See Staff Picks", href: "/wines" },
+    cta2: null,
+  },
+];
+
+// ─── HERO CAROUSEL COMPONENT ────────────────────────────────────────────
+function HeroCarousel() {
+  const [current, setCurrent] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const total = HERO_SLIDES.length;
+
+  const goTo = useCallback((idx: number) => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrent((idx + total) % total);
+      setIsTransitioning(false);
+    }, 300);
+  }, [isTransitioning, total]);
+
+  const next = useCallback(() => goTo(current + 1), [current, goTo]);
+  const prev = useCallback(() => goTo(current - 1), [current, goTo]);
+
+  // Auto-advance every 5 seconds
+  const resetTimer = useCallback(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      setCurrent(c => (c + 1) % total);
+    }, 5000);
+  }, [total]);
+
+  useEffect(() => {
+    resetTimer();
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  }, [current, resetTimer]);
+
+  // Touch/swipe support
+  const touchStartX = useRef(0);
+  const handleTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) diff > 0 ? next() : prev();
+  };
+
+  const slide = HERO_SLIDES[current];
+  const accentColor = (slide as any).accentColor || "#9a7940";
+
+  return (
+    <section
+      className="relative overflow-hidden"
+      style={{ minHeight: "clamp(500px, 75vh, 760px)", display: "flex", alignItems: "center" }}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
+      {/* Slide backgrounds — cross-fade */}
+      {HERO_SLIDES.map((s, i) => (
+        <div
+          key={s.id}
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url('${s.bg}')`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            opacity: i === current ? 1 : 0,
+            transition: "opacity 0.7s ease-in-out",
+            zIndex: 0,
+          }}
+        />
+      ))}
+
+      {/* Overlay */}
+      <div className="absolute inset-0" style={{ background: slide.overlay, zIndex: 1, transition: "background 0.5s" }} />
+
+      {/* Content */}
+      <div
+        className="relative w-full"
+        style={{ zIndex: 2, opacity: isTransitioning ? 0 : 1, transition: "opacity 0.3s ease" }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-20 w-full" style={{ paddingBottom: "6rem" }}>
+          <div className="max-w-2xl">
+            {/* Badge (e.g. FREE TO JOIN) */}
+            {(slide as any).badge && (
+              <span className="inline-block font-body text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-4"
+                style={{ background: accentColor, color: "#fff" }}>
+                {(slide as any).badge}
+              </span>
+            )}
+            {/* Eyebrow */}
+            <p className="font-body text-xs tracking-[0.18em] uppercase mb-5 flex items-center gap-3"
+              style={{ color: (slide as any).eyebrowColor || "#c9a05a" }}>
+              <span style={{ display: "inline-block", width: 28, height: 1, background: (slide as any).eyebrowColor || "#c9a05a" }} />
+              {slide.eyebrow}
+            </p>
+            {/* Heading */}
+            <h1 className="font-display font-light leading-tight mb-6"
+              style={{ fontSize: "clamp(2.5rem, 5vw, 4.2rem)", color: "#f5ede8", whiteSpace: "pre-line" }}>
+              {slide.heading}
+            </h1>
+            {/* Body */}
+            <p className="font-body text-base leading-relaxed mb-10 max-w-xl"
+              style={{ color: "rgba(245,237,232,0.72)" }}>
+              {slide.body}
+            </p>
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center gap-4">
+              {slide.cta1 && (
+                <Link href={slide.cta1.href}>
+                  <Button size="lg" className="px-8 font-body font-medium border-0 text-white"
+                    style={{ background: accentColor }}>
+                    {(slide.cta1 as any).icon === "bot" && <Bot className="mr-2 w-4 h-4" />}
+                    {slide.cta1.label}
+                    {!(slide.cta1 as any).icon && <ArrowRight className="ml-2 w-4 h-4" />}
+                  </Button>
+                </Link>
+              )}
+              {slide.cta2 && (
+                <Link href={(slide.cta2 as any).href}>
+                  <Button size="lg" variant="outline" className="px-8 font-body font-medium backdrop-blur-sm"
+                    style={{ borderColor: "rgba(245,237,232,0.3)", color: "rgba(245,237,232,0.85)" }}>
+                    {(slide.cta2 as any).icon === "bot" && <Bot className="mr-2 w-4 h-4" />}
+                    {(slide.cta2 as any).label}
+                  </Button>
+                </Link>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Prev / Next arrows */}
+      <button onClick={prev}
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
+        style={{ background: "rgba(0,0,0,0.35)", color: "white" }}>
+        <ChevronLeft className="w-5 h-5" />
+      </button>
+      <button onClick={next}
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
+        style={{ background: "rgba(0,0,0,0.35)", color: "white" }}>
+        <ChevronRight className="w-5 h-5" />
+      </button>
+
+      {/* Dot indicators */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2">
+        {HERO_SLIDES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => goTo(i)}
+            className="transition-all rounded-full"
+            style={{
+              width: i === current ? 24 : 8,
+              height: 8,
+              background: i === current ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.35)",
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Slide counter */}
+      <div className="absolute bottom-8 right-6 z-10 font-body text-xs"
+        style={{ color: "rgba(255,255,255,0.4)", letterSpacing: "0.15em" }}>
+        {String(current + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+      </div>
+
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent" style={{ zIndex: 3 }} />
+    </section>
+  );
+}
 
 // Region explorer data — 10 countries in our catalogue
 const REGIONS = [
@@ -197,66 +426,8 @@ export default function HomePage() {
   return (
     <div>
       {/* ─── HERO ─── */}
-      <section className="relative overflow-hidden" style={{ minHeight: "clamp(500px, 75vh, 760px)", display: "flex", alignItems: "center" }}>
-        {/* Background photo */}
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1600&q=80&auto=format&fit=crop')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-        {/* Dark overlay */}
-        <div className="absolute inset-0" style={{ background: "linear-gradient(100deg, rgba(26,13,16,0.92) 0%, rgba(26,13,16,0.65) 55%, rgba(26,13,16,0.25) 100%)" }} />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-20 w-full" style={{ paddingBottom: "6rem" }}>
-          <div className="max-w-2xl">
-            <p className="font-body text-xs tracking-[0.18em] uppercase mb-5 flex items-center gap-3" style={{ color: "#c9a05a" }}>
-              <span style={{ display: "inline-block", width: 28, height: 1, background: "#c9a05a" }} />
-              Hong Kong's Curated Wine Merchant
-            </p>
-            <h1 className="font-display font-light leading-tight mb-6" style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)", color: "#f5ede8" }}>
-              Find the right bottle<br />
-              for tonight &mdash; or<br />
-              <em className="italic" style={{ color: "#e8d4c0" }}>the one worth keeping.</em>
-            </h1>
-            <p className="font-body text-base leading-relaxed mb-10 max-w-xl" style={{ color: "rgba(245,237,232,0.72)" }}>
-              From approachable everyday wines to collectible fine bottles, Terroir &amp; Craft brings together importer-selected wines for drinking, gifting, and collecting in Hong Kong.
-            </p>
-            <div className="flex flex-wrap items-center gap-4">
-              <Link href="/wines">
-                <Button
-                  size="lg"
-                  className="px-8 font-body font-medium border-0 text-white"
-                  style={{ background: "#9a7940" }}
-                  data-testid="hero-shop-btn"
-                >
-                  Shop Wines
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </Link>
-              <Link href="/sommelier">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="px-8 font-body font-medium backdrop-blur-sm"
-                  style={{ borderColor: "rgba(245,237,232,0.3)", color: "rgba(245,237,232,0.85)" }}
-                  data-testid="hero-sommelier-btn"
-                >
-                  <Bot className="mr-2 w-4 h-4" />
-                  Ask AI Sommelier
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent" style={{ zIndex: 2 }} />
-
-
-      </section>
+      {/* ─── HERO CAROUSEL ────────────────────────────────────────────── */}
+      <HeroCarousel />
 
       {/* ─── SHOP BY OCCASION ─── */}
       <section className="py-20 bg-background">
