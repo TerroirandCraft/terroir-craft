@@ -138,7 +138,14 @@ export default function WineCard({ product }: WineCardProps) {
             </p>
           )}
 
-          <div className="mt-auto flex items-center justify-between gap-2">
+          <div className="mt-auto flex flex-col gap-1.5">
+            {/* Points earned indicator */}
+            {product.price > 0 && product.status !== "Sold Out" && (
+              <span className="font-body text-[10px]" style={{ color: "#9a7940", letterSpacing: "0.03em" }}>
+                ★ {Math.floor((product.promo_price || product.price) / 10)} pts
+              </span>
+            )}
+            <div className="flex items-center justify-between gap-2">
             <div className="flex flex-col gap-0.5">
               {product.status === "Sold Out" ? (
                 <span className="text-muted-foreground text-sm font-body">Sold Out</span>
@@ -175,6 +182,7 @@ export default function WineCard({ product }: WineCardProps) {
             {stockStatus === "out_of_stock" && product.status !== "Sold Out" && (
               <span className="text-[10px] font-body text-gray-400 font-medium">Out of Stock</span>
             )}
+            </div>
           </div>
         </div>
       </a>
