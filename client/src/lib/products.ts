@@ -96,6 +96,11 @@ export const BRAND_INFO: Record<string, { country: string; description: string; 
     description: "Tscharke is a sixth-generation family estate in the Barossa Valley, farming heritage Grenache, Shiraz and Mataro vines that date back to the 1840s. Winemaker Damien Tscharke is a passionate advocate for organic and biodynamic farming, working the ancient soils by hand to produce wines of extraordinary concentration, depth and authenticity. The estate's old-vine Grenache in particular has drawn international acclaim as a benchmark example of Barossa terroir at its finest.\n\nTscharke 是巴羅薩谷的第六代家族酒莊，擁有可追溯至 1840 年代的古老 Grenache、Shiraz 及 Mataro 葡萄藤。釀酒師 Damien Tscharke 以有機及生物動力法耕作古老土壤，釀造出濃郁、深邃且充滿個性的佳釀。酒莊的老藤 Grenache 尤其享譽國際，被視為巴羅薩風土的標誌性詮釋。",
     website: "https://tscharke.com.au",
   },
+  "The Marlborist": {
+    country: "New Zealand · Marlborough",
+    description: "The Marlborist is a bold, independent voice from Marlborough — not bound by convention, not beholden to trend. Founded with a singular mission to craft wines that genuinely reflect place and purpose, The Marlborist draws from three distinct sub-regions of Marlborough to create Sauvignon Blanc, Chardonnay and Pinot Noir of real depth and personality. Their flagship Grande Sauvignon, fermented wild and aged in oak, is a fearless departure from the classic Marlborough style — and a statement that the region has far more to say.\n\nThe Marlborist 是來自馬爾堡的獨立自主之聲——不受傅統所緩，不追逐潮流。集馬爾堡三個不同區塊的唇葡，釀造具有真正深度和個性的白蘇瑕，霸多罗尼和黑皮諾。其核心作品 Grande Sauvignon 經野生酵母發酵、橡木桶陈釀，大膽跟馬爾堡經典風格說捋被，展現了這個產區更豐富的农谷語彙。",
+    website: "https://themarlborist.com",
+  },
   "Sherwood": {
     country: "New Zealand · Waipara Valley",
     description: "Sherwood Estate is one of Waipara Valley's pioneering wineries, crafting elegant cool-climate wines since 1987. Nestled in the foothills of North Canterbury, the estate's free-draining limestone soils and long sunny days with cool nights create ideal conditions for Pinot Noir and Riesling of remarkable purity and finesse. Winemaker Dayne Sherwood applies minimal intervention techniques to let the vineyard's natural character speak clearly in every bottle.\n\nSherwood Estate 是新西蘭 Waipara Valley 的先驅酒莊之一，自 1987 年起致力釀造優雅的涼爽氣候葡萄酒。排水良好的石灰岩土壤配合漫長晴朗的白天與清涼夜晚，為黑皮諾和麗絲玲提供理想環境，展現出純淨而精緻的風土個性。",

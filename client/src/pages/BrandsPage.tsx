@@ -29,6 +29,7 @@ const BRAND_LOGO_FILES: Record<string, string> = {
   "Tscharke": "Tscharke.png",
   "Vereinigte Hospitien": "Vereinigte Hospitien.webp",
   "Hydrodol": "Hydrodol.jpg",
+  "The Marlborist": "The Marlborist.jpg",
 };
 
 function BrandLogo({ brand, exclusive }: { brand: string; exclusive: boolean }) {

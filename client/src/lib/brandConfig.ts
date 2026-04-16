@@ -90,6 +90,14 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
       videoCaption: "",
     },
   },
+  "The Marlborist": {
+    heroGradient: { from: "#1A2518", to: "#2E3D2A" },
+    accent: "#8B7340",
+    sectionBg: "#F5F0E8",
+    heroText: "#ffffff",
+    heritage: { year: "Marlborough", tagline: "NEW ZEALAND · INDEPENDENT · UNBOUND", yearFont: "Cinzel", yearColor: "#8B7340" },
+  },
+
   // ── Champagne Boizel ─────────────────────────────────────────────────────
   "Champagne Boizel": {
     heroBg: "/boizel-hero.jpg",
