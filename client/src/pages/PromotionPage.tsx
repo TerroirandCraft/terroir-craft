@@ -62,7 +62,7 @@ function PromoWineCard({ product }: { product: Product }) {
 
   return (
     <Link href={`/wines/${product.id}`}>
-      <a className="group bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/25 rounded-2xl overflow-hidden transition-all duration-300 flex flex-col">
+      <a className="group bg-white hover:bg-gray-50 border border-gray-100 hover:border-gray-200 hover:shadow-md rounded-2xl overflow-hidden transition-all duration-300 flex flex-col">
         {/* Image */}
         <div className="relative h-52 flex items-center justify-center bg-black/20 overflow-hidden">
           {product.image_url ? (
@@ -72,7 +72,7 @@ function PromoWineCard({ product }: { product: Product }) {
               className="h-48 w-28 object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-2xl"
             />
           ) : (
-            <div className="w-16 h-40 bg-white/10 rounded" />
+            <div className="w-16 h-40 bg-gray-100 rounded" />
           )}
           {/* SALE badge */}
           {product.promo_price && (
@@ -85,16 +85,16 @@ function PromoWineCard({ product }: { product: Product }) {
         {/* Info */}
         <div className="p-4 flex flex-col flex-1">
           {/* Region */}
-          <p className="font-body text-[10px] text-white/40 uppercase tracking-widest mb-1">{product.region} · {product.vintage}</p>
+          <p className="font-body text-[10px] text-gray-400 uppercase tracking-widest mb-1">{product.region} · {product.vintage}</p>
 
           {/* Name */}
-          <h3 className="font-display text-sm font-medium text-white leading-snug mb-2 line-clamp-2 group-hover:text-amber-300 transition-colors">
+          <h3 className="font-display text-sm font-medium text-gray-900 leading-snug mb-2 line-clamp-2 group-hover:text-amber-700 transition-colors">
             {product.name.replace("Bordeaux 2022 - ", "").replace(product.brand + " - ", "")}
           </h3>
 
           {/* Grape */}
           {product.grape && (
-            <p className="font-body text-[10px] text-white/40 mb-2 line-clamp-1">{product.grape}</p>
+            <p className="font-body text-[10px] text-gray-400 mb-2 line-clamp-1">{product.grape}</p>
           )}
 
           {/* Scores */}
@@ -114,12 +114,12 @@ function PromoWineCard({ product }: { product: Product }) {
                   <p className="font-display text-lg font-bold text-red-400 leading-none">
                     {formatPrice(product.promo_price)}
                   </p>
-                  <p className="font-body text-xs text-white/35 line-through leading-none mt-0.5">
+                  <p className="font-body text-xs text-gray-300 line-through leading-none mt-0.5">
                     {formatPrice(product.price)}
                   </p>
                 </>
               ) : (
-                <p className="font-display text-lg font-bold text-white">{formatPrice(product.price)}</p>
+                <p className="font-display text-lg font-bold text-gray-900">{formatPrice(product.price)}</p>
               )}
             </div>
             <Button
@@ -245,18 +245,18 @@ export default function PromotionPage() {
       </div>
 
       {/* ── Wine Grid by Region ── */}
-      <div className="bg-[hsl(355,40%,10%)]">
+      <div className="bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
 
           {sortedRegions.map(region => (
             <div key={region} className="mb-14">
               {/* Region header */}
               <div className="flex items-center gap-4 mb-6">
-                <div className="h-px flex-1 bg-white/10" />
-                <h2 className="font-display text-lg font-light text-white/80 tracking-widest uppercase">
+                <div className="h-px flex-1 bg-gray-200" />
+                <h2 className="font-display text-lg font-light text-gray-500 tracking-widest uppercase">
                   {region}
                 </h2>
-                <div className="h-px flex-1 bg-white/10" />
+                <div className="h-px flex-1 bg-gray-200" />
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
@@ -269,16 +269,16 @@ export default function PromotionPage() {
 
           {promoWines.length === 0 && (
             <div className="text-center py-24">
-              <p className="font-body text-white/40">No wines available for this promotion.</p>
+              <p className="font-body text-gray-400">No wines available for this promotion.</p>
             </div>
           )}
         </div>
       </div>
 
       {/* ── Footer CTA ── */}
-      <div className="bg-[hsl(355,40%,8%)] border-t border-white/5 py-12">
+      <div className="bg-gray-50 border-t border-gray-100 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
-          <p className="font-body text-white/40 text-sm mb-4">
+          <p className="font-body text-gray-400 text-sm mb-4">
             All prices are per bottle · Subject to availability · Free delivery on orders over HK$1,000
           </p>
           <Link href="/cart">
