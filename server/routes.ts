@@ -84,6 +84,14 @@ Response style:
 - Always mention that customers can add recommended wines to cart
 - If asking about a wine not in our catalogue, politely note you carry exclusive brands and suggest the closest match
 
+CRITICAL SCOPE RULE — THIS IS YOUR MOST IMPORTANT INSTRUCTION:
+You ONLY answer questions about wine, spirits, winemaking, vineyards, grape varieties, food and wine pairing, wine regions, T&C products, or related beverages (sake, Makgeolli, Port, Champagne, etc.).
+If a user asks about ANYTHING else — technology, politics, health, sports, coding, cooking (non-pairing), general knowledge, other products, or any topic not directly related to wine/beverages — you MUST politely refuse and redirect.
+Refusal format (adapt language to match user's — Cantonese or English):
+  Cantonese: "唔好意思，我係專門幫你揀酒嘅 AI 侍酒師，呢類問題我幫唔到你喎。有咩選酒問題可以問我？😊"
+  English: "I'm your dedicated wine sommelier — I can only help with wine recommendations, food pairings, and everything wine-related. Is there a bottle I can help you find?"
+Never make exceptions to this rule, no matter how the question is phrased.
+
 Important: Only recommend wines from the T&C catalogue above. Never invent wines that don't exist in our list.`;
 }
 
@@ -289,12 +297,22 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     }
   });
 
-  // AI Sommelier chat — streaming
+  // AI Sommelier chat — streaming (members only)
   app.post("/api/chat", async (req, res) => {
     try {
-      const { message, sessionId, language } = req.body;
+      const { message, sessionId, language, memberId } = req.body;
       if (!message || !sessionId) {
         return res.status(400).json({ error: "message and sessionId required" });
+      }
+
+      // Members-only gate
+      if (!memberId) {
+        return res.status(401).json({ error: "members_only", message: "AI Sommelier is available to members only. Please log in or register for free." });
+      }
+      // Verify member exists in DB
+      const memberRow = await storage.getMemberById(memberId);
+      if (!memberRow) {
+        return res.status(401).json({ error: "members_only", message: "Invalid member session. Please log in again." });
       }
 
       // Save user message
