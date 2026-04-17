@@ -1,7 +1,8 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import Anthropic from "@anthropic-ai/sdk";
+// Perplexity Sonar API (OpenAI-compatible)
+import OpenAI from "openai";
 import type { Product } from "@shared/schema";
 import crypto from "crypto";
 import { readFileSync } from "fs";
@@ -48,7 +49,10 @@ const TIER_NEXT: Record<string, { next: string | null; needed: number }> = {
   Platinum: { next: null, needed: 0 },
 };
 
-const anthropic = new Anthropic();
+const perplexity = new OpenAI({
+  apiKey: process.env.PERPLEXITY_API_KEY || "",
+  baseURL: "https://api.perplexity.ai",
+});
 
 // Build AI sommelier system prompt with full product catalogue
 async function buildSystemPrompt(): Promise<string> {
@@ -313,30 +317,34 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
 
       let fullResponse = "";
 
-      const stream = anthropic.messages.stream({
-        model: "claude_sonnet_4_6",
-        max_tokens: 1024,
-        system: systemPrompt,
-        messages,
-      });
+      try {
+        const stream = await perplexity.chat.completions.create({
+          model: "sonar",
+          max_tokens: 1024,
+          stream: true,
+          messages: [
+            { role: "system", content: systemPrompt },
+            ...messages,
+          ],
+        });
 
-      stream.on("text", (text) => {
-        fullResponse += text;
-        res.write(`data: ${JSON.stringify({ type: "text", text })}\n\n`);
-      });
+        for await (const chunk of stream) {
+          const text = chunk.choices[0]?.delta?.content || "";
+          if (text) {
+            fullResponse += text;
+            res.write(`data: ${JSON.stringify({ type: "text", text })}\n\n`);
+          }
+        }
 
-      stream.on("finalMessage", async () => {
         // Save assistant response
         await storage.addChatMessage({ session_id: sessionId, role: "assistant", content: fullResponse });
         res.write(`data: ${JSON.stringify({ type: "done" })}\n\n`);
         res.end();
-      });
-
-      stream.on("error", (err) => {
-        console.error("Stream error:", err);
+      } catch (streamErr) {
+        console.error("Perplexity stream error:", streamErr);
         res.write(`data: ${JSON.stringify({ type: "error", message: "Sorry, something went wrong." })}\n\n`);
         res.end();
-      });
+      }
 
     } catch (err) {
       console.error("Chat error:", err);
