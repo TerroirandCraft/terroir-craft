@@ -277,7 +277,7 @@ export default function BrandDetailPage() {
             <p className="font-body text-xs tracking-[0.3em] uppercase mb-3" style={{ color: cfg.accent }}>
               {cfg.feature.label}
             </p>
-            <h2 className="font-script mb-10" style={{ fontSize: "clamp(2rem,4vw,2.8rem)", color: isLight ? "#2A1A08" : "#ffffff", fontStyle: "normal", fontFamily: "'Satisfy', cursive" }}>
+            <h2 className="font-script mb-10" style={{ fontSize: "clamp(2rem,4vw,2.8rem)", color: isLight ? "#3A1A0A" : "#ffffff", fontStyle: "normal", fontFamily: "'Satisfy', cursive", opacity: isLight ? 0.85 : 1 }}>
               {cfg.feature.heading}
             </h2>
 
