@@ -90,6 +90,30 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
       videoCaption: "",
     },
   },
+  "Tenuta di Ciclopi": {
+    heroBg: "/ciclopi-vineyard.jpg",
+    heroGradient: { from: "#0a0808", to: "#1a1010" },
+    accent: "#C8500A",
+    sectionBg: "#F5F0EC",
+    heroText: "#ffffff",
+    heritage: {
+      year: "Etna",
+      tagline: "VINI DEL VULCANO · SICILY",
+      yearFont: "Cinzel",
+      yearColor: "#C8500A",
+    },
+    feature: {
+      label: "MOUNT ETNA · 943M",
+      heading: "Born of Volcanic Fire",
+      body: "Tenuta di Ciclopi farms ancient ungrafted vines in the shadow of Mount Etna, one of Europe's most active volcanoes. At elevations up to 943 metres on volcanic basalt soils, Nerello Mascalese develops a haunting complexity of iron, iodine and dark fruit that is entirely unique to this corner of Sicily.",
+      image: "/ciclopi-etna.jpg",
+      imageCaption: "Contrada Feudo di Mezzo — Etna Nord",
+      visual: { bg: "#1a0808", line1: "Mount Etna", line2: "Sicily" },
+      youtubeId: "",
+      videoCaption: "",
+    },
+  },
+
   "Arillo in Terrabianca": {
     heroBg: "/arillo-vineyard.jpg",
     heroGradient: { from: "#0a0605", to: "#1a0f0a" },

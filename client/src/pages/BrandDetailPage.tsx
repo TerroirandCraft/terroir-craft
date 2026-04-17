@@ -31,6 +31,7 @@ const BRAND_LOGO_FILES: Record<string, string> = {
   "Hydrodol":                    "Hydrodol.jpg",
   "The Marlborist":              "The Marlborist.jpg",
   "Arillo in Terrabianca":       "Arillo in Terrabianca.jpg",
+  "Tenuta di Ciclopi":           "Tenuta di Ciclopi.jpg",
 };
 
 function getBrandLogoSrc(brand: string): string | null {
