@@ -98,7 +98,7 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
     heroText: "#ffffff",
     heritage: {
       year: "410m",
-      tagline: "BALANCE & PURITY · ENCLAVE DES PAPES · RHOONE",
+      tagline: "BALANCE & PURITY · ENCLAVE DES PAPES · RHÔNE",
       yearFont: "Cinzel",
       yearColor: "#C4A170",
     },
