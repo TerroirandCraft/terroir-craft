@@ -54,7 +54,7 @@ function SuggestedWineCard({ product }: { product: Product }) {
         <p className="font-body text-[10px] text-muted-foreground">
           {product.brand} · {product.vintage || "NV"}
         </p>
-        <p className="font-body text-xs font-semibold mt-0.5" style={{color:"hsl(355,62%,28%)}}"}>
+        <p className="font-body text-xs font-semibold mt-0.5" style={{color:"hsl(355,62%,28%)"}}>
           {formatPrice(price)}
         </p>
       </div>
