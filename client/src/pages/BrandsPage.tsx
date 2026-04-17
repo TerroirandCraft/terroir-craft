@@ -158,7 +158,24 @@ export default function BrandsPage() {
     if (p.exclusive) brandMap[p.brand].exclusive = true;
   });
 
-  const exclusiveBrands = Object.keys(brandMap).filter(b => brandMap[b].exclusive).sort();
+  // Priority order for exclusive brands
+  const EXCLUSIVE_ORDER = [
+    "Mollydooker",
+    "Realm Cellars",
+    "Château de Saint Cosme",
+    "Champagne Boizel",
+    "Morey-Coffinet",
+    "Vereinigte Hospitien",
+    "Kopke",
+    "Tscharke",
+    "Sherwood",
+  ];
+
+  const allExclusive = Object.keys(brandMap).filter(b => brandMap[b].exclusive);
+  const exclusiveBrands = [
+    ...EXCLUSIVE_ORDER.filter(b => allExclusive.includes(b)),
+    ...allExclusive.filter(b => !EXCLUSIVE_ORDER.includes(b)).sort(),
+  ];
   const openBrands = Object.keys(brandMap).filter(b => !brandMap[b].exclusive).sort();
   const allBrands = [...exclusiveBrands, ...openBrands];
 
