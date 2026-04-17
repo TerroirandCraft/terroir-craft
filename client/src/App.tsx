@@ -29,9 +29,12 @@ import NewArrivalsPage from "@/pages/NewArrivalsPage";
 // e.g. #/payment-result?ref=TC-xxx → path is "/payment-result" (query preserved in window.location)
 function useHashLocationNoQuery(): [string, (to: string) => void] {
   const [loc, navigate] = useHashLocation();
-  // Strip query string from the path (everything after ?)
   const cleanLoc = loc.split("?")[0];
-  const stableNavigate = useCallback((to: string) => navigate(to), [navigate]);
+  const stableNavigate = useCallback((to: string) => {
+    navigate(to);
+    // Scroll to top on every route change
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [navigate]);
   return [cleanLoc, stableNavigate];
 }
 
