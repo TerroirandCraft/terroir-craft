@@ -90,6 +90,30 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
       videoCaption: "",
     },
   },
+  "Arillo in Terrabianca": {
+    heroBg: "/arillo-vineyard.jpg",
+    heroGradient: { from: "#0a0605", to: "#1a0f0a" },
+    accent: "#8E0A24",
+    sectionBg: "#FBF7F4",
+    heroText: "#ffffff",
+    heritage: {
+      year: "Chianti Classico",
+      tagline: "TRADITION AND INNOVATION · TUSCANY",
+      yearFont: "Cinzel",
+      yearColor: "#C4A170",
+    },
+    feature: {
+      label: "THE TUSCAN THEOREM",
+      heading: "Where Soil Becomes Wine",
+      body: "From the limestone hills of Chianti Classico to the coastal Maremma, Arillo in Terrabianca crafts wines that are a true expression of Tuscan terroir. Every bottle is a philosophical proof — that great wine is born of great land, meticulous farming, and generations of mastery.",
+      image: "/arillo-winery.jpg",
+      imageCaption: "Arillo in Terrabianca estate — Radda in Chianti",
+      visual: { bg: "#8E0A24", line1: "Radda in Chianti", line2: "Tuscany" },
+      youtubeId: "",
+      videoCaption: "",
+    },
+  },
+
   "The Marlborist": {
     heroGradient: { from: "#1A2518", to: "#2E3D2A" },
     accent: "#8B7340",

@@ -30,6 +30,7 @@ const BRAND_LOGO_FILES: Record<string, string> = {
   "Vereinigte Hospitien":        "Vereinigte Hospitien.webp",
   "Hydrodol":                    "Hydrodol.jpg",
   "The Marlborist":              "The Marlborist.jpg",
+  "Arillo in Terrabianca":       "Arillo in Terrabianca.jpg",
 };
 
 function getBrandLogoSrc(brand: string): string | null {
