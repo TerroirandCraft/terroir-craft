@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
-import { Globe, ChevronRight, Star } from "lucide-react";
+import { Globe, Star } from "lucide-react";
 import type { Product } from "@/lib/products";
 import { BRAND_INFO, formatPrice } from "@/lib/products";
 import { API_BASE } from "@/lib/queryClient";
 
-// Brand logo filenames — place files in /client/public/brand-logos/<BrandName>.jpg (or .png)
-// Add entries here as logos are uploaded
 const BRAND_LOGO_FILES: Record<string, string> = {
   "Mollydooker": "Mollydooker.webp",
   "Canmak": "Canmak.jpeg",
@@ -34,182 +32,266 @@ const BRAND_LOGO_FILES: Record<string, string> = {
   "Tenuta di Ciclopi": "Tenuta di Ciclopi.jpg",
 };
 
-function BrandLogo({ brand, exclusive }: { brand: string; exclusive: boolean }) {
-  const file = BRAND_LOGO_FILES[brand];
-  const initials = brand.split(" ").map(w => w[0]).join("").substring(0, 2).toUpperCase();
+// Country → flagcdn 2-letter code
+const COUNTRY_FLAG: Record<string, string> = {
+  "France": "fr", "Australia": "au", "USA": "us", "Italy": "it",
+  "Germany": "de", "Portugal": "pt", "Spain": "es", "New Zealand": "nz",
+  "South Korea": "kr", "Korea": "kr", "Japan": "jp", "South Africa": "za",
+};
 
-  if (file) {
+function CountryFlag({ country }: { country: string }) {
+  // Extract base country (strip sub-region after ·)
+  const base = country.split("·")[0].trim();
+  const code = COUNTRY_FLAG[base];
+  if (code) {
     return (
-      <div className={`w-14 h-14 rounded-lg border flex items-center justify-center overflow-hidden shrink-0 bg-white ${exclusive ? "border-amber-200" : "border-border"}`}>
+      <span className="inline-flex items-center gap-1.5 font-body text-xs text-muted-foreground">
         <img
-          src={`${API_BASE}/brand-logos/${file}`}
-          alt={`${brand} logo`}
-          className="w-full h-full object-contain p-1.5"
-          onError={(e) => {
-            const el = e.currentTarget;
-            el.style.display = "none";
-            const parent = el.parentElement!;
-            parent.innerHTML = `<span class="font-display text-base font-bold text-muted-foreground">${initials}</span>`;
-          }}
+          src={`https://flagcdn.com/20x15/${code}.png`}
+          width={20} height={15}
+          alt={base}
+          style={{ borderRadius: 2, verticalAlign: "middle" }}
         />
-      </div>
+        {base}
+      </span>
     );
   }
-
-  // Placeholder — grey box with initials, ready for logo upload
   return (
-    <div className={`w-14 h-14 rounded-lg border flex items-center justify-center shrink-0 bg-muted/50 ${exclusive ? "border-amber-200" : "border-border"}`}>
-      <span className="font-display text-base font-bold text-muted-foreground/50">{initials}</span>
-    </div>
+    <span className="inline-flex items-center gap-1 font-body text-xs text-muted-foreground">
+      <Globe className="w-3 h-3" />{base}
+    </span>
   );
 }
 
+function BrandCard({ brand, products, exclusive }: { brand: string; products: Product[]; exclusive: boolean }) {
+  const file = BRAND_LOGO_FILES[brand];
+  const info = BRAND_INFO[brand];
+  const initials = brand.split(" ").map(w => w[0]).join("").substring(0, 2).toUpperCase();
+  const country = info?.country || products[0]?.country || "";
+  const minPrice = Math.min(...products.map(p => p.promo_price || p.price).filter(p => p > 0));
+  const wineCount = products.length;
+
+  return (
+    <Link href={`/brands/${encodeURIComponent(brand)}`}>
+      <a className={`group block bg-white rounded-2xl overflow-hidden transition-all duration-200
+        hover:-translate-y-1 hover:shadow-xl
+        ${exclusive
+          ? "border border-amber-200 shadow-sm shadow-amber-100"
+          : "border border-gray-100 shadow-sm"}`}
+        style={{ textDecoration: "none" }}
+      >
+        {/* Logo area — tall, centered */}
+        <div
+          className="relative flex items-center justify-center bg-gray-50"
+          style={{ height: 160 }}
+        >
+          {exclusive && (
+            <span className="absolute top-3 left-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full font-body font-semibold"
+              style={{ background: "#c8a050", color: "#fff", fontSize: 9, letterSpacing: "0.1em", textTransform: "uppercase" }}>
+              <Star className="w-2.5 h-2.5" style={{ fill: "white" }} />
+              Exclusive Agency
+            </span>
+          )}
+          {file ? (
+            <img
+              src={`${API_BASE}/brand-logos/${file}`}
+              alt={`${brand} logo`}
+              className="max-h-24 max-w-[80%] object-contain transition-transform duration-300 group-hover:scale-105"
+            />
+          ) : (
+            <span className="font-display text-3xl font-bold text-gray-300">{initials}</span>
+          )}
+        </div>
+
+        {/* Info area */}
+        <div className="px-5 py-4 border-t border-gray-100">
+          <div className="flex items-start justify-between gap-2 mb-2">
+            <h2 className="font-display text-base font-medium text-gray-900 leading-snug"
+              style={{ fontStyle: "italic" }}>
+              {brand}
+            </h2>
+            <svg className="w-4 h-4 text-gray-300 shrink-0 mt-0.5 group-hover:text-gray-500 transition-colors" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-3">
+            <CountryFlag country={country} />
+            <span className="font-body text-xs font-medium" style={{ color: "hsl(355,62%,28%)" }}>
+              {wineCount} {brand === "Hydrodol" || brand === "Canmak" ? "products" : "wines"}
+            </span>
+            {minPrice > 0 && (
+              <span className="font-body text-xs text-gray-400">
+                From HK${minPrice.toLocaleString()}
+              </span>
+            )}
+          </div>
+
+          {info?.description && (
+            <p className="font-body text-xs text-gray-400 leading-relaxed line-clamp-2">
+              {info.description.split("\n")[0]}
+            </p>
+          )}
+        </div>
+      </a>
+    </Link>
+  );
+}
+
+// Country filter pills
+const COUNTRY_FILTERS = [
+  "All", "France", "Australia", "Italy", "Germany", "Portugal", "New Zealand", "USA", "Korea", "Japan", "South Africa", "Spain",
+];
+
 export default function BrandsPage() {
-  const [filter, setFilter] = useState<"all" | "exclusive" | "open">("all");
+  const [countryFilter, setCountryFilter] = useState("All");
+  const [exclusiveOnly, setExclusiveOnly] = useState(false);
 
   const { data: products = [] } = useQuery<Product[]>({ queryKey: ["/api/products"] });
 
-  // Build brand map with exclusive flag
   const brandMap: Record<string, { products: Product[]; exclusive: boolean }> = {};
   products.forEach(p => {
     if (!brandMap[p.brand]) brandMap[p.brand] = { products: [], exclusive: !!p.exclusive };
     brandMap[p.brand].products.push(p);
+    if (p.exclusive) brandMap[p.brand].exclusive = true;
   });
 
-  // Sort: exclusive first, then alphabetical within each group
-  const allBrands = Object.keys(brandMap);
-  const exclusiveBrands = allBrands.filter(b => brandMap[b].exclusive).sort();
-  const openBrands = allBrands.filter(b => !brandMap[b].exclusive).sort();
-  const sortedBrands = [...exclusiveBrands, ...openBrands];
+  const exclusiveBrands = Object.keys(brandMap).filter(b => brandMap[b].exclusive).sort();
+  const openBrands = Object.keys(brandMap).filter(b => !brandMap[b].exclusive).sort();
+  const allBrands = [...exclusiveBrands, ...openBrands];
 
-  const visibleBrands = sortedBrands.filter(b => {
-    if (filter === "exclusive") return brandMap[b].exclusive;
-    if (filter === "open") return !brandMap[b].exclusive;
+  // Filter
+  const filtered = allBrands.filter(b => {
+    const info = BRAND_INFO[b];
+    const country = (info?.country || brandMap[b].products[0]?.country || "").split("·")[0].trim();
+    if (exclusiveOnly && !brandMap[b].exclusive) return false;
+    if (countryFilter !== "All" && !country.includes(countryFilter)) return false;
     return true;
   });
 
-  const exclusiveCount = exclusiveBrands.length;
+  const exclusiveFiltered = filtered.filter(b => brandMap[b].exclusive);
+  const openFiltered = filtered.filter(b => !brandMap[b].exclusive);
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="bg-[hsl(355,62%,28%)] text-white py-12 px-4 sm:px-6">
+    <div className="min-h-screen" style={{ background: "#f5f3ef" }}>
+      {/* Hero */}
+      <div style={{ background: "hsl(355,62%,28%)", padding: "48px 24px 40px" }}>
         <div className="max-w-7xl mx-auto">
-          <p className="font-body text-xs tracking-[0.2em] uppercase text-white/60 mb-3">Our Portfolio</p>
-          <h1 className="font-display text-4xl md:text-5xl font-light mb-2">Brands 品牌</h1>
-          <p className="font-body text-white/70 text-sm">
-            {allBrands.length} brands · {exclusiveCount} exclusive agency · from 10 countries
+          <p className="font-body text-xs tracking-[0.2em] uppercase mb-3" style={{ color: "rgba(255,255,255,0.5)" }}>Our Portfolio</p>
+          <h1 className="font-display mb-2" style={{ fontSize: "clamp(2rem,4vw,3rem)", color: "#fff" }}>
+            Exclusive Brands
+          </h1>
+          <p className="font-body text-sm" style={{ color: "rgba(255,255,255,0.65)" }}>
+            Handpicked estates and producers from the world's finest wine regions.
           </p>
+
+          {/* Stats */}
+          <div className="flex flex-wrap gap-8 mt-6">
+            {[
+              { n: allBrands.length, l: "Total Brands" },
+              { n: exclusiveBrands.length, l: "Exclusive Agency" },
+              { n: [...new Set(products.map(p => p.country?.split("·")[0].trim()))].length, l: "Countries" },
+            ].map(({ n, l }) => (
+              <div key={l}>
+                <div className="font-display text-2xl font-light" style={{ color: "#fff" }}>{n}</div>
+                <div className="font-body text-xs tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.45)" }}>{l}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-        {/* Filter tabs */}
-        <div className="flex gap-2 mb-8">
-          {(["all", "exclusive", "open"] as const).map(f => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              data-testid={`filter-${f}`}
-              className={`px-4 py-1.5 rounded-full font-body text-xs font-medium border transition-all ${
-                filter === f
-                  ? f === "exclusive"
-                    ? "bg-amber-600 border-amber-600 text-white"
-                    : "bg-[hsl(355,62%,28%)] border-[hsl(355,62%,28%)] text-white"
-                  : "border-border text-muted-foreground hover:border-foreground/30"
-              }`}
-            >
-              {f === "all" ? "All Brands" : f === "exclusive" ? "★ Exclusive Agency" : "Other Brands"}
-            </button>
-          ))}
-        </div>
+        {/* Filters row */}
+        <div className="flex flex-wrap gap-2 mb-6 items-center">
+          {/* Exclusive toggle */}
+          <button
+            onClick={() => setExclusiveOnly(!exclusiveOnly)}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-body text-xs font-semibold transition-all"
+            style={{
+              background: exclusiveOnly ? "#c8a050" : "white",
+              color: exclusiveOnly ? "white" : "#6b6760",
+              border: `1px solid ${exclusiveOnly ? "#c8a050" : "#e2ded7"}`,
+            }}
+          >
+            <Star className="w-3 h-3" style={{ fill: exclusiveOnly ? "white" : "none" }} />
+            Exclusive Only
+          </button>
 
-        {/* Section label for exclusive brands */}
-        {(filter === "all" || filter === "exclusive") && (
-          <div className="flex items-center gap-3 mb-4">
-            <span className="font-body text-xs font-semibold tracking-[0.15em] uppercase text-amber-700">
-              ★ Exclusive Agency Brands
-            </span>
-            <div className="flex-1 h-px bg-amber-200" />
-            <span className="font-body text-xs text-amber-600 font-medium">{exclusiveBrands.length} brands</span>
-          </div>
-        )}
+          <div className="w-px h-5 bg-gray-200 mx-1" />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {visibleBrands.map((brand, idx) => {
-            const { products: brandProducts, exclusive } = brandMap[brand];
-            const info = BRAND_INFO[brand];
-            const countries = [...new Set(brandProducts.map(p => p.country))];
-
-            // Inject "Other Brands" section divider
-            const prevBrand = idx > 0 ? visibleBrands[idx - 1] : null;
-            const showOpenDivider =
-              filter === "all" &&
-              !brandMap[brand].exclusive &&
-              (prevBrand === null || brandMap[prevBrand].exclusive);
-
+          {/* Country filters */}
+          {COUNTRY_FILTERS.map(c => {
+            const code = COUNTRY_FLAG[c];
+            const active = countryFilter === c;
+            // Check if this country has brands
+            const hasbrands = c === "All" || allBrands.some(b => {
+              const info = BRAND_INFO[b];
+              const country = (info?.country || brandMap[b].products[0]?.country || "").split("·")[0].trim();
+              return country.includes(c);
+            });
+            if (!hasbrands) return null;
             return (
-              <div key={brand} className="contents">
-                {showOpenDivider && (
-                  <div className="col-span-full flex items-center gap-3 mt-4 mb-2">
-                    <span className="font-body text-xs font-semibold tracking-[0.15em] uppercase text-muted-foreground">
-                      Other Brands
-                    </span>
-                    <div className="flex-1 h-px bg-border" />
-                    <span className="font-body text-xs text-muted-foreground font-medium">{openBrands.length} brands</span>
-                  </div>
-                )}
-
-                <Link href={`/brands/${encodeURIComponent(brand)}`}>
-                  <a
-                    data-testid={`brand-${brand.replace(/\s/g, "-").toLowerCase()}`}
-                    className={`block bg-card border rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md card-hover ${
-                      exclusive ? "hover:border-amber-400" : "hover:border-[hsl(355,62%,28%)]"
-                    } border-border`}
-                  >
-                    <div className="p-5">
-                      {/* Top row: logo + brand info + chevron */}
-                      <div className="flex items-start gap-4">
-                        <BrandLogo brand={brand} exclusive={exclusive} />
-
-                        <div className="flex-1 min-w-0">
-                          {/* Exclusive badge */}
-                          {exclusive && (
-                            <div className="flex items-center gap-1.5 mb-1.5">
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-sm bg-amber-600 text-white font-body text-[10px] font-semibold tracking-[0.08em] uppercase">
-                                <Star className="w-2.5 h-2.5 fill-white" />
-                                Exclusive
-                              </span>
-                            </div>
-                          )}
-                          <h2 className="font-display text-base font-medium text-foreground mb-1 leading-tight">{brand}</h2>
-                          <div className="flex flex-wrap gap-2 items-center">
-                            {countries.map(c => (
-                              <span key={c} className="font-body text-xs text-muted-foreground flex items-center gap-1">
-                                <Globe className="w-3 h-3" /> {c}
-                              </span>
-                            ))}
-                            <span className="font-body text-xs text-[hsl(355,62%,28%)] font-medium">
-                              {brandProducts.length} {brand === "Hydrodol" ? "products" : "wines"}
-                            </span>
-                          </div>
-                        </div>
-
-                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0 mt-1" />
-                      </div>
-
-                      {info?.description && (
-                        <p className="font-body text-sm text-muted-foreground mt-3 leading-relaxed line-clamp-2">
-                          {info.description}
-                        </p>
-                      )}
-                    </div>
-                  </a>
-                </Link>
-              </div>
+              <button
+                key={c}
+                onClick={() => setCountryFilter(c)}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-body text-xs transition-all"
+                style={{
+                  background: active ? "hsl(355,62%,28%)" : "white",
+                  color: active ? "white" : "#6b6760",
+                  border: `1px solid ${active ? "hsl(355,62%,28%)" : "#e2ded7"}`,
+                }}
+              >
+                {code && <img src={`https://flagcdn.com/16x12/${code}.png`} width={16} height={12} alt={c} style={{ borderRadius: 1 }} />}
+                {c}
+              </button>
             );
           })}
         </div>
+
+        {/* Exclusive brands */}
+        {exclusiveFiltered.length > 0 && (
+          <section className="mb-10">
+            {!exclusiveOnly && (
+              <div className="flex items-center gap-3 mb-5">
+                <span className="font-body text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#c8a050" }}>
+                  ★ Exclusive Agency Brands
+                </span>
+                <div className="flex-1 h-px" style={{ background: "#e8d9b0" }} />
+                <span className="font-body text-xs font-medium" style={{ color: "#c8a050" }}>{exclusiveFiltered.length} brands</span>
+              </div>
+            )}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
+              {exclusiveFiltered.map(b => (
+                <BrandCard key={b} brand={b} products={brandMap[b].products} exclusive={true} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Other brands */}
+        {openFiltered.length > 0 && !exclusiveOnly && (
+          <section>
+            <div className="flex items-center gap-3 mb-5">
+              <span className="font-body text-xs font-semibold tracking-[0.15em] uppercase text-muted-foreground">
+                Other Brands
+              </span>
+              <div className="flex-1 h-px bg-gray-200" />
+              <span className="font-body text-xs font-medium text-muted-foreground">{openFiltered.length} brands</span>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
+              {openFiltered.map(b => (
+                <BrandCard key={b} brand={b} products={brandMap[b].products} exclusive={false} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {filtered.length === 0 && (
+          <div className="text-center py-20">
+            <p className="font-body text-muted-foreground">No brands found for this filter.</p>
+          </div>
+        )}
       </div>
     </div>
   );
