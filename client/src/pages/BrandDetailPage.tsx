@@ -33,6 +33,7 @@ const BRAND_LOGO_FILES: Record<string, string> = {
   "Arillo in Terrabianca":       "Arillo in Terrabianca.jpg",
   "Tenuta di Ciclopi":           "Tenuta di Ciclopi.jpg",
   "La Maliosa":                  "La Maliosa.jpg",
+  "Clos Bellane":                "Clos Bellane.jpg",
 };
 
 function getBrandLogoSrc(brand: string): string | null {

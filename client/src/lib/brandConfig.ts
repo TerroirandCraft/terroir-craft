@@ -90,6 +90,30 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
       videoCaption: "",
     },
   },
+  "Clos Bellane": {
+    heroBg: "/bellane-hero.jpg",
+    heroGradient: { from: "#1a1208", to: "#2e2010" },
+    accent: "#725b41",
+    sectionBg: "#fcf8f2",
+    heroText: "#ffffff",
+    heritage: {
+      year: "410m",
+      tagline: "BALANCE & PURITY · ENCLAVE DES PAPES · RHOONE",
+      yearFont: "Cinzel",
+      yearColor: "#C4A170",
+    },
+    feature: {
+      label: "TERROIR · ALTITUDE · ORGANIC",
+      heading: "Higher Up, Fresher Wines",
+      body: "Clos Bellane sits at 410 metres altitude in the Enclave des Papes, the highest and coolest terroir of the Southern Rh\u00f4ne. Organic farming on clay-limestone soils, with old-vine Grenache and Syrah that ripen slowly in the mountain air. The result: wines of remarkable freshness and mineral precision, from everyday Vallr\u00e9as Villages to the rare Cht\u00e2teauneuf-du-Pape Urgonien.",
+      image: "/bellane-vines.jpg",
+      imageCaption: "Vignes de Clos Bellane \u2014 Valr\u00e9as, Rh\u00f4ne",
+      visual: { bg: "#2e2010", line1: "Enclave des Papes", line2: "Rh\u00f4ne" },
+      youtubeId: "",
+      videoCaption: "",
+    },
+  },
+
   "La Maliosa": {
     heroBg: "/maliosa-vineyard.jpg",
     heroGradient: { from: "#0d1a0a", to: "#1a2e12" },
