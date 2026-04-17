@@ -3144,7 +3144,7 @@
     "ag_score": 90,
     "image_url": "/bottle-shots/BEVW00123.png",
     "status": "In Stock",
-    "exclusive": true
+    "exclusive": false
   },
   {
     "id": "BEVR00123",
@@ -3160,7 +3160,7 @@
     "tasting_note": "Fresh and balanced wine. Fermentation in stainless steel tanks, aged 12 months in the bottle. Soft and long-lasting, characterized by sweet and varietal hints of wild berries.",
     "image_url": "/bottle-shots/BEVR00123.png",
     "status": "In Stock",
-    "exclusive": true
+    "exclusive": false
   },
   {
     "id": "TBA00122",
@@ -3177,7 +3177,7 @@
     "js_score": 90,
     "image_url": "/bottle-shots/TBA00122.png",
     "status": "In Stock",
-    "exclusive": true
+    "exclusive": false
   },
   {
     "id": "TBA00220",
@@ -3194,7 +3194,7 @@
     "remark": "Falstaff 95pts",
     "image_url": "/bottle-shots/TBA00220.png",
     "status": "In Stock",
-    "exclusive": true
+    "exclusive": false
   },
   {
     "id": "TBA00320",
@@ -3211,7 +3211,7 @@
     "ag_score": 94,
     "image_url": "/bottle-shots/TBA00320.png",
     "status": "In Stock",
-    "exclusive": true
+    "exclusive": false
   },
   {
     "id": "CAM00120",
@@ -3228,7 +3228,7 @@
     "ag_score": 94,
     "image_url": "/bottle-shots/CAM00120.png",
     "status": "In Stock",
-    "exclusive": true
+    "exclusive": false
   },
   {
     "id": "CAM00219",
@@ -3245,6 +3245,6 @@
     "we_score": 92,
     "image_url": "/bottle-shots/CAM00219.png",
     "status": "In Stock",
-    "exclusive": true
+    "exclusive": false
   }
 ]
