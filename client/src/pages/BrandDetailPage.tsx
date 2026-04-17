@@ -146,12 +146,14 @@ export default function BrandDetailPage() {
 
             {/* Info */}
             <div className="flex-1">
+{brandProducts.some(p => p.exclusive) && (
               <div className="flex items-center gap-3 mb-3">
                 <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full font-body text-xs font-semibold tracking-widest uppercase"
                   style={{ background: `${cfg.accent}22`, border: `1px solid ${cfg.accent}55`, color: cfg.accent }}>
                   <Star className="w-3 h-3 fill-current" /> Exclusive Agency
                 </span>
               </div>
+              )}
               <h1 className="font-display mb-2 leading-tight" style={{ fontSize: "clamp(2.2rem,5vw,3.5rem)", color: cfg.heroText }}>
                 {actualBrand}
               </h1>
