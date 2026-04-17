@@ -66,6 +66,8 @@ export default function BrandDetailPage() {
   });
 
   const isLight = cfg.heroText !== "#ffffff";
+  // Feature section light/dark based on sectionBg color
+  const featureIsLight = cfg.sectionBg.startsWith("#F") || cfg.sectionBg.startsWith("#f") || cfg.sectionBg === "#FFFFFF" || cfg.sectionBg === "#ffffff";
   const logoSrc = getBrandLogoSrc(actualBrand);
 
   if (isLoading) return (
@@ -277,7 +279,7 @@ export default function BrandDetailPage() {
             <p className="font-body text-xs tracking-[0.3em] uppercase mb-3" style={{ color: cfg.accent }}>
               {cfg.feature.label}
             </p>
-            <h2 className="font-script mb-10" style={{ fontSize: "clamp(2rem,4vw,2.8rem)", color: isLight ? "#3A1A0A" : "#ffffff", fontStyle: "normal", fontFamily: "'Satisfy', cursive", opacity: isLight ? 0.85 : 1 }}>
+            <h2 className="font-script mb-10" style={{ fontSize: "clamp(2rem,4vw,2.8rem)", color: featureIsLight ? "#3A1A0A" : "#ffffff", fontStyle: "normal", fontFamily: "'Satisfy', cursive", opacity: featureIsLight ? 0.85 : 1 }}>
               {cfg.feature.heading}
             </h2>
 
@@ -294,7 +296,7 @@ export default function BrandDetailPage() {
                       style={{ aspectRatio: "4/3", maxHeight: 340 }}
                     />
                     {cfg.feature.imageCaption && (
-                      <p className="font-body text-xs mt-2 italic" style={{ color: isLight ? "#6B4A20" : "rgba(255,255,255,0.5)", letterSpacing: "0.05em" }}>
+                      <p className="font-body text-xs mt-2 italic" style={{ color: featureIsLight ? "#6B4A20" : "rgba(255,255,255,0.5)", letterSpacing: "0.05em" }}>
                         {cfg.feature.imageCaption}
                       </p>
                     )}
@@ -309,7 +311,7 @@ export default function BrandDetailPage() {
                     <span className="text-4xl mt-4">🍾</span>
                   </div>
                 )}
-                <p className="font-body text-sm leading-relaxed" style={{ color: isLight ? "#1A0D08" : "rgba(255,255,255,0.80)", lineHeight: 1.9 }}>
+                <p className="font-body text-sm leading-relaxed" style={{ color: featureIsLight ? "#1A0D08" : "rgba(255,255,255,0.80)", lineHeight: 1.9 }}>
                   {cfg.feature.body}
                 </p>
               </div>
