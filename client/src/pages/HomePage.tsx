@@ -429,6 +429,53 @@ export default function HomePage() {
       {/* ─── HERO CAROUSEL ────────────────────────────────────────────── */}
       <HeroCarousel />
 
+      {/* ─── AI SOMMELIER CTA ─── */}
+      <section className="py-20 bg-background">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          {/* Robot mascot */}
+          <img
+            src={`${API_BASE}/ai-sommelier-robot.jpg`}
+            alt="AI Sommelier"
+            className="w-40 h-40 object-contain mx-auto mb-4 drop-shadow-lg"
+            style={{ borderRadius: "50%" }}
+          />
+          <h2 className="font-display text-3xl md:text-4xl font-light mb-4">
+            Meet Your AI Sommelier
+          </h2>
+          <p className="font-body text-muted-foreground mb-8 leading-relaxed">
+            Not sure which wine to choose? Our AI Sommelier knows every bottle in our collection. 
+            Ask in <strong>Cantonese or English</strong> — describe your occasion, budget, or food pairing, 
+            and get a personalised recommendation instantly.
+          </p>
+          <div className="bg-card border border-border rounded-xl p-6 mb-8 text-left">
+            <div className="space-y-3">
+              {[
+                "「我想搵支唔超過 $500，配牛扒飲嘅紅酒」",
+                '"Recommend something from Burgundy under HK$800"',
+                "「有冇好飲嘅 Port Wine 做 gift？」",
+              ].map((msg, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <div className="shrink-0 w-6 h-6 rounded-full bg-[hsl(355,62%,28%)]/15 flex items-center justify-center">
+                    <span className="text-xs text-[hsl(355,62%,28%)]">✦</span>
+                  </div>
+                  <p className="font-body text-sm text-muted-foreground italic">{msg}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <Link href="/sommelier">
+            <Button
+              size="lg"
+              className="bg-[hsl(355,62%,28%)] hover:bg-[hsl(355,62%,22%)] text-white font-body px-10"
+              data-testid="home-sommelier-cta"
+            >
+              <img src={`${API_BASE}/ai-sommelier-robot.jpg`} alt="" className="w-6 h-6 rounded-full object-cover mr-2" />
+              Chat with AI Sommelier
+            </Button>
+          </Link>
+        </div>
+      </section>
+
       {/* ─── SHOP BY OCCASION ─── */}
       <section className="py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -705,53 +752,6 @@ export default function HomePage() {
               ))}
             </div>
           )}
-        </div>
-      </section>
-
-      {/* ─── AI SOMMELIER CTA ─── */}
-      <section className="py-20 bg-background">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          {/* Robot mascot */}
-          <img
-            src={`${API_BASE}/ai-sommelier-robot.jpg`}
-            alt="AI Sommelier"
-            className="w-40 h-40 object-contain mx-auto mb-4 drop-shadow-lg"
-            style={{ borderRadius: "50%" }}
-          />
-          <h2 className="font-display text-3xl md:text-4xl font-light mb-4">
-            Meet Your AI Sommelier
-          </h2>
-          <p className="font-body text-muted-foreground mb-8 leading-relaxed">
-            Not sure which wine to choose? Our AI Sommelier knows every bottle in our collection. 
-            Ask in <strong>Cantonese or English</strong> — describe your occasion, budget, or food pairing, 
-            and get a personalised recommendation instantly.
-          </p>
-          <div className="bg-card border border-border rounded-xl p-6 mb-8 text-left">
-            <div className="space-y-3">
-              {[
-                "「我想搵支唔超過 $500，配牛扒飲嘅紅酒」",
-                '"Recommend something from Burgundy under HK$800"',
-                "「有冇好飲嘅 Port Wine 做 gift？」",
-              ].map((msg, i) => (
-                <div key={i} className="flex items-start gap-3">
-                  <div className="shrink-0 w-6 h-6 rounded-full bg-[hsl(355,62%,28%)]/15 flex items-center justify-center">
-                    <span className="text-xs text-[hsl(355,62%,28%)]">✦</span>
-                  </div>
-                  <p className="font-body text-sm text-muted-foreground italic">{msg}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <Link href="/sommelier">
-            <Button
-              size="lg"
-              className="bg-[hsl(355,62%,28%)] hover:bg-[hsl(355,62%,22%)] text-white font-body px-10"
-              data-testid="home-sommelier-cta"
-            >
-              <img src={`${API_BASE}/ai-sommelier-robot.jpg`} alt="" className="w-6 h-6 rounded-full object-cover mr-2" />
-              Chat with AI Sommelier
-            </Button>
-          </Link>
         </div>
       </section>
 
