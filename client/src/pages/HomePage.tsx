@@ -711,9 +711,13 @@ export default function HomePage() {
       {/* ─── AI SOMMELIER CTA ─── */}
       <section className="py-20 bg-background">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <div className="w-16 h-16 rounded-full bg-[hsl(355,62%,28%)]/10 flex items-center justify-center mx-auto mb-6">
-            <Bot className="w-8 h-8 text-[hsl(355,62%,28%)]" />
-          </div>
+          {/* Robot mascot */}
+          <img
+            src={`${API_BASE}/ai-sommelier-robot.jpg`}
+            alt="AI Sommelier"
+            className="w-40 h-40 object-contain mx-auto mb-4 drop-shadow-lg"
+            style={{ borderRadius: "50%" }}
+          />
           <h2 className="font-display text-3xl md:text-4xl font-light mb-4">
             Meet Your AI Sommelier
           </h2>
@@ -744,7 +748,7 @@ export default function HomePage() {
               className="bg-[hsl(355,62%,28%)] hover:bg-[hsl(355,62%,22%)] text-white font-body px-10"
               data-testid="home-sommelier-cta"
             >
-              <Bot className="mr-2 w-5 h-5" />
+              <img src={`${API_BASE}/ai-sommelier-robot.jpg`} alt="" className="w-6 h-6 rounded-full object-cover mr-2" />
               Chat with AI Sommelier
             </Button>
           </Link>

@@ -176,8 +176,8 @@ export default function SommelierPage() {
       <div style={{ background: "hsl(355,62%,28%)", padding: "24px 24px 20px" }}>
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center">
-              <Bot className="w-5 h-5 text-white" />
+            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white/30 shrink-0">
+              <img src={`${API_BASE}/ai-sommelier-robot.jpg`} alt="AI Sommelier" className="w-full h-full object-cover" />
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -207,9 +207,7 @@ export default function SommelierPage() {
           {/* Empty state */}
           {messages.length === 0 && (
             <div className="text-center py-10">
-              <div className="w-16 h-16 rounded-full bg-[hsl(355,62%,28%)]/10 flex items-center justify-center mx-auto mb-4">
-                <Wine className="w-8 h-8 text-[hsl(355,62%,28%)]" />
-              </div>
+              <img src={`${API_BASE}/ai-sommelier-robot.jpg`} alt="AI Sommelier" className="w-32 h-32 object-contain mx-auto mb-4 rounded-full drop-shadow-lg" />
               <p className="font-display text-xl text-foreground mb-1">你好！我係 T&C AI 侍酒師</p>
               <p className="font-body text-sm text-muted-foreground mb-6">
                 Tell me your budget, occasion or favourite style — I'll find the perfect bottle from our catalogue.
@@ -238,8 +236,8 @@ export default function SommelierPage() {
               <div key={i}>
                 <div className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"} gap-3`}>
                   {msg.role === "assistant" && (
-                    <div className="w-8 h-8 rounded-full bg-[hsl(355,62%,28%)] flex items-center justify-center shrink-0 mt-1">
-                      <Bot className="w-4 h-4 text-white" />
+                    <div className="w-8 h-8 rounded-full overflow-hidden shrink-0 mt-1 border border-[hsl(355,62%,28%)]/30">
+                      <img src={`${API_BASE}/ai-sommelier-robot.jpg`} alt="" className="w-full h-full object-cover" />
                     </div>
                   )}
                   <div
