@@ -90,6 +90,30 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
       videoCaption: "",
     },
   },
+  "La Maliosa": {
+    heroBg: "/maliosa-vineyard.jpg",
+    heroGradient: { from: "#0d1a0a", to: "#1a2e12" },
+    accent: "#3F6919",
+    sectionBg: "#F4F7F0",
+    heroText: "#ffffff",
+    heritage: {
+      year: "Maremma",
+      tagline: "ORGANIC FARMING IN TUSCANY",
+      yearFont: "Cinzel",
+      yearColor: "#A3B89A",
+    },
+    feature: {
+      label: "BIODYNAMIC · NATURAL WINES",
+      heading: "Embracing Nature",
+      body: "La Maliosa is a living farm where ancient Tuscan grape varieties breathe freely in biodynamic soil. Ciliegiolo, Procanico and Sangiovese grow without chemical intervention, harvested by hand and vinified naturally \u2014 wines that taste of the Maremma earth, the sea wind, and centuries of patient cultivation.",
+      image: "/maliosa-farm.jpg",
+      imageCaption: "Fattoria La Maliosa \u2014 Maremma, Tuscany",
+      visual: { bg: "#1a2e12", line1: "Organic", line2: "Maremma" },
+      youtubeId: "",
+      videoCaption: "",
+    },
+  },
+
   "Tenuta di Ciclopi": {
     heroBg: "/ciclopi-vineyard.jpg",
     heroGradient: { from: "#0a0808", to: "#1a1010" },

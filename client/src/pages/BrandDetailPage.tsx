@@ -32,6 +32,7 @@ const BRAND_LOGO_FILES: Record<string, string> = {
   "The Marlborist":              "The Marlborist.jpg",
   "Arillo in Terrabianca":       "Arillo in Terrabianca.jpg",
   "Tenuta di Ciclopi":           "Tenuta di Ciclopi.jpg",
+  "La Maliosa":                  "La Maliosa.jpg",
 };
 
 function getBrandLogoSrc(brand: string): string | null {
