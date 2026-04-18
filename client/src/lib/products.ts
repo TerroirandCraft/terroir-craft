@@ -150,8 +150,13 @@ export const BRAND_INFO: Record<string, { country: string; description: string; 
     description: "Canmak brings the ancient Korean tradition of Makgeolli into the modern era with a fresh, approachable style. Made from fermented rice with a naturally low 5% alcohol, Canmak's lightly sparkling, milky-white brew offers a delicate balance of gentle sweetness and soft acidity — refreshing, sessionable, and endlessly food-friendly. Available in Original, Peach, Green Grape and Mango, Canmak is the perfect gateway to Korea's rich fermented beverage culture.\n\nCanmak 將古老的韓國막걸리（濁酒）傳統以現代方式重新演繹，廣受好評。以天然發酵米釀造，酒精濃度僅 5%，輕微起泡的乳白色酒液帶來甜酸平衡的清新口感，清爽易飲且極具配餐百搭性。現有 Original、桃子、青提及芒果四款口味，是探索韓國豐富發酵飲品文化的最佳入門之選。",
     website: "https://canmakofficial.com",
   },
+  "La Manufacture": {
+    country: "France · Chablis, Burgundy",
+    description: "La Manufacture is the estate project of Benjamin Laroche, whose family has farmed the limestone hills of Chablis for generations. The range spans the full spectrum of Burgundy's northern terroirs — from the refreshing Petit Chablis and the unique Sauvignon Blanc of Saint-Bris, through a celebrated collection of Premier Cru climates (Beauroy, Côte de Lechet, Forêts, Vaillons), to the rare Pinot Noir of Irancy and the Côtes d'Auxerre. Every wine is estate-grown, hand-harvested, and bottled at the domaine — a true expression of Kimmeridgian limestone craftsmanship.\n\nLa Manufacture 是 Benjamin Laroche 的酒莊項目，其家族在 Chablis 的石灰岩丘陵耕耘數代。酒款涵蓋 Burgundy 北部風土的全貌——從清爽的 Petit Chablis、Saint-Bris 獨特的 Sauvignon Blanc，到精選一級田（Beauroy、Côte de Lechet、Forêts、Vaillons）及罕見的 Irancy 和 Côtes d'Auxerre 紅酒。所有酒款均自種自釀，於酒莊裝瓶，忠實呈現 Kimmeridgian 石灰岩的工藝精神。",
+    website: "https://www.lamanufacture-laroche.com",
+  },
   "Cape Swallow": {
-    country: "South Africa · Paarl",
+    country: "South Africa · Stellenbosch",
     description: "Cape Swallow is the artisan project of Jonathan Tong — a trained French chef turned winemaker who brings culinary precision to the vineyards of Paarl. Drawing on his classical kitchen background, Tong crafts wines of Old World sophistication from South African terroir: Chardonnay aged in seasoned French oak, a crisp Chenin Blanc, an earthy Pinot Noir, and a bold Syrah. In just one vintage, the Cape Swallow range earned six medals at the prestigious Gilbert & Gaillard International Challenge — including two Double Golds.\n\nCape Swallow 是由 Jonathan Tong 主理的精品酒莊，他以法式廚師的嚴謹工藝投身南非 Paarl 的釀酒事業。從法國廚房到 Paarl 葡萄園，他以舊世界的精緻品味詮釋南非風土，釀造經法國舊橡木桶陳年的 Chardonnay、清爽的 Chenin Blanc、優雅的 Pinot Noir 及強勁的 Syrah。首個年份即在 Gilbert & Gaillard 國際評酒賽奪得六面獎牌，包括兩枚雙金獎。",
   },
   "Hydrodol": {

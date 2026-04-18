@@ -329,6 +329,25 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
       videoCaption: "",
     },
   },
+
+  // ── La Manufacture ────────────────────────────────────────────────────────
+  "La Manufacture": {
+    heroBg: "/la-manufacture-hero.jpg",
+    heroGradient: { from: "#0d1a0d", to: "#1a2e1a" },
+    accent: "#7A9B5A",
+    sectionBg: "#f5f7f3",
+    heroText: "#ffffff",
+    feature: {
+      label: "WINEMAKER · BENJAMIN LAROCHE",
+      heading: "Crafted from Chablis",
+      body: "Benjamin Laroche founded La Manufacture to express the extraordinary diversity of Burgundy's northern terroirs — from the rare Sauvignon Blanc of Saint-Bris and the Pinot Noir of Irancy, to an exceptional range of Chablis spanning Petit Chablis, Villages, Premier Cru and Grand Cru. Every wine is estate-grown and bottled on the property, honouring the Kimmeridgian limestone soils that give Chablis its unmistakable minerality.",
+      image: "/la-manufacture-pruning.jpg",
+      imageCaption: "Hand pruning in the Chablis vineyards — Yonne, Burgundy",
+      visual: { bg: "#0d1a0d", line1: "Chablis", line2: "Burgundy" },
+      youtubeId: "",
+      videoCaption: "",
+    },
+  },
   // ── Cape Swallow ──────────────────────────────────────────────────────────
   "Cape Swallow": {
     heroBg: "/cape-swallow-hero.jpg",
@@ -341,8 +360,8 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
       heading: "From French Kitchens to Paarl",
       body: "Jonathan Tong trained as a chef in the kitchens of France before turning his culinary precision to the vineyards of Paarl. His approach is simple: treat every grape with the same care a chef gives a great ingredient. The result is a range of wines that balance Old World sophistication with the boldness of South African terroir — and six Gilbert & Gaillard medals in their very first vintage.",
       image: "/cape-swallow-hero.jpg",
-      imageCaption: "Paarl vineyards at sunset — Western Cape, South Africa",
-      visual: { bg: "#1a0e06", line1: "Paarl", line2: "W. Cape" },
+      imageCaption: "Stellenbosch vineyards — Western Cape, South Africa",
+      visual: { bg: "#1a0e06", line1: "Stellenbosch", line2: "W. Cape" },
       youtubeId: "",
       videoCaption: "",
     },
