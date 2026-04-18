@@ -32,6 +32,7 @@ const BRAND_LOGO_FILES: Record<string, string> = {
   "Tenuta di Ciclopi": "Tenuta di Ciclopi.jpg",
   "La Maliosa": "La Maliosa.jpg",
   "Clos Bellane": "Clos Bellane.jpg",
+  "Cape Swallow": "Cape Swallow.jpg",
 };
 
 // Country → flagcdn 2-letter code

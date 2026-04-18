@@ -329,6 +329,24 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
       videoCaption: "",
     },
   },
+  // ── Cape Swallow ──────────────────────────────────────────────────────────
+  "Cape Swallow": {
+    heroBg: "/cape-swallow-hero.jpg",
+    heroGradient: { from: "#1a0e06", to: "#3d2510" },
+    accent: "#C8843A",
+    sectionBg: "#faf6f1",
+    heroText: "#ffffff",
+    feature: {
+      label: "WINEMAKER · JONATHAN TONG",
+      heading: "From French Kitchens to Paarl",
+      body: "Jonathan Tong trained as a chef in the kitchens of France before turning his culinary precision to the vineyards of Paarl. His approach is simple: treat every grape with the same care a chef gives a great ingredient. The result is a range of wines that balance Old World sophistication with the boldness of South African terroir — and six Gilbert & Gaillard medals in their very first vintage.",
+      image: "/cape-swallow-hero.jpg",
+      imageCaption: "Paarl vineyards at sunset — Western Cape, South Africa",
+      visual: { bg: "#1a0e06", line1: "Paarl", line2: "W. Cape" },
+      youtubeId: "",
+      videoCaption: "",
+    },
+  },
 };
 
 // Fallback for brands without a custom config

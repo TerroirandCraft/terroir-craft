@@ -3437,5 +3437,87 @@
     "image_url": "/bottle-shots/BELR00521.png",
     "status": "In Stock",
     "exclusive": false
+  },
+  {
+    "id": "VINSA-CS-CHARD",
+    "name": "Cape Swallow Chardonnay 2023",
+    "brand": "Cape Swallow",
+    "country": "South Africa",
+    "region": "Paarl",
+    "type": "White",
+    "grape": "Chardonnay",
+    "vintage": "2023",
+    "price": 0,
+    "promo_price": null,
+    "stock": 0,
+    "description": "From the cool, extended 2023 growing season in Paarl, this Chardonnay is aged 18 months in seasoned French oak. Citrus, marmalade and dried fruit aromas with a creamy texture and mineral precision. Gilbert & Gaillard Double Gold — 92 pts.",
+    "description_zh": "來自南非 Paarl 產區，2023 年份。經 18 個月法國舊橡木桶陳年，散發柑橘、果醬及乾果香，口感柔滑，礦物感清晰。Gilbert & Gaillard 雙金獎 — 92 分。",
+    "tasting_note": "Citrus, marmalade and dried fruit. Creamy texture, mineral finish. 18 months French oak. Gilbert & Gaillard Double Gold 92pts.",
+    "image": "/bottle-shots/VINSA-CS-CHARD.png",
+    "awards": [
+      "Gilbert & Gaillard Double Gold",
+      "92 pts"
+    ]
+  },
+  {
+    "id": "VINSA-CS-CHEN",
+    "name": "Cape Swallow Chenin Blanc 2023",
+    "brand": "Cape Swallow",
+    "country": "South Africa",
+    "region": "Paarl",
+    "type": "White",
+    "grape": "Chenin Blanc",
+    "vintage": "2023",
+    "price": 0,
+    "promo_price": null,
+    "stock": 0,
+    "description": "Crisp and artisanal, this Chenin Blanc shows meringue and citrus aromas with a fresh, vibrant palate. Crafted by winemaker Jonathan Tong with Old World precision from Paarl's finest vineyards. Gilbert & Gaillard Gold.",
+    "description_zh": "清爽而精緻的 Chenin Blanc，散發蛋白霜與柑橘香，口感清新活潑。由釀酒師 Jonathan Tong 以法式精準工藝打造。Gilbert & Gaillard 金獎。",
+    "tasting_note": "Meringue and citrus. Crisp and artisanal. Gilbert & Gaillard Gold.",
+    "image": "/bottle-shots/VINSA-CS-CHEN.png",
+    "awards": [
+      "Gilbert & Gaillard Gold"
+    ]
+  },
+  {
+    "id": "VINSA-CS-PN",
+    "name": "Cape Swallow Pinot Noir 2023",
+    "brand": "Cape Swallow",
+    "country": "South Africa",
+    "region": "Paarl",
+    "type": "Red",
+    "grape": "Pinot Noir",
+    "vintage": "2023",
+    "price": 0,
+    "promo_price": null,
+    "stock": 0,
+    "description": "Elegant and earthy, this Paarl Pinot Noir evokes black forest gateau and forest mushrooms. Fermented in open-top vessels with gentle punchdowns, then aged 18 months in French oak for silky complexity. Gilbert & Gaillard Gold.",
+    "description_zh": "優雅而帶泥土氣息，黑森林蛋糕與森林蘑菇香，入口絲滑細膩。開放式發酵桶釀造，法國橡木桶陳年 18 個月。Gilbert & Gaillard 金獎。",
+    "tasting_note": "Black forest gateau and forest mushrooms. Elegant and earthy. 18 months French oak. Gilbert & Gaillard Gold.",
+    "image": "/bottle-shots/VINSA-CS-PN.png",
+    "awards": [
+      "Gilbert & Gaillard Gold"
+    ]
+  },
+  {
+    "id": "VINSA-CS-SYR",
+    "name": "Cape Swallow Syrah 2023",
+    "brand": "Cape Swallow",
+    "country": "South Africa",
+    "region": "Paarl",
+    "type": "Red",
+    "grape": "Syrah",
+    "vintage": "2023",
+    "price": 0,
+    "promo_price": null,
+    "stock": 0,
+    "description": "Bold and structured with smoked peppercorns, blueberry and dark fruit. The flagship of the Cape Swallow range, this Syrah earned a Double Gold at Gilbert & Gaillard with 90 points — a statement wine from South Africa's Paarl.",
+    "description_zh": "強勁而有架構，煙燻胡椒、藍莓與黑色水果層次豐富。Cape Swallow 旗艦酒款，榮獲 Gilbert & Gaillard 雙金獎 90 分，展現南非 Paarl 產區的個性。",
+    "tasting_note": "Smoked peppercorns and blueberry. Bold and structured. Gilbert & Gaillard Double Gold 90pts.",
+    "image": "/bottle-shots/VINSA-CS-SYR.png",
+    "awards": [
+      "Gilbert & Gaillard Double Gold",
+      "90 pts"
+    ]
   }
 ]
