@@ -52,7 +52,7 @@ const enrichedProducts: Product[] = (productsData as RawProduct[]).map(p => ({
   description: `${p.brand} ${p.name.replace(p.brand + ' - ', '')} from ${p.region || p.country}. ${p.vintage && p.vintage !== 'NV' ? 'Vintage ' + p.vintage + '.' : p.vintage === 'NV' ? 'Non-vintage.' : ''} ${p.size} bottle.`,
   tasting_notes: tastingNotesByType[p.type] || "Complex and refined character",
   food_pairing: foodPairingByType[p.type] || "Versatile food pairing",
-  image_url: p.image_url || "",
+  image_url: p.image_url || (p as any).image || "",
 }));
 
 // ── In-memory chat store ──────────────────────────────────────────────────────
