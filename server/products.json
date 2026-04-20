@@ -2266,7 +2266,8 @@
     "description": "HYDRODOL BEFORE is a scientifically formulated hangover prevention supplement. Take before drinking to support your body's natural alcohol-processing pathways. 100% Vegan. Australian-made.",
     "style": "Hangover Prevention — Take Before Drinking",
     "image_url": "https://www.hydrodolhongkong.com/cdn/shop/files/Hydrodol_Before_2capsule_packshot_front_1200x1200.jpg",
-    "exclusive": true
+    "exclusive": true,
+    "image": "/bottle-shots/TCHYD-001.png"
   },
   {
     "id": "TCHYD-002",
@@ -2283,40 +2284,8 @@
     "description": "HYDRODOL BEFORE 10 Dose Pack — great value for regular entertainers and travellers. Take 2 capsules before your first drink. 100% Vegan. Australian-made.",
     "style": "Hangover Prevention — Take Before Drinking",
     "image_url": "https://www.hydrodolhongkong.com/cdn/shop/files/Hydrodol_Before_10capsule_packshot_front_1200x1200.jpg",
-    "exclusive": true
-  },
-  {
-    "id": "TCHYD-003",
-    "name": "Hydrodol BEFORE — 15 Dose Pack",
-    "brand": "Hydrodol",
-    "country": "Australia",
-    "region": "Supplements",
-    "type": "Supplement",
-    "status": "Agency",
-    "size": "15 capsules",
-    "vintage": "",
-    "price": 298,
-    "price_display": "HK$298.00",
-    "description": "HYDRODOL BEFORE 15 Dose Pack — best value for the frequent entertainer. Take 2 capsules before drinking to support your body's natural recovery. 100% Vegan. Australian-made.",
-    "style": "Hangover Prevention — Take Before Drinking",
-    "image_url": "https://www.hydrodolhongkong.com/cdn/shop/files/Hydrodol_Before_15capsule_packshot_front_1200x1200.jpg",
-    "exclusive": true
-  },
-  {
-    "id": "TCHYD-004",
-    "name": "Hydrodol AFTER — 12 Powder Sachets",
-    "brand": "Hydrodol",
-    "country": "Australia",
-    "region": "Supplements",
-    "type": "Supplement",
-    "status": "Sold Out",
-    "size": "12 sachets",
-    "vintage": "",
-    "price": 0,
-    "price_display": "Sold Out",
-    "description": "HYDRODOL AFTER is a recovery formula in convenient powder sachet form. Mix with water to help restore balance after a big night. 100% Vegan. Australian-made.",
-    "style": "Hangover Recovery — Take After Drinking",
-    "exclusive": true
+    "exclusive": true,
+    "image": "/bottle-shots/TCHYD-002.png"
   },
   {
     "id": "TCHYD-005",
@@ -2332,7 +2301,8 @@
     "price_display": "HK$128.00",
     "description": "HYDRODOL REHYDRATION Orange flavour — an advanced electrolyte and rehydration formula to restore balance. Great with or without alcohol. 100% Vegan. Australian-made.",
     "style": "Rehydration — Orange Flavour",
-    "exclusive": true
+    "exclusive": true,
+    "image": "/bottle-shots/TCHYD-005.png"
   },
   {
     "id": "TCHYD-006",
@@ -2348,87 +2318,8 @@
     "price_display": "HK$128.00",
     "description": "HYDRODOL REHYDRATION Strawberry flavour — an advanced electrolyte and rehydration formula to restore balance. Great with or without alcohol. 100% Vegan. Australian-made.",
     "style": "Rehydration — Strawberry Flavour",
-    "exclusive": true
-  },
-  {
-    "id": "TCHYD-007",
-    "name": "Hydrodol REHYDRATION X RECOVERY — 10 Sachets",
-    "brand": "Hydrodol",
-    "country": "Australia",
-    "region": "Supplements",
-    "type": "Supplement",
-    "status": "Agency",
-    "size": "10 sachets",
-    "vintage": "",
-    "price": 148,
-    "price_display": "HK$148.00",
-    "description": "HYDRODOL REHYDRATION X RECOVERY combines electrolyte rehydration with targeted recovery support. Double the benefit in every sip. 100% Vegan. Australian-made.",
-    "style": "Rehydration + Recovery",
-    "exclusive": true
-  },
-  {
-    "id": "TCHYD-008",
-    "name": "Hydrodol REHYDRATION X IMMUNITY — 10 Sachets",
-    "brand": "Hydrodol",
-    "country": "Australia",
-    "region": "Supplements",
-    "type": "Supplement",
-    "status": "Agency",
-    "size": "10 sachets",
-    "vintage": "",
-    "price": 148,
-    "price_display": "HK$148.00",
-    "description": "HYDRODOL REHYDRATION X IMMUNITY supports both hydration and your immune system. Perfect for the morning after or anytime you need a boost. 100% Vegan. Australian-made.",
-    "style": "Rehydration + Immunity",
-    "exclusive": true
-  },
-  {
-    "id": "TCHYD-009",
-    "name": "Hydrodol BRAIN — 30 Oral Strips",
-    "brand": "Hydrodol",
-    "country": "Australia",
-    "region": "Supplements",
-    "type": "Supplement",
-    "status": "Agency",
-    "size": "30 strips",
-    "vintage": "",
-    "price": 178,
-    "price_display": "HK$178.00",
-    "description": "HYDRODOL BRAIN oral strips dissolve on your tongue for rapid cognitive support. Formulated to help maintain mental clarity. 100% Vegan. Australian-made.",
-    "style": "Cognitive Support — Oral Strip Format",
-    "exclusive": true
-  },
-  {
-    "id": "TCHYD-010",
-    "name": "Hydrodol ENERGY — 30 Oral Strips",
-    "brand": "Hydrodol",
-    "country": "Australia",
-    "region": "Supplements",
-    "type": "Supplement",
-    "status": "Agency",
-    "size": "30 strips",
-    "vintage": "",
-    "price": 178,
-    "price_display": "HK$178.00",
-    "description": "HYDRODOL ENERGY oral strips deliver a quick energy boost that dissolves instantly on your tongue. Perfect for a pick-me-up before or after a night out. 100% Vegan. Australian-made.",
-    "style": "Energy Boost — Oral Strip Format",
-    "exclusive": true
-  },
-  {
-    "id": "TCHYD-011",
-    "name": "Hydrodol HANGOVER — 30 Oral Strips",
-    "brand": "Hydrodol",
-    "country": "Australia",
-    "region": "Supplements",
-    "type": "Supplement",
-    "status": "Agency",
-    "size": "30 strips",
-    "vintage": "",
-    "price": 178,
-    "price_display": "HK$178.00",
-    "description": "HYDRODOL HANGOVER oral strips are your on-the-go hangover solution. Dissolves instantly — no water needed. Formulated to help you feel like yourself again. 100% Vegan. Australian-made.",
-    "style": "Hangover Relief — Oral Strip Format",
-    "exclusive": true
+    "exclusive": true,
+    "image": "/bottle-shots/TCHYD-006.png"
   },
   {
     "id": "ECS220",
