@@ -1558,7 +1558,7 @@
     "tasting_note": "Sweet Italian sparkling. Low alcohol (5%). Tropical fruit, peach and floral notes. Light bubbles with balanced sweetness. Festive character. Source: Wine Spectator",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/VINIT-PQ0324.jpg"
+    "image": "/bottle-shots/VINIT-PQ0324.png"
   },
   {
     "id": "TCKR- CA01NV",
@@ -1576,7 +1576,7 @@
     "tasting_note": "Traditional Korean rice wine. Smooth with mild sweetness. Light-bodied with subtle flavor. Approachable and versatile for drinking. Source: Canmak",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCKR-_CA01NV.png"
+    "image": "/bottle-shots/TCKR- CA01NV.png"
   },
   {
     "id": "TCKR- CA02NV",
@@ -1594,7 +1594,7 @@
     "tasting_note": "Flavored Korean rice wine with peach. Light-bodied with fruity character. Smooth with subtle sweetness. Refreshing and approachable. Source: Canmak",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCKR-_CA02NV.png"
+    "image": "/bottle-shots/TCKR- CA02NV.png"
   },
   {
     "id": "TCKR- CA03NV",
@@ -1612,7 +1612,7 @@
     "tasting_note": "Green grape flavored Korean rice wine. Light-bodied with fruity notes. Smooth and refreshing. Subtle sweetness with approachable character. Source: Canmak",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCKR-_CA03NV.png"
+    "image": "/bottle-shots/TCKR- CA03NV.png"
   },
   {
     "id": "TCKR- CA04NV",
@@ -2021,7 +2021,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCUS-RC0118MG.png"
+    "image": "/bottle-shots/TCUS-RC0118MG.png"
   },
   {
     "id": "TCUS-RC0121HF",
@@ -2045,7 +2045,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCUS-RC0121HF.png"
+    "image": "/bottle-shots/TCUS-RC0121HF.png"
   },
   {
     "id": "TCUS-RC0121MG",
@@ -2069,7 +2069,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCUS-RC0121MG.jpg"
+    "image": "/bottle-shots/TCUS-RC0121MG.png"
   },
   {
     "id": "TCUS-RC0122",
@@ -2093,7 +2093,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCUS-RC0122.png"
+    "image": "/bottle-shots/TCUS-RC0122.png"
   },
   {
     "id": "TCUS-RC0223",
@@ -2111,7 +2111,7 @@
     "tasting_note": "Rose from Napa Valley. Fresh strawberry and citrus. Crisp acidity with balanced complexity. Light-bodied, elegant dry style. Source: Realm",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCUS-RC0223.jpg"
+    "image": "/bottle-shots/TCUS-RC0223.png"
   },
   {
     "id": "TCUS-RC0324",
@@ -2153,7 +2153,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCUS-RC0421.jpg"
+    "image": "/bottle-shots/TCUS-RC0421.png"
   },
   {
     "id": "TCUS-RC0421HF",
@@ -2177,7 +2177,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCUS-RC0421HF.jpg"
+    "image": "/bottle-shots/TCUS-RC0421HF.png"
   },
   {
     "id": "TCUS-RC0621",
@@ -2201,7 +2201,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCUS-RC0621.jpg"
+    "image": "/bottle-shots/TCUS-RC0621.png"
   },
   {
     "id": "TCUS-RC0721",
@@ -2225,7 +2225,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCUS-RC0721.jpg"
+    "image": "/bottle-shots/TCUS-RC0721.png"
   },
   {
     "id": "TCUS-RC0921",
