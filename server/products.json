@@ -3520,7 +3520,7 @@
     "stock": 50,
     "description": "Saint-Bris is a unique Burgundy appellation — the only AOC in the region to feature Sauvignon Blanc. Benjamin Laroche's La Manufacture bottling is crisp and vivid, with aromas of white grapefruit, fresh herbs and a lively mineral spine typical of the Kimmeridgian limestone soils of Yonne.",
     "description_zh": "Saint-Bris 是 Burgundy 唯一出產 Sauvignon Blanc 的法定產區。Benjamin Laroche 的 La Manufacture 版本清爽明快，白柚、鮮草香氣，以 Kimmeridgian 石灰岩土壤賦予的礦物感貫穿始終。",
-    "tasting_note": "White grapefruit, fresh herbs, lively minerality. Crisp and vivid. Unique Burgundy Sauvignon.",
+    "tasting_note": "",
     "image": "/bottle-shots/MAN00123.png"
   },
   {
@@ -3537,7 +3537,7 @@
     "stock": 50,
     "description": "A bright, expressive Petit Chablis from Benjamin Laroche's La Manufacture range. Clean aromas of green apple, lemon and white flower lead to a crisp, refreshing palate with characteristic Chablis minerality and a clean, dry finish. An ideal aperitif or seafood companion.",
     "description_zh": "Benjamin Laroche La Manufacture 系列的 Petit Chablis，清新的青蘋果、檸檬及白花香氣，入口清爽，帶有 Chablis 標誌性的礦物感，收結乾淨利落。最佳餐前酒或海鮮配搭。",
-    "tasting_note": "Green apple, lemon, white flower. Crisp Chablis minerality. Clean dry finish. Ideal aperitif.",
+    "tasting_note": "",
     "image": "/bottle-shots/MAN00323.png"
   },
   {
@@ -3552,9 +3552,9 @@
     "price": 225,
     "promo_price": null,
     "stock": 50,
-    "description": "The organic expression of La Manufacture's Petit Chablis, farmed without synthetic pesticides or herbicides. Bright citrus and green apple aromas with a vivid, mineral-driven palate. The organic viticulture adds freshness and precision to this already pristine Chablis style.",
+    "description": "A brilliant pale gold colour. Lovely aromas of white flowers and citrus with a slight mineral touch. Fresh, sweet lemon juice and golden delicious apples. A nice balance of ripe fruity flavour and lots of crisp, fresh lemons on the finish.",
     "description_zh": "La Manufacture Petit Chablis 的有機版本，不使用合成農藥或除草劑。柑橘及青蘋果香氣明亮，口感清新精準，有機農法令這款 Chablis 的純淨礦物感更為突出。",
-    "tasting_note": "Citrus, green apple, vivid minerality. Organic farming. Pristine Chablis character.",
+    "tasting_note": "A brilliant pale gold colour. Lovely aromas of white flowers and citrus with a slight mineral touch. Fresh, sweet lemon juice and golden delicious apples. A nice balance of ripe fruity flavour and lots of crisp, fresh lemons on the finish.",
     "image": "/bottle-shots/MAN00623.png"
   },
   {
@@ -3571,7 +3571,7 @@
     "stock": 50,
     "description": "Old vine Chardonnay from the Chablis appellation, offering greater depth and concentration than the village level. Aromas of white peach, citrus and chalk lead to a focused, mineral-driven palate. The age of the vines adds texture and complexity to the characteristic Chablis freshness.",
     "description_zh": "來自 Chablis 的老藤 Chardonnay，深度與集中度超越村莊級。白桃、柑橘及白堊香氣，口感集中，礦物感突出，老藤賦予額外質感，在 Chablis 特有的清新中帶出複雜層次。",
-    "tasting_note": "White peach, citrus, chalk. Focused mineral palate. Old vine texture and complexity.",
+    "tasting_note": "",
     "image": "/bottle-shots/MAN00523.png"
   },
   {
@@ -3588,7 +3588,7 @@
     "stock": 50,
     "description": "A charming Pinot Noir from the Côtes d'Auxerre, one of Burgundy's most exciting up-and-coming regions. Light ruby in colour with aromas of red cherry, raspberry, and subtle earth. The palate is silky and supple with fine tannins and a fresh, mineral finish — a wonderful introduction to Burgundy rouge.",
     "description_zh": "來自 Burgundy 新興產區 Côtes d'Auxerre 的迷人 Pinot Noir。淡寶石紅色，紅櫻桃、覆盆子及淡淡泥土香氣，入口絲滑柔順，單寧細緻，礦物感收結清新——入門 Burgundy 紅酒的絕佳選擇。",
-    "tasting_note": "Red cherry, raspberry, subtle earth. Silky Pinot Noir, fine tannins, mineral finish. Côtes d'Auxerre Burgundy.",
+    "tasting_note": "",
     "image": "/bottle-shots/MANR00122.png"
   },
   {
@@ -3605,7 +3605,7 @@
     "stock": 50,
     "description": "Named after an old unit of land measurement, 'Quarante Journaux' (Forty Journaux) is La Manufacture's flagship red from Irancy — a rare Burgundy appellation prized for its structured, deep Pinot Noir. Dark cherry, wild herbs, and earthy spice with a firm, lingering finish. A wine with real Burgundian character and ageing potential.",
     "description_zh": "以古老土地計量單位命名，「Quarante Journaux」（四十日耕）是 La Manufacture 來自 Irancy 的旗艦紅酒。Irancy 是 Burgundy 罕見的紅酒法定產區，以架構感強、深邃的 Pinot Noir 著稱。黑櫻桃、野草及泥土香料，收結有力悠長，具真正的 Burgundy 特質及陳年潛力。",
-    "tasting_note": "Dark cherry, wild herbs, earthy spice. Structured Irancy Pinot Noir. Firm, lingering finish. Ageing potential.",
+    "tasting_note": "",
     "image": "/bottle-shots/MANR00223.png"
   },
   {
@@ -3620,9 +3620,9 @@
     "price": 360,
     "promo_price": null,
     "stock": 50,
-    "description": "Beauroy is a Premier Cru-classified climat of Chablis with classic character — good fruit and intense minerality. This La Manufacture bottling shows white flower, citrus peel and flinty minerality on the nose, with a focused, saline palate and a long, precise finish typical of Kimmeridgian limestone.",
+    "description": "Beauroy is a Premier Cru-classified climat of Chablis. Classic Chablis character with good fruit and intense minerality.",
     "description_zh": "Beauroy 是 Chablis 一級田，以果香充沛及礦物感強烈著稱。La Manufacture 版本帶白花、柑橘皮及燧石礦物香氣，入口集中帶鹹鮮感，Kimmeridgian 石灰岩土壤賦予精準悠長的收結。",
-    "tasting_note": "White flower, citrus peel, flinty minerality. Focused and saline. Kimmeridgian limestone. Chablis 1er Cru Beauroy.",
+    "tasting_note": "Beauroy is a Premier Cru-classified climat of Chablis. Classic Chablis character with good fruit and intense minerality.",
     "image": "/bottle-shots/MANP00222.png"
   },
   {
@@ -3637,9 +3637,9 @@
     "price": 380,
     "promo_price": null,
     "stock": 50,
-    "description": "Côte de Lechet is one of Chablis' most sought-after Premier Cru vineyards. Its southeasterly aspect gives efficient exposure to morning sun, encouraging slower ripening. Bright and racy with intense mineral character — a very classic style of Chablis with exceptional length.",
+    "description": "Côte de Lechet Premier Cru — some of Chablis' most sought-after wines. Southeasterly aspect gives efficient exposure to morning sun, encouraging slower ripening. Bright and racy with intense minerality. A very classic style of Chablis.",
     "description_zh": "Côte de Lechet 是 Chablis 最受追捧的一級田之一。東南向山坡充分接受朝陽，釀出緩慢成熟的果實。清新活潑，礦物感強烈，是 Chablis 的最經典風格，收結尤為悠長。",
-    "tasting_note": "Racy, intense minerality. Southeasterly exposure, slow ripening. Classic Chablis 1er Cru Côte de Lechet. Exceptional length.",
+    "tasting_note": "Côte de Lechet Premier Cru — some of Chablis' most sought-after wines. Southeasterly aspect gives efficient exposure to morning sun, encouraging slower ripening. Bright and racy with intense minerality. A very classic style of Chablis.",
     "image": "/bottle-shots/MANP00421.png"
   },
   {
@@ -3654,9 +3654,9 @@
     "price": 440,
     "promo_price": null,
     "stock": 50,
-    "description": "From 45-year-old vines on a south-facing slope of high-quality Kimmeridgian soils southwest of Chablis town. Forêts Vieilles Vignes is elegant, complex and steely with superb minerality — the old vine concentration adds a layer of richness rarely found at Premier Cru level.",
+    "description": "45-year-old vines on a south-facing hill of high-quality Kimmeridgian soils southwest of Chablis town. Elegant, complex and steely wines with superb minerality.",
     "description_zh": "45 年老藤，種植於 Chablis 鎮西南方向陽山坡的優質 Kimmeridgian 土壤上。Forêts Vieilles Vignes 優雅複雜，鋼鐵般礦物感卓越，老藤的濃縮度賦予一般一級田難得的豐富層次。",
-    "tasting_note": "45-year-old vines. Elegant, complex and steely. Superb Kimmeridgian minerality. South-facing Forêts climat.",
+    "tasting_note": "45-year-old vines on a south-facing hill of high-quality Kimmeridgian soils southwest of Chablis town. Elegant, complex and steely wines with superb minerality.",
     "image": "/bottle-shots/MANP00522.png"
   },
   {
@@ -3671,9 +3671,43 @@
     "price": 440,
     "promo_price": null,
     "stock": 50,
-    "description": "Vaillons is one of the largest and best-known Premier Cru climats of Chablis. Wines from this side of the river tend to be more floral and delicate, yet still retain the intense minerality that defines the appellation. The Vieilles Vignes bottling adds depth and concentration from older vines.",
+    "description": "One of the largest and well-known Premier Cru climats. Wines tend to be floral and more delicate than other side of river, but still retain Chablis' intense minerality.",
     "description_zh": "Vaillons 是 Chablis 面積最大、最著名的一級田之一。河流此岸的酒款偏向花香及細膩風格，同時保留 Chablis 標誌性的強烈礦物感。老藤版本更增添深度與濃縮度。",
-    "tasting_note": "Floral, delicate yet intensely mineral. Vaillons Premier Cru. Old vine depth and concentration.",
+    "tasting_note": "One of the largest and well-known Premier Cru climats. Wines tend to be floral and more delicate than other side of river, but still retain Chablis' intense minerality.",
     "image": "/bottle-shots/MANP00621.png"
+  },
+  {
+    "id": "MAN00423",
+    "name": "La Manufacture Bourgogne Chablis 2023",
+    "brand": "La Manufacture",
+    "country": "France",
+    "region": "Chablis, Burgundy",
+    "type": "White",
+    "grape": "Chardonnay",
+    "vintage": "2023",
+    "price": 270,
+    "promo_price": null,
+    "stock": 50,
+    "description": "",
+    "description_zh": "",
+    "tasting_note": "",
+    "image": "/bottle-shots/MAN00423.png"
+  },
+  {
+    "id": "MANP00323",
+    "name": "La Manufacture Chablis 1er Cru Montmains 2023",
+    "brand": "La Manufacture",
+    "country": "France",
+    "region": "Chablis 1er Cru, Burgundy",
+    "type": "White",
+    "grape": "Chardonnay",
+    "vintage": "2023",
+    "price": 360,
+    "promo_price": null,
+    "stock": 50,
+    "description": "From Chablis Premier Cru Montmains. Fresher, mineral and more elegant. Reasonably thin, clayey surface on top of Kimmeridgian marls.",
+    "description_zh": "",
+    "tasting_note": "From Chablis Premier Cru Montmains. Fresher, mineral and more elegant. Reasonably thin, clayey surface on top of Kimmeridgian marls.",
+    "image": "/bottle-shots/MANP00323.png"
   }
 ]
