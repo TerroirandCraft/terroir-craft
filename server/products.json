@@ -402,7 +402,8 @@
     "grape": "Grenache",
     "tasting_note": "Deep and concentrated Grenache with complex aromatics. Structured tannins with layers of berry and spice. Full-bodied with long finish. Source: Tscharke Official",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image": "/bottle-shots/TCAU-TS0322.png"
   },
   {
     "id": "TCAU-TS0423",
@@ -1627,7 +1628,8 @@
     "grape": "Rice",
     "tasting_note": "Mango flavored Korean rice wine. Tropical fruit character. Light-bodied with smooth texture. Sweet and refreshing. Approachable style. Source: Canmak",
     "ratings": [],
-    "exclusive": true
+    "exclusive": true,
+    "image": "/bottle-shots/TCKR- CA04NV.png"
   },
   {
     "id": "TCNZ-SH0123",
