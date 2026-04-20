@@ -1,4 +1,4 @@
-import { ReactNode, useState, useRef, useEffect } from "react";
+import { ReactNode, useState, useRef, useEffect, useCallback } from "react";
 import { Link, useLocation } from "wouter";
 import { useHashLocation } from "wouter/use-hash-location";
 import { ShoppingCart, Menu, X, Wine, Bot, UserCircle, ChevronDown, Tag, Sun, Moon } from "lucide-react";
@@ -7,13 +7,43 @@ import { useCart } from "./CartContext";
 import { useAuth } from "./AuthContext";
 import tcLogo from "@/assets/tc-logo.jpg";
 
+const BANNER_MESSAGES = [
+  "根據香港法律，不得在業務過程中，向未成年人售賣或供應令人醒醉的酒類。 Under the law of Hong Kong, intoxicating liquor must not be sold or supplied to a minor in the course of business.",
+  "Free delivery in Hong Kong for orders over HK$1,000 \u00b7 満 HK$2,500 免運費送樓門（澳門）",
+];
+
+function TopBanner() {
+  const [idx, setIdx] = useState(0);
+  const [fade, setFade] = useState(true);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFade(false);
+      setTimeout(() => {
+        setIdx(i => (i + 1) % BANNER_MESSAGES.length);
+        setFade(true);
+      }, 400);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, []);
+  return (
+    <div className="bg-[hsl(355,62%,28%)] text-white text-xs py-2 px-4 text-center font-body tracking-wide min-h-[32px] flex items-center justify-center">
+      <span
+        style={{ transition: "opacity 0.4s", opacity: fade ? 1 : 0 }}
+        className="leading-snug"
+      >
+        {BANNER_MESSAGES[idx]}
+      </span>
+    </div>
+  );
+}
+
 const navLinks: { href: string; label: string; labelZh: string; isGold?: boolean }[] = [
   { href: "/", label: "Home", labelZh: "首頁" },
   { href: "/new-arrivals", label: "New Arrivals", labelZh: "最新到貨" },
   { href: "/occasion", label: "By Occasion", labelZh: "場合選酒" },
   { href: "/brands", label: "Brands", labelZh: "品牌" },
   { href: "/wines", label: "Wines", labelZh: "酒款" },
-  { href: "/fine-rare", label: "Fine & Rare", labelZh: "珍稀藏酒", isGold: true },
+  // Fine & Rare hidden: { href: "/fine-rare", label: "Fine & Rare", labelZh: "珍稀藏酒", isGold: true },
   { href: "/sommelier", label: "AI Sommelier", labelZh: "AI 侍酒師" },
   { href: "/about", label: "About Us", labelZh: "關於我們" },
 ];
@@ -36,10 +66,8 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
-      {/* Top bar */}
-      <div className="bg-[hsl(355,62%,28%)] text-white text-xs py-2 px-4 text-center font-body tracking-wide">
-        Free delivery in Hong Kong for orders over HK$1,000 &nbsp;|&nbsp; 香港訂單滿 HK$1,000 免運費
-      </div>
+      {/* Top bar — rotating carousel */}
+      <TopBanner />
 
       {/* Nav */}
       <header className="sticky top-0 z-50 bg-white/95 dark:bg-[hsl(20,12%,8%)/95] backdrop-blur border-b border-border shadow-sm">
@@ -248,7 +276,6 @@ export default function Layout({ children }: { children: ReactNode }) {
                 {[
                   { href: "/wines", label: "Our Wines 酒款" },
                   { href: "/brands", label: "Brands 品牌" },
-                  { href: "/fine-rare", label: "Fine & Rare 珍稀藏酒" },
                   { href: "/sommelier", label: "AI Sommelier" },
                   { href: "/about", label: "About Us 關於" },
                 ].map(l => (

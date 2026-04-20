@@ -546,15 +546,7 @@ export default function CartPage() {
                 <p className="text-center text-[10px] text-muted-foreground font-body">
                   Visa / Mastercard · PayMe · FPS · Alipay · WeChat Pay · Octopus
                 </p>
-                <Button
-                  variant="outline"
-                  className="w-full font-body text-sm text-muted-foreground"
-                  onClick={handleCheckout}
-                  disabled={isOrdering || isPaying}
-                  data-testid="checkout-btn"
-                >
-                  {isOrdering ? "Processing..." : "Place Order (Pay Later)"}
-                </Button>
+
                 <a href="mailto:info@terroirandcraft.com?subject=Wine Order Enquiry">
                   <Button variant="outline" className="w-full font-body text-sm">
                     Email Order to Us
@@ -565,7 +557,7 @@ export default function CartPage() {
               <div className="mt-5 flex items-start gap-2 p-3 bg-muted/40 rounded-lg">
                 <Package className="w-4 h-4 text-muted-foreground mt-0.5 shrink-0" />
                 <p className="font-body text-xs text-muted-foreground leading-relaxed">
-                  Free delivery on orders over HK$1,000.
+                  Free delivery in HK on orders over HK$1,000 · Macau over HK$2,500.
                 </p>
               </div>
             </div>

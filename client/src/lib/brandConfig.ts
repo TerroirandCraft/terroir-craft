@@ -66,7 +66,7 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
     sectionBg: "#F5EDD0",
     heroText: "#ffffff",
     heritage: {
-      year: "Est. 1570",
+      year: "Est. 1490",
       tagline: "GIGONDAS · RHÔNE VALLEY · 15TH GENERATION",
       yearFont: "Cinzel",
       yearColor: "#C8391A",

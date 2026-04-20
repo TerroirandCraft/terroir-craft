@@ -477,6 +477,20 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     }
   });
 
+  // Member order history
+  app.get("/api/members/:id/orders", async (req, res) => {
+    try {
+      const id = Number(req.params.id);
+      const result = await db.execute(sql`
+        SELECT id, order_ref, amount_paid, points_redeemed, items_json, created_at, xero_status
+        FROM orders WHERE member_id = ${id} ORDER BY created_at DESC LIMIT 50
+      `);
+      res.json(result.rows);
+    } catch (err) {
+      res.status(500).json({ error: "Failed to fetch orders" });
+    }
+  });
+
   // Claim bonus action (newsletter / ig / facebook)
   app.post("/api/members/:id/bonus", async (req, res) => {
     try {

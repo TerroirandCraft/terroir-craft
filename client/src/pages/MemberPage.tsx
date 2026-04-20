@@ -55,8 +55,8 @@ const BONUS_ACTIONS = [
     labelZh: "Follow IG @terroirandcraft",
     points: 20,
     flag: "bonus_ig" as const,
-    href: "https://www.instagram.com/terroirandcraft",
-    note: "自願申領，毋須驗證是否已 Follow",
+    href: "https://www.instagram.com/terroirandcraft/",
+    note: "instagram.com/terroirandcraft",
   },
 ];
 
@@ -300,6 +300,15 @@ function MemberDashboard() {
     enabled: !!member,
   });
 
+  const { data: orders = [] } = useQuery({
+    queryKey: ["/api/members", member?.id, "orders"],
+    queryFn: async () => {
+      const res = await apiRequest("GET", `/api/members/${member!.id}/orders`);
+      return res.json();
+    },
+    enabled: !!member,
+  });
+
   const bonusMutation = useMutation({
     mutationFn: async (action: string) => {
       const res = await apiRequest("POST", `/api/members/${member!.id}/bonus`, { action });
@@ -393,6 +402,12 @@ function MemberDashboard() {
                 <div className="flex-1 min-w-0">
                   <p className="font-body text-sm font-medium text-foreground truncate">{action.labelZh}</p>
                   <p className="font-body text-xs text-muted-foreground">+{action.points} pts</p>
+                  {action.href && !claimed && (
+                    <a href={action.href} target="_blank" rel="noopener noreferrer"
+                      className="font-body text-xs text-pink-500 hover:text-pink-600 underline underline-offset-2 transition-colors">
+                      {action.note}
+                    </a>
+                  )}
                 </div>
                 {claimed ? (
                   <span className="font-body text-xs text-green-600 font-medium shrink-0">✓ 已領取</span>
@@ -478,6 +493,50 @@ function MemberDashboard() {
           </div>
         </div>
       )}
+
+      {/* Order History */}
+      <div className="bg-card border border-border rounded-xl p-5">
+        <h3 className="font-display text-lg font-medium mb-4">訂單記錄 Order History</h3>
+        {orders.length === 0 ? (
+          <p className="font-body text-sm text-muted-foreground text-center py-4">未有訂單記錄</p>
+        ) : (
+          <div className="space-y-3">
+            {orders.map((order: any) => {
+              const items = (() => { try { return JSON.parse(order.items_json); } catch { return []; } })();
+              return (
+                <div key={order.id} className="border border-border rounded-lg p-4">
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <div>
+                      <p className="font-body text-sm font-semibold text-foreground">{order.order_ref}</p>
+                      <p className="font-body text-xs text-muted-foreground">
+                        {new Date(order.created_at).toLocaleDateString("zh-HK", { year: "numeric", month: "short", day: "numeric" })}
+                      </p>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <p className="font-body text-sm font-bold text-foreground">HK${Number(order.amount_paid).toLocaleString()}</p>
+                      {order.points_redeemed > 0 && (
+                        <p className="font-body text-xs text-muted-foreground">用了 {order.points_redeemed} 分</p>
+                      )}
+                    </div>
+                  </div>
+                  {items.length > 0 && (
+                    <div className="space-y-1">
+                      {items.slice(0, 3).map((item: any, i: number) => (
+                        <p key={i} className="font-body text-xs text-muted-foreground">
+                          {item.name || item.product?.name || ""} &times; {item.quantity || item.qty || 1}
+                        </p>
+                      ))}
+                      {items.length > 3 && (
+                        <p className="font-body text-xs text-muted-foreground">及其他 {items.length - 3} 件商品...</p>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
 
       {/* Tier benefits */}
       <div className="bg-card border border-border rounded-xl p-5">
