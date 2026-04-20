@@ -652,7 +652,7 @@ export default function HomePage() {
                 ),
                 title: "Hong Kong & Macau Delivery",
                 titleZh: "香港及澳門送貨",
-                desc: "Prompt and secure delivery across Hong Kong and Macau. Free delivery on orders over HK$1,000.",
+                desc: "Prompt and secure delivery across Hong Kong and Macau. Free delivery in HK on orders over HK$1,000 · Macau over HK$2,500.",
               },
               {
                 icon: (
