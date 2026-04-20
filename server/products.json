@@ -3712,5 +3712,22 @@
     "description_zh": "",
     "tasting_note": "From Chablis Premier Cru Montmains. Fresher, mineral and more elegant. Reasonably thin, clayey surface on top of Kimmeridgian marls.",
     "image": "/bottle-shots/MANP00323.png"
+  },
+  {
+    "id": "TCCA-PG",
+    "name": "Carinena Particular Garnacha Rosado 2021",
+    "brand": "Carinena",
+    "country": "Spain",
+    "region": "Carinena",
+    "type": "Rose",
+    "grape": "Garnacha",
+    "vintage": "2021",
+    "price": 90,
+    "promo_price": null,
+    "stock": 50,
+    "description": "",
+    "description_zh": "",
+    "tasting_note": "",
+    "image": "/bottle-shots/TCCA-PG.png"
   }
 ]
