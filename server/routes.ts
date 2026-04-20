@@ -665,6 +665,17 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
         createdAt: Date.now(),
       });
 
+      // Also persist to DB so order survives server restarts
+      try {
+        await db.execute(sql`
+          INSERT INTO pending_orders (merchant_reference, order_json)
+          VALUES (${merchantReference}, ${JSON.stringify(pendingOrders.get(merchantReference))})
+          ON CONFLICT (merchant_reference) DO UPDATE SET order_json = EXCLUDED.order_json
+        `);
+      } catch (dbErr) {
+        console.warn("[PendingOrder] DB persist failed (non-fatal):", dbErr);
+      }
+
       // Clean up old pending orders (>24h)
       const cutoff = Date.now() - 24 * 60 * 60 * 1000;
       for (const [k, v] of pendingOrders.entries()) {
@@ -711,11 +722,49 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
 
       console.log(`[PaymentAsia] Payment confirmed: ${merchant_reference} HKD ${amount}`);
 
-      // Retrieve stored order details
-      const order = pendingOrders.get(merchant_reference);
+      // Retrieve stored order details — check memory first, then DB
+      let order = pendingOrders.get(merchant_reference);
       if (!order) {
-        console.warn(`[PaymentAsia] No pending order found for ${merchant_reference}`);
-        return;
+        try {
+          const dbRow = await db.execute(sql`
+            SELECT order_json FROM pending_orders WHERE merchant_reference = ${merchant_reference}
+          `);
+          if (dbRow.rows?.[0]) {
+            order = JSON.parse((dbRow.rows[0] as any).order_json);
+            console.log(`[PaymentAsia] Recovered pending order from DB for ${merchant_reference}`);
+          }
+        } catch {}
+      }
+      if (!order) {
+        // Pending order may have been wiped by a server restart.
+        // Reconstruct minimal order from callback body so we still save a record.
+        console.warn(`[PaymentAsia] No pending order for ${merchant_reference} — rebuilding from callback body`);
+        const cbName = (body.customer_name || body.payer_name || body.name || "") as string;
+        const cbEmail = (body.customer_email || body.email || body.payer_email || "") as string;
+        const cbPhone = (body.customer_phone || body.phone || "") as string;
+        // Try to find member by email
+        let fallbackMemberId: number | undefined;
+        if (cbEmail) {
+          try {
+            const mem = await storage.getMemberByEmail(cbEmail);
+            if (mem) fallbackMemberId = mem.id;
+          } catch {}
+        }
+        order = {
+          customerName: cbName,
+          customerEmail: cbEmail,
+          customerPhone: cbPhone,
+          deliveryAddress: (body.delivery_address || "") as string,
+          isGift: false,
+          recipientName: "",
+          recipientPhone: "",
+          memberId: fallbackMemberId,
+          referredBy: "",
+          amount: Number(amount),
+          pointsRedeemed: 0,
+          items: [],
+          createdAt: Date.now(),
+        };
       }
 
       pendingOrders.delete(merchant_reference); // consume it
@@ -748,6 +797,61 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
         `);
         dbOrderId = (result.rows?.[0] as any)?.id ?? null;
         console.log(`[Order] Saved to DB: ${merchant_reference} (id=${dbOrderId})`);
+
+        // Populate order_lines for sales record
+        if (order.items && order.items.length > 0) {
+          // Look up member tier for discount context
+          let memberTier = "";
+          let tierDiscountRate = 0;
+          if (order.memberId) {
+            try {
+              const mem = await storage.getMemberById(order.memberId);
+              memberTier = mem?.tier || "";
+              const TIER_RATES: Record<string, number> = { Silver: 0.05, Gold: 0.08, Platinum: 0.10 };
+              tierDiscountRate = TIER_RATES[memberTier] || 0;
+            } catch {}
+          }
+
+          // Load products to get original prices and brand info
+          const allProducts = await storage.getAllProducts();
+          const productMap = new Map(allProducts.map(p => [p.id, p]));
+
+          for (const item of order.items) {
+            const product = productMap.get(item.itemCode);
+            const originalPrice = product?.price ?? item.unitPrice;
+            const isPromo = product ? !!product.promo_price : false;
+            const isExclusive = (product as any)?.exclusive === true;
+            // unit_price is what was actually charged (promo_price ?? price, then tier discount applied)
+            const unitPriceCharged = isExclusive && !isPromo
+              ? item.unitPrice  // already tier-discounted from client
+              : item.unitPrice;
+            const lineTotal = unitPriceCharged * item.quantity;
+
+            try {
+              await db.execute(sql`
+                INSERT INTO order_lines (
+                  order_ref, item_code, item_name, brand, quantity,
+                  original_price, unit_price, tier_discount_rate, line_total, is_promo,
+                  customer_name, customer_email, customer_phone, delivery_address,
+                  referred_by, member_id, member_tier, points_redeemed, order_total,
+                  is_gift, recipient_name, created_at
+                ) VALUES (
+                  ${merchant_reference}, ${item.itemCode || ""}, ${item.name || ""},
+                  ${product?.brand || ""}, ${item.quantity},
+                  ${originalPrice}, ${unitPriceCharged}, ${tierDiscountRate}, ${lineTotal}, ${isPromo},
+                  ${order.customerName}, ${order.customerEmail}, ${order.customerPhone || ""},
+                  ${order.deliveryAddress || ""}, ${order.referredBy || ""},
+                  ${order.memberId ?? null}, ${memberTier}, ${order.pointsRedeemed || 0},
+                  ${order.amount}, ${order.isGift || false}, ${order.recipientName || ""},
+                  NOW()
+                )
+              `);
+            } catch (lineErr) {
+              console.error(`[OrderLines] Failed to insert line for ${item.itemCode}:`, lineErr);
+            }
+          }
+          console.log(`[OrderLines] Saved ${order.items.length} lines for ${merchant_reference}`);
+        }
       } catch (dbErr) {
         console.error("[Order] DB save failed:", dbErr);
       }
@@ -821,6 +925,11 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
             email_status = ${customerEmailStatus}
           WHERE id = ${dbOrderId}
         `).catch(e => console.error("[Order] DB update failed:", e));
+        // Also update xero_invoice on order_lines
+        db.execute(sql`
+          UPDATE order_lines SET xero_invoice = ${xeroInvoice}
+          WHERE order_ref = ${merchant_reference}
+        `).catch(e => console.error("[OrderLines] Xero update failed:", e));
       }
 
       // STEP 5: Award / deduct loyalty points
@@ -1007,7 +1116,50 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
       `);
       res.json({ orders: result.rows });
     } catch (err) {
-      res.status(500).json({ error: "Failed to fetch orders" });
+      console.error("[admin/orders] DB error:", err);
+      res.status(500).json({ error: "Failed to fetch orders", detail: String(err) });
+    }
+  });
+
+  // Admin order lines (sales record)
+  app.get("/api/admin/order-lines", async (req, res) => {
+    const secret = req.query.secret || req.headers["x-admin-secret"];
+    if (secret !== (process.env.ADMIN_SECRET || "tc-admin-2026")) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    try {
+      const result = await db.execute(sql`
+        SELECT order_ref, item_code, item_name, brand, quantity,
+               original_price, unit_price, tier_discount_rate, line_total, is_promo,
+               customer_name, customer_email, customer_phone, delivery_address,
+               referred_by, member_tier, points_redeemed, order_total,
+               is_gift, recipient_name, xero_invoice, created_at
+        FROM order_lines
+        ORDER BY created_at DESC
+        LIMIT 1000
+      `);
+      res.json({ lines: result.rows });
+    } catch (err) {
+      console.error("[admin/order-lines] DB error:", err);
+      res.status(500).json({ error: "Failed to fetch order lines", detail: String(err) });
+    }
+  });
+
+  // Admin members
+  app.get("/api/admin/members", async (req, res) => {
+    const secret = req.query.secret || req.headers["x-admin-secret"];
+    if (secret !== (process.env.ADMIN_SECRET || "tc-admin-2026")) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    try {
+      const result = await db.execute(sql`
+        SELECT id, name, email, phone, tier, points, created_at
+        FROM members ORDER BY created_at DESC LIMIT 500
+      `);
+      res.json({ members: result.rows });
+    } catch (err) {
+      console.error("[admin/members] DB error:", err);
+      res.status(500).json({ error: "Failed to fetch members", detail: String(err) });
     }
   });
 

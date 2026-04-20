@@ -24,6 +24,7 @@ import ResetPasswordPage from "@/pages/ResetPasswordPage";
 import OccasionPage from "@/pages/OccasionPage";
 import PaymentResultPage from "@/pages/PaymentResultPage";
 import NewArrivalsPage from "@/pages/NewArrivalsPage";
+import AdminPage from "@/pages/AdminPage";
 
 // Custom hook: strips query string from hash path so wouter matches routes correctly.
 // e.g. #/payment-result?ref=TC-xxx → path is "/payment-result" (query preserved in window.location)
@@ -49,28 +50,35 @@ function App() {
       <AuthProvider>
         <CartProvider>
           <WouterRouter hook={useHashLocationNoQuery}>
-            <Layout>
-              <Switch>
-                <Route path="/" component={HomePage} />
-                <Route path="/wines" component={CataloguePage} />
-                <Route path="/wines/:id" component={ProductPage} />
-                <Route path="/brands" component={BrandsPage} />
-                <Route path="/brands/:brand" component={BrandDetailPage} />
-                <Route path="/about" component={AboutPage} />
-                <Route path="/cart" component={CartPage} />
-                <Route path="/sommelier" component={SommelierPage} />
-                <Route path="/member" component={MemberPage} />
-                <Route path="/fine-rare" component={FineRarePage} />
-                <Route path="/promotions/:id" component={PromotionPage} />
-                <Route path="/promotions" component={PromotionPage} />
-                <Route path="/terms" component={TermsPage} />
-                <Route path="/reset-password" component={ResetPasswordPage} />
-                <Route path="/occasion" component={OccasionPage} />
-                <Route path="/new-arrivals" component={NewArrivalsPage} />
-                <Route path="/payment-result" component={PaymentResultPage} />
-                <Route component={NotFound} />
-              </Switch>
-            </Layout>
+            <Switch>
+              {/* Admin — no layout wrapper */}
+              <Route path="/admin" component={AdminPage} />
+              {/* All other pages — wrapped in Layout */}
+              <Route>
+                <Layout>
+                  <Switch>
+                    <Route path="/" component={HomePage} />
+                    <Route path="/wines" component={CataloguePage} />
+                    <Route path="/wines/:id" component={ProductPage} />
+                    <Route path="/brands" component={BrandsPage} />
+                    <Route path="/brands/:brand" component={BrandDetailPage} />
+                    <Route path="/about" component={AboutPage} />
+                    <Route path="/cart" component={CartPage} />
+                    <Route path="/sommelier" component={SommelierPage} />
+                    <Route path="/member" component={MemberPage} />
+                    <Route path="/fine-rare" component={FineRarePage} />
+                    <Route path="/promotions/:id" component={PromotionPage} />
+                    <Route path="/promotions" component={PromotionPage} />
+                    <Route path="/terms" component={TermsPage} />
+                    <Route path="/reset-password" component={ResetPasswordPage} />
+                    <Route path="/occasion" component={OccasionPage} />
+                    <Route path="/new-arrivals" component={NewArrivalsPage} />
+                    <Route path="/payment-result" component={PaymentResultPage} />
+                    <Route component={NotFound} />
+                  </Switch>
+                </Layout>
+              </Route>
+            </Switch>
           </WouterRouter>
           <Toaster />
         </CartProvider>

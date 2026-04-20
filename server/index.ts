@@ -123,6 +123,42 @@ app.use((req, res, next) => {
         created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       )
     `);
+    // Persistent pending orders — survives server restarts
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS pending_orders (
+        merchant_reference TEXT PRIMARY KEY,
+        order_json TEXT NOT NULL,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      )
+    `);
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS order_lines (
+        id SERIAL PRIMARY KEY,
+        order_ref TEXT NOT NULL,
+        item_code TEXT NOT NULL DEFAULT '',
+        item_name TEXT NOT NULL DEFAULT '',
+        brand TEXT NOT NULL DEFAULT '',
+        quantity INTEGER NOT NULL DEFAULT 1,
+        original_price NUMERIC NOT NULL DEFAULT 0,
+        unit_price NUMERIC NOT NULL DEFAULT 0,
+        tier_discount_rate NUMERIC NOT NULL DEFAULT 0,
+        line_total NUMERIC NOT NULL DEFAULT 0,
+        is_promo BOOLEAN NOT NULL DEFAULT FALSE,
+        customer_name TEXT NOT NULL DEFAULT '',
+        customer_email TEXT NOT NULL DEFAULT '',
+        customer_phone TEXT NOT NULL DEFAULT '',
+        delivery_address TEXT NOT NULL DEFAULT '',
+        referred_by TEXT NOT NULL DEFAULT '',
+        member_id INTEGER,
+        member_tier TEXT NOT NULL DEFAULT '',
+        points_redeemed INTEGER NOT NULL DEFAULT 0,
+        order_total NUMERIC NOT NULL DEFAULT 0,
+        is_gift BOOLEAN NOT NULL DEFAULT FALSE,
+        recipient_name TEXT NOT NULL DEFAULT '',
+        xero_invoice TEXT NOT NULL DEFAULT '',
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      )
+    `);
     console.log("[DB] Tables ready");
   } catch (err) {
     console.error("[DB] Table creation error:", err);
