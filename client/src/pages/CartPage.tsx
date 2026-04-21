@@ -434,8 +434,8 @@ export default function CartPage() {
                   <div className={`rounded-lg border p-3 transition-all ${
                     usePoints ? "border-[hsl(355,62%,28%)] bg-[hsl(355,62%,28%)]/5" : "border-border bg-muted/20"
                   }`}>
-                    <div className="flex items-center justify-between">
-                      <div>
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="min-w-0 flex-1">
                         <p className="font-body text-xs font-medium text-foreground">
                           用積分抵扣 Use Points
                         </p>
@@ -445,12 +445,12 @@ export default function CartPage() {
                       </div>
                       <button
                         onClick={() => setUsePoints(u => !u)}
-                        className={`relative w-10 h-5 rounded-full transition-colors ${
+                        className={`relative shrink-0 w-11 h-6 rounded-full transition-colors ${
                           usePoints ? "bg-[hsl(355,62%,28%)]" : "bg-muted-foreground/30"
                         }`}
                         data-testid="use-points-toggle"
                       >
-                        <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${
+                        <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${
                           usePoints ? "translate-x-5" : "translate-x-0.5"
                         }`} />
                       </button>
