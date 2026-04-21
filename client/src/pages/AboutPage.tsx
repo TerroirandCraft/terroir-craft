@@ -99,7 +99,7 @@ export default function AboutPage() {
             <div className="space-y-4">
               {[
                 { icon: Phone, label: "Phone", value: "+852 2981 8868", href: "tel:+85229818868" },
-                { icon: Mail, label: "Email", value: "info@terroirandcraft.com", href: "mailto:info@terroirandcraft.com" },
+                { icon: Mail, label: "Email", value: "eshop@terroirandcraft.com", href: "mailto:eshop@terroirandcraft.com" },
                 { icon: MapPin, label: "Address", value: "Room 509, 5/F, Seaview Centre, 139 Hoi Bun Road, Kwun Tong, Hong Kong", href: null },
                 { icon: Clock, label: "Hours", value: "Mon–Fri 9:00–18:00 HKT", href: null },
               ].map(item => (
@@ -151,7 +151,7 @@ export default function AboutPage() {
               We offer comprehensive trade support, brand training, and customised sales strategies.
             </p>
             <div className="space-y-3">
-              <a href="mailto:info@terroirandcraft.com">
+              <a href="mailto:eshop@terroirandcraft.com">
                 <Button className="w-full bg-[hsl(355,62%,28%)] hover:bg-[hsl(355,62%,22%)] text-white font-body">
                   <Mail className="w-4 h-4 mr-2" />
                   Email Us

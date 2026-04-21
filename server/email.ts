@@ -27,7 +27,7 @@ export async function sendOrderNotificationToAdmin(
 ): Promise<void> {
   if (!RESEND_API_KEY) return;
 
-  const ADMIN_EMAIL = process.env.ADMIN_NOTIFY_EMAIL || "info@terroirandcraft.com";
+  const ADMIN_EMAIL = process.env.ADMIN_NOTIFY_EMAIL || "eshop@terroirandcraft.com";
   const itemRows = items.map(i =>
     `<tr><td style="padding:6px 12px;border-bottom:1px solid #f0ebe4">${i.itemCode}</td><td style="padding:6px 12px;border-bottom:1px solid #f0ebe4">${i.name}</td><td style="padding:6px 12px;border-bottom:1px solid #f0ebe4;text-align:center">${i.quantity}</td><td style="padding:6px 12px;border-bottom:1px solid #f0ebe4;text-align:right">HK$${i.unitPrice}</td></tr>`
   ).join("");
@@ -103,7 +103,7 @@ export async function sendOrderConfirmationToCustomer(
       <thead><tr style="background:#f8f5f0"><th style="padding:8px 12px;text-align:left">Item</th><th style="padding:8px 12px;text-align:center">Qty</th><th style="padding:8px 12px;text-align:right">Amount</th></tr></thead>
       <tbody>${itemRows}</tbody>
     </table>
-    <p style="margin:0;color:#555;font-size:13px;line-height:1.6">An official invoice will also be sent to this email from Xero. If you have any questions, please contact us at <a href="mailto:info@terroirandcraft.com" style="color:#7a1e2e">info@terroirandcraft.com</a> or call <strong>+852 2981 8868</strong>.</p>
+    <p style="margin:0;color:#555;font-size:13px;line-height:1.6">An official invoice will also be sent to this email from Xero. If you have any questions, please contact us at <a href="mailto:eshop@terroirandcraft.com" style="color:#7a1e2e">eshop@terroirandcraft.com</a> or call <strong>+852 2981 8868</strong>.</p>
   </div>
   <div style="padding:16px 40px;background:#f8f5f0;font-size:11px;color:#999;text-align:center">
     天地人酒業 Terroir & Craft Co., Ltd<br>Room 509, 5/F, Seaview Centre, 139 Hoi Bun Road, Kwun Tong

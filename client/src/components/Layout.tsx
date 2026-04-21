@@ -293,7 +293,7 @@ export default function Layout({ children }: { children: ReactNode }) {
               <h4 className="font-display font-semibold text-white mb-3 text-base">Contact</h4>
               <ul className="space-y-2 text-sm text-white/60">
                 <li>📞 <a href="tel:+85229818868" className="hover:text-white transition-colors">+852 2981 8868</a></li>
-                <li>✉️ <a href="mailto:info@terroirandcraft.com" className="hover:text-white transition-colors">info@terroirandcraft.com</a></li>
+                <li>✉️ <a href="mailto:eshop@terroirandcraft.com" className="hover:text-white transition-colors">eshop@terroirandcraft.com</a></li>
                 <li className="leading-relaxed">📍 Room 509, 5/F, Seaview Centre,<br />139 Hoi Bun Road, Kwun Tong</li>
               </ul>
             </div>

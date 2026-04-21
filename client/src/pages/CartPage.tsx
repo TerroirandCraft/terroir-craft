@@ -547,7 +547,7 @@ export default function CartPage() {
                   Visa / Mastercard · PayMe · FPS · Alipay · WeChat Pay · Octopus
                 </p>
 
-                <a href="mailto:info@terroirandcraft.com?subject=Wine Order Enquiry">
+                <a href="mailto:eshop@terroirandcraft.com?subject=Wine Order Enquiry">
                   <Button variant="outline" className="w-full font-body text-sm">
                     Email Order to Us
                   </Button>

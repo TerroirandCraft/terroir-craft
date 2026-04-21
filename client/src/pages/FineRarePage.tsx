@@ -58,7 +58,7 @@ function EnquireBtn({ item }: { item: FineRareItem }) {
   );
   return (
     <a
-      href={`mailto:info@terroirandcraft.com?subject=${subject}&body=${body}`}
+      href={`mailto:eshop@terroirandcraft.com?subject=${subject}&body=${body}`}
       className="block w-full text-center py-2 px-3 text-xs font-medium uppercase tracking-widest rounded
         border border-amber-500/40 text-amber-300 hover:bg-amber-500/10 hover:border-amber-400
         transition-all duration-200"
@@ -481,7 +481,7 @@ export default function FineRarePage() {
             and white-glove delivery.
           </p>
           <a
-            href="mailto:info@terroirandcraft.com?subject=Fine%20%26%20Rare%20Enquiry"
+            href="mailto:eshop@terroirandcraft.com?subject=Fine%20%26%20Rare%20Enquiry"
             className="inline-flex items-center gap-2 px-8 py-3 rounded-md font-medium text-sm uppercase tracking-widest
               border border-amber-500/50 text-amber-300 hover:bg-amber-500/10 hover:border-amber-400
               transition-all duration-200"
@@ -489,7 +489,7 @@ export default function FineRarePage() {
             Contact Our Cellar Team
           </a>
           <p className="mt-6 text-[11px] text-white/20 tracking-wide">
-            +852 2981 8868 · info@terroirandcraft.com
+            +852 2981 8868 · eshop@terroirandcraft.com
           </p>
           <GoldDivider />
         </div>

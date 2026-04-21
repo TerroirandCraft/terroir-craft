@@ -138,8 +138,8 @@ export default function TermsPage() {
             Contact our customer service team. 請聯絡我們的客戶服務團隊。
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
-            <a href="mailto:info@terroirandcraft.com" className="font-body text-sm text-[hsl(355,62%,28%)] hover:underline font-medium">
-              📧 info@terroirandcraft.com
+            <a href="mailto:eshop@terroirandcraft.com" className="font-body text-sm text-[hsl(355,62%,28%)] hover:underline font-medium">
+              📧 eshop@terroirandcraft.com
             </a>
             <a href="tel:+85229818868" className="font-body text-sm text-[hsl(355,62%,28%)] hover:underline font-medium">
               📞 +852 2981 8868
