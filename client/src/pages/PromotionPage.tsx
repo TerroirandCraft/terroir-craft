@@ -279,7 +279,7 @@ export default function PromotionPage() {
       <div className="bg-gray-50 border-t border-gray-100 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
           <p className="font-body text-gray-400 text-sm mb-4">
-            All prices are per bottle · Subject to availability · Free delivery on orders over HK$1,000
+            All prices are per bottle · Subject to availability · 香港 HK$1,000 / 澳門 HK$2,500 免費送貨
           </p>
           <Link href="/cart">
             <Button className="bg-amber-600 hover:bg-amber-500 text-white font-body font-semibold h-11 px-8">

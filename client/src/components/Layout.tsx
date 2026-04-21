@@ -9,7 +9,7 @@ import tcLogo from "@/assets/tc-logo.jpg";
 
 const BANNER_MESSAGES = [
   "根據香港法律，不得在業務過程中，向未成年人售賣或供應令人醒醉的酒類。 Under the law of Hong Kong, intoxicating liquor must not be sold or supplied to a minor in the course of business.",
-  "Free delivery in Hong Kong for orders over HK$1,000 \u00b7 満 HK$2,500 免運費送樓門（澳門）",
+  "香港地址 HK$1,000 免費送貨 · 澳門地址 HK$2,500 免費送貨",
 ];
 
 function TopBanner() {

@@ -20,19 +20,19 @@ export default function TermsPage() {
 
             <div className="grid md:grid-cols-2 gap-4 pb-5 border-b border-border">
               <p className="font-body text-sm text-foreground leading-relaxed">
-                We offer free delivery for orders of HKD1,000 or above to addresses within Hong Kong (single delivery location per order).
+                We offer free delivery for orders of HKD1,000 or above to addresses within Hong Kong, and HKD2,500 or above to addresses in Macau (single delivery location per order).
               </p>
               <p className="font-body text-sm text-muted-foreground leading-relaxed">
-                香港地址訂單滿港幣1,000元或以上，可享免費送貨服務（每張訂單只限一個送貨地址）。
+                香港地址訂單滿港幣1,000元或以上，澳門地址訂單滿港幣2,500元或以上，可享免費送貨服務（每張訂單只限一個送貨地址）。
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-4 pb-5 border-b border-border">
               <p className="font-body text-sm text-foreground leading-relaxed">
-                Orders below HKD1,000 will be subject to a standard delivery charge, which will be shown at checkout.
+                Orders below HKD1,000 (Hong Kong) or HKD2,500 (Macau) will be subject to a standard delivery charge, which will be shown at checkout.
               </p>
               <p className="font-body text-sm text-muted-foreground leading-relaxed">
-                訂單金額低於港幣1,000元，須繳付標準運費，具體金額將於結帳時顯示。
+                訂單金額低於港幣1,000元（香港）或港幣2,500元（澳門），須繳付標準運費，具體金額將於結帳時顯示。
               </p>
             </div>
 
