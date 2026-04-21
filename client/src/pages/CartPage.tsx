@@ -82,10 +82,16 @@ export default function CartPage() {
   const tierDiscountRate = isLoggedIn && member ? (TIER_DISCOUNT[member.tier] || 0) : 0;
 
   // Calculate subtotal with tier discount applied to exclusive items only
+  // basePrice respects promo_price first, then tier discount on exclusive non-promo items
+  const subtotalBase = items.reduce((sum, item) => {
+    const basePrice = item.product.promo_price ?? item.product.price;
+    return sum + basePrice * item.quantity;
+  }, 0);
+
   const subtotalWithDiscount = items.reduce((sum, item) => {
     const basePrice = item.product.promo_price ?? item.product.price;
     const lineTotal = basePrice * item.quantity;
-    // Apply tier discount only to exclusive brand items (not promo_price items)
+    // Apply tier discount ONLY to exclusive brand items that are NOT on promo_price
     const isExclusive = (item.product as any).exclusive === true;
     const isPromo = !!item.product.promo_price;
     const discountedLine = isExclusive && !isPromo
@@ -94,7 +100,8 @@ export default function CartPage() {
     return sum + discountedLine;
   }, 0);
 
-  const tierSavings = totalPrice - subtotalWithDiscount;
+  // tierSavings = only the tier discount portion (not promo savings)
+  const tierSavings = subtotalBase - subtotalWithDiscount;
 
   // ── Points redemption ─────────────────────────────────────────────────────
   const POINTS_TO_HKD = 0.10; // 100 pts = HK$10
@@ -415,7 +422,7 @@ export default function CartPage() {
                 {/* Original subtotal */}
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Subtotal ({totalItems} items)</span>
-                  <span>{formatPrice(totalPrice)}</span>
+                  <span>{formatPrice(subtotalBase)}</span>
                 </div>
 
                 {/* Tier discount row */}
