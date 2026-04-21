@@ -436,11 +436,9 @@ export default function CartPage() {
                   }`}>
                     <div className="flex items-center justify-between gap-3">
                       <div className="min-w-0 flex-1">
-                        <p className="font-body text-xs font-medium text-foreground">
-                          用積分抵扣 Use Points
-                        </p>
-                        <p className="font-body text-[11px] text-muted-foreground mt-0.5">
-                          {availablePoints.toLocaleString()} pts 可用 · 最多扣 {formatPrice(maxRedeemable * POINTS_TO_HKD)}
+                        <p className="font-body text-xs font-medium text-foreground">用積分抵扣 Use Points</p>
+                        <p className="font-body text-[11px] text-muted-foreground">
+                          {availablePoints.toLocaleString()} pts · 最多 {formatPrice(maxRedeemable * POINTS_TO_HKD)}
                         </p>
                       </div>
                       <button
@@ -449,6 +447,7 @@ export default function CartPage() {
                           usePoints ? "bg-[hsl(355,62%,28%)]" : "bg-muted-foreground/30"
                         }`}
                         data-testid="use-points-toggle"
+                        aria-label="Toggle points redemption"
                       >
                         <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${
                           usePoints ? "translate-x-5" : "translate-x-0.5"
