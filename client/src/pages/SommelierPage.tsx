@@ -239,7 +239,7 @@ export default function SommelierPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="bg-background flex flex-col" style={{ height: "calc(100dvh - 112px)" }}>
       {/* Header */}
       <div style={{ background: "hsl(355,62%,28%)", padding: "24px 24px 20px" }}>
         <div className="max-w-3xl mx-auto flex items-center justify-between">
