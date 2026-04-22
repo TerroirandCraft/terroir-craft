@@ -366,6 +366,25 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
       videoCaption: "",
     },
   },
+
+  // ── Chateau Mihope ────────────────────────────────────────────────────────
+  "Chateau Mihope": {
+    heroBg: "/mihope-hero.jpg",
+    heroGradient: { from: "#0d1408", to: "#1a2410" },
+    accent: "#C8A96E",
+    sectionBg: "#f5f3ee",
+    heroText: "#ffffff",
+    feature: {
+      label: "NINGXIA · HELAN MOUNTAIN",
+      heading: "At the Foot of Helan Mountain",
+      body: "Chateau Mihope sits at the eastern foothills of the Helan Mountain range in Ningxia — one of China's most celebrated wine regions. The chateau combines a French classical architectural style with the dramatic backdrop of Helan Mountain, producing wines that express the unique terroir of China's arid northwest. With over 1,000 hours of sunshine annually and a significant diurnal temperature variation, Ningxia produces wines of exceptional concentration and freshness.",
+      image: "/mihope-cellar.jpg",
+      imageCaption: "The barrel cellar at Chateau Mihope — Ningxia, China",
+      visual: { bg: "#0d1408", line1: "Ningxia", line2: "China" },
+      youtubeId: "",
+      videoCaption: "",
+    },
+  },
 };
 
 // Fallback for brands without a custom config

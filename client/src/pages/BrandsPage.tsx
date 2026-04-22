@@ -34,6 +34,7 @@ const BRAND_LOGO_FILES: Record<string, string> = {
   "Clos Bellane": "Clos Bellane.jpg",
   "Cape Swallow": "Cape Swallow.jpg",
   "La Manufacture": "La Manufacture.jpg",
+  "Chateau Mihope": "Chateau Mihope.png",
 };
 
 // Country → flagcdn 2-letter code

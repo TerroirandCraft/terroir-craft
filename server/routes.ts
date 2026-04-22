@@ -134,6 +134,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
         "TCUS-RC0621", "TCUS-RC0721", "TCUS-RC0921",
         "ECS220", "GCH220", "JBE220", "JTA220", "MDI220", "MRS220", "OFO220",
         "PAM220", "PCL220", "PCM220", "PDM220", "PGL220", "PLB220", "PMRW220", "PPM220",
+        "CMHR0419", "CMHR0722", "CMHR1221", "CMHR1423",
       ],
     },
     under300: {
@@ -150,6 +151,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
         "OTHER-01", "OTHER-06", "OTHER-10",
         "TCFR-MC1023",
         "TCFR-SC0323", "TCFR-SC0522", "TCFR-SC0624", "TCFR-SC0823", "TCFR-SC09NV",
+        "CMHR0122",
       ],
     },
     staffpicks: {
@@ -165,6 +167,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
         "VINSA-CC0123",
         "TCUS-RC0122", "TCUS-RC0324", "TCUS-RC0421", "TCUS-RC0621", "TCUS-RC0721",
         "ECS220", "GCH220", "MDI220", "MRS220", "PLB220", "PMRW220",
+        "CMHR0223", "CMHR0322", "CMHR0419", "CMHR1423", "CMHW0223",
       ],
     },
     bbq: {
@@ -180,6 +183,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
         "TCPO-KO01NV", "TCPO-KO02NV",
         "TCSP-TC0214",
         "TCUS-RC0223",
+        "CMHR0223", "CMHR0321", "CMHW0122", "CMHW0322",
       ],
     },
     hotpot: {
@@ -194,6 +198,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
         "TCPO-KO03NV",
         "TCCA-PG",
         "TCUS-RC0324",
+        "CMHW0122", "CMHW0422", "CMHW05241",
       ],
     },
   };
