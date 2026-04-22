@@ -16,11 +16,26 @@ interface Message {
 }
 
 // Extract item codes from AI message text e.g. [TCGE-VH0223] or (TCAU-MO0324)
-function extractItemCodes(text: string): string[] {
+function extractItemCodes(text: string, productMap?: Record<string, any>): string[] {
+  // First try explicit codes in brackets/parens (legacy)
   const matches = text.match(/\[([A-Z]{2,8}-[A-Z]{2,4}[0-9]{2,6}[A-Z0-9]*)\]/g) || [];
   const parens = text.match(/\(([A-Z]{2,8}-[A-Z]{2,4}[0-9]{2,6}[A-Z0-9]*)\)/g) || [];
-  const all = [...matches, ...parens].map(m => m.slice(1,-1));
-  return [...new Set(all)];
+  const explicit = [...matches, ...parens].map(m => m.slice(1,-1));
+  if (explicit.length > 0) return [...new Set(explicit)];
+
+  // Fallback: match product names mentioned in the text
+  if (!productMap) return [];
+  const found: string[] = [];
+  const textLower = text.toLowerCase();
+  for (const [id, product] of Object.entries(productMap)) {
+    const name = (product.name || "").toLowerCase();
+    // Match if a distinctive part of the name (>8 chars) appears in the text
+    const nameParts = name.split(" - ").map((s: string) => s.trim()).filter((s: string) => s.length > 8);
+    if (nameParts.some((part: string) => textLower.includes(part))) {
+      found.push(id);
+    }
+  }
+  return [...new Set(found)].slice(0, 6); // cap at 6 wine cards
 }
 
 // Mini wine card shown below assistant message
@@ -297,7 +312,7 @@ export default function SommelierPage() {
 
           {/* Messages */}
           {messages.map((msg, i) => {
-            const suggestedIds = msg.role === "assistant" ? extractItemCodes(msg.content) : [];
+            const suggestedIds = msg.role === "assistant" ? extractItemCodes(msg.content, productMap) : [];
             const suggestedProducts = suggestedIds.map(id => productMap[id]).filter(Boolean);
 
             return (
