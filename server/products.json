@@ -21,7 +21,8 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCAU-MO0123.png"
+    "image_url": "/bottle-shots/TCAU-MO0123.png",
+    "new_arrival": true
   },
   {
     "id": "TCAU-MO0222",
@@ -93,7 +94,8 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCAU-MO0324.png"
+    "image_url": "/bottle-shots/TCAU-MO0324.png",
+    "new_arrival": true
   },
   {
     "id": "TCAU-MO0422",
@@ -313,7 +315,8 @@
     "tasting_note": "Fresh, aromatic sparkling wine with citrus and stone fruit notes. Crisp acidity with elegant bubbles. Light to medium-bodied with refreshing finish. Verdelho variety adds aromatic complexity. Source: Mollydooker Official",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCAU-MO1125.png"
+    "image_url": "/bottle-shots/TCAU-MO1125.png",
+    "new_arrival": true
   },
   {
     "id": "TCAU-MO1224",
@@ -562,7 +565,8 @@
     "ratings": [],
     "phonetic": "Champagne [sham-PAN-yuh]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-CB01NV.png"
+    "image_url": "/bottle-shots/TCFR-CB01NV.png",
+    "new_arrival": true
   },
   {
     "id": "TCFR-CB03NV",
@@ -600,7 +604,8 @@
     "ratings": [],
     "phonetic": "Champagne [sham-PAN-yuh]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-CB06NV.png"
+    "image_url": "/bottle-shots/TCFR-CB06NV.png",
+    "new_arrival": true
   },
   {
     "id": "TCFR-CB0415",
@@ -625,7 +630,8 @@
     ],
     "phonetic": "Champagne [sham-PAN-yuh]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-CB0415.png"
+    "image_url": "/bottle-shots/TCFR-CB0415.png",
+    "new_arrival": true
   },
   {
     "id": "TCFR-CML0117",
@@ -1000,7 +1006,8 @@
     ],
     "phonetic": "Gigondas [zhee-gon-DAH]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC0123.png"
+    "image_url": "/bottle-shots/TCFR-SC0123.png",
+    "new_arrival": true
   },
   {
     "id": "TCFR-SC0223",
@@ -1030,7 +1037,8 @@
     ],
     "phonetic": "Châteauneuf-du-Pape [shah-toh-NUF doo PAP]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC0223.png"
+    "image_url": "/bottle-shots/TCFR-SC0223.png",
+    "new_arrival": true
   },
   {
     "id": "TCFR-SC0323",
@@ -1080,7 +1088,8 @@
     ],
     "phonetic": "Gigondas [zhee-gon-DAH]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC0423.png"
+    "image_url": "/bottle-shots/TCFR-SC0423.png",
+    "new_arrival": true
   },
   {
     "id": "TCFR-SC0723",
@@ -1105,7 +1114,8 @@
     ],
     "phonetic": "Gigondas [zhee-gon-DAH]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC0723.png"
+    "image_url": "/bottle-shots/TCFR-SC0723.png",
+    "new_arrival": true
   },
   {
     "id": "TCFR-SC0522",
@@ -1255,7 +1265,8 @@
     ],
     "phonetic": "Gigondas [zhee-gon-DAH]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC1123.png"
+    "image_url": "/bottle-shots/TCFR-SC1123.png",
+    "new_arrival": true
   },
   {
     "id": "TCFR-SC1223",
@@ -1576,7 +1587,8 @@
     "tasting_note": "Traditional Korean rice wine. Smooth with mild sweetness. Light-bodied with subtle flavor. Approachable and versatile for drinking. Source: Canmak",
     "ratings": [],
     "exclusive": true,
-    "image": "/bottle-shots/TCKR- CA01NV.png"
+    "image": "/bottle-shots/TCKR- CA01NV.png",
+    "new_arrival": true
   },
   {
     "id": "TCKR- CA02NV",
@@ -1594,7 +1606,8 @@
     "tasting_note": "Flavored Korean rice wine with peach. Light-bodied with fruity character. Smooth with subtle sweetness. Refreshing and approachable. Source: Canmak",
     "ratings": [],
     "exclusive": true,
-    "image": "/bottle-shots/TCKR- CA02NV.png"
+    "image": "/bottle-shots/TCKR- CA02NV.png",
+    "new_arrival": true
   },
   {
     "id": "TCKR- CA03NV",
@@ -1612,7 +1625,8 @@
     "tasting_note": "Green grape flavored Korean rice wine. Light-bodied with fruity notes. Smooth and refreshing. Subtle sweetness with approachable character. Source: Canmak",
     "ratings": [],
     "exclusive": true,
-    "image": "/bottle-shots/TCKR- CA03NV.png"
+    "image": "/bottle-shots/TCKR- CA03NV.png",
+    "new_arrival": true
   },
   {
     "id": "TCKR- CA04NV",
@@ -1630,7 +1644,8 @@
     "tasting_note": "Mango flavored Korean rice wine. Tropical fruit character. Light-bodied with smooth texture. Sweet and refreshing. Approachable style. Source: Canmak",
     "ratings": [],
     "exclusive": true,
-    "image": "/bottle-shots/TCKR- CA04NV.png"
+    "image": "/bottle-shots/TCKR- CA04NV.png",
+    "new_arrival": true
   },
   {
     "id": "TCNZ-SH0123",
@@ -1876,7 +1891,8 @@
     "tasting_note": "Single harvest vintage Port (2002). Aged expression. Deep color with complex fruit. Balanced structure with long finish. Characteristic of this superior vintage year. Source: Kopke",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCPO-KO07NV.png"
+    "image_url": "/bottle-shots/TCPO-KO07NV.png",
+    "new_arrival": true
   },
   {
     "id": "TCPO-KO08NV",
@@ -1973,7 +1989,8 @@
     "ratings": [],
     "exclusive": false,
     "image_url": "/bottle-shots/VINSA-CC0123.webp",
-    "promo_price": 280
+    "promo_price": 280,
+    "new_arrival": true
   },
   {
     "id": "TCSP-TC0214",
@@ -2111,7 +2128,8 @@
     "tasting_note": "Rose from Napa Valley. Fresh strawberry and citrus. Crisp acidity with balanced complexity. Light-bodied, elegant dry style. Source: Realm",
     "ratings": [],
     "exclusive": true,
-    "image": "/bottle-shots/TCUS-RC0223.png"
+    "image": "/bottle-shots/TCUS-RC0223.png",
+    "new_arrival": true
   },
   {
     "id": "TCUS-RC0324",
@@ -2922,7 +2940,8 @@
     "wa_score": 94,
     "image_url": "/bottle-shots/MAR00123.png",
     "status": "In Stock",
-    "exclusive": false
+    "exclusive": false,
+    "new_arrival": true
   },
   {
     "id": "MAR00223",
@@ -2973,7 +2992,8 @@
     "ag_score": 90,
     "image_url": "/bottle-shots/BEVW00123.png",
     "status": "In Stock",
-    "exclusive": false
+    "exclusive": false,
+    "new_arrival": true
   },
   {
     "id": "BEVR00123",
@@ -2989,7 +3009,8 @@
     "tasting_note": "Fresh and balanced wine. Fermentation in stainless steel tanks, aged 12 months in the bottle. Soft and long-lasting, characterized by sweet and varietal hints of wild berries.",
     "image_url": "/bottle-shots/BEVR00123.png",
     "status": "In Stock",
-    "exclusive": false
+    "exclusive": false,
+    "new_arrival": true
   },
   {
     "id": "TBA00122",
@@ -3006,7 +3027,8 @@
     "js_score": 90,
     "image_url": "/bottle-shots/TBA00122.png",
     "status": "In Stock",
-    "exclusive": false
+    "exclusive": false,
+    "new_arrival": true
   },
   {
     "id": "TBA00220",
@@ -3057,7 +3079,8 @@
     "ag_score": 94,
     "image_url": "/bottle-shots/CAM00120.png",
     "status": "In Stock",
-    "exclusive": false
+    "exclusive": false,
+    "new_arrival": true
   },
   {
     "id": "CAM00219",
@@ -3074,7 +3097,8 @@
     "we_score": 92,
     "image_url": "/bottle-shots/CAM00219.png",
     "status": "In Stock",
-    "exclusive": false
+    "exclusive": false,
+    "new_arrival": true
   },
   {
     "id": "CICW00222",
@@ -3090,7 +3114,8 @@
     "tasting_note": "100% Carricante. Brilliant golden hue. Citrus notes of lime with bergamot, linden, helichrysum, rock salt. Iodine echoes and bursts of sea salt. Slender, sharp and savory sip, almost salty. Pure mineral verticality with long and persistent finish.",
     "image_url": "/bottle-shots/CICW00222.png",
     "status": "In Stock",
-    "exclusive": false
+    "exclusive": false,
+    "new_arrival": true
   },
   {
     "id": "CICR00123",
@@ -3106,7 +3131,8 @@
     "tasting_note": "80% Nerello Mascalese, 20% Nerello Cappuccio. Blood orange, juniper berries, cinchona and tamarind against magmatic background of graphite. Vegetal notes of musk, tobacco leaf and licorice root. Muscular and balanced body with fresh savory note and silky tannins.",
     "image_url": "/bottle-shots/CICR00123.png",
     "status": "In Stock",
-    "exclusive": false
+    "exclusive": false,
+    "new_arrival": true
   },
   {
     "id": "CICR00221",
@@ -3124,7 +3150,8 @@
     "remark": "Andreas Larsson 95pts, Decanter 92pts",
     "image_url": "/bottle-shots/CICR00221.png",
     "status": "In Stock",
-    "exclusive": false
+    "exclusive": false,
+    "new_arrival": true
   },
   {
     "id": "CICR00321",
@@ -3142,7 +3169,8 @@
     "remark": "G&G 94pts Double Gold",
     "image_url": "/bottle-shots/CICR00321.png",
     "status": "In Stock",
-    "exclusive": false
+    "exclusive": false,
+    "new_arrival": true
   },
   {
     "id": "MALW00124",
@@ -3270,7 +3298,8 @@
     "tasting_note": "Deep purple with intense violet highlights. Unique mineral character of mountain soils, subtle nuances of moderate sun exposure. Harmonious progression on the palate.",
     "image_url": "/bottle-shots/BELR00123.png",
     "status": "In Stock",
-    "exclusive": false
+    "exclusive": false,
+    "new_arrival": true
   },
   {
     "id": "BELR00223",
@@ -3286,7 +3315,8 @@
     "tasting_note": "Deep crimson with intense violet reflections. Graphite, mentholated blackcurrant, green pepper with terroir touch evolving towards high-altitude garrigue, olives, camphor and undergrowth. Velvety tannins supported by freshness of the terroir.",
     "image_url": "/bottle-shots/BELR00223.png",
     "status": "In Stock",
-    "exclusive": false
+    "exclusive": false,
+    "new_arrival": true
   },
   {
     "id": "BELR00321",
@@ -3351,7 +3381,8 @@
     "description": "Classic Chenin Blanc aromas of green apples, white pear and citrus bloom lift from the glass. The palate is dry and focused, with refreshing acidity and notes of quince, lemon zest, and a hint of wet stone. A clean, mineral finish lingers, showcasing finesse and balance.",
     "description_zh": "清新的青蘋果、白梨及柑橘花香撲鼻而來，入口乾爽集中，清新酸度帶出榅桲、檸檬皮及礦石氣息，收結悠長而清冽，充分展現品種的優雅與平衡。",
     "tasting_note": "Green apple, white pear, citrus bloom. Dry and focused with quince, lemon zest and wet stone. Clean mineral finish.",
-    "image": "/bottle-shots/CSW00123.png"
+    "image": "/bottle-shots/CSW00123.png",
+    "new_arrival": true
   },
   {
     "id": "CSW00223",
@@ -3419,7 +3450,8 @@
     "description": "Saint-Bris is a unique Burgundy appellation — the only AOC in the region to feature Sauvignon Blanc. Benjamin Laroche's La Manufacture bottling is crisp and vivid, with aromas of white grapefruit, fresh herbs and a lively mineral spine typical of the Kimmeridgian limestone soils of Yonne.",
     "description_zh": "Saint-Bris 是 Burgundy 唯一出產 Sauvignon Blanc 的法定產區。Benjamin Laroche 的 La Manufacture 版本清爽明快，白柚、鮮草香氣，以 Kimmeridgian 石灰岩土壤賦予的礦物感貫穿始終。",
     "tasting_note": "",
-    "image": "/bottle-shots/MAN00123.png"
+    "image": "/bottle-shots/MAN00123.png",
+    "new_arrival": true
   },
   {
     "id": "MAN00323",
@@ -3453,7 +3485,8 @@
     "description": "A brilliant pale gold colour. Lovely aromas of white flowers and citrus with a slight mineral touch. Fresh, sweet lemon juice and golden delicious apples. A nice balance of ripe fruity flavour and lots of crisp, fresh lemons on the finish.",
     "description_zh": "La Manufacture Petit Chablis 的有機版本，不使用合成農藥或除草劑。柑橘及青蘋果香氣明亮，口感清新精準，有機農法令這款 Chablis 的純淨礦物感更為突出。",
     "tasting_note": "A brilliant pale gold colour. Lovely aromas of white flowers and citrus with a slight mineral touch. Fresh, sweet lemon juice and golden delicious apples. A nice balance of ripe fruity flavour and lots of crisp, fresh lemons on the finish.",
-    "image": "/bottle-shots/MAN00623.png"
+    "image": "/bottle-shots/MAN00623.png",
+    "new_arrival": true
   },
   {
     "id": "MAN00523",
@@ -3504,7 +3537,8 @@
     "description": "Named after an old unit of land measurement, 'Quarante Journaux' (Forty Journaux) is La Manufacture's flagship red from Irancy — a rare Burgundy appellation prized for its structured, deep Pinot Noir. Dark cherry, wild herbs, and earthy spice with a firm, lingering finish. A wine with real Burgundian character and ageing potential.",
     "description_zh": "以古老土地計量單位命名，「Quarante Journaux」（四十日耕）是 La Manufacture 來自 Irancy 的旗艦紅酒。Irancy 是 Burgundy 罕見的紅酒法定產區，以架構感強、深邃的 Pinot Noir 著稱。黑櫻桃、野草及泥土香料，收結有力悠長，具真正的 Burgundy 特質及陳年潛力。",
     "tasting_note": "",
-    "image": "/bottle-shots/MANR00223.png"
+    "image": "/bottle-shots/MANR00223.png",
+    "new_arrival": true
   },
   {
     "id": "MANP00222",
@@ -3785,7 +3819,8 @@
     "tasting_note": "Deep ruby with an elegant violet rim. Fresh raspberry and red cherry aromas lead to dark blackberry and blackcurrant. Subtle spice, herbs and a hint of mint add complexity. Silky and round on the palate with firm yet supple tannins, vibrant acidity and a long mineral finish.",
     "description": "Deep ruby with an elegant violet rim. Fresh raspberry and red cherry aromas lead to dark blackberry and blackcurrant. Subtle spice, herbs and a hint of mint add complexity. Silky and round on the palate with firm yet supple tannins, vibrant acidity and a long mineral finish.",
     "description_zh": "深邃寶石紅，邊緣泛優雅紫羅蘭光芒。覆盆子、紅櫻桃躍動其間，隨後黑莓、黑醋栗層層展開。香料、草本與薄荷氣息增添複雜度，入口絲滑圓潤，單寧緊實而柔順，酸度清鮮，礦物感收結悠長。",
-    "image": "/bottle-shots/CMHR1423.png"
+    "image": "/bottle-shots/CMHR1423.png",
+    "new_arrival": true
   },
   {
     "id": "CMHW0122",
@@ -3821,7 +3856,8 @@
     "tasting_note": "Bright pale gold with greenish edges. Opulent peach, nectarine and apricot aromas lead to orange blossom and honeysuckle with hints of honey and vanilla. Full and generous on the palate with gentle acidity balancing the wine's texture. A lingering floral and mineral finish.",
     "description": "Bright pale gold with greenish edges. Opulent peach, nectarine and apricot aromas lead to orange blossom and honeysuckle with hints of honey and vanilla. Full and generous on the palate with gentle acidity balancing the wine's texture. A lingering floral and mineral finish.",
     "description_zh": "明亮的淺金黃色，邊緣泛淡青綠光澤。油桃、水蜜桃與杏子的甜美香氣主導，隨後浮現橙花、金銀花芬芳，帶一絲蜂蜜和香草的圓潤感。入口飽滿豐腴，酸度柔和平衡，白花香氣與礦物感在口腔中久久萦繞。",
-    "image": "/bottle-shots/CMHW0223.png"
+    "image": "/bottle-shots/CMHW0223.png",
+    "new_arrival": true
   },
   {
     "id": "CMHW0322",
