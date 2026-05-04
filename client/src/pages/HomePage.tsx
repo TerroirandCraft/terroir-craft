@@ -120,7 +120,11 @@ function HeroCarousel() {
   return (
     <section
       className="relative overflow-hidden"
-      style={{ minHeight: "clamp(500px, 75vh, 760px)", display: "flex", alignItems: "center" }}
+      style={{
+        minHeight: (slide as any).imageOnly ? "clamp(180px, 47vw, 760px)" : "clamp(500px, 75vh, 760px)",
+        display: "flex",
+        alignItems: "center",
+      }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
@@ -132,7 +136,7 @@ function HeroCarousel() {
           style={{
             backgroundImage: `url('${s.bg}')`,
             backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundPosition: "center center",
             opacity: i === current ? 1 : 0,
             transition: "opacity 0.7s ease-in-out",
             zIndex: 0,
@@ -149,16 +153,14 @@ function HeroCarousel() {
         style={{ zIndex: 2, opacity: isTransitioning ? 0 : 1, transition: "opacity 0.3s ease" }}
       >
         {(slide as any).imageOnly ? (
-          // Image-only slide: full image, no text, optional CTA at bottom-right
-          <div className="w-full h-full flex items-end justify-end pb-10 pr-8">
-            {slide.cta1 && (
-              <Link href={slide.cta1.href}>
-                <Button size="lg" className="px-8 font-body font-medium border-0 text-white opacity-0">
-                  {slide.cta1.label}
-                </Button>
-              </Link>
-            )}
-          </div>
+          // Image-only slide: entire slide is clickable, linking to CTA
+          slide.cta1 ? (
+            <Link href={slide.cta1.href} className="block w-full" aria-label="Join Terroir & Craft membership">
+              <div className="w-full" style={{ paddingBottom: "clamp(180px, 47vw, 760px)" }} />
+            </Link>
+          ) : (
+            <div className="w-full" style={{ paddingBottom: "clamp(180px, 47vw, 760px)" }} />
+          )
         ) : (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-20 w-full" style={{ paddingBottom: "6rem" }}>
           <div className="max-w-2xl">
