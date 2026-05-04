@@ -15,6 +15,17 @@ import { useState, useEffect, useCallback, useRef } from "react";
 // Edit this array to change hero content — no code changes needed
 const HERO_SLIDES = [
   {
+    id: "member",
+    bg: `${API_BASE}/join-us-now.jpg`,
+    overlay: "rgba(0,0,0,0)",
+    eyebrow: "",
+    heading: "",
+    body: "",
+    cta1: { label: "立即登記 Join Free", href: "/member" },
+    cta2: null,
+    imageOnly: true,
+  },
+  {
     id: "main",
     bg: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1600&q=80&auto=format&fit=crop",
     overlay: "linear-gradient(100deg, rgba(26,13,16,0.92) 0%, rgba(26,13,16,0.65) 55%, rgba(26,13,16,0.25) 100%)",
@@ -37,18 +48,7 @@ const HERO_SLIDES = [
     cta2: null,
     accentColor: "#D94F2B",
   },
-  {
-    id: "member",
-    bg: "https://images.unsplash.com/photo-1470158499416-75be9aa0c4db?w=1600&q=80&auto=format&fit=crop",
-    overlay: "linear-gradient(100deg, rgba(20,10,30,0.93) 0%, rgba(20,10,30,0.70) 55%, rgba(20,10,30,0.30) 100%)",
-    eyebrow: "Member Rewards",
-    eyebrowColor: "#C8A96E",
-    heading: "登記即送\n1,000 積分\n= HK$100 優惠",
-    body: "Join free today. Earn points on every purchase — redeem anytime. Silver, Gold and Platinum tiers with exclusive discounts.",
-    cta1: { label: "Join Free 立即登記", href: "/member" },
-    cta2: { label: "Learn More", href: "/member" },
-    badge: "FREE TO JOIN",
-  },
+
   {
     id: "saintcosme",
     bg: `${API_BASE}/sc-chapel.jpg`,
@@ -148,6 +148,18 @@ function HeroCarousel() {
         className="relative w-full"
         style={{ zIndex: 2, opacity: isTransitioning ? 0 : 1, transition: "opacity 0.3s ease" }}
       >
+        {(slide as any).imageOnly ? (
+          // Image-only slide: full image, no text, optional CTA at bottom-right
+          <div className="w-full h-full flex items-end justify-end pb-10 pr-8">
+            {slide.cta1 && (
+              <Link href={slide.cta1.href}>
+                <Button size="lg" className="px-8 font-body font-medium border-0 text-white opacity-0">
+                  {slide.cta1.label}
+                </Button>
+              </Link>
+            )}
+          </div>
+        ) : (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-20 w-full" style={{ paddingBottom: "6rem" }}>
           <div className="max-w-2xl">
             {/* Badge (e.g. FREE TO JOIN) */}
@@ -197,6 +209,7 @@ function HeroCarousel() {
             </div>
           </div>
         </div>
+        )}
       </div>
 
       {/* Prev / Next arrows */}
