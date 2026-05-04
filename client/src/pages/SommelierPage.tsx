@@ -27,10 +27,29 @@ function extractItemCodes(text: string, productMap?: Record<string, any>): strin
   if (!productMap) return [];
   const found: string[] = [];
   const textLower = text.toLowerCase();
+
+  // Generic words that appear in many product names — skip these to avoid false matches
+  const SKIP_WORDS = new Set([
+    'bordeaux', 'bourgogne', 'champagne', 'sparkling', 'wine', 'red', 'white',
+    'chablis', 'burgundy', 'reserve', 'classic', 'limited', 'chardonnay',
+    'pinot noir', 'cabernet', 'sauvignon', 'merlot', 'shiraz', 'syrah',
+    'dry red', 'dry white', 'vieilles vignes', 'premier cru',
+  ]);
+
   for (const [id, product] of Object.entries(productMap)) {
-    const name = (product.name || "").toLowerCase();
-    // Match if a distinctive part of the name (>8 chars) appears in the text
-    const nameParts = name.split(" - ").map((s: string) => s.trim()).filter((s: string) => s.length > 8);
+    const fullName = (product.name || "").toLowerCase();
+    // Split on " - " and spaces, pick parts that are specific (>10 chars, not generic)
+    const nameParts = fullName
+      .split(/\s+-\s+/)
+      .map((s: string) => s.trim())
+      .filter((s: string) => {
+        if (s.length < 10) return false;
+        // Skip if the part is just a generic wine word
+        if (SKIP_WORDS.has(s)) return false;
+        // Must contain at least one word >5 chars that's not a skip word
+        const words = s.split(' ').filter((w: string) => w.length > 5 && !SKIP_WORDS.has(w));
+        return words.length > 0;
+      });
     if (nameParts.some((part: string) => textLower.includes(part))) {
       found.push(id);
     }
