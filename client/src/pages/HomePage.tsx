@@ -122,11 +122,8 @@ function HeroCarousel() {
       className="relative overflow-hidden"
       style={{
         minHeight: (slide as any).imageOnly ? undefined : "clamp(500px, 75vh, 760px)",
-        height: (slide as any).imageOnly ? undefined : undefined,
-        aspectRatio: (slide as any).imageOnly ? "1600 / 760" : undefined,
-        maxHeight: (slide as any).imageOnly ? "760px" : undefined,
-        display: "flex",
-        alignItems: "center",
+        display: (slide as any).imageOnly ? "block" : "flex",
+        alignItems: (slide as any).imageOnly ? undefined : "center",
       }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
