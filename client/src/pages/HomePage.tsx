@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "wouter";
 import { navigate } from "wouter/use-hash-location";
 import WorldMap from "@/components/WorldMap";
@@ -16,7 +17,8 @@ import { useState, useEffect, useCallback, useRef } from "react";
 const HERO_SLIDES = [
   {
     id: "member",
-    bg: `${API_BASE}/join-us-now.jpg`,
+    bg: `${API_BASE}/member-hero-desktop.jpg`,
+    bgMobile: `${API_BASE}/member-hero-mobile.jpg`,
     overlay: "rgba(0,0,0,0)",
     eyebrow: "",
     heading: "",
@@ -24,6 +26,11 @@ const HERO_SLIDES = [
     cta1: { label: "立即登記 Join Free", href: "/member" },
     cta2: null,
     imageOnly: true,
+    // JOIN FREE button hotspot (% of image dimensions)
+    // Desktop 2700x1080: button centre ~x=31%, y=57%
+    // Mobile 1080x1152: button centre ~x=48%, y=52%
+    btnDesktop: { x: 22, y: 48, w: 18, h: 12 },
+    btnMobile:  { x: 33, y: 47, w: 34, h: 8 },
   },
   {
     id: "main",
@@ -119,7 +126,11 @@ function HeroCarousel() {
 
   return (
     <section
-      className="relative overflow-hidden"
+      className={`relative overflow-hidden ${
+        (slide as any).imageOnly
+          ? "hero-member" // CSS handles responsive heights
+          : ""
+      }`}
       style={{
         minHeight: "clamp(500px, 75vh, 760px)",
         display: "flex",
@@ -130,18 +141,33 @@ function HeroCarousel() {
     >
       {/* Slide backgrounds — cross-fade */}
       {HERO_SLIDES.map((s, i) => (
-        <div
-          key={s.id}
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url('${s.bg}')`,
-            backgroundSize: "cover",
-            backgroundPosition: "center center",
-            opacity: i === current ? 1 : 0,
-            transition: "opacity 0.7s ease-in-out",
-            zIndex: 0,
-          }}
-        />
+        <React.Fragment key={s.id}>
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url('${s.bg}')`,
+              backgroundSize: "cover",
+              backgroundPosition: "center center",
+              opacity: i === current ? 1 : 0,
+              transition: "opacity 0.7s ease-in-out",
+              zIndex: 0,
+            }}
+          />
+          {/* Mobile background — overrides desktop on small screens */}
+          {(s as any).bgMobile && (
+            <div
+              className="absolute inset-0 sm:hidden"
+              style={{
+                backgroundImage: `url('${(s as any).bgMobile}')`,
+                backgroundSize: "cover",
+                backgroundPosition: "center top",
+                opacity: i === current ? 1 : 0,
+                transition: "opacity 0.7s ease-in-out",
+                zIndex: 1,
+              }}
+            />
+          )}
+        </React.Fragment>
       ))}
 
       {/* Overlay */}
@@ -153,12 +179,13 @@ function HeroCarousel() {
         style={{ zIndex: 2, opacity: isTransitioning ? 0 : 1, transition: "opacity 0.3s ease" }}
       >
         {(slide as any).imageOnly ? (
-          // Image-only slide: entire slide is clickable, linking to CTA
-          slide.cta1 ? (
-            <Link href={slide.cta1.href} className="absolute inset-0" aria-label="Join Terroir & Craft membership" />
-          ) : (
-            <div />
-          )
+          // Full-slide link + precise JOIN FREE button hotspot
+          <>
+            {/* Invisible full-slide link */}
+            {slide.cta1 && (
+              <Link href={slide.cta1.href} className="absolute inset-0" style={{ zIndex: 3 }} aria-label="Join Terroir & Craft membership" />
+            )}
+          </>
         ) : (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-20 w-full" style={{ paddingBottom: "6rem" }}>
           <div className="max-w-2xl">

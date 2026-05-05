@@ -221,3 +221,10 @@
   animation: shimmer 1.5s ease-in-out infinite;
   border-radius: 4px;
 }
+
+/* Member hero: portrait image on mobile, landscape on desktop */
+@media (max-width: 639px) {
+  .hero-member {
+    min-height: 100vw !important; /* mobile image is ~1:1, fills nicely */
+  }
+}
