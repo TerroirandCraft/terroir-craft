@@ -121,9 +121,9 @@ function HeroCarousel() {
     <section
       className="relative overflow-hidden"
       style={{
-        minHeight: (slide as any).imageOnly ? undefined : "clamp(500px, 75vh, 760px)",
-        display: (slide as any).imageOnly ? "block" : "flex",
-        alignItems: (slide as any).imageOnly ? undefined : "center",
+        minHeight: "clamp(500px, 75vh, 760px)",
+        display: "flex",
+        alignItems: "center",
       }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
@@ -155,11 +155,9 @@ function HeroCarousel() {
         {(slide as any).imageOnly ? (
           // Image-only slide: entire slide is clickable, linking to CTA
           slide.cta1 ? (
-            <Link href={slide.cta1.href} className="block w-full" aria-label="Join Terroir & Craft membership">
-              <div className="w-full" style={{ paddingBottom: "47.5%" }} />
-            </Link>
+            <Link href={slide.cta1.href} className="absolute inset-0" aria-label="Join Terroir & Craft membership" />
           ) : (
-            <div className="w-full" style={{ paddingBottom: "47.5%" }} />
+            <div />
           )
         ) : (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-20 w-full" style={{ paddingBottom: "6rem" }}>
