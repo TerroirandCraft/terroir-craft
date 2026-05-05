@@ -183,7 +183,7 @@ function HeroCarousel() {
           <>
             {/* Invisible full-slide link */}
             {slide.cta1 && (
-              <Link href={slide.cta1.href} className="absolute inset-0" style={{ zIndex: 3 }} aria-label="Join Terroir & Craft membership" />
+              <Link href={slide.cta1.href} className="absolute inset-0" style={{ zIndex: 20 }} aria-label="Join Terroir & Craft membership" />
             )}
           </>
         ) : (
@@ -274,7 +274,7 @@ function HeroCarousel() {
       </div>
 
       {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent" style={{ zIndex: 3 }} />
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent" style={{ zIndex: 3, pointerEvents: "none" }} />
     </section>
   );
 }
