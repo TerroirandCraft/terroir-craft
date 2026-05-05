@@ -173,19 +173,23 @@ function HeroCarousel() {
       {/* Overlay */}
       <div className="absolute inset-0" style={{ background: slide.overlay, zIndex: 1, transition: "background 0.5s" }} />
 
+      {/* imageOnly: full-section clickable link — placed outside content div so it has section height */}
+      {(slide as any).imageOnly && slide.cta1 && (
+        <Link
+          href={slide.cta1.href}
+          className="absolute inset-0"
+          style={{ zIndex: 20 }}
+          aria-label="Join Terroir & Craft membership"
+        />
+      )}
+
       {/* Content */}
       <div
         className="relative w-full"
         style={{ zIndex: 2, opacity: isTransitioning ? 0 : 1, transition: "opacity 0.3s ease" }}
       >
         {(slide as any).imageOnly ? (
-          // Full-slide link + precise JOIN FREE button hotspot
-          <>
-            {/* Invisible full-slide link */}
-            {slide.cta1 && (
-              <Link href={slide.cta1.href} className="absolute inset-0" style={{ zIndex: 20 }} aria-label="Join Terroir & Craft membership" />
-            )}
-          </>
+          <></>
         ) : (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-20 w-full" style={{ paddingBottom: "6rem" }}>
           <div className="max-w-2xl">
