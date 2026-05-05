@@ -121,7 +121,10 @@ function HeroCarousel() {
     <section
       className="relative overflow-hidden"
       style={{
-        minHeight: (slide as any).imageOnly ? "clamp(180px, 47vw, 760px)" : "clamp(500px, 75vh, 760px)",
+        minHeight: (slide as any).imageOnly ? undefined : "clamp(500px, 75vh, 760px)",
+        height: (slide as any).imageOnly ? undefined : undefined,
+        aspectRatio: (slide as any).imageOnly ? "1600 / 760" : undefined,
+        maxHeight: (slide as any).imageOnly ? "760px" : undefined,
         display: "flex",
         alignItems: "center",
       }}
@@ -156,10 +159,10 @@ function HeroCarousel() {
           // Image-only slide: entire slide is clickable, linking to CTA
           slide.cta1 ? (
             <Link href={slide.cta1.href} className="block w-full" aria-label="Join Terroir & Craft membership">
-              <div className="w-full" style={{ paddingBottom: "clamp(180px, 47vw, 760px)" }} />
+              <div className="w-full" style={{ paddingBottom: "47.5%" }} />
             </Link>
           ) : (
-            <div className="w-full" style={{ paddingBottom: "clamp(180px, 47vw, 760px)" }} />
+            <div className="w-full" style={{ paddingBottom: "47.5%" }} />
           )
         ) : (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-20 w-full" style={{ paddingBottom: "6rem" }}>
