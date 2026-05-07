@@ -15,46 +15,23 @@ interface Message {
   content: string;
 }
 
-// Extract item codes from AI message text e.g. [TCGE-VH0223] or (TCAU-MO0324)
-function extractItemCodes(text: string, productMap?: Record<string, any>): string[] {
-  // First try explicit codes in brackets/parens (legacy)
-  const matches = text.match(/\[([A-Z]{2,8}-[A-Z]{2,4}[0-9]{2,6}[A-Z0-9]*)\]/g) || [];
-  const parens = text.match(/\(([A-Z]{2,8}-[A-Z]{2,4}[0-9]{2,6}[A-Z0-9]*)\)/g) || [];
-  const explicit = [...matches, ...parens].map(m => m.slice(1,-1));
-  if (explicit.length > 0) return [...new Set(explicit)];
+// CODE_PATTERN: AI embeds item codes as {TCAU-MO0123} in response text
+const CODE_PATTERN = /\{([A-Z0-9 ]{3,20}-[A-Z0-9 ]{2,12})\}/g;
 
-  // Fallback: match product names mentioned in the text
-  if (!productMap) return [];
-  const found: string[] = [];
-  const textLower = text.toLowerCase();
-
-  // Generic words that appear in many product names — skip these to avoid false matches
-  const SKIP_WORDS = new Set([
-    'bordeaux', 'bourgogne', 'champagne', 'sparkling', 'wine', 'red', 'white',
-    'chablis', 'burgundy', 'reserve', 'classic', 'limited', 'chardonnay',
-    'pinot noir', 'cabernet', 'sauvignon', 'merlot', 'shiraz', 'syrah',
-    'dry red', 'dry white', 'vieilles vignes', 'premier cru',
-  ]);
-
-  for (const [id, product] of Object.entries(productMap)) {
-    const fullName = (product.name || "").toLowerCase();
-    // Split on " - " and spaces, pick parts that are specific (>10 chars, not generic)
-    const nameParts = fullName
-      .split(/\s+-\s+/)
-      .map((s: string) => s.trim())
-      .filter((s: string) => {
-        if (s.length < 10) return false;
-        // Skip if the part is just a generic wine word
-        if (SKIP_WORDS.has(s)) return false;
-        // Must contain at least one word >5 chars that's not a skip word
-        const words = s.split(' ').filter((w: string) => w.length > 5 && !SKIP_WORDS.has(w));
-        return words.length > 0;
-      });
-    if (nameParts.some((part: string) => textLower.includes(part))) {
-      found.push(id);
-    }
+// Extract item codes embedded by AI as {CODE}
+function extractItemCodes(text: string): string[] {
+  const codes: string[] = [];
+  let m;
+  const re = new RegExp(CODE_PATTERN.source, 'g');
+  while ((m = re.exec(text)) !== null) {
+    codes.push(m[1].trim());
   }
-  return [...new Set(found)].slice(0, 6); // cap at 6 wine cards
+  return [...new Set(codes)].slice(0, 8);
+}
+
+// Strip {CODE} tags from display text so customers don't see them
+function stripCodes(text: string): string {
+  return text.replace(CODE_PATTERN, '').replace(/\s{2,}/g, ' ').trim();
 }
 
 // Mini wine card shown below assistant message
@@ -331,7 +308,7 @@ export default function SommelierPage() {
 
           {/* Messages */}
           {messages.map((msg, i) => {
-            const suggestedIds = msg.role === "assistant" ? extractItemCodes(msg.content, productMap) : [];
+            const suggestedIds = msg.role === "assistant" ? extractItemCodes(msg.content) : [];
             const suggestedProducts = suggestedIds.map(id => productMap[id]).filter(Boolean);
 
             return (
@@ -350,7 +327,7 @@ export default function SommelierPage() {
                     }`}
                     style={{ whiteSpace: "pre-wrap" }}
                   >
-                    {msg.content}
+                    {msg.role === "assistant" ? stripCodes(msg.content) : msg.content}
                     {msg.role === "assistant" && !msg.content && isLoading && (
                       <span className="inline-flex gap-1 items-center">
                         <span className="w-1.5 h-1.5 bg-current rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
