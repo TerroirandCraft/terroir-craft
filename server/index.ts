@@ -163,6 +163,43 @@ app.use((req, res, next) => {
   } catch (err) {
     console.error("[DB] Table creation error:", err);
   }
+  // Also run each critical table individually to ensure they exist
+  const criticalTables = [
+    `CREATE TABLE IF NOT EXISTS orders (
+      id SERIAL PRIMARY KEY, order_ref TEXT NOT NULL UNIQUE,
+      customer_name TEXT NOT NULL, customer_email TEXT NOT NULL,
+      customer_phone TEXT NOT NULL DEFAULT '', delivery_address TEXT NOT NULL DEFAULT '',
+      is_gift BOOLEAN NOT NULL DEFAULT FALSE, recipient_name TEXT NOT NULL DEFAULT '',
+      items_json TEXT NOT NULL DEFAULT '[]', amount_paid NUMERIC NOT NULL DEFAULT 0,
+      points_redeemed INTEGER NOT NULL DEFAULT 0, referred_by TEXT NOT NULL DEFAULT '',
+      member_id INTEGER, xero_invoice TEXT NOT NULL DEFAULT '',
+      xero_status TEXT NOT NULL DEFAULT 'pending', email_status TEXT NOT NULL DEFAULT 'pending',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )`,
+    `CREATE TABLE IF NOT EXISTS pending_orders (
+      merchant_reference TEXT PRIMARY KEY, order_json TEXT NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )`,
+    `CREATE TABLE IF NOT EXISTS order_lines (
+      id SERIAL PRIMARY KEY, order_ref TEXT NOT NULL,
+      item_code TEXT NOT NULL DEFAULT '', item_name TEXT NOT NULL DEFAULT '',
+      brand TEXT NOT NULL DEFAULT '', quantity INTEGER NOT NULL DEFAULT 1,
+      original_price NUMERIC NOT NULL DEFAULT 0, unit_price NUMERIC NOT NULL DEFAULT 0,
+      tier_discount_rate NUMERIC NOT NULL DEFAULT 0, line_total NUMERIC NOT NULL DEFAULT 0,
+      is_promo BOOLEAN NOT NULL DEFAULT FALSE,
+      customer_name TEXT NOT NULL DEFAULT '', customer_email TEXT NOT NULL DEFAULT '',
+      customer_phone TEXT NOT NULL DEFAULT '', delivery_address TEXT NOT NULL DEFAULT '',
+      referred_by TEXT NOT NULL DEFAULT '', member_id INTEGER,
+      member_tier TEXT NOT NULL DEFAULT '', points_redeemed INTEGER NOT NULL DEFAULT 0,
+      order_total NUMERIC NOT NULL DEFAULT 0, is_gift BOOLEAN NOT NULL DEFAULT FALSE,
+      recipient_name TEXT NOT NULL DEFAULT '', xero_invoice TEXT NOT NULL DEFAULT '',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )`,
+  ];
+  for (const sql of criticalTables) {
+    try { await pool.query(sql); } catch(e) { console.error('[DB] Critical table error:', e); }
+  }
+  console.log('[DB] Critical tables ensured');
 
   await registerRoutes(httpServer, app);
 
