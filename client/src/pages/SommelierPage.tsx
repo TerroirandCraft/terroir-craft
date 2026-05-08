@@ -115,6 +115,24 @@ export default function SommelierPage() {
   const { data: allProducts = [] } = useQuery<Product[]>({ queryKey: ["/api/products"] });
   const productMap = Object.fromEntries(allProducts.map(p => [p.id, p]));
 
+  // Auto-ask about a specific wine if ?wine=ITEM_CODE in URL
+  const autoAskedRef = useRef(false);
+  useEffect(() => {
+    if (autoAskedRef.current) return;
+    if (!member) return; // must be logged in
+    if (allProducts.length === 0) return; // wait for products to load
+    const hash = window.location.hash; // e.g. #/sommelier?wine=TCAU-MO0123
+    const queryStr = hash.includes('?') ? hash.split('?')[1] : '';
+    const params = new URLSearchParams(queryStr);
+    const wineId = params.get('wine');
+    if (!wineId) return;
+    const product = productMap[wineId];
+    if (!product) return;
+    autoAskedRef.current = true;
+    const autoQuestion = `請介紹一下 ${product.name}，包括佢嘅口感特點、食物配搭同埋適合咩場合飲。`;
+    sendMessage(autoQuestion);
+  }, [member, allProducts]);
+
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);

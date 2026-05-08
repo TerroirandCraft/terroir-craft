@@ -307,7 +307,7 @@ export default function ProductPage() {
             )}
 
             {/* Ask AI Sommelier */}
-            <Link href="/sommelier">
+            <Link href={`/sommelier?wine=${encodeURIComponent(product.id)}`}>
               <a className="inline-flex items-center gap-2 text-xs text-[hsl(355,62%,28%)] hover:underline font-body font-medium">
                 <Bot className="w-3.5 h-3.5" /> Ask our AI Sommelier about this wine
               </a>
@@ -597,7 +597,7 @@ export default function ProductPage() {
               <p className="font-body text-sm text-muted-foreground mb-4">
                 Ask our AI Sommelier in Cantonese or English — pairing suggestions, taste profile, occasion suitability.
               </p>
-              <Link href="/sommelier">
+              <Link href={`/sommelier?wine=${encodeURIComponent(product.id)}`}>
                 <Button variant="outline" className="font-body border-[hsl(355,62%,28%)] text-[hsl(355,62%,28%)] hover:bg-[hsl(355,62%,28%)] hover:text-white rounded-lg">
                   <Bot className="w-4 h-4 mr-2" />
                   Chat with AI Sommelier
