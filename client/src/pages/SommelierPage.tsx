@@ -117,20 +117,31 @@ export default function SommelierPage() {
 
   // Auto-ask about a specific wine if ?wine=ITEM_CODE in URL
   const autoAskedRef = useRef(false);
+
+  // Extract wine ID from URL — works with hash router (#/sommelier?wine=XXX)
+  const getWineIdFromUrl = useCallback(() => {
+    // Try window.location.hash first: #/sommelier?wine=XXX
+    const hash = window.location.hash;
+    const hashQuery = hash.includes('?') ? hash.split('?')[1] : '';
+    const wineId = new URLSearchParams(hashQuery).get('wine');
+    if (wineId) return decodeURIComponent(wineId);
+    // Fallback: sessionStorage (set by ProductPage before navigate)
+    return sessionStorage.getItem('tc_ask_wine');
+  }, []);
+
   useEffect(() => {
     if (autoAskedRef.current) return;
-    if (!member) return; // must be logged in
-    if (allProducts.length === 0) return; // wait for products to load
-    const hash = window.location.hash; // e.g. #/sommelier?wine=TCAU-MO0123
-    const queryStr = hash.includes('?') ? hash.split('?')[1] : '';
-    const params = new URLSearchParams(queryStr);
-    const wineId = params.get('wine');
+    if (!member) return;
+    if (allProducts.length === 0) return;
+    const wineId = getWineIdFromUrl();
     if (!wineId) return;
     const product = productMap[wineId];
     if (!product) return;
     autoAskedRef.current = true;
+    sessionStorage.removeItem('tc_ask_wine');
+    // Small delay to ensure sendMessage is ready and UI is rendered
     const autoQuestion = `請介紹一下 ${product.name}，包括佢嘅口感特點、食物配搭同埋適合咩場合飲。`;
-    sendMessage(autoQuestion);
+    setTimeout(() => sendMessage(autoQuestion), 300);
   }, [member, allProducts]);
 
   useEffect(() => {
