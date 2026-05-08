@@ -7,9 +7,16 @@ import { useCart } from "./CartContext";
 import { useAuth } from "./AuthContext";
 import tcLogo from "@/assets/tc-logo.jpg";
 
+// Full text shown on desktop; short version on mobile (never wraps)
 const BANNER_MESSAGES = [
-  "根據香港法律，不得在業務過程中，向未成年人售賣或供應令人醒醉的酒類。 Under the law of Hong Kong, intoxicating liquor must not be sold or supplied to a minor in the course of business.",
-  "香港地址 HK$1,000 免費送貨 · 澳門地址 HK$2,500 免費送貨",
+  {
+    full: "根據香港法律，不得在業務過程中，向未成年人售賣或供應令人醒醉的酒類。 Under the law of Hong Kong, intoxicating liquor must not be sold or supplied to a minor in the course of business.",
+    short: "香港法律：不得向未成年人售酒 · Must not sell alcohol to minors",
+  },
+  {
+    full: "香港地址 HK$1,000 免費送貨 · 澳門地址 HK$2,500 免費送貨",
+    short: "香港 HK$1,000 免送 · 澳門 HK$2,500 免送",
+  },
 ];
 
 function TopBanner() {
@@ -25,13 +32,19 @@ function TopBanner() {
     }, 6000);
     return () => clearInterval(interval);
   }, []);
+  const msg = BANNER_MESSAGES[idx];
   return (
-    <div className="bg-[hsl(355,62%,28%)] text-white text-xs py-2 px-4 text-center font-body tracking-wide min-h-[32px] flex items-center justify-center">
+    <div
+      className="bg-[hsl(355,62%,28%)] text-white text-xs px-4 text-center font-body tracking-wide flex items-center justify-center overflow-hidden"
+      style={{ height: 32, minHeight: 32, maxHeight: 32 }}
+    >
       <span
         style={{ transition: "opacity 0.4s", opacity: fade ? 1 : 0 }}
-        className="leading-snug"
+        className="whitespace-nowrap overflow-hidden text-ellipsis leading-none"
       >
-        {BANNER_MESSAGES[idx]}
+        {/* Mobile: short text — Desktop: full text */}
+        <span className="sm:hidden">{msg.short}</span>
+        <span className="hidden sm:inline">{msg.full}</span>
       </span>
     </div>
   );
