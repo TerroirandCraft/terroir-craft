@@ -13,7 +13,7 @@ import { sendPasswordResetEmail } from "./email";
 import { xero, setXeroTokens, isXeroConnected, createXeroInvoice } from "./xero";
 import { createPayment, verifyCallbackSignature } from "./paymentAsia";
 import { sendOrderNotificationToAdmin, sendOrderConfirmationToCustomer } from "./email";
-import { db } from "./db";
+import { db, pool } from "./db";
 import { sql } from "drizzle-orm";
 
 // Load Fine & Rare data once at startup
@@ -1127,13 +1127,14 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     try {
       const { code, orderTotal } = req.body;
       if (!code) return res.status(400).json({ error: "No code provided" });
-      const result = await db.execute(sql`
-        SELECT * FROM promo_codes
-        WHERE UPPER(code) = UPPER(${code})
-        AND active = true
-        AND (expires_at IS NULL OR expires_at > NOW())
-        AND (max_uses IS NULL OR used_count < max_uses)
-      `);
+      const result = await pool.query(
+        `SELECT * FROM promo_codes
+         WHERE UPPER(code) = UPPER($1)
+         AND active = true
+         AND (expires_at IS NULL OR expires_at > NOW())
+         AND (max_uses IS NULL OR used_count < max_uses)`,
+        [code]
+      );
       const promo = result.rows?.[0] as any;
       if (!promo) return res.status(404).json({ error: "Invalid or expired promo code" });
       const minOrder = Number(promo.min_order);
