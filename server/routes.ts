@@ -1122,6 +1122,41 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     }
   });
 
+  // Promo code validation
+  app.post("/api/promo/validate", async (req, res) => {
+    try {
+      const { code, orderTotal } = req.body;
+      if (!code) return res.status(400).json({ error: "No code provided" });
+      const result = await db.execute(sql`
+        SELECT * FROM promo_codes
+        WHERE UPPER(code) = UPPER(${code})
+        AND active = true
+        AND (expires_at IS NULL OR expires_at > NOW())
+        AND (max_uses IS NULL OR used_count < max_uses)
+      `);
+      const promo = result.rows?.[0] as any;
+      if (!promo) return res.status(404).json({ error: "Invalid or expired promo code" });
+      const minOrder = Number(promo.min_order);
+      if (orderTotal < minOrder) {
+        return res.status(400).json({ error: `Minimum order HK$${minOrder.toLocaleString()} required`, minOrder });
+      }
+      const discount = promo.discount_type === 'percent'
+        ? Math.round(orderTotal * Number(promo.discount_value) / 100)
+        : Number(promo.discount_value);
+      res.json({
+        valid: true,
+        code: promo.code,
+        description: promo.description,
+        discountType: promo.discount_type,
+        discountValue: Number(promo.discount_value),
+        discount,
+        minOrder,
+      });
+    } catch (err) {
+      res.status(500).json({ error: "Failed to validate promo code" });
+    }
+  });
+
   // Admin order lines (sales record)
   app.get("/api/admin/order-lines", async (req, res) => {
     const secret = req.query.secret || req.headers["x-admin-secret"];

@@ -159,6 +159,27 @@ app.use((req, res, next) => {
         created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       )
     `);
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS promo_codes (
+        id SERIAL PRIMARY KEY,
+        code TEXT NOT NULL UNIQUE,
+        description TEXT NOT NULL DEFAULT '',
+        discount_type TEXT NOT NULL DEFAULT 'fixed',
+        discount_value NUMERIC NOT NULL DEFAULT 0,
+        min_order NUMERIC NOT NULL DEFAULT 0,
+        max_uses INTEGER,
+        used_count INTEGER NOT NULL DEFAULT 0,
+        active BOOLEAN NOT NULL DEFAULT TRUE,
+        expires_at TIMESTAMPTZ,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      )
+    `);
+    // Insert initial promo codes (ignore if already exists)
+    await pool.query(`
+      INSERT INTO promo_codes (code, description, discount_type, discount_value, min_order, active)
+      VALUES ('MolldydookerWD2026', 'Mollydooker Wine Deal 2026 - HK$200 off orders over HK$1000', 'fixed', 200, 1000, true)
+      ON CONFLICT (code) DO NOTHING
+    `);
     console.log("[DB] Tables ready");
   } catch (err) {
     console.error("[DB] Table creation error:", err);
@@ -199,6 +220,24 @@ app.use((req, res, next) => {
   for (const sql of criticalTables) {
     try { await pool.query(sql); } catch(e) { console.error('[DB] Critical table error:', e); }
   }
+  // Ensure promo_codes table exists independently
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS promo_codes (
+        id SERIAL PRIMARY KEY, code TEXT NOT NULL UNIQUE,
+        description TEXT NOT NULL DEFAULT '', discount_type TEXT NOT NULL DEFAULT 'fixed',
+        discount_value NUMERIC NOT NULL DEFAULT 0, min_order NUMERIC NOT NULL DEFAULT 0,
+        max_uses INTEGER, used_count INTEGER NOT NULL DEFAULT 0,
+        active BOOLEAN NOT NULL DEFAULT TRUE, expires_at TIMESTAMPTZ,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      )
+    `);
+    await pool.query(`
+      INSERT INTO promo_codes (code, description, discount_type, discount_value, min_order, active)
+      VALUES ('MolldydookerWD2026', 'Mollydooker Wine Deal 2026 - HK$200 off HK$1000+', 'fixed', 200, 1000, true)
+      ON CONFLICT (code) DO NOTHING
+    `);
+  } catch(e) { console.error('[DB] promo_codes error:', e); }
   console.log('[DB] Critical tables ensured');
 
   await registerRoutes(httpServer, app);

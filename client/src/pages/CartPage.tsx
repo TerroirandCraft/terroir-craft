@@ -55,6 +55,10 @@ export default function CartPage() {
 
   // Points redemption
   const [usePoints, setUsePoints] = useState(false);
+  const [promoInput, setPromoInput] = useState("");
+  const [promoResult, setPromoResult] = useState<{ code: string; discount: number; description: string } | null>(null);
+  const [promoError, setPromoError] = useState("");
+  const [promoLoading, setPromoLoading] = useState(false);
 
   if (items.length === 0) {
     return (
@@ -114,7 +118,8 @@ export default function CartPage() {
   const pointsUsed = pointsDiscount / POINTS_TO_HKD; // how many pts being used
 
   // ── Final totals ─────────────────────────────────────────────────────────
-  const subtotalAfterAll = subtotalWithDiscount - pointsDiscount;
+  const promoDiscount = promoResult?.discount ?? 0;
+  const subtotalAfterAll = subtotalWithDiscount - pointsDiscount - promoDiscount;
   const deliveryFee = subtotalAfterAll >= 1000 ? 0 : 80;
   const orderTotal = subtotalAfterAll + deliveryFee;
   const pointsWillEarn = Math.floor(orderTotal / 5) + (!member?.bonus_first_order ? 100 : 0);
@@ -131,6 +136,23 @@ export default function CartPage() {
     } catch {
       // Non-blocking — don't fail checkout if this fails
     }
+  };
+
+  const validatePromo = async () => {
+    if (!promoInput.trim()) return;
+    setPromoLoading(true);
+    setPromoError("");
+    setPromoResult(null);
+    try {
+      const res = await apiRequest("POST", "/api/promo/validate", {
+        code: promoInput.trim(),
+        orderTotal: subtotalWithDiscount - pointsDiscount,
+      });
+      const data = await res.json();
+      if (!res.ok) { setPromoError(data.error || "無效優惠碼 Invalid code"); return; }
+      setPromoResult({ code: data.code, discount: data.discount, description: data.description });
+    } catch { setPromoError("驗證失敗 Error validating code"); }
+    finally { setPromoLoading(false); }
   };
 
   const handleCheckout = async () => {
@@ -205,6 +227,7 @@ export default function CartPage() {
 
       const res = await apiRequest("POST", "/api/payment/create", {
         merchantReference: orderRef,
+        promoCode: promoResult?.code || "",
         amount: orderTotal,
         customerName: member.name,
         customerEmail: member.email,
@@ -436,6 +459,39 @@ export default function CartPage() {
                   </div>
                 )}
 
+                {/* Promo Code */}
+                <div className={`rounded-lg border p-3 ${
+                  promoResult ? "border-green-500/40 bg-green-500/5" : "border-border bg-muted/20"
+                }`}>
+                  <p className="font-body text-xs font-medium text-foreground mb-2">優惠碼 Promo Code</p>
+                  {promoResult ? (
+                    <div className="flex items-center justify-between gap-2">
+                      <div>
+                        <span className="font-body text-xs font-bold text-green-600">{promoResult.code}</span>
+                        <span className="font-body text-xs text-green-600 ml-2">扣減 HK${promoResult.discount.toLocaleString()}</span>
+                      </div>
+                      <button onClick={() => { setPromoResult(null); setPromoInput(""); }}
+                        className="font-body text-xs text-muted-foreground hover:text-destructive">移除</button>
+                    </div>
+                  ) : (
+                    <div className="flex gap-2">
+                      <input
+                        value={promoInput}
+                        onChange={e => { setPromoInput(e.target.value.toUpperCase()); setPromoError(""); }}
+                        onKeyDown={e => e.key === "Enter" && validatePromo()}
+                        placeholder="輸入優惠碼 Enter code"
+                        className="flex-1 font-body text-xs border border-border rounded-md px-3 py-2 bg-background outline-none focus:border-[hsl(355,62%,28%)]"
+                      />
+                      <button
+                        onClick={validatePromo}
+                        disabled={promoLoading || !promoInput.trim()}
+                        className="font-body text-xs font-semibold px-3 py-2 rounded-md bg-[hsl(355,62%,28%)] text-white disabled:opacity-40 shrink-0"
+                      >{promoLoading ? "..." : "確認 Apply"}</button>
+                    </div>
+                  )}
+                  {promoError && <p className="font-body text-xs text-destructive mt-1">{promoError}</p>}
+                </div>
+
                 {/* Points redemption toggle */}
                 {isLoggedIn && availablePoints >= MIN_POINTS_REDEEM && (
                   <div className={`rounded-lg border p-3 transition-all ${
@@ -474,9 +530,17 @@ export default function CartPage() {
                   </div>
                 )}
 
+                {/* Promo discount row */}
+                {promoResult && promoDiscount > 0 && (
+                  <div className="flex justify-between text-green-600 font-body text-sm">
+                    <span>優惠碼 {promoResult.code}</span>
+                    <span>-{formatPrice(promoDiscount)}</span>
+                  </div>
+                )}
+
                 {/* Points discount row */}
                 {usePoints && pointsDiscount > 0 && (
-                  <div className="flex justify-between text-green-600">
+                  <div className="flex justify-between text-green-600 font-body text-sm">
                     <span>積分抵扣 Points redemption</span>
                     <span>-{formatPrice(pointsDiscount)}</span>
                   </div>
