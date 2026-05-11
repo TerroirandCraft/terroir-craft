@@ -1122,6 +1122,31 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     }
   });
 
+  // One-time: force create promo_codes table and seed initial codes
+  app.get("/api/admin/init-promo", async (req, res) => {
+    const secret = req.query.secret;
+    if (secret !== (process.env.ADMIN_SECRET || "tc-admin-2026")) return res.status(401).json({ error: "Unauthorized" });
+    try {
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS promo_codes (
+          id SERIAL PRIMARY KEY, code TEXT NOT NULL UNIQUE,
+          description TEXT NOT NULL DEFAULT '', discount_type TEXT NOT NULL DEFAULT 'fixed',
+          discount_value NUMERIC NOT NULL DEFAULT 0, min_order NUMERIC NOT NULL DEFAULT 0,
+          max_uses INTEGER, used_count INTEGER NOT NULL DEFAULT 0,
+          active BOOLEAN NOT NULL DEFAULT TRUE, expires_at TIMESTAMPTZ,
+          created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        )
+      `);
+      await pool.query(`
+        INSERT INTO promo_codes (code, description, discount_type, discount_value, min_order, active)
+        VALUES ('MolldydookerWD2026', 'Mollydooker Wine Deal 2026 - HK$200 off HK$1000+', 'fixed', 200, 1000, true)
+        ON CONFLICT (code) DO NOTHING
+      `);
+      const r = await pool.query('SELECT * FROM promo_codes');
+      res.json({ ok: true, codes: r.rows });
+    } catch(e) { res.status(500).json({ error: String(e) }); }
+  });
+
   // Promo code validation
   app.post("/api/promo/validate", async (req, res) => {
     try {
