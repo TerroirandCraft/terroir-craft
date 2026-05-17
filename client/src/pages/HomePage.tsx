@@ -513,7 +513,7 @@ export default function HomePage() {
               className="bg-[hsl(355,62%,28%)] hover:bg-[hsl(355,62%,22%)] text-white font-body px-10"
               data-testid="home-sommelier-cta"
             >
-              <img src={`${API_BASE}/ai-sommelier-robot.jpg`} alt="" className="w-6 h-6 rounded-full object-cover mr-2" />
+              <img src={`${API_BASE}/ai-sommelier-robot.jpg`} alt="" className="w-9 h-9 rounded-full object-cover mr-2" />
               Chat with AI Sommelier
             </Button>
           </Link>
