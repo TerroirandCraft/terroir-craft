@@ -19,7 +19,7 @@ interface RawProduct {
   promo_price?: number;
   price_display: string;
   image_url?: string;
-  image?: string;  // alias used by newer products
+  image?: string;  // alias used by newer products (WT, MAN, CSW, CMHR etc)
   grape?: string;
   tasting_note?: string;
   ratings?: Array<{ source: string; score: number; maxScore: number; note?: string; year?: string }>;
