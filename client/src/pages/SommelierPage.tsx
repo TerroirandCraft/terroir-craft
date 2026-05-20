@@ -15,8 +15,9 @@ interface Message {
   content: string;
 }
 
-// CODE_PATTERN: AI embeds item codes as {TCAU-MO0123} in response text
-const CODE_PATTERN = /\{([A-Z0-9 ]{3,20}-[A-Z0-9 ]{2,12})\}/g;
+// CODE_PATTERN: AI embeds item codes as {TCAU-MO0123} or {WT355} or {MAN00123} in response text
+// Matches codes with or without hyphens, 3-25 chars total
+const CODE_PATTERN = /\{([A-Z][A-Z0-9]{1,8}(?:-[A-Z0-9]{2,12})?(?:[0-9]{2,8})?)\}/g;
 
 // Extract item codes embedded by AI as {CODE}
 function extractItemCodes(text: string): string[] {
