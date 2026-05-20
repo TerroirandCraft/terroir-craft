@@ -37,6 +37,13 @@ const BRAND_LOGO_FILES: Record<string, string> = {
   "Cape Swallow":                "Cape Swallow.jpg",
   "La Manufacture":              "La Manufacture.jpg",
   "Chateau Mihope":              "Chateau Mihope.png",
+  "La Grange de l'Oncle Charles": "La Grange de l'Oncle Charles.jpg",
+  "Maison A&S":                  "Maison A&S.jpg",
+  "Domaine La Grapp'A":          "Domaine La Grapp'A.jpg",
+  "Jean-Baptiste Hardy":         "Jean-Baptiste Hardy.jpg",
+  "Domaine Les Aricoques":       "Domaine Les Aricoques.jpg",
+  "Maison Pommier":              "Maison Pommier.jpg",
+  "Domaine 7":                   "Domaine 7.jpg",
 };
 
 function getBrandLogoSrc(brand: string): string | null {

@@ -385,6 +385,140 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
       videoCaption: "",
     },
   },
+
+
+  // ── La Grange de l'Oncle Charles ──────────────────────────────────────────
+  "La Grange de l'Oncle Charles": {
+    heroBg: "/wt-oncle-charles-hero.jpg",
+    heroGradient: { from: "#1a0d05", to: "#2d1a0a" },
+    accent: "#C8A96E",
+    sectionBg: "#faf6f0",
+    heroText: "#ffffff",
+    feature: {
+      label: "OSTHEIM · ALSACE · BIODYNAMIC",
+      heading: "From a Carpenter's Barn to the Vines",
+      body: "Jérôme François left his life as a carpenter in 2014 to create a domaine in Ostheim, Alsace — named after his great uncle Charles' old barn. Guided by the philosophy of Marcel Deiss and biodynamic principles, he farms 7 hectares of co-planted vines with two horses and a pack of black sheep. The result: wines of elegance with a subtle, unmistakeable character.",
+      image: "/wt-oncle-charles-hero.jpg",
+      imageCaption: "Biodynamic vineyards in Ostheim — Alsace, France",
+      visual: { bg: "#1a0d05", line1: "Ostheim", line2: "Alsace" },
+      youtubeId: "",
+      videoCaption: "",
+    },
+  },
+
+  // ── Maison A&S ────────────────────────────────────────────────────────────
+  "Maison A&S": {
+    heroBg: "/wt-maison-as-hero.jpg",
+    heroGradient: { from: "#0a0a0a", to: "#1a1a1a" },
+    accent: "#C8A96E",
+    sectionBg: "#f5f3ee",
+    heroText: "#ffffff",
+    feature: {
+      label: "BURGUNDY · MICRO-NÉGOCE",
+      heading: "Two Friends, One Vision",
+      body: "Pierre-Alexandre Soltana and Alexandre Aires — trained at Domaine des Comtes Lafon and Domaine Thibault Liger-Belair respectively — founded Maison A&S in 2018 with a clear vision: high-quality Burgundy from grape sourcing to élevage. Starting in a 17th-century vaulted cellar in Chagny, they have since acquired their own winery and plots in the Hautes Côtes de Beaune.",
+      image: "/wt-maison-as-hero.jpg",
+      imageCaption: "Pierre-Alexandre Soltana and Alexandre Aires in their Burgundy cellar",
+      visual: { bg: "#0a0a0a", line1: "Burgundy", line2: "France" },
+      youtubeId: "",
+      videoCaption: "",
+    },
+  },
+
+  // ── Domaine La Grapp'A ────────────────────────────────────────────────────
+  "Domaine La Grapp'A": {
+    heroBg: "/wt-grappa-hero.jpg",
+    heroGradient: { from: "#0d1a05", to: "#1a2d0a" },
+    accent: "#8ab870",
+    sectionBg: "#f3f7ee",
+    heroText: "#ffffff",
+    feature: {
+      label: "ABERGEMENT-LE-GRAND · JURA",
+      heading: "A Historic Cellar in the Jura Hills",
+      body: "Aurélie Parla and Julien Maublanc worked their first vintage in 2021, taking over Julien's family vines that had supplied the local cooperative for generations. Located 5km outside Arbois, their 5-hectare estate sits above a 16th-century limestone cellar where the whites age patiently. Old massale selections of Chardonnay, Savagnin, Trousseau and Poulsard — Jura at its most authentic.",
+      image: "/wt-grappa-hero.jpg",
+      imageCaption: "Organic vineyards at Abergement-le-Grand — Arbois, Jura",
+      visual: { bg: "#0d1a05", line1: "Arbois", line2: "Jura" },
+      youtubeId: "",
+      videoCaption: "",
+    },
+  },
+
+  // ── Jean-Baptiste Hardy ───────────────────────────────────────────────────
+  "Jean-Baptiste Hardy": {
+    heroBg: "/wt-jbhardy-hero.jpg",
+    heroGradient: { from: "#0a1a0d", to: "#0d2a14" },
+    accent: "#7aaa8a",
+    sectionBg: "#f0f5f2",
+    heroText: "#ffffff",
+    feature: {
+      label: "MOUZILLON · MUSCADET · BIODYNAMIC",
+      heading: "Muscadet Reimagined",
+      body: "After training with Jean-Marc Roulot and Domaine Leflaive, and making wine in Patagonia, California and New Zealand, Jean-Baptiste Hardy returned to his family estate in Mouzillon in 2018. He converted 8.5 hectares to biodynamics, farming massale-selection Melon de Bourgogne from the 1950s and 60s on complex gabbro soils that produce a minerality rarely associated with Muscadet.",
+      image: "/wt-jbhardy-hero.jpg",
+      imageCaption: "Jean-Baptiste Hardy in his Mouzillon vineyards — Loire, France",
+      visual: { bg: "#0a1a0d", line1: "Mouzillon", line2: "Muscadet" },
+      youtubeId: "",
+      videoCaption: "",
+    },
+  },
+
+  // ── Domaine Les Aricoques ─────────────────────────────────────────────────
+  "Domaine Les Aricoques": {
+    heroBg: "/wt-aricoques-hero.jpg",
+    heroGradient: { from: "#0a1a14", to: "#0d2a1e" },
+    accent: "#a8c882",
+    sectionBg: "#f0f5ee",
+    heroText: "#ffffff",
+    feature: {
+      label: "FRANGY · HAUTE-SAVOIE · 500M ALTITUDE",
+      heading: "Alpine Freshness, Glacial Terroir",
+      body: "Romain Dupont and Guillaume Bellon took over 4.8 hectares in Frangy, Haute-Savoie in 2021. Their moraine glacière soils — poor, glacial substrate at 500 metres with southern exposure — produce concentrated, precise wines from local varieties: Altesse, Jacquère, Mondeuse and Gamay. 'Pan!' is named for the Frangypans, as the locals of Frangy are called, and the sound of a cork being pulled.",
+      image: "/wt-aricoques-hero.jpg",
+      imageCaption: "Vineyard and mountains at Frangy — Haute-Savoie, France",
+      visual: { bg: "#0a1a14", line1: "Frangy", line2: "Savoie" },
+      youtubeId: "",
+      videoCaption: "",
+    },
+  },
+
+  // ── Maison Pommier ────────────────────────────────────────────────────────
+  "Maison Pommier": {
+    heroBg: "",
+    heroGradient: { from: "#1a0a14", to: "#2d0a20" },
+    accent: "#C8A96E",
+    sectionBg: "#f5f0f5",
+    heroText: "#ffffff",
+    feature: {
+      label: "POINCHY · CHABLIS · IRANCY",
+      heading: "The Northern Edge of Burgundy",
+      body: "Isabelle and Denis Pommier are among Chablis' most respected certified organic producers. Alongside their celebrated Chablis range, they farm Pinot Noir in the Irancy appellation — a rare and ancient red wine village north of Auxerre, where steep limestone slopes produce structured, mineral reds of real distinction.",
+      image: "",
+      imageCaption: "Irancy vineyards — northern Burgundy, France",
+      visual: { bg: "#1a0a14", line1: "Irancy", line2: "Burgundy" },
+      youtubeId: "",
+      videoCaption: "",
+    },
+  },
+
+  // ── Domaine 7 ─────────────────────────────────────────────────────────────
+  "Domaine 7": {
+    heroBg: "",
+    heroGradient: { from: "#0a0a14", to: "#14141a" },
+    accent: "#C8A96E",
+    sectionBg: "#f0f0f5",
+    heroText: "#ffffff",
+    feature: {
+      label: "MARTIGNÉ-BRIAND · ANJOU · ORGANIC",
+      heading: "Schist, Cabernet Franc and Chenin Blanc",
+      body: "Abel Benmaamar farms certified organic vines on schist soils in Martigné-Briand, heart of Anjou. Using indigenous yeasts and minimal sulphur, his wines are vivid and precise — Cabernet Franc with that luminous Loire red-fruit energy, and Chenin Blanc of taut, mineral intensity from the schist. Natural winemaking at its most honest.",
+      image: "",
+      imageCaption: "Schist vineyards in Anjou — Loire Valley, France",
+      visual: { bg: "#0a0a14", line1: "Anjou", line2: "Loire" },
+      youtubeId: "",
+      videoCaption: "",
+    },
+  },
 };
 
 // Fallback for brands without a custom config
