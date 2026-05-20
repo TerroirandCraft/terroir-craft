@@ -19,6 +19,7 @@ interface RawProduct {
   promo_price?: number;
   price_display: string;
   image_url?: string;
+  image?: string;  // alias used by newer products
   grape?: string;
   tasting_note?: string;
   ratings?: Array<{ source: string; score: number; maxScore: number; note?: string; year?: string }>;
@@ -52,7 +53,7 @@ const enrichedProducts: Product[] = (productsData as RawProduct[]).map(p => ({
   description: `${p.brand} ${p.name.replace(p.brand + ' - ', '')} from ${p.region || p.country}. ${p.vintage && p.vintage !== 'NV' ? 'Vintage ' + p.vintage + '.' : p.vintage === 'NV' ? 'Non-vintage.' : ''} ${p.size} bottle.`,
   tasting_notes: tastingNotesByType[p.type] || "Complex and refined character",
   food_pairing: foodPairingByType[p.type] || "Versatile food pairing",
-  image_url: p.image_url || (p as any)["image"] || (p as any)["image_url"] || "",
+  image_url: p.image_url || p.image || "",
 }));
 
 // ── In-memory chat store ──────────────────────────────────────────────────────
