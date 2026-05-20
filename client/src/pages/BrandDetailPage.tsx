@@ -308,7 +308,7 @@ export default function BrandDetailPage() {
                       src={`${API_BASE}${cfg.feature.image}`}
                       alt={cfg.feature.heading}
                       className="w-full rounded-2xl shadow-lg object-cover"
-                      style={{ aspectRatio: "4/3", maxHeight: 340 }}
+                      style={{ aspectRatio: "4/3", maxHeight: 340, objectPosition: (cfg.feature as any).imagePosition || "center" }}
                     />
                     {cfg.feature.imageCaption && (
                       <p className="font-body text-xs mt-2 italic" style={{ color: featureIsLight ? "#6B4A20" : "rgba(255,255,255,0.5)", letterSpacing: "0.05em" }}>

@@ -457,6 +457,7 @@ export const BRAND_CONFIG: Record<string, BrandConfig> = {
       body: "After training with Jean-Marc Roulot and Domaine Leflaive, and making wine in Patagonia, California and New Zealand, Jean-Baptiste Hardy returned to his family estate in Mouzillon in 2018. He converted 8.5 hectares to biodynamics, farming massale-selection Melon de Bourgogne from the 1950s and 60s on complex gabbro soils that produce a minerality rarely associated with Muscadet.",
       image: "/wt-jbhardy-hero.jpg",
       imageCaption: "Jean-Baptiste Hardy in his Mouzillon vineyards — Loire, France",
+      imagePosition: "top center",
       visual: { bg: "#0a1a0d", line1: "Mouzillon", line2: "Muscadet" },
       youtubeId: "",
       videoCaption: "",
