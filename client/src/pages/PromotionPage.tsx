@@ -27,7 +27,7 @@ export const PROMOTIONS: Record<string, {
     subtitle: "Grand Cru Classé En Primeur Selection",
     description: "The 2022 vintage is widely celebrated as one of Bordeaux's finest in decades — a year of perfect ripeness, concentrated fruit and exceptional structure. We have secured an exclusive allocation of 18 Grand Cru Classé wines at special promotional prices for our valued members.",
     tag: "Limited Allocation",
-    endDate: "2026-04-30",
+    endDate: "2026-06-30",
     heroGradient: "linear-gradient(135deg, hsl(355,70%,12%) 0%, hsl(30,40%,15%) 40%, hsl(355,60%,18%) 100%)",
     accentColor: "hsl(40, 80%, 55%)",
   },
