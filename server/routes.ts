@@ -306,16 +306,6 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
         return res.status(400).json({ error: "message and sessionId required" });
       }
 
-      // Members-only gate
-      if (!memberId) {
-        return res.status(401).json({ error: "members_only", message: "AI Sommelier is available to members only. Please log in or register for free." });
-      }
-      // Verify member exists in DB
-      const memberRow = await storage.getMemberById(memberId);
-      if (!memberRow) {
-        return res.status(401).json({ error: "members_only", message: "Invalid member session. Please log in again." });
-      }
-
       // Save user message
       await storage.addChatMessage({ session_id: sessionId, role: "user", content: message });
 

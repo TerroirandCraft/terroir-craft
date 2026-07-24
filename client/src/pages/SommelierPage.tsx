@@ -173,19 +173,6 @@ export default function SommelierPage() {
         body: JSON.stringify({ message: text.trim(), sessionId, memberId: member?.id || "" }),
       });
 
-      if (res.status === 401) {
-        setMessages(prev => {
-          const updated = [...prev];
-          updated[updated.length - 1] = {
-            role: "assistant",
-            content: "唔好意思，AI Sommelier 係會員專屬功能。請先登入或免費登記成為會員！",
-          };
-          return updated;
-        });
-        setIsLoading(false);
-        return;
-      }
-
       const reader = res.body?.getReader();
       if (!reader) throw new Error("No reader");
       const decoder = new TextDecoder();
