@@ -1,10 +1,9 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { Bot, Send, Trash2, Wine, Sparkles, ShoppingCart, ExternalLink, Lock } from "lucide-react";
+import { Bot, Send, Trash2, Wine, Sparkles, ShoppingCart, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/AuthContext";
 import { useCart } from "@/components/CartContext";
 import { Link } from "wouter";
-import { navigate } from "wouter/use-hash-location";
 import { useQuery } from "@tanstack/react-query";
 import { API_BASE } from "@/lib/queryClient";
 import type { Product } from "@/lib/products";
@@ -135,7 +134,6 @@ export default function SommelierPage() {
 
   useEffect(() => {
     if (autoAskedRef.current) return;
-    if (!member) return;
     if (allProducts.length === 0) return;
     const wineId = getWineIdFromUrl();
     if (!wineId) return;
@@ -172,7 +170,7 @@ export default function SommelierPage() {
       const res = await fetch(`${API_BASE}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text.trim(), sessionId, memberId: member?.id }),
+        body: JSON.stringify({ message: text.trim(), sessionId, memberId: member?.id || "" }),
       });
 
       if (res.status === 401) {
@@ -234,58 +232,7 @@ export default function SommelierPage() {
 
   const clearChat = () => setMessages([]);
 
-  // Members-only gate — show login wall if not logged in
-  if (!member) {
-    return (
-      <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6">
-        {/* Header bar */}
-        <div className="absolute top-0 left-0 right-0" style={{ background: "hsl(355,62%,28%)", padding: "24px 24px 20px" }}>
-          <div className="max-w-3xl mx-auto flex items-center gap-3">
-            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white/30 shrink-0">
-              <img src={`${API_BASE}/ai-sommelier-robot.jpg`} alt="AI Sommelier" className="w-full h-full object-cover" />
-            </div>
-            <div>
-              <h1 className="font-display text-lg text-white">AI Sommelier</h1>
-              <p className="font-body text-xs text-white/60">會員專屬 · Members Only</p>
-            </div>
-          </div>
-        </div>
 
-        {/* Lock card */}
-        <div className="text-center max-w-sm w-full mt-24">
-          <div className="w-28 h-28 rounded-full bg-[hsl(355,62%,28%)]/10 flex items-center justify-center mx-auto mb-5">
-            <img src={`${API_BASE}/ai-sommelier-robot.jpg`} alt="AI Sommelier" className="w-24 h-24 rounded-full object-cover" />
-          </div>
-          <div className="inline-flex items-center gap-1.5 bg-amber-50 border border-amber-200 text-amber-700 text-xs font-body font-semibold px-3 py-1 rounded-full mb-4">
-            <Lock className="w-3 h-3" /> 會員專屬功能
-          </div>
-          <h2 className="font-display text-2xl font-light text-foreground mb-3">AI 侍酒師</h2>
-          <p className="font-body text-sm text-muted-foreground mb-2 leading-relaxed">
-            AI Sommelier 係 T&C 會員專屬功能。
-          </p>
-          <p className="font-body text-sm text-muted-foreground mb-8 leading-relaxed">
-            登入或免費登記，即可用廣東話或英文問我選酒、配餐、揀禮物！
-          </p>
-          <div className="flex flex-col gap-3">
-            <Button
-              onClick={() => navigate("/member")}
-              className="w-full font-body"
-              style={{ background: "hsl(355,62%,28%)" }}
-            >
-              登入 / 登記會員 Log In / Register
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => navigate("/wines")}
-              className="w-full font-body"
-            >
-              繼續瀏覽酒款 Browse Wines
-            </Button>
-          </div>
-          <p className="font-body text-xs text-muted-foreground mt-4">免費登記 · 立即使用 · Free to join</p>
-        </div>
-      </div>
-    );
   }
 
   return (
@@ -305,7 +252,7 @@ export default function SommelierPage() {
                 </span>
               </div>
               <p className="font-body text-xs text-white/60">
-                {member ? `Hi ${member.name.split(" ")[0]}！` : ""}
+                {member ? `Hi ${member.name.split(" ")[0]}！` : "Hi！"}
                 問我任何選酒問題 · Ask me anything about wine
               </p>
             </div>
