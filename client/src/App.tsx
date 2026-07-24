@@ -1,5 +1,6 @@
 import { Switch, Route, Router as WouterRouter } from "wouter";
-import { useCallback, useEffect, useState } from "react";
+import { useBrowserLocation } from "wouter/use-browser-location";
+import { useEffect } from "react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
@@ -27,26 +28,11 @@ import AdminPage from "@/pages/AdminPage";
 import WineBlogPage from "@/pages/WineBlogPage";
 import WineBlogPostPage from "@/pages/WineBlogPostPage";
 
-// History API routing hook — replaces hash routing for SEO.
-// Strips query string from path so wouter matches routes correctly.
-function useHistoryLocation(): [string, (to: string) => void] {
-  const getCleanPath = () => window.location.pathname.split("?")[0] || "/";
-  const [loc, setLoc] = useState(getCleanPath);
-
+// Scroll to top on route change
+function useScrollToTop() {
   useEffect(() => {
-    const onPop = () => { setLoc(getCleanPath()); window.scrollTo({ top: 0, behavior: "instant" }); };
-    window.addEventListener("popstate", onPop);
-    return () => window.removeEventListener("popstate", onPop);
-  }, []);
-
-  const navigate = useCallback((to: string) => {
-    const path = to.split("?")[0];
-    window.history.pushState(null, "", path);
-    setLoc(path);
     window.scrollTo({ top: 0, behavior: "instant" });
-  }, []);
-
-  return [loc, navigate];
+  });
 }
 
 function App() {
@@ -54,7 +40,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <CartProvider>
-          <WouterRouter hook={useHistoryLocation}>
+          <WouterRouter hook={useBrowserLocation}>
             <Switch>
               {/* Admin — no layout wrapper */}
               <Route path="/admin" component={AdminPage} />
