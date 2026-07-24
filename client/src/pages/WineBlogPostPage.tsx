@@ -71,7 +71,7 @@ export default function WineBlogPostPage() {
 
         {/* Back link */}
         <div className="mt-12 pt-8 border-t border-border">
-          <Link href="/blog">
+          <Link href="/blog" asChild>
             <a className="inline-flex items-center gap-2 text-sm font-body text-muted-foreground hover:text-foreground transition-colors">
               <ArrowLeft className="w-4 h-4" />
               返回 Wine Blog

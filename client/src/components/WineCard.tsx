@@ -61,7 +61,7 @@ export default function WineCard({ product }: WineCardProps) {
   };
 
   return (
-    <Link href={`/wines/${product.id}`}>
+    <Link href={`/wines/${product.id}`} asChild>
       <a
         className="bg-card border border-border rounded-lg overflow-hidden card-hover flex flex-col group"
         data-testid={`wine-card-${product.id}`}

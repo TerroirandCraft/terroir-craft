@@ -82,7 +82,7 @@ function SuggestedWineCard({ product }: { product: Product }) {
           <ShoppingCart className="w-3 h-3" />
           {added ? "Added!" : "Add"}
         </button>
-        <Link href={`/wines/${product.id}`}>
+        <Link href={`/wines/${product.id}`} asChild>
           <a className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg font-body text-[10px] font-medium border border-border text-muted-foreground hover:text-foreground transition-colors">
             <ExternalLink className="w-3 h-3" /> Details
           </a>

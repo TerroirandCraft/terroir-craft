@@ -85,7 +85,7 @@ function BrandCard({ brand, products, exclusive }: { brand: string; products: Pr
   const wineCount = products.length;
 
   return (
-    <Link href={`/brands/${encodeURIComponent(brand)}`}>
+    <Link href={`/brands/${encodeURIComponent(brand)}`} asChild>
       <a className={`group block bg-white rounded-2xl overflow-hidden transition-all duration-200
         hover:-translate-y-1 hover:shadow-xl
         ${exclusive

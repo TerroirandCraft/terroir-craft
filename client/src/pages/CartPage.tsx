@@ -575,7 +575,7 @@ export default function CartPage() {
                 </div>
               )}
               {!isLoggedIn && (
-                <Link href="/member">
+                <Link href="/member" asChild>
                   <a className="mb-4 flex items-center gap-2.5 bg-muted/50 border border-border rounded-lg p-3 hover:border-[hsl(355,62%,28%)]/30 transition-colors block">
                     <Star className="w-4 h-4 text-[hsl(355,62%,28%)] shrink-0" />
                     <p className="font-body text-xs text-muted-foreground">

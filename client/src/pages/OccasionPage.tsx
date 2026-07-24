@@ -80,7 +80,7 @@ export default function OccasionPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {OCCASIONS.map(occ => (
-            <Link key={occ.key} href={`/wines?occasion=${occ.key}`}>
+            <Link key={occ.key} href={`/wines?occasion=${occ.key}`} asChild>
               <a className="group relative rounded-2xl overflow-hidden block cursor-pointer"
                 style={{ aspectRatio: "4/3" }}>
                 {/* Background */}

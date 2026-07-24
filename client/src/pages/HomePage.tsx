@@ -600,7 +600,7 @@ export default function HomePage() {
                 occasion: "bbq",
               },
             ].map((cat: any) => (
-              <Link key={cat.label} href={`/wines?occasion=${cat.occasion}`}>
+              <Link key={cat.label} href={`/wines?occasion=${cat.occasion}`} asChild>
                 <a className="relative group rounded-xl overflow-hidden block aspect-[4/3] cursor-pointer">
                   {/* Background image */}
                   <div
@@ -639,7 +639,7 @@ export default function HomePage() {
           {/* Row 1 — hero brands, larger */}
           <div className="grid grid-cols-3 sm:grid-cols-5 gap-4 mb-4">
             {FEATURED_BRANDS_ROW1.map(({ name, logo }) => (
-              <Link key={name} href={`/brands/${encodeURIComponent(name)}`}>
+              <Link key={name} href={`/brands/${encodeURIComponent(name)}`} asChild>
                 <a className="group flex items-center justify-center bg-white rounded-2xl border border-border hover:border-[hsl(355,62%,28%)]/50 hover:shadow-md transition-all duration-200 p-5 h-28">
                   <img
                     src={`${API_BASE}/brand-logos/${encodeURIComponent(logo)}`}
@@ -655,7 +655,7 @@ export default function HomePage() {
           {/* Row 2 — remaining brands */}
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 mb-10">
             {FEATURED_BRANDS_ROW2.map(({ name, logo }) => (
-              <Link key={name} href={`/brands/${encodeURIComponent(name)}`}>
+              <Link key={name} href={`/brands/${encodeURIComponent(name)}`} asChild>
                 <a className="group flex items-center justify-center bg-white rounded-2xl border border-border hover:border-[hsl(355,62%,28%)]/50 hover:shadow-md transition-all duration-200 p-5 h-28">
                   <img
                     src={`${API_BASE}/brand-logos/${encodeURIComponent(logo)}`}

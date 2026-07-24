@@ -86,7 +86,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <header className="sticky top-0 z-50 bg-white/95 dark:bg-[hsl(20,12%,8%)/95] backdrop-blur border-b border-border shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
           {/* Logo */}
-          <Link href="/">
+          <Link href="/" asChild>
             <a className="flex items-center gap-3 shrink-0">
               <img
                 src={tcLogo}
@@ -99,7 +99,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-0 flex-nowrap">
             {navLinks.map(link => (
-              <Link key={link.href} href={link.href}>
+              <Link key={link.href} href={link.href} asChild>
                 <a
                   className={`px-2.5 py-1.5 rounded-md text-xs font-medium font-body transition-colors whitespace-nowrap ${
                     link.isGold
@@ -143,7 +143,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                 {promoOpen && (
                   <div className="absolute top-full left-0 mt-1 w-64 bg-white dark:bg-[hsl(20,12%,10%)] border border-border rounded-xl shadow-xl overflow-hidden z-50">
                     {promoList.map(promo => (
-                      <Link key={promo.id} href={`/promotions/${promo.id}`}>
+                      <Link key={promo.id} href={`/promotions/${promo.id}`} asChild>
                         <a
                           onClick={() => setPromoOpen(false)}
                           className="flex items-start gap-3 px-4 py-3 hover:bg-muted transition-colors"
@@ -173,7 +173,7 @@ export default function Layout({ children }: { children: ReactNode }) {
               {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
             {/* Member icon */}
-            <Link href="/member">
+            <Link href="/member" asChild>
               <a
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-body font-medium transition-colors ${
                   location === "/member"
@@ -190,7 +190,7 @@ export default function Layout({ children }: { children: ReactNode }) {
               </a>
             </Link>
             {/* Cart */}
-            <Link href="/cart">
+            <Link href="/cart" asChild>
               <a className="relative p-2 rounded-md hover:bg-muted transition-colors" data-testid="nav-cart">
                 <ShoppingCart className="w-5 h-5 text-foreground" />
                 {totalItems > 0 && (
@@ -217,7 +217,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         {menuOpen && (
           <div className="md:hidden border-t border-border bg-background px-4 py-3 flex flex-col gap-1">
             {navLinks.map(link => (
-              <Link key={link.href} href={link.href}>
+              <Link key={link.href} href={link.href} asChild>
                 <a
                   className={`flex items-center justify-between px-4 py-3 rounded-md text-sm font-medium transition-colors ${
                     link.isGold
@@ -237,7 +237,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             ))}
             {/* Promotions in mobile */}
             {promoList.map(promo => (
-              <Link key={promo.id} href={`/promotions/${promo.id}`}>
+              <Link key={promo.id} href={`/promotions/${promo.id}`} asChild>
                 <a
                   className="flex items-center justify-between px-4 py-3 rounded-md text-sm font-medium transition-colors text-red-600/90 hover:bg-red-500/8 font-semibold"
                   onClick={() => setMenuOpen(false)}
@@ -248,7 +248,7 @@ export default function Layout({ children }: { children: ReactNode }) {
               </Link>
             ))}
             {/* Member link in mobile */}
-            <Link href="/member">
+            <Link href="/member" asChild>
               <a
                 className={`flex items-center justify-between px-4 py-3 rounded-md text-sm font-medium transition-colors ${
                   location === "/member"
@@ -294,7 +294,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                   { href: "/blog", label: "Wine Blog 酒識" },
                 ].map(l => (
                   <li key={l.href}>
-                    <Link href={l.href}>
+                    <Link href={l.href} asChild>
                       <a className="text-white/60 hover:text-white transition-colors">{l.label}</a>
                     </Link>
                   </li>
@@ -334,7 +334,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             <div className="flex flex-wrap items-center gap-3">
               <p>© 2026 Terroir & Craft 天地人酒業. All rights reserved.</p>
               <span className="text-white/20">·</span>
-              <Link href="/terms">
+              <Link href="/terms" asChild>
                 <a className="hover:text-white/70 transition-colors underline underline-offset-2">Terms & Conditions 服務條款</a>
               </Link>
             </div>

@@ -280,7 +280,7 @@ export default function ProductPage() {
           {/* Wine info */}
           <div className="pt-2">
             {/* Brand */}
-            <Link href={`/wines?brand=${encodeURIComponent(product.brand)}`}>
+            <Link href={`/wines?brand=${encodeURIComponent(product.brand)}`} asChild>
               <a className="text-[hsl(355,62%,28%)] font-body text-sm font-semibold hover:underline tracking-wide">
                 {product.brand}
               </a>
@@ -478,7 +478,7 @@ export default function ProductPage() {
                 <p className="font-display text-base font-semibold text-foreground mb-2">{product.brand}</p>
                 <p className="font-body text-xs text-muted-foreground leading-relaxed line-clamp-4 mb-3">{brandInfo.description}</p>
                 <div className="flex gap-3">
-                  <Link href={`/wines?brand=${encodeURIComponent(product.brand)}`}>
+                  <Link href={`/wines?brand=${encodeURIComponent(product.brand)}`} asChild>
                     <a className="text-xs text-[hsl(355,62%,28%)] font-body font-medium hover:underline flex items-center gap-1">
                       All {product.brand} wines <ChevronRight className="w-3 h-3" />
                     </a>
@@ -665,7 +665,7 @@ export default function ProductPage() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
             <div className="flex items-end justify-between mb-6">
               <h2 className="font-display text-2xl font-semibold">More from {product.brand}</h2>
-              <Link href={`/wines?brand=${encodeURIComponent(product.brand)}`}>
+              <Link href={`/wines?brand=${encodeURIComponent(product.brand)}`} asChild>
                 <a className="font-body text-sm text-[hsl(355,62%,28%)] hover:underline flex items-center gap-1">
                   View all <ChevronRight className="w-4 h-4" />
                 </a>

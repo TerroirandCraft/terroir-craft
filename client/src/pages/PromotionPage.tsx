@@ -61,7 +61,7 @@ function PromoWineCard({ product }: { product: Product }) {
   };
 
   return (
-    <Link href={`/wines/${product.id}`}>
+    <Link href={`/wines/${product.id}`} asChild>
       <a className="group bg-white hover:bg-gray-50 border border-gray-100 hover:border-gray-200 hover:shadow-md rounded-2xl overflow-hidden transition-all duration-300 flex flex-col">
         {/* Image */}
         <div className="relative h-52 flex items-center justify-center bg-black/20 overflow-hidden">

@@ -94,7 +94,7 @@ export default function BrandDetailPage() {
   if (brandProducts.length === 0) return (
     <div className="min-h-screen bg-background">
       <div className="max-w-6xl mx-auto px-4 py-20 text-center">
-        <Link href="/brands">
+        <Link href="/brands" asChild>
           <a className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground font-body text-sm mb-8">
             <ArrowLeft className="w-4 h-4" /> Back to Brands
           </a>
@@ -154,7 +154,7 @@ export default function BrandDetailPage() {
         )}
         <div className="max-w-6xl mx-auto px-4 sm:px-6" style={{ position: "relative", zIndex: 2 }}>
           {/* Back */}
-          <Link href="/brands">
+          <Link href="/brands" asChild>
             <a className="inline-flex items-center gap-1.5 font-body text-sm mb-8 transition-colors"
               style={{ color: isLight ? "#6B4A20" : "rgba(255,255,255,0.6)" }}>
               <ArrowLeft className="w-4 h-4" /> All Brands
