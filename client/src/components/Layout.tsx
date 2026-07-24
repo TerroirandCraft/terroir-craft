@@ -1,6 +1,5 @@
 import { ReactNode, useState, useRef, useEffect, useCallback } from "react";
 import { Link, useLocation } from "wouter";
-import { useHashLocation } from "wouter/use-hash-location";
 import { ShoppingCart, Menu, X, Wine, Bot, UserCircle, ChevronDown, Tag, Sun, Moon } from "lucide-react";
 import { PROMOTIONS } from "@/pages/PromotionPage";
 import { useCart } from "./CartContext";
@@ -63,7 +62,7 @@ const navLinks: { href: string; label: string; labelZh: string; isGold?: boolean
 ];
 
 export default function Layout({ children }: { children: ReactNode }) {
-  const [location] = useHashLocation();
+  const [location] = useLocation();
   const { totalItems } = useCart();
   const { member, isLoggedIn } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
