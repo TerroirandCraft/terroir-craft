@@ -972,7 +972,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   // Always redirect to www.terroirandcraft.online — Railway URL is only for API calls
   app.get("/api/payment/return", (req, res) => {
     const ref = (req.query.ref as string) || "";
-    const dest = `https://www.terroirandcraft.online/#/payment-result?ref=${encodeURIComponent(ref)}`;
+    const dest = `https://www.terroirandcraft.online/payment-result?ref=${encodeURIComponent(ref)}`;
     res.setHeader("Content-Type", "text/html; charset=utf-8");
     res.setHeader("Cache-Control", "no-store");
     res.send(`<!DOCTYPE html><html><head>
@@ -1044,7 +1044,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
         <h2 style="color:#2e7d32">&#x2705; Xero Connected!</h2>
         <p>Terroir &amp; Craft is now connected to Xero.</p>
         <p>Organisation: <strong>${tenantName}</strong></p>
-        <p style="margin-top:2rem"><a href="/#/" style="color:#6b1d2a">Return to website</a></p>
+        <p style="margin-top:2rem"><a href="/" style="color:#6b1d2a">Return to website</a></p>
       </body></html>`);
     } catch (err: any) {
       console.error("[Xero] Callback error:", err?.message || err);

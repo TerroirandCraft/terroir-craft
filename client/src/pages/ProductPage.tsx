@@ -1,5 +1,7 @@
 import { useState, useRef } from "react";
 import { useParams, Link } from "wouter";
+import SeoHead from "@/components/SeoHead";
+import { productTitle, productMetaDesc } from "@/lib/slugs";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest, API_BASE } from "@/lib/queryClient";
 import {
@@ -174,8 +176,54 @@ export default function ProductPage() {
     ...(product.food_pairing ? [{ label: "Food Pairing", value: product.food_pairing, icon: ChevronRight }]: []),
   ].filter(r => r.value);
 
+  // ── SEO: build title, meta desc, JSON-LD ──────────────────────────────────
+  const seoTitle = productTitle(product);
+  const seoDesc = productMetaDesc(product);
+  const ogImage = product.image_url
+    ? `https://www.terroirandcraft.online${product.image_url}`
+    : undefined;
+  const ogUrl = `https://www.terroirandcraft.online/wines/${product.id}`;
+
+  const jsonLd = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    name: `${product.brand} ${cleanName}${product.vintage ? ' ' + product.vintage : ''}`,
+    image: ogImage ? [ogImage] : [],
+    description: (product as any).tasting_note || (product as any).tasting_notes || seoDesc,
+    brand: { "@type": "Brand", name: product.brand },
+    sku: product.id,
+    offers: {
+      "@type": "Offer",
+      url: ogUrl,
+      priceCurrency: "HKD",
+      price: String((product as any).promo_price || product.price || ""),
+      availability: "https://schema.org/InStock",
+      seller: { "@type": "Organization", name: "Terroir & Craft" },
+    },
+    ...((product.ratings?.[0]) ? {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: String(product.ratings[0].score),
+        bestRating: String(product.ratings[0].maxScore || 100),
+        ratingCount: "1",
+        reviewCount: "1",
+      },
+    } : {}),
+  };
+
   return (
     <div className="bg-white dark:bg-background min-h-screen">
+      <SeoHead
+        title={seoTitle}
+        description={seoDesc}
+        ogTitle={seoTitle}
+        ogDescription={seoDesc}
+        ogImage={ogImage}
+        ogUrl={ogUrl}
+        ogType="product"
+        jsonLd={jsonLd}
+        canonical={ogUrl}
+      />
 
       {/* ── Breadcrumb ────────────────────────────────────────────────────── */}
       <div className="border-b border-border bg-[hsl(30,20%,98%)] dark:bg-muted/20">

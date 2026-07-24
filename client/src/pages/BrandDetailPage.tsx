@@ -1,4 +1,6 @@
 import { useParams, Link } from "wouter";
+import SeoHead from "@/components/SeoHead";
+import { brandTitle } from "@/lib/slugs";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, Globe, MapPin, Star, BookOpen, Download } from "lucide-react";
 import type { Product } from "@/lib/products";
@@ -102,8 +104,22 @@ export default function BrandDetailPage() {
     </div>
   );
 
+
+  // SEO
+  const brandSeoTitle = brandTitle(brandName);
+  const brandSeoDesc = `${brandName} wines available in Hong Kong from Terroir & Craft — exclusive HK agency. Shop ${brandName} online with free delivery over HK$1,000.`;
+
+
   return (
     <div className="min-h-screen bg-background">
+
+      <SeoHead
+        title={brandSeoTitle}
+        description={brandSeoDesc}
+        ogTitle={brandSeoTitle}
+        ogDescription={brandSeoDesc}
+        canonical={`https://www.terroirandcraft.online/brands/${encodeURIComponent(brandName)}`}
+      />
 
       {/* ── HERO ── */}
       <div style={{

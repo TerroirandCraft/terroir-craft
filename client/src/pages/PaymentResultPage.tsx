@@ -19,11 +19,12 @@ export default function PaymentResultPage() {
 
   useEffect(() => {
     try {
-      // Get ref from hash query: /#/payment-result?ref=TC-xxx
-      // Hash looks like: #/payment-result?ref=TC-xxx
-      const hash = window.location.hash; // e.g. "#/payment-result?ref=TC-MNEDUVXE"
+      // History API: /payment-result?ref=TC-xxx (also supports legacy hash)
+      const hash = window.location.hash;
       const qIndex = hash.indexOf("?");
-      const hashQuery = qIndex !== -1 ? hash.slice(qIndex + 1) : window.location.search.slice(1);
+      const hashQuery = window.location.search.startsWith("?")
+        ? window.location.search.slice(1)
+        : (qIndex !== -1 ? hash.slice(qIndex + 1) : "");
       const params = new URLSearchParams(hashQuery);
       const refParam = params.get("ref") || "";
       setRef(refParam);

@@ -121,7 +121,10 @@ export default function SommelierPage() {
 
   // Extract wine ID from URL — works with hash router (#/sommelier?wine=XXX)
   const getWineIdFromUrl = useCallback(() => {
-    // Try window.location.hash first: #/sommelier?wine=XXX
+    // History API: /sommelier?wine=XXX
+    const searchWineId = new URLSearchParams(window.location.search).get('wine');
+    if (searchWineId) return decodeURIComponent(searchWineId);
+    // Fallback: legacy hash compat
     const hash = window.location.hash;
     const hashQuery = hash.includes('?') ? hash.split('?')[1] : '';
     const wineId = new URLSearchParams(hashQuery).get('wine');

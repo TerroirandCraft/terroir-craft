@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import SeoHead from "@/components/SeoHead";
 import { useQuery } from "@tanstack/react-query";
 import { Globe, Star } from "lucide-react";
 import type { Product } from "@/lib/products";

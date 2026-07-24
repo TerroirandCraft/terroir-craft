@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "wouter";
+import SeoHead from "@/components/SeoHead";
 import { navigate } from "wouter/use-hash-location";
 import WorldMap from "@/components/WorldMap";
 import { useQuery } from "@tanstack/react-query";
@@ -469,6 +470,28 @@ export default function HomePage() {
 
   return (
     <div>
+      <SeoHead
+        title="Terroir & Craft | 天地人酒業 — Premium Wine Hong Kong & Macau"
+        description="Hong Kong's premier wine importer with exclusive agency for 23 top international wine brands. Shop 198 curated wines online. Free delivery over HK$1,000."
+        ogTitle="Terroir & Craft 天地人酒業 — Premium Wine HK"
+        ogDescription="Exclusive HK agency for Mollydooker, Morey-Coffinet, Saint Cosme, Boizel, Kopke & more. Shop wine online, free delivery over HK$1,000."
+        canonical="https://www.terroirandcraft.online/"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "Terroir & Craft 天地人酒業",
+          "url": "https://www.terroirandcraft.online",
+          "logo": "https://www.terroirandcraft.online/brand-logos/terroir-craft.png",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+852-9805-5609",
+            "contactType": "customer service",
+            "areaServed": "HK",
+            "availableLanguage": ["English", "Chinese"]
+          },
+          "sameAs": ["https://www.instagram.com/terroirandcraft"]
+        }}
+      />
       {/* ─── HERO ─── */}
       {/* ─── HERO CAROUSEL ────────────────────────────────────────────── */}
       <HeroCarousel />

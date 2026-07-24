@@ -1,6 +1,5 @@
 import { Switch, Route, Router as WouterRouter } from "wouter";
-import { useHashLocation } from "wouter/use-hash-location";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
@@ -26,22 +25,26 @@ import PaymentResultPage from "@/pages/PaymentResultPage";
 import NewArrivalsPage from "@/pages/NewArrivalsPage";
 import AdminPage from "@/pages/AdminPage";
 
-// Custom hook: strips query string from hash path so wouter matches routes correctly.
-// e.g. #/payment-result?ref=TC-xxx → path is "/payment-result" (query preserved in window.location)
-function useHashLocationNoQuery(): [string, (to: string) => void] {
-  const [loc, navigate] = useHashLocation();
-  const cleanLoc = loc.split("?")[0];
+// History API routing hook — replaces hash routing for SEO.
+// Strips query string from path so wouter matches routes correctly.
+function useHistoryLocation(): [string, (to: string) => void] {
+  const getCleanPath = () => window.location.pathname.split("?")[0] || "/";
+  const [loc, setLoc] = useState(getCleanPath);
 
-  // Scroll to top on EVERY route change, including initial load / direct URL entry
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" });
-  }, [cleanLoc]);
+    const onPop = () => { setLoc(getCleanPath()); window.scrollTo({ top: 0, behavior: "instant" }); };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
 
-  const stableNavigate = useCallback((to: string) => {
-    navigate(to);
+  const navigate = useCallback((to: string) => {
+    const path = to.split("?")[0];
+    window.history.pushState(null, "", path);
+    setLoc(path);
     window.scrollTo({ top: 0, behavior: "instant" });
-  }, [navigate]);
-  return [cleanLoc, stableNavigate];
+  }, []);
+
+  return [loc, navigate];
 }
 
 function App() {
@@ -49,7 +52,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <CartProvider>
-          <WouterRouter hook={useHashLocationNoQuery}>
+          <WouterRouter hook={useHistoryLocation}>
             <Switch>
               {/* Admin — no layout wrapper */}
               <Route path="/admin" component={AdminPage} />
