@@ -232,9 +232,6 @@ export default function SommelierPage() {
 
   const clearChat = () => setMessages([]);
 
-
-  }
-
   return (
     <div className="bg-background flex flex-col" style={{ height: "calc(100dvh - 112px)" }}>
       {/* Header */}
