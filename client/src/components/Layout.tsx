@@ -59,6 +59,7 @@ const navLinks: { href: string; label: string; labelZh: string; isGold?: boolean
   // Fine & Rare hidden: { href: "/fine-rare", label: "Fine & Rare", labelZh: "珍稀藏酒", isGold: true },
   { href: "/sommelier", label: "AI Sommelier", labelZh: "AI 侍酒師" },
   { href: "/about", label: "About Us", labelZh: "關於我們" },
+  { href: "/blog", label: "Wine Blog", labelZh: "酒識" },
 ];
 
 export default function Layout({ children }: { children: ReactNode }) {
@@ -291,6 +292,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                   { href: "/brands", label: "Brands 品牌" },
                   { href: "/sommelier", label: "AI Sommelier" },
                   { href: "/about", label: "About Us 關於" },
+                  { href: "/blog", label: "Wine Blog 酒識" },
                 ].map(l => (
                   <li key={l.href}>
                     <Link href={l.href}>

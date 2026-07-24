@@ -24,6 +24,8 @@ import OccasionPage from "@/pages/OccasionPage";
 import PaymentResultPage from "@/pages/PaymentResultPage";
 import NewArrivalsPage from "@/pages/NewArrivalsPage";
 import AdminPage from "@/pages/AdminPage";
+import WineBlogPage from "@/pages/WineBlogPage";
+import WineBlogPostPage from "@/pages/WineBlogPostPage";
 
 // History API routing hook — replaces hash routing for SEO.
 // Strips query string from path so wouter matches routes correctly.
@@ -77,6 +79,8 @@ function App() {
                     <Route path="/occasion" component={OccasionPage} />
                     <Route path="/new-arrivals" component={NewArrivalsPage} />
                     <Route path="/payment-result" component={PaymentResultPage} />
+                    <Route path="/blog/:slug" component={WineBlogPostPage} />
+                    <Route path="/blog" component={WineBlogPage} />
                     <Route component={NotFound} />
                   </Switch>
                 </Layout>
