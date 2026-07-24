@@ -205,7 +205,7 @@ export default function WineBlogPage() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
           {BLOG_POSTS.map((post) => (
             <Link key={post.id} href={`/blog/${post.slug}`}>
-              <a className="group block rounded-xl overflow-hidden border border-border bg-card hover:shadow-lg transition-all duration-200">
+              <div className="group block rounded-xl overflow-hidden border border-border bg-card hover:shadow-lg transition-all duration-200 cursor-pointer">
                 <div className="aspect-[16/9] overflow-hidden">
                   <img
                     src={post.heroImage}
@@ -222,7 +222,7 @@ export default function WineBlogPage() {
                   <p className="font-body text-[12.5px] text-muted-foreground leading-relaxed line-clamp-3">{post.excerptZh}</p>
                   <div className="mt-4 text-[11px] font-semibold text-[hsl(142,40%,35%)] uppercase tracking-wider">閱讀全文 →</div>
                 </div>
-              </a>
+              </div>
             </Link>
           ))}
         </div>
