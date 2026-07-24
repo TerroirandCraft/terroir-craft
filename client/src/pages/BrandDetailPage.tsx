@@ -106,8 +106,8 @@ export default function BrandDetailPage() {
 
 
   // SEO
-  const brandSeoTitle = brandTitle(brandName);
-  const brandSeoDesc = `${brandName} wines available in Hong Kong from Terroir & Craft — exclusive HK agency. Shop ${brandName} online with free delivery over HK$1,000.`;
+  const brandSeoTitle = brandTitle(actualBrand);
+  const brandSeoDesc = `${actualBrand} wines available in Hong Kong from Terroir & Craft — exclusive HK agency. Shop ${actualBrand} online with free delivery over HK$1,000.`;
 
 
   return (
@@ -118,7 +118,7 @@ export default function BrandDetailPage() {
         description={brandSeoDesc}
         ogTitle={brandSeoTitle}
         ogDescription={brandSeoDesc}
-        canonical={`https://www.terroirandcraft.online/brands/${encodeURIComponent(brandName)}`}
+        canonical={`https://www.terroirandcraft.online/brands/${encodeURIComponent(actualBrand)}`}
       />
 
       {/* ── HERO ── */}
