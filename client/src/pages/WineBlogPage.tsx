@@ -205,10 +205,10 @@ function SaintCosmePost() {
       <div className="space-y-3 mb-8">
         {[
           { wine: "Gigondas Hominis Fides 2007", score: "RP 100", note: "Only perfect-scoring Gigondas in history - 250 cases worldwide", highlight: true },
-          { wine: "Gigondas Le Poste 2010", score: "WA 99", note: ""An amazing tour de force... 45+-second finish"" },
-          { wine: "Gigondas Le Claux 2018", score: "WA 97", note: ""Insane levels of concentration, rich velvety tannins"" },
-          { wine: "Gigondas Le Poste 2021", score: "Vinous Top 100 #27 (2024)", note: ""Masterfully marrying power and complexity - an instant classic"" },
-          { wine: "Saint-Joseph 2019", score: "WA 95", note: ""Beautiful freshness and minerality"" },
+          { wine: "Gigondas Le Poste 2010", score: "WA 99", note: "An amazing tour de force... 45+-second finish" },
+          { wine: "Gigondas Le Claux 2018", score: "WA 97", note: "Insane levels of concentration, rich velvety tannins" },
+          { wine: "Gigondas Le Poste 2021", score: "Vinous Top 100 #27 (2024)", note: "Masterfully marrying power and complexity - an instant classic" },
+          { wine: "Saint-Joseph 2019", score: "WA 95", note: "Beautiful freshness and minerality" },
         ].map((item) => (
           <div key={item.wine} className={`flex items-start gap-3 p-3.5 rounded-lg border ${item.highlight ? 'border-[hsl(355,65%,30%)] bg-red-50/40' : 'border-border bg-card'}`}>
             <div className={`shrink-0 w-16 h-16 rounded-full flex flex-col items-center justify-center border-2 ${item.highlight ? 'border-[hsl(355,65%,30%)] bg-[hsl(355,65%,14%)]' : 'border-border bg-muted/30'}`}>

@@ -51,7 +51,7 @@ function TopBanner() {
 
 const navLinks: { href: string; label: string; labelZh: string; isGold?: boolean }[] = [
   { href: "/", label: "Home", labelZh: "首頁" },
-  { href: "/sommelier", label: "AI Sommelier", labelZh: "AI 侍酒師" },
+  { href: "/sommelier", label: "AI Sommelier", labelZh: "蘇文 AI侍酒師" },
   { href: "/new-arrivals", label: "New Arrivals", labelZh: "最新到貨" },
   { href: "/occasion", label: "By Occasion", labelZh: "場合選酒" },
   { href: "/brands", label: "Brands", labelZh: "品牌" },

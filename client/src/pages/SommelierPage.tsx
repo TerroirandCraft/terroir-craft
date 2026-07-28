@@ -230,7 +230,7 @@ export default function SommelierPage() {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="font-display text-lg text-white">AI Sommelier</h1>
+                <h1 className="font-display text-lg text-white">蘇文 AI Sommelier</h1>
                 <span className="inline-flex items-center gap-1 bg-amber-400/20 border border-amber-400/40 text-amber-300 text-[10px] font-body font-semibold px-2 py-0.5 rounded-full">
                   <Sparkles className="w-2.5 h-2.5" /> LIVE
                 </span>
@@ -257,7 +257,7 @@ export default function SommelierPage() {
           {messages.length === 0 && (
             <div className="text-center py-10">
               <img src={`${API_BASE}/ai-sommelier-robot.jpg`} alt="AI Sommelier" className="w-48 h-48 object-contain mx-auto mb-4 rounded-full drop-shadow-lg" />
-              <p className="font-display text-xl text-foreground mb-1">你好！我係 T&C AI 侍酒師</p>
+              <p className="font-display text-xl text-foreground mb-1">你好！我係蘇文 — T&C AI 侍酒師</p>
               <p className="font-body text-sm text-muted-foreground mb-6">
                 Tell me your budget, occasion or favourite style — I'll find the perfect bottle from our catalogue.
               </p>
