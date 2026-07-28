@@ -206,7 +206,7 @@ function SaintCosmePost() {
       <div className="mb-10">
         <SectionLabel>酒莊故事 · Histoire du Domaine</SectionLabel>
         <Rule color="hsl(355,65%,35%)" />
-        <h2 className="font-display text-3xl font-light text-foreground mb-5">500年風土傳承的 Gigondas 奇蹟</h2>
+        <h2 className="font-display text-3xl font-light text-foreground mb-5">Château de Saint Cosme<br/><span className="text-2xl text-muted-foreground font-light">500年風土傳承的 Gigondas 奇蹟</span></h2>
         <p className="font-body text-base text-muted-foreground leading-relaxed mb-4">
           Chateau de Saint Cosme 坐落於 Gigondas 核心地帶，莊園內保存完好的 Gallo-Roman 石鑿發酵槽是法國現存最古老的釀酒遺址之一。自 <strong>1490 年</strong>起，Barruol 家族在此代代相傳，如今已踏入第 <strong>14 代</strong>。Saint Cosme 教堂建於 11–12 世紀，矗立在葡萄園中央，是 Romanesque 藝術的瑰寶。
         </p>
@@ -224,6 +224,7 @@ function SaintCosmePost() {
         <p className="font-body text-sm leading-relaxed mb-5" style={{color:'rgba(255,255,255,0.7)'}}>
           Saint Cosme 坐落於兩條地質斷層交匯處，形成多元土壤組合。加上 Dentelles de Montmirail 山脈每天偷去一小時日照，酒莊享有涼爽、晚熟的獨特微氣候，賦予酒款清新度與張力。
         </p>
+        <h4 className="font-display text-lg font-light text-white mb-4">三塊優質單一葡萄園 · Three Premier Single Vineyards</h4>
         <div className="grid grid-cols-3 gap-3">
           {[
             { name: "'Hominis Fides'", desc: "中新世瑞士沙地，高石灰質。沙質土壤賦予 Grenache 獨特質感，融合力量與柔美。RP 歷史滿分 100 分。" },
@@ -342,14 +343,14 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     id: "saint-cosme-2024",
     slug: "chateau-saint-cosme-2024-vintage",
-    title: "Chateau de Saint Cosme 2024 — RP 100pts, Drops of God & Full Offer",
-    titleZh: "Saint Cosme 2024 · RP 100分 · 神之水滴 · 全系列優惠",
+    title: "Chateau de Saint Cosme — RP 100pts, Drops of God & Full Range Offer",
+    titleZh: "Château de Saint Cosme · RP 100分 · 神之水滴 · 全系列優惠",
     date: "2026-07-28",
     category: "Producer Feature",
     categoryZh: "酒莊推介",
     heroImage: "https://winebow-files.s3.amazonaws.com/public/2025-08/spring044.jpg?VersionId=Fd93hocLV5X9r8OfwKlp2mBxjS94V9gX",
-    excerpt: "Hominis Fides 2007 scored a perfect 100 from Robert Parker — the only Gigondas ever. Plus the Drops of God connection and exclusive summer pricing.",
-    excerptZh: "Hominis Fides 2007 獲 Robert Parker 滿分 100 分，Gigondas 史上唯一。神之水滴第 3 卷主角酒款，加上天地人酒業獨家夏季優惠，限時至 8 月 31 日。",
+    excerpt: "Hominis Fides 2007 scored a perfect 100 from Robert Parker — the only Gigondas ever. The Drops of God connection, full range tasting notes and exclusive summer pricing.",
+    excerptZh: "Hominis Fides 2007 獲 Robert Parker 滿分 100 分，Gigondas 史上唯一。神之水滴第 3 卷主角酒款，全系列品鑑筆記 + 天地人酒業獨家夏季優惠，限時至 8 月 31 日。",
     component: SaintCosmePost,
   },
   {
