@@ -53,7 +53,7 @@ function MoreyCoffinetPost() {
       name: "Puligny‑Montrachet 1er Cru Les Pucelles BIO 2024",
       type: "White", bh: null, bhNote: "Not Rated",
       price: "HK$1,580", listPrice: "HK$1,830",
-      note: `"Ripe and airy aromas of white peach, honeysuckle, acacia blossom and spice wisps are set off by subtle wood influence. Succulent and seductive flavors — a tough wine to evaluate in its current state."`,
+      note: `"Ripe and airy aromas of white peach, honeysuckle, acacia blossom and spice wisps are set off by subtle wood influence. Succulent and seductive flavors - a tough wine to evaluate in its current state."`,
     },
     {
       name: "Bâtard‑Montrachet Grand Cru BIO 2024",
@@ -83,13 +83,13 @@ function MoreyCoffinetPost() {
           Domaine Morey‑Coffinet 是 Chassagne‑Montrachet 兩大歷史名門 Morey 與 Coffinet 家族因婚姻而合併葡萄園誕生的酒莊，現任掌舵人 Thibault Morey（家族第十代釀酒師）自 2009 年起逐步將酒莊轉型為有機及生物動力耕作。
         </p>
         <p className="font-body text-base text-muted-foreground leading-relaxed mb-4">
-          2024 年對勃艮第而言是一個挑戰重重但成果驚喜的年份。Thibault 形容整個生長季節「exceptionally challenging」—— 持續降雨、開花不理想、病害壓力不斷。最終產量在白酒低至 10 ha，產量幾乎減半。然而，在精準耕作與採收下，2024 年白酒被 Burghound 形容為清新、礦物、有骨幹，是一個「fresh and precise」的收藏年份。
+          2024 年對勃艮第而言是一個挑戰重重但成果驚喜的年份。Thibault 形容整個生長季節「exceptionally challenging」-- 持續降雨、開花不理想、病害壓力不斷。最終產量在白酒低至 10 ha，產量幾乎減半。然而，在精準耕作與採收下，2024 年白酒被 Burghound 形容為清新、礦物、有骨幹，是一個「fresh and precise」的收藏年份。
         </p>
         <div className="border-l-4 border-[hsl(40,70%,50%)] pl-4 py-1 my-6 bg-amber-50/50 rounded-r">
           <p className="font-body text-sm text-muted-foreground italic leading-relaxed">
             "With the exception of the Pucelles, every wine is recommended. I would add, and I have said this before, if you're not familiar with the wines, do yourself a 'collecting favour' and try a few; you'll thank me."
           </p>
-          <span className="text-xs text-muted-foreground/70 mt-1 block">— Allen Meadows, Burghound</span>
+          <span className="text-xs text-muted-foreground/70 mt-1 block">- Allen Meadows, Burghound</span>
         </div>
       </div>
 
@@ -122,7 +122,7 @@ function MoreyCoffinetPost() {
                     </div>
                   ) : (
                     <div className="w-14 h-14 rounded-full border-2 border-border flex flex-col items-center justify-center bg-muted/20">
-                      <span className="text-xs font-semibold text-muted-foreground">—</span>
+                      <span className="text-xs font-semibold text-muted-foreground">-</span>
                       <span className="text-[8px] font-semibold text-muted-foreground uppercase tracking-wide">BH</span>
                     </div>
                   )}
@@ -132,7 +132,7 @@ function MoreyCoffinetPost() {
               {/* Tasting note */}
               <div className="bg-amber-50/40 border-l-[3px] border-amber-300 px-3 py-2.5 mb-4 rounded-r">
                 <p className="font-body text-[12.5px] italic text-muted-foreground leading-relaxed">{w.note}</p>
-                {w.bhNote && <span className="text-[10px] text-muted-foreground/70 mt-1 block not-italic">— Burghound, {w.bhNote}</span>}
+                {w.bhNote && <span className="text-[10px] text-muted-foreground/70 mt-1 block not-italic">- Burghound, {w.bhNote}</span>}
               </div>
 
               {/* Price row */}
@@ -171,16 +171,16 @@ function SaintCosmePost() {
     <div className="max-w-[680px] mx-auto">
       <div className="mb-8">
         <p className="font-body text-base text-muted-foreground leading-relaxed mb-4">
-          Founded in 1490, Château de Saint Cosme sits at the heart of Gigondas, where a Gallo-Roman winery hewn into the rock still stands intact. For 14 generations, the Barruol family has farmed these ancient terraces — and today, Louis Barruol has elevated the estate to produce what many consider the finest Gigondas in the world.
+          Founded in 1490, Château de Saint Cosme sits at the heart of Gigondas, where a Gallo-Roman winery hewn into the rock still stands intact. For 14 generations, the Barruol family has farmed these ancient terraces - and today, Louis Barruol has elevated the estate to produce what many consider the finest Gigondas in the world.
         </p>
         <p className="font-body text-base text-muted-foreground leading-relaxed mb-4">
-          In 2007, Robert Parker awarded Hominis Fides a perfect <strong>100 points</strong> — the only Gigondas ever to achieve this score. Le Poste 2010 followed with 99 points, and Le Poste 2021 was named <strong>#27 in Vinous Top 100 Wines of 2024</strong> by Neal Martin.
+          In 2007, Robert Parker awarded Hominis Fides a perfect <strong>100 points</strong> - the only Gigondas ever to achieve this score. Le Poste 2010 followed with 99 points, and Le Poste 2021 was named <strong>#27 in Vinous Top 100 Wines of 2024</strong> by Neal Martin.
         </p>
         <div className="border-l-4 border-[hsl(355,65%,30%)] pl-4 py-1 my-6 bg-red-50/50 rounded-r">
           <p className="font-body text-sm text-muted-foreground italic leading-relaxed">
-            "I like to make wines that show pure, precise sense of place — wines that have personality and balance. I want them to have the propensity to age."
+            "I like to make wines that show pure, precise sense of place - wines that have personality and balance. I want them to have the propensity to age."
           </p>
-          <span className="text-xs text-muted-foreground/70 mt-1 block">— Louis Barruol, 14th-generation winemaker</span>
+          <span className="text-xs text-muted-foreground/70 mt-1 block">- Louis Barruol, 14th-generation winemaker</span>
         </div>
       </div>
 
@@ -195,7 +195,7 @@ function SaintCosmePost() {
             日本殿堂級葡萄酒漫畫《神之水滴》第 3 卷，主角品嚐 Saint Cosme 的 <strong>Les Deux Albion Rouge</strong> 後，彷彿置身峇里島，感受到香料、熟果與花卉的奇幻香氣。
           </p>
           <p className="font-body text-sm text-muted-foreground leading-relaxed">
-            「<em>Albion</em>」是大不列顛島的古稱（the historic name for the island of Great Britain）。酒名『Les Deux Albion』代表 Louis Barruol 與英籍妻子的婚姻——兩個 Albion 的結合。這支 Côtes-du-Rhône 一夜之間成為亞洲最受追捧的隱藏瑰寶。
+            「<em>Albion</em>」是大不列顛島的古稱（the historic name for the island of Great Britain）。酒名『Les Deux Albion』代表 Louis Barruol 與英籍妻子的婚姻--兩個 Albion 的結合。這支 Côtes-du-Rhône 一夜之間成為亞洲最受追捧的隱藏瑰寶。
           </p>
         </div>
       </div>
@@ -204,10 +204,10 @@ function SaintCosmePost() {
       <h3 className="font-display text-2xl font-light mb-4 text-foreground">精選評分 · Top Scores</h3>
       <div className="space-y-3 mb-8">
         {[
-          { wine: "Gigondas Hominis Fides 2007", score: "RP 100", note: "Only perfect-scoring Gigondas in history — 250 cases worldwide", highlight: true },
+          { wine: "Gigondas Hominis Fides 2007", score: "RP 100", note: "Only perfect-scoring Gigondas in history - 250 cases worldwide", highlight: true },
           { wine: "Gigondas Le Poste 2010", score: "WA 99", note: ""An amazing tour de force... 45+-second finish"" },
           { wine: "Gigondas Le Claux 2018", score: "WA 97", note: ""Insane levels of concentration, rich velvety tannins"" },
-          { wine: "Gigondas Le Poste 2021", score: "Vinous Top 100 #27 (2024)", note: ""Masterfully marrying power and complexity — an instant classic"" },
+          { wine: "Gigondas Le Poste 2021", score: "Vinous Top 100 #27 (2024)", note: ""Masterfully marrying power and complexity - an instant classic"" },
           { wine: "Saint-Joseph 2019", score: "WA 95", note: ""Beautiful freshness and minerality"" },
         ].map((item) => (
           <div key={item.wine} className={`flex items-start gap-3 p-3.5 rounded-lg border ${item.highlight ? 'border-[hsl(355,65%,30%)] bg-red-50/40' : 'border-border bg-card'}`}>
@@ -243,20 +243,20 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     id: "saint-cosme-2024",
     slug: "chateau-saint-cosme-2024-vintage",
-    title: "Château de Saint Cosme 2024 — RP 100pts, Drops of God & Full Offer",
+    title: "Château de Saint Cosme 2024 - RP 100pts, Drops of God & Full Offer",
     titleZh: "Saint Cosme 2024 · RP 100分 · 神之水滴 · 全系列優惠",
     date: "2026-07-28",
     category: "Producer Feature",
     categoryZh: "酒莊推介",
     heroImage: "https://winebow-files.s3.amazonaws.com/public/2025-08/spring044.jpg?VersionId=Fd93hocLV5X9r8OfwKlp2mBxjS94V9gX",
-    excerpt: "Hominis Fides 2007 scored a perfect 100 from Robert Parker — the only Gigondas ever. Plus the Drops of God connection and our exclusive summer pricing.",
+    excerpt: "Hominis Fides 2007 scored a perfect 100 from Robert Parker - the only Gigondas ever. Plus the Drops of God connection and our exclusive summer pricing.",
     excerptZh: "Hominis Fides 2007 獲 Robert Parker 滿分 100 分，Gigondas 史上唯一。神之水滴第 3 卷主角酒款，加上天地人酒業獨家夏季優惠，限時至 8 月 31 日。",
     component: SaintCosmePost,
   },
   {
     id: "morey-coffinet-2024",
     slug: "morey-coffinet-2024-vintage",
-    title: "Domaine Morey-Coffinet 2024 Vintage — Burghound Review & Full Offer",
+    title: "Domaine Morey-Coffinet 2024 Vintage - Burghound Review & Full Offer",
     titleZh: "Morey‑Coffinet 2024 年份 · Burghound 評分 + 全系列推介",
     date: "2026-07-24",
     category: "Producer Feature",
@@ -273,8 +273,8 @@ export default function WineBlogPage() {
   return (
     <div className="min-h-screen bg-background">
       <SeoHead
-        title="Wine Blog | 酒識 — Terroir & Craft 天地人酒業"
-        description="Wine tasting notes, producer features, vintage reports and buying guides from Terroir & Craft — exclusive HK importer for 23 premium wine brands."
+        title="Wine Blog | 酒識 - Terroir & Craft 天地人酒業"
+        description="Wine tasting notes, producer features, vintage reports and buying guides from Terroir & Craft - exclusive HK importer for 23 premium wine brands."
         canonical="https://www.terroirandcraft.online/blog"
       />
 
