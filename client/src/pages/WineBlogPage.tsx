@@ -213,7 +213,7 @@ function SaintCosmePost() {
         <p className="font-body text-base text-muted-foreground leading-relaxed mb-4">
           現任莊主 <strong>Louis Barruol</strong> 於 1992 年接掌酒莊後，率先在 Gigondas 推行單一園裝瓶概念，並於 2010 年完成生物動力法轉型。葡萄園平均樹齡 60 年，產量極少，使用整串葡萄發酵、天然酵母，不下膠、不過濾（no fining, no filtering）。
         </p>
-        <Quote text="I like to make wines that show pure, precise sense of place — wines that have personality and balance. I want them to have the propensity to age." source="Louis Barruol, 14th-generation winemaker" />
+        <Quote text="I like to make wines that show pure, precise sense of place — wines that have personality and balance. I want them to have the propensity to age." source="Louis Barruol, 15th-generation winemaker" />
       </div>
 
       {/* Terroir — 3 soils */}

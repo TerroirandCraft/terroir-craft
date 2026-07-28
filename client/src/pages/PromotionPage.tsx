@@ -35,7 +35,7 @@ export const PROMOTIONS: Record<string, {
     id: "saintcosme2024",
     title: "CHÂTEAU DE SAINT COSME",
     subtitle: "2024 Vintage — Gigondas · Southern Rhône · Est. 1490",
-    description: "Founded in 1490, Château de Saint Cosme is one of France's most historic estates. From the same Gallo-Roman cellars that have stood for 2,000 years, 14th-generation Louis Barruol crafts biodynamic Gigondas that has earned the only perfect 100-point score in the appellation's history. Exclusive summer offer across the full range — from the famous 神之水滴 Les Deux Albion to the legendary single vineyards Le Poste, Le Claux and Hominis Fides.",
+    description: "Founded in 1490, Château de Saint Cosme is one of France's most historic estates. From the same Gallo-Roman cellars that have stood for 2,000 years, 15th-generation Louis Barruol crafts biodynamic Gigondas that has earned the only perfect 100-point score in the appellation's history. Exclusive summer offer across the full range — from the famous 神之水滴 Les Deux Albion to the legendary single vineyards Le Poste, Le Claux and Hominis Fides.",
     tag: "Exclusive Summer Offer",
     endDate: "2026-08-31",
     heroGradient: "linear-gradient(135deg, hsl(355,65%,10%) 0%, hsl(20,35%,14%) 40%, hsl(355,55%,16%) 100%)",
