@@ -1007,7 +1007,9 @@
     "phonetic": "Gigondas [zhee-gon-DAH]",
     "exclusive": true,
     "image_url": "/bottle-shots/TCFR-SC0123.png",
-    "new_arrival": true
+    "new_arrival": true,
+    "promo_price": 298,
+    "promotion": "saintcosme2024"
   },
   {
     "id": "TCFR-SC0223",
@@ -1038,7 +1040,9 @@
     "phonetic": "Châteauneuf-du-Pape [shah-toh-NUF doo PAP]",
     "exclusive": true,
     "image_url": "/bottle-shots/TCFR-SC0223.png",
-    "new_arrival": true
+    "new_arrival": true,
+    "promo_price": 298,
+    "promotion": "saintcosme2024"
   },
   {
     "id": "TCFR-SC0323",
@@ -1063,7 +1067,9 @@
     ],
     "phonetic": "Saint-Joseph [san zhoh-ZEF]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC0323.png"
+    "image_url": "/bottle-shots/TCFR-SC0323.png",
+    "promo_price": 180,
+    "promotion": "saintcosme2024"
   },
   {
     "id": "TCFR-SC0423",
@@ -1089,7 +1095,9 @@
     "phonetic": "Gigondas [zhee-gon-DAH]",
     "exclusive": true,
     "image_url": "/bottle-shots/TCFR-SC0423.png",
-    "new_arrival": true
+    "new_arrival": true,
+    "promo_price": 630,
+    "promotion": "saintcosme2024"
   },
   {
     "id": "TCFR-SC0723",
@@ -1115,7 +1123,9 @@
     "phonetic": "Gigondas [zhee-gon-DAH]",
     "exclusive": true,
     "image_url": "/bottle-shots/TCFR-SC0723.png",
-    "new_arrival": true
+    "new_arrival": true,
+    "promo_price": 630,
+    "promotion": "saintcosme2024"
   },
   {
     "id": "TCFR-SC0522",
@@ -1140,7 +1150,9 @@
     ],
     "phonetic": "Côtes du Rhône [koht doo RONE]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC0522.png"
+    "image_url": "/bottle-shots/TCFR-SC0522.png",
+    "promo_price": 155,
+    "promotion": "saintcosme2024"
   },
   {
     "id": "TCFR-SC0624",
@@ -1165,7 +1177,9 @@
     ],
     "phonetic": "Côtes du Rhône [koht doo RONE]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC0624.png"
+    "image_url": "/bottle-shots/TCFR-SC0624.png",
+    "promo_price": 120,
+    "promotion": "saintcosme2024"
   },
   {
     "id": "TCFR-SC0823",
@@ -1190,7 +1204,9 @@
     ],
     "phonetic": "Crozes-Hermitage [KROZ air-mee-TAHZH]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC0823.png"
+    "image_url": "/bottle-shots/TCFR-SC0823.png",
+    "promo_price": 238,
+    "promotion": "saintcosme2024"
   },
   {
     "id": "TCFR-SC09NV",
@@ -1240,7 +1256,9 @@
     ],
     "phonetic": "Côte-Rôtie [koht roh-TEE]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC1023.png"
+    "image_url": "/bottle-shots/TCFR-SC1023.png",
+    "promo_price": 438,
+    "promotion": "saintcosme2024"
   },
   {
     "id": "TCFR-SC1123",
@@ -1266,7 +1284,9 @@
     "phonetic": "Gigondas [zhee-gon-DAH]",
     "exclusive": true,
     "image_url": "/bottle-shots/TCFR-SC1123.png",
-    "new_arrival": true
+    "new_arrival": true,
+    "promo_price": 630,
+    "promotion": "saintcosme2024"
   },
   {
     "id": "TCFR-SC1223",
@@ -1291,7 +1311,9 @@
     ],
     "phonetic": "Château de Saint Cosme [sha-TOH duh san KOZM]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC1223.jpg"
+    "image_url": "/bottle-shots/TCFR-SC1223.jpg",
+    "promo_price": 155,
+    "promotion": "saintcosme2024"
   },
   {
     "id": "TCFR-SC13NV",
@@ -1341,7 +1363,9 @@
     ],
     "phonetic": "Condrieu [kon-DREE-uh]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC1423.png"
+    "image_url": "/bottle-shots/TCFR-SC1423.png",
+    "promo_price": 398,
+    "promotion": "saintcosme2024"
   },
   {
     "id": "DAFR-DN0121",
