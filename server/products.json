@@ -621,13 +621,7 @@
     "price_display": "HK$575",
     "grape": "55% Pinot Noir and 45% Chardonnay",
     "tasting_note": "50% Pinot Noir, 50% Chardonnay blend. Harmonious expression with 8 years on lees. Almond tarts, caramelized oranges and honey. 5-7+ years aging potential. Source: Wine Enthusiast",
-    "ratings": [
-      {
-        "source": "WA",
-        "score": 94,
-        "maxScore": 100
-      }
-    ],
+    "ratings": [],
     "phonetic": "Champagne [sham-PAN-yuh]",
     "exclusive": true,
     "image_url": "/bottle-shots/TCFR-CB0415.png",
@@ -1829,13 +1823,7 @@
     "price_display": "HK$295",
     "grape": "Touriga Nacional, Touriga Franca, Tinta Roriz (Tempranillo), and Tinta Barroca",
     "tasting_note": "Honey-colored Tawny. Ambrosial flavors with toasted almonds, butterscotch and honey. Smooth and unctuous. Dried fruit and wood aromas. Complex textural pleasure. Source: Wine Spectator",
-    "ratings": [
-      {
-        "source": "WA",
-        "score": 95,
-        "maxScore": 100
-      }
-    ],
+    "ratings": [],
     "exclusive": true,
     "image_url": "/bottle-shots/TCPO-KO04NV.png"
   },
@@ -1853,13 +1841,7 @@
     "price_display": "HK$330",
     "grape": "Touriga Nacional, Touriga Franca, Tinta Roriz (Tempranillo), and Tinta Barroca",
     "tasting_note": "Honey-colored Tawny. Ambrosial flavors with toasted almonds, butterscotch and honey. Smooth and unctuous. Dried fruit and wood aromas. Complex textural pleasure. Source: Wine Spectator",
-    "ratings": [
-      {
-        "source": "WA",
-        "score": 95,
-        "maxScore": 100
-      }
-    ],
+    "ratings": [],
     "exclusive": true,
     "image_url": "/bottle-shots/TCPO-KO04NVSET.jpg"
   },
@@ -1953,7 +1935,7 @@
     "ratings": [
       {
         "source": "WA",
-        "score": 98,
+        "score": 94,
         "maxScore": 100
       }
     ],
@@ -2032,8 +2014,8 @@
     "tasting_note": "Gran Reserva from Rioja. Concentrated fruit with balanced oak. Full-bodied with structured tannins. Long, complex finish. Source: Vintage Assessments",
     "ratings": [
       {
-        "source": "WA",
-        "score": 93,
+        "source": "JS",
+        "score": 92,
         "maxScore": 100
       }
     ],
@@ -2057,7 +2039,7 @@
     "ratings": [
       {
         "source": "WA",
-        "score": 97,
+        "score": 96,
         "maxScore": 100
       }
     ],
@@ -2081,7 +2063,7 @@
     "ratings": [
       {
         "source": "WA",
-        "score": 97,
+        "score": 95,
         "maxScore": 100
       }
     ],
@@ -2105,7 +2087,7 @@
     "ratings": [
       {
         "source": "WA",
-        "score": 97,
+        "score": 95,
         "maxScore": 100
       }
     ],
@@ -2129,7 +2111,7 @@
     "ratings": [
       {
         "source": "WA",
-        "score": 97,
+        "score": 93,
         "maxScore": 100
       }
     ],
@@ -2190,7 +2172,7 @@
     "ratings": [
       {
         "source": "WA",
-        "score": 96,
+        "score": 97,
         "maxScore": 100
       }
     ],
@@ -2214,7 +2196,7 @@
     "ratings": [
       {
         "source": "WA",
-        "score": 96,
+        "score": 97,
         "maxScore": 100
       }
     ],
@@ -2238,7 +2220,7 @@
     "ratings": [
       {
         "source": "WA",
-        "score": 98,
+        "score": 95,
         "maxScore": 100
       }
     ],
@@ -2262,7 +2244,7 @@
     "ratings": [
       {
         "source": "WA",
-        "score": 96,
+        "score": 98,
         "maxScore": 100
       }
     ],
@@ -2286,7 +2268,7 @@
     "ratings": [
       {
         "source": "WA",
-        "score": 97,
+        "score": 99,
         "maxScore": 100
       }
     ],
@@ -2660,7 +2642,7 @@
     "ratings": [
       {
         "source": "WA",
-        "score": 92,
+        "score": 93,
         "maxScore": 100
       },
       {
@@ -2770,7 +2752,7 @@
       },
       {
         "source": "JR",
-        "score": 17.5,
+        "score": 16.5,
         "maxScore": 20
       }
     ],
@@ -3086,7 +3068,14 @@
     "ag_score": 94,
     "image_url": "/bottle-shots/TBA00320.png",
     "status": "In Stock",
-    "exclusive": false
+    "exclusive": false,
+    "ratings": [
+      {
+        "source": "AG",
+        "score": 94,
+        "maxScore": 100
+      }
+    ]
   },
   {
     "id": "CAM00120",
@@ -3104,7 +3093,14 @@
     "image_url": "/bottle-shots/CAM00120.png",
     "status": "In Stock",
     "exclusive": false,
-    "new_arrival": true
+    "new_arrival": true,
+    "ratings": [
+      {
+        "source": "AG",
+        "score": 94,
+        "maxScore": 100
+      }
+    ]
   },
   {
     "id": "CAM00219",
