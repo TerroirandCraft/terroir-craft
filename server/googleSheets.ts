@@ -15,8 +15,8 @@ function getAuth() {
 }
 
 // ── Sheet IDs ──────────────────────────────────────────────────────────────
-const STOCK_SHEET_ID = "1k5mUs69iPYHSi6WoeVD1hrls4dnlI-yMBRIOIq8dRVg";
-const STOCK_SHEET_TAB = "Item Master"; // A=Item Code, W=總庫存
+const STOCK_SHEET_ID = "1Acdq03SwlYzLVTq5IjGxGbVCvDNO9Wx45VOZqklIJrw";
+const STOCK_SHEET_TAB = "Item Master"; // A=Item Code, S=倉庫1 (Seaview)
 const MEMBERS_SHEET_ID = "1knojavzlakQAQjPLMhhAwpPNsUhuSkhISVYEyIOpD_U";
 const MEMBERS_SHEET_TAB = "工作表1";
 
@@ -38,7 +38,7 @@ export async function getStockMap(forceRefresh = false): Promise<Record<string, 
 
     const res = await sheets.spreadsheets.values.get({
       spreadsheetId: STOCK_SHEET_ID,
-      range: `${STOCK_SHEET_TAB}!A:W`,
+      range: `${STOCK_SHEET_TAB}!A:S`,
     });
 
     const rows = res.data.values || [];
@@ -48,7 +48,7 @@ export async function getStockMap(forceRefresh = false): Promise<Record<string, 
     for (let i = 1; i < rows.length; i++) {
       const row = rows[i];
       const itemCode = row[0]?.toString().trim();
-      const stockRaw = row[22]; // Column W = index 22
+      const stockRaw = row[18]; // Column S = index 18 = 倉庫1 (Seaview)
       if (itemCode) {
         const stock = stockRaw !== undefined && stockRaw !== "" ? Number(stockRaw) : 999;
         map[itemCode] = isNaN(stock) ? 999 : stock;
@@ -121,7 +121,7 @@ export async function deductStock(
       requests.push(
         sheets.spreadsheets.values.update({
           spreadsheetId: STOCK_SHEET_ID,
-          range: `${STOCK_SHEET_TAB}!W${rowNum}`,
+          range: `${STOCK_SHEET_TAB}!S${rowNum}`, // Column S = 倉庫1 (Seaview)
           valueInputOption: "USER_ENTERED",
           requestBody: { values: [[newStock]] },
         })
