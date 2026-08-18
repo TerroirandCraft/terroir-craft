@@ -4130,5 +4130,227 @@
     "description_zh": "Les Aricoques 的紅酒，採自薩瓦省 Frangy 冰磧土上的 Gamay 與 Mondeuse，部分去梗、部分整串，混凝土蛋形桶發酵。色澤近似桃紅，紅果緊密，帶整串香料氣息與阿爾卑斯山獨有的清爽靈動，不澄清、不過濾、少量二氧化硫。",
     "tasting_note": "Gamay and Mondeuse from glacial moraine, Frangy. Short maceration, concrete egg vats. Near-rosé, red fruit, whole-cluster spice, Alpine freshness. Unfined, unfiltered, minimal SO2.",
     "image": "/bottle-shots/WT387.png"
+  },
+  {
+    "id": "TCFR-MC0124",
+    "name": "Morey-Coffinet Bourgogne Chardonnay BIO",
+    "brand": "Morey-Coffinet",
+    "type": "White",
+    "grape": "Chardonnay",
+    "region": "Bourgogne",
+    "country": "France",
+    "vintage": "2024",
+    "price": 310,
+    "promo_price": 265,
+    "status": "Exclusive",
+    "occasions": [],
+    "image_url": "/bottle-shots/TCFR-MC0123.png",
+    "tasting_notes": "An expressive nose freely reveals its aromas of petrol, apple and lemon zest. The racy, delicious and attractively textured middle weight flavors deliver very good depth and persistence for a wine of this level on the lightly austere finale. Worth a look.\n\n— Burghound, 87/100, 2028+",
+    "ratings": [
+      {
+        "source": "BH",
+        "score": 87,
+        "maxScore": 100
+      }
+    ]
+  },
+  {
+    "id": "TCFR-MC0224",
+    "name": "Morey-Coffinet Chassagne Montrachet Blanc BIO",
+    "brand": "Morey-Coffinet",
+    "type": "White",
+    "grape": "Chardonnay",
+    "region": "Bourgogne",
+    "country": "France",
+    "vintage": "2024",
+    "price": 680,
+    "promo_price": 578,
+    "status": "Exclusive",
+    "occasions": [],
+    "image_url": "/bottle-shots/TCFR-MC0223.png",
+    "tasting_notes": "An equally expressive but better layered nose freely reveals its notes of rosemary oil, white orchard fruit and just grated citrus rind. There is an attractive texture to the rich and succulent but vibrant flavors that deliver solid depth and persistence on the balanced, clean and agreeably dry finale. One to consider.\n\n— Burghound, 89/100, 2030+",
+    "ratings": [
+      {
+        "source": "BH",
+        "score": 89,
+        "maxScore": 100
+      }
+    ]
+  },
+  {
+    "id": "TCFR-MC0324",
+    "name": "Morey-Coffinet Chassagne Montrachet Blanc 1er Les Fairendes BIO",
+    "brand": "Morey-Coffinet",
+    "type": "White",
+    "grape": "Chardonnay",
+    "region": "Bourgogne",
+    "country": "France",
+    "vintage": "2024",
+    "price": 950,
+    "promo_price": 900,
+    "status": "Exclusive",
+    "occasions": [],
+    "image_url": "/bottle-shots/TCFR-MC0423.png",
+    "tasting_notes": "A markedly more floral-suffused nose, especially acacia and carnation, displays additional notes of petrol, white peach and zest. There is better volume and overall size to the delicious and sappy medium-bodied flavors that exhibit fine length on the slightly more structured finale.\n\n— Burghound, 91/100, 2032+",
+    "ratings": [
+      {
+        "source": "BH",
+        "score": 91,
+        "maxScore": 100
+      }
+    ]
+  },
+  {
+    "id": "TCFR-MC0424",
+    "name": "Morey-Coffinet Chassagne Montrachet Blanc 1er En Cailleret BIO",
+    "brand": "Morey-Coffinet",
+    "type": "White",
+    "grape": "Chardonnay",
+    "region": "Bourgogne",
+    "country": "France",
+    "vintage": "2024",
+    "price": 950,
+    "promo_price": 900,
+    "status": "Exclusive",
+    "occasions": [],
+    "image_url": "/bottle-shots/TCFR-MC0323.png",
+    "tasting_notes": "The super-sleek and gorgeously textured middle weight flavors display much more evident minerality that adds a sense of lift to the very dry but not especially austere finish that delivers excellent length. This is a lovely Cailleret that should easily repay up to a decade of keeping.\n\n— Burghound, 93/100, 2034+",
+    "ratings": [
+      {
+        "source": "BH",
+        "score": 93,
+        "maxScore": 100
+      }
+    ]
+  },
+  {
+    "id": "TCFR-MC0524",
+    "name": "Morey-Coffinet Chassagne Montrachet Blanc 1er La Romanée BIO",
+    "brand": "Morey-Coffinet",
+    "type": "White",
+    "grape": "Chardonnay",
+    "region": "Bourgogne",
+    "country": "France",
+    "vintage": "2024",
+    "price": 1190,
+    "promo_price": 1080,
+    "status": "Exclusive",
+    "occasions": [],
+    "image_url": "/bottle-shots/TCFR-MC0523.png",
+    "tasting_notes": "From a .7 ha parcel of 50+ year old vines. There is a bit more size and weight to the bigger-bodied flavors that exude both evident minerality and obviously power on the medium dry, focused, balanced and lingering finale that is not quite as structured. A few years of keeping should help.\n\n— Burghound, 92/100, 2032+",
+    "ratings": [
+      {
+        "source": "BH",
+        "score": 92,
+        "maxScore": 100
+      }
+    ]
+  },
+  {
+    "id": "TCFR-MC0624",
+    "name": "Morey-Coffinet Puligny Montrachet Blanc 1er Les Pucelles BIO",
+    "brand": "Morey-Coffinet",
+    "type": "White",
+    "grape": "Chardonnay",
+    "region": "Bourgogne",
+    "country": "France",
+    "vintage": "2024",
+    "price": 1830,
+    "promo_price": 1580,
+    "status": "Exclusive",
+    "occasions": [],
+    "image_url": "/bottle-shots/TCFR-MC0623.png",
+    "tasting_notes": "Near Grand Cru quality. Ripe and airy aromas of white peach, honeysuckle, acacia blossom and spice wisps. Succulent and seductive flavors with elegant mineral length.",
+    "ratings": []
+  },
+  {
+    "id": "TCFR-MC0724",
+    "name": "Morey-Coffinet Meursault 1er Perrières BIO",
+    "brand": "Morey-Coffinet",
+    "type": "White",
+    "grape": "Chardonnay",
+    "region": "Bourgogne",
+    "country": "France",
+    "vintage": "2024",
+    "price": 1910,
+    "status": "Exclusive",
+    "occasions": [],
+    "image_url": "/bottle-shots/TCFR-MC0723.png",
+    "tasting_notes": "Restrained and soaring, opening with cool citrus (lemon-lime), wet chalk, subtle white acacia blossom, and a delicate touch of reduction. Medium-bodied and taut, avoiding any heavy buttery fatness in favor of piercing mineral tension, precise stone fruit, and vibrant energy. Exceptionally long, dry, and penetrating, driven by limestone extract and a saline, mouth-watering grip.",
+    "ratings": []
+  },
+  {
+    "id": "TCFR-MC0824",
+    "name": "Morey-Coffinet Bâtard-Montrachet Grand Cru BIO",
+    "brand": "Morey-Coffinet",
+    "type": "White",
+    "grape": "Chardonnay",
+    "region": "Bourgogne",
+    "country": "France",
+    "vintage": "2024",
+    "price": 5160,
+    "promo_price": 4680,
+    "status": "Exclusive",
+    "occasions": [],
+    "image_url": "/bottle-shots/TCFR-MC0923.png",
+    "tasting_notes": "Outstanding volume to the utterly delicious and tautly muscular flavors that display stunningly good persistence on the balanced, very dry and compact finale. Despite being clearly built-to-age, this is quite an elegant Batard that should richly reward a decade plus of keeping. If you can find, don't hesitate.\n\n— Burghound, 95/100, 2036+",
+    "ratings": [
+      {
+        "source": "BH",
+        "score": 95,
+        "maxScore": 100
+      }
+    ]
+  },
+  {
+    "id": "TCFR-MC0924",
+    "name": "Morey-Coffinet Bourgogne Côte d'Or Pinot Noir Rouge BIO",
+    "brand": "Morey-Coffinet",
+    "type": "Red",
+    "grape": "Pinot Noir",
+    "region": "Bourgogne",
+    "country": "France",
+    "vintage": "2024",
+    "price": 310,
+    "promo_price": 270,
+    "status": "Exclusive",
+    "occasions": [],
+    "image_url": "/bottle-shots/TCFR-MC1023.png",
+    "tasting_notes": "Red berries, cherries, spice and earthy notes. Fine-grained tannins, vibrant acidity and the elegant backbone typical of Burgundy.",
+    "ratings": []
+  },
+  {
+    "id": "TCFR-MC1024",
+    "name": "Morey-Coffinet Chassagne Montrachet Rouge Les Chaumes BIO",
+    "brand": "Morey-Coffinet",
+    "type": "Red",
+    "grape": "Pinot Noir",
+    "region": "Bourgogne",
+    "country": "France",
+    "vintage": "2024",
+    "price": 480,
+    "promo_price": 460,
+    "status": "Exclusive",
+    "occasions": [],
+    "image_url": "/bottle-shots/TCFR-MC1124.png",
+    "tasting_notes": "Red cherry, raspberry, rose petal with light spice and forest floor. Medium-bodied with silky tannins and an elegant, refined structure.",
+    "ratings": []
+  },
+  {
+    "id": "TCFR-MC1124",
+    "name": "Morey-Coffinet Chassagne Montrachet Rouge 1er Morgeot BIO",
+    "brand": "Morey-Coffinet",
+    "type": "Red",
+    "grape": "Pinot Noir",
+    "region": "Bourgogne",
+    "country": "France",
+    "vintage": "2024",
+    "price": 680,
+    "promo_price": 620,
+    "status": "Exclusive",
+    "occasions": [],
+    "image_url": "/bottle-shots/TCFR-MC1223.png",
+    "tasting_notes": "Ripe red and black fruit, spice, liquorice and earthy notes. Medium-full body with structured yet fine tannins and lively acidity that keeps the wine vibrant and age-worthy.",
+    "ratings": []
   }
 ]
