@@ -15,7 +15,7 @@ function getAuth() {
 }
 
 // ── Sheet IDs ──────────────────────────────────────────────────────────────
-const STOCK_SHEET_ID = "1Acdq03SwlYzLVTq5IjGxGbVCvDNO9Wx45VOZqklIJrw";
+const STOCK_SHEET_ID = "1MvUlHDSX6vsAb3Zvp4qVK5xhkBI30P52p0FnOZ-clV8";
 const STOCK_SHEET_TAB = "Item Master"; // A=Item Code, S=倉庫1 (Seaview)
 const MEMBERS_SHEET_ID = "1knojavzlakQAQjPLMhhAwpPNsUhuSkhISVYEyIOpD_U";
 const MEMBERS_SHEET_TAB = "工作表1";

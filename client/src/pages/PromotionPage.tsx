@@ -41,6 +41,15 @@ export const PROMOTIONS: Record<string, {
     heroGradient: "linear-gradient(135deg, hsl(355,65%,10%) 0%, hsl(20,35%,14%) 40%, hsl(355,55%,16%) 100%)",
     accentColor: "hsl(38, 72%, 52%)",
   },
+  winenow2026: {
+    id: "winenow2026",
+    title: "WINENOW FAIR 2026",
+    subtitle: "Exclusive Fair Offer · Mollydooker · Saint Cosme · Morey-Coffinet · Realm · Kopke & more",
+    description: "Special offer prices exclusively for Winenow Fair 2026. Spanning Australia, France, Portugal and beyond — 19 hand-selected wines from our finest producers at exceptional fair prices. Stock is limited and available while supplies last.",
+    tag: "Winenow Fair 2026",
+    heroGradient: "linear-gradient(135deg, hsl(220,60%,10%) 0%, hsl(200,40%,14%) 40%, hsl(220,55%,18%) 100%)",
+    accentColor: "hsl(48, 90%, 58%)",
+  },
 };
 
 // ── Score Badge ───────────────────────────────────────────────────────────────
@@ -158,17 +167,18 @@ export default function PromotionPage() {
 
   const promoWines = allProducts.filter((p: any) => p.promotion === promoId);
 
-  // Group by region
-  const byRegion: Record<string, Product[]> = {};
+  // Group by brand for winenow2026, region for others
+  const groupKey = promoId === "winenow2026" ? "brand" : "region";
+  const byGroup: Record<string, Product[]> = {};
   promoWines.forEach(w => {
-    const key = w.region || "Other";
-    if (!byRegion[key]) byRegion[key] = [];
-    byRegion[key].push(w);
+    const key = (w as any)[groupKey] || "Other";
+    if (!byGroup[key]) byGroup[key] = [];
+    byGroup[key].push(w);
   });
 
   // Region order for Bordeaux
   const regionOrder = ["Saint-Estèphe", "Pessac-Léognan", "Saint-Julien", "Margaux", "Pomerol", "Pauillac", "Bordeaux"];
-  const sortedRegions = Object.keys(byRegion).sort((a, b) => {
+  const sortedGroups = Object.keys(byGroup).sort((a, b) => {
     const ia = regionOrder.indexOf(a), ib = regionOrder.indexOf(b);
     return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
   });
@@ -238,10 +248,6 @@ export default function PromotionPage() {
               <p className="font-display text-3xl font-light text-white">{promoWines.length}</p>
               <p className="font-body text-xs text-white/50 uppercase tracking-widest">Selected Wines</p>
             </div>
-            <div className="border-l border-white/20 pl-6">
-              <p className="font-display text-3xl font-light" style={{ color: promo.accentColor }}>2022</p>
-              <p className="font-body text-xs text-white/50 uppercase tracking-widest">Exceptional Vintage</p>
-            </div>
             {promo.endDate && (
               <div className="border-l border-white/20 pl-6">
                 <p className="font-display text-3xl font-light text-white">
@@ -254,23 +260,23 @@ export default function PromotionPage() {
         </div>
       </div>
 
-      {/* ── Wine Grid by Region ── */}
+      {/* ── Wine Grid by Brand/Region ── */}
       <div className="bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
 
-          {sortedRegions.map(region => (
-            <div key={region} className="mb-14">
-              {/* Region header */}
+          {sortedGroups.map(group => (
+            <div key={group} className="mb-14">
+              {/* Group header */}
               <div className="flex items-center gap-4 mb-6">
                 <div className="h-px flex-1 bg-gray-200" />
                 <h2 className="font-display text-lg font-light text-gray-500 tracking-widest uppercase">
-                  {region}
+                  {group}
                 </h2>
                 <div className="h-px flex-1 bg-gray-200" />
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                {byRegion[region].map(w => (
+                {byGroup[group].map(w => (
                   <PromoWineCard key={w.id} product={w} />
                 ))}
               </div>
