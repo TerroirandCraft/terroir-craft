@@ -18,8 +18,8 @@ import { useState, useEffect, useCallback, useRef } from "react";
 const HERO_SLIDES = [
   {
     id: "member",
-    bg: `${API_BASE}/member-hero-desktop.jpg`,
-    bgMobile: `${API_BASE}/member-hero-mobile.jpg`,
+    bg: `${API_BASE}/member-hero-desktop.jpg?v=2`,
+    bgMobile: `${API_BASE}/member-hero-mobile.jpg?v=2`,
     overlay: "rgba(0,0,0,0)",
     eyebrow: "",
     heading: "",
