@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Phone, Mail, MapPin, Clock, Instagram, Facebook } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import tcLogo from "@/assets/tc-logo.jpg";
 
@@ -127,7 +127,6 @@ export default function AboutPage() {
               <div className="flex gap-3">
                 {[
                   { name: "Instagram", href: "https://www.instagram.com/terroirandcraft", color: "hover:text-pink-500" },
-                  { name: "Facebook", href: "https://www.facebook.com/terroirandcraft", color: "hover:text-blue-600" },
                   { name: "Threads", href: "https://www.threads.net/@terroirandcraft", color: "hover:text-foreground" },
                 ].map(s => (
                   <a
