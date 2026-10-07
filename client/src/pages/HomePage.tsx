@@ -18,8 +18,8 @@ import { useState, useEffect, useCallback, useRef } from "react";
 const HERO_SLIDES = [
   {
     id: "member",
-    bg: `${API_BASE}/member-hero-desktop.jpg?v=3`,
-    bgMobile: `${API_BASE}/member-hero-mobile.jpg?v=3`,
+    bg: `${API_BASE}/member-hero-desktop.jpg?v=4`,
+    bgMobile: `${API_BASE}/member-hero-mobile.jpg?v=4`,
     overlay: "rgba(0,0,0,0)",
     eyebrow: "",
     heading: "",
@@ -157,7 +157,7 @@ function HeroCarousel() {
           {/* Mobile background — overrides desktop on small screens */}
           {(s as any).bgMobile && (
             <div
-              className="absolute inset-0 sm:hidden"
+              className="absolute inset-0 lg:hidden"
               style={{
                 backgroundImage: `url('${(s as any).bgMobile}')`,
                 backgroundSize: "cover",
@@ -279,7 +279,7 @@ function HeroCarousel() {
       </div>
 
       {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent" style={{ zIndex: 3, pointerEvents: "none" }} />
+      <div className="absolute bottom-0 left-0 right-0 h-12 sm:h-24 bg-gradient-to-t from-background to-transparent" style={{ zIndex: 3, pointerEvents: "none" }} />
     </section>
   );
 }

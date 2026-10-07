@@ -222,9 +222,10 @@
   border-radius: 4px;
 }
 
-/* Member hero: portrait image on mobile, landscape on desktop */
-@media (max-width: 639px) {
+/* Member hero: portrait (mobile) image below 1024px, landscape image above.
+   Section height follows the mobile image ratio (1080x1260) so nothing is cropped. */
+@media (max-width: 1023px) {
   .hero-member {
-    min-height: 100vw !important; /* mobile image is ~1:1, fills nicely */
+    min-height: calc(100vw * 1260 / 1080) !important;
   }
 }
