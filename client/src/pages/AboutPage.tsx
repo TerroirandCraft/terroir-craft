@@ -44,7 +44,7 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="bg-card border border-border rounded-xl p-8">
-            <img src={tcLogo} alt="Terroir & Craft 天地人酒業" className="h-20 w-auto mx-auto mb-8" />
+            <img src={tcLogo} alt="Terroir & Craft 天地人酒業" className="h-14 w-auto mx-auto mb-8" />
             <div className="space-y-4">
               {[
                 { zh: "天 Heaven", en: "Climate & Weather" },

@@ -91,7 +91,7 @@ export default function Layout({ children }: { children: ReactNode }) {
               <img
                 src={tcLogo}
                 alt="Terroir & Craft 天地人酒業"
-                className="h-14 w-auto object-contain"
+                className="h-11 xl:h-14 w-auto object-contain"
               />
             </a>
           </Link>
@@ -274,7 +274,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* Brand */}
             <div className="md:col-span-1">
-              <img src={tcLogo} alt="Terroir & Craft" className="h-12 w-auto mb-4 brightness-200 contrast-50" />
+              <img src={tcLogo} alt="Terroir & Craft" className="h-9 w-auto mb-4 brightness-200 contrast-50" />
               <p className="text-sm text-white/60 leading-relaxed">
                 天地人酒業<br />
                 Premium wine importer,<br />
