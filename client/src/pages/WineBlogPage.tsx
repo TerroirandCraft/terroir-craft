@@ -665,12 +665,12 @@ function RealmWineCard({ w }: { w: typeof REALM_WINES[number] }) {
       )}
       <div className="p-4 sm:p-5 flex gap-4">
         {/* Bottle photo */}
-        <div className={`shrink-0 rounded-lg bg-[hsl(36,18%,94%)] flex items-center justify-center ${w.code === "RC0723" ? "w-20 h-20 sm:w-24 sm:h-24 self-start" : "w-20 sm:w-24 h-52 sm:h-60"}`}>
+        <div className="shrink-0 rounded-lg bg-[hsl(36,18%,94%)] flex items-center justify-center w-20 sm:w-24 h-52 sm:h-60">
           <img
             src={`${API_BASE}/realm/${w.code}.webp`}
             alt={`Realm Cellars ${w.name}`}
             loading="lazy"
-            className={w.code === "RC0723" ? "w-full h-full object-cover rounded-lg" : "max-h-48 sm:max-h-56 w-auto max-w-[4.25rem] sm:max-w-[5.25rem] object-contain"}
+            className="max-h-48 sm:max-h-56 w-auto max-w-[4.25rem] sm:max-w-[5.25rem] object-contain"
           />
         </div>
         {/* Details */}
