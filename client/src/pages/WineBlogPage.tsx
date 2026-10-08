@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import SeoHead from "@/components/SeoHead";
 import { API_BASE } from "@/lib/queryClient";
 
@@ -16,6 +17,22 @@ export interface BlogPost {
   excerptZh: string;
   component: React.FC;
   draft?: boolean;
+}
+
+// ── Live price (always matches the shop / promotion page) ─────────────────────
+type LiveProduct = { id: string; price?: number; promo_price?: number | null };
+const hk = (n: number) => `HK$${n.toLocaleString("en-US")}`;
+function LivePrice({ id, accent }: { id: string; accent: string }) {
+  const { data } = useQuery<LiveProduct[]>({ queryKey: ["/api/products"] });
+  const p = data?.find((x) => x.id === id);
+  if (!p || !p.price) return <span className="text-xs text-muted-foreground">—</span>;
+  const promo = p.promo_price && p.promo_price < p.price ? p.promo_price : null;
+  return (
+    <>
+      {promo && <span className="text-xs text-muted-foreground line-through mr-2">{hk(p.price)}</span>}
+      <span className="font-display text-xl font-medium" style={{ color: accent }}>{hk(promo ?? p.price)}</span>
+    </>
+  );
 }
 
 // ── Shared helpers ────────────────────────────────────────────────────────────
@@ -37,16 +54,16 @@ function Quote({ text, source }: { text: string; source: string }) {
 // ── Morey-Coffinet post ───────────────────────────────────────────────────────
 function MoreyCoffinetPost() {
   const wines = [
-    { name: "Bourgogne Chardonnay Cote d'Or BIO 2024", type: "White", bh: 87, bhNote: "87/100, 2028+", price: "HK$265", listPrice: "HK$310", note: "An expressive nose freely reveals its aromas of petrol, apple and lemon zest. The racy, delicious and attractively textured middle weight flavors deliver very good depth and persistence for a wine of this level on the lightly austere finale. Worth a look." },
-    { name: "Bourgogne Cote d'Or Pinot Noir Rouge BIO 2024", type: "Red", bh: null, bhNote: null, price: "HK$270", listPrice: "HK$310", note: "Red berries, cherries, spice and earthy notes. Fine-grained tannins, vibrant acidity and the elegant backbone typical of Burgundy." },
-    { name: "Chassagne-Montrachet Blanc BIO 2024", type: "White", bh: 89, bhNote: "89/100, 2030+", price: "HK$578", listPrice: "HK$680", note: "An equally expressive but better layered nose freely reveals its notes of rosemary oil, white orchard fruit and just grated citrus rind. There is an attractive texture to the rich and succulent but vibrant flavors that deliver solid depth and persistence on the balanced, clean and agreeably dry finale. One to consider." },
-    { name: "Chassagne-Montrachet Rouge Chaumes & Chambres BIO 2024", type: "Red", bh: null, bhNote: null, price: "HK$460", listPrice: "HK$480", note: "Red cherry, raspberry, rose petal with light spice and forest floor. Medium-bodied with silky tannins and an elegant, refined structure." },
-    { name: "Chassagne-Montrachet 1er Cru En Cailleret BIO 2024", type: "White", bh: 93, bhNote: "93/100, 2034+", isSV: true, price: "HK$900", listPrice: "HK$950", note: "The super-sleek and gorgeously textured middle weight flavors display much more evident minerality that adds a sense of lift to the very dry but not especially austere finish that delivers excellent length. This is a lovely Cailleret that should easily repay up to a decade of keeping." },
-    { name: "Chassagne-Montrachet 1er Cru Les Fairendes BIO 2024", type: "White", bh: 91, bhNote: "91/100, 2032+", isSV: true, price: "HK$900", listPrice: "HK$950", note: "A markedly more floral-suffused nose, especially acacia and carnation, displays additional notes of petrol, white peach and zest. There is better volume and overall size to the delicious and sappy medium-bodied flavors that exhibit fine length on the slightly more structured finale." },
-    { name: "Chassagne-Montrachet 1er Cru La Romanee BIO 2024", type: "White", bh: 92, bhNote: "92/100, 2032+", isSV: true, price: "HK$1,080", listPrice: "HK$1,190", note: "From a .7 ha parcel of 50+ year old vines. There is a bit more size and weight to the bigger-bodied flavors that exude both evident minerality and obviously power on the medium dry, focused, balanced and lingering finale that is not quite as structured. A few years of keeping should help." },
-    { name: "Puligny-Montrachet 1er Cru Les Pucelles BIO 2024", type: "White", bh: null, bhNote: "Not Rated", isSV: true, price: "HK$1,580", listPrice: "HK$1,830", note: "Near Grand Cru quality. Ripe and airy aromas of white peach, honeysuckle, acacia blossom and spice wisps. Succulent and seductive flavors with elegant mineral length." },
-    { name: "Batard-Montrachet Grand Cru BIO 2024", type: "White", bh: 95, bhNote: "95/100, 2036+", isSV: true, isGrandCru: true, price: "HK$4,680", listPrice: "HK$5,160", note: "Outstanding volume to the utterly delicious and tautly muscular flavors that display stunningly good persistence on the balanced, very dry and compact finale. Despite being clearly built-to-age, this is quite an elegant Batard that should richly reward a decade plus of keeping. If you can find, don't hesitate." },
-    { name: "Chassagne-Montrachet Rouge 1er Cru Morgeot BIO 2024", type: "Red", bh: null, bhNote: null, isSV: true, price: "HK$620", listPrice: "HK$680", note: "Ripe red and black fruit, spice, liquorice and earthy notes. Medium-full body with structured yet fine tannins and lively acidity that keeps the wine vibrant and age-worthy." },
+    { id: "TCFR-MC0124", name: "Bourgogne Chardonnay Cote d'Or BIO 2024", type: "White", bh: 87, bhNote: "87/100, 2028+", note: "An expressive nose freely reveals its aromas of petrol, apple and lemon zest. The racy, delicious and attractively textured middle weight flavors deliver very good depth and persistence for a wine of this level on the lightly austere finale. Worth a look." },
+    { id: "TCFR-MC0924", name: "Bourgogne Cote d'Or Pinot Noir Rouge BIO 2024", type: "Red", bh: null, bhNote: null, note: "Red berries, cherries, spice and earthy notes. Fine-grained tannins, vibrant acidity and the elegant backbone typical of Burgundy." },
+    { id: "TCFR-MC0224", name: "Chassagne-Montrachet Blanc BIO 2024", type: "White", bh: 89, bhNote: "89/100, 2030+", note: "An equally expressive but better layered nose freely reveals its notes of rosemary oil, white orchard fruit and just grated citrus rind. There is an attractive texture to the rich and succulent but vibrant flavors that deliver solid depth and persistence on the balanced, clean and agreeably dry finale. One to consider." },
+    { id: "TCFR-MC1024", name: "Chassagne-Montrachet Rouge Chaumes & Chambres BIO 2024", type: "Red", bh: null, bhNote: null, note: "Red cherry, raspberry, rose petal with light spice and forest floor. Medium-bodied with silky tannins and an elegant, refined structure." },
+    { id: "TCFR-MC0424", name: "Chassagne-Montrachet 1er Cru En Cailleret BIO 2024", type: "White", bh: 93, bhNote: "93/100, 2034+", isSV: true, note: "The super-sleek and gorgeously textured middle weight flavors display much more evident minerality that adds a sense of lift to the very dry but not especially austere finish that delivers excellent length. This is a lovely Cailleret that should easily repay up to a decade of keeping." },
+    { id: "TCFR-MC0324", name: "Chassagne-Montrachet 1er Cru Les Fairendes BIO 2024", type: "White", bh: 91, bhNote: "91/100, 2032+", isSV: true, note: "A markedly more floral-suffused nose, especially acacia and carnation, displays additional notes of petrol, white peach and zest. There is better volume and overall size to the delicious and sappy medium-bodied flavors that exhibit fine length on the slightly more structured finale." },
+    { id: "TCFR-MC0524", name: "Chassagne-Montrachet 1er Cru La Romanee BIO 2024", type: "White", bh: 92, bhNote: "92/100, 2032+", isSV: true, note: "From a .7 ha parcel of 50+ year old vines. There is a bit more size and weight to the bigger-bodied flavors that exude both evident minerality and obviously power on the medium dry, focused, balanced and lingering finale that is not quite as structured. A few years of keeping should help." },
+    { id: "TCFR-MC0624", name: "Puligny-Montrachet 1er Cru Les Pucelles BIO 2024", type: "White", bh: null, bhNote: "Not Rated", isSV: true, note: "Near Grand Cru quality. Ripe and airy aromas of white peach, honeysuckle, acacia blossom and spice wisps. Succulent and seductive flavors with elegant mineral length." },
+    { id: "TCFR-MC0824", name: "Batard-Montrachet Grand Cru BIO 2024", type: "White", bh: 95, bhNote: "95/100, 2036+", isSV: true, isGrandCru: true, note: "Outstanding volume to the utterly delicious and tautly muscular flavors that display stunningly good persistence on the balanced, very dry and compact finale. Despite being clearly built-to-age, this is quite an elegant Batard that should richly reward a decade plus of keeping. If you can find, don't hesitate." },
+    { id: "TCFR-MC1124", name: "Chassagne-Montrachet Rouge 1er Cru Morgeot BIO 2024", type: "Red", bh: null, bhNote: null, isSV: true, note: "Ripe red and black fruit, spice, liquorice and earthy notes. Medium-full body with structured yet fine tannins and lively acidity that keeps the wine vibrant and age-worthy." },
   ] as const;
 
   return (
@@ -160,8 +177,7 @@ function MoreyCoffinetPost() {
                 <div className="flex items-center justify-between">
                   <div className="text-xs text-muted-foreground">Terroir & Craft 獨家供應</div>
                   <div className="text-right">
-                    <span className="text-xs text-muted-foreground line-through mr-2">{w.listPrice}</span>
-                    <span className="font-display text-xl font-medium text-[hsl(142,40%,28%)]">{w.price}</span>
+                    <LivePrice id={w.id} accent="hsl(142,40%,28%)" />
                     <span className="text-xs text-muted-foreground ml-1">/bottle</span>
                   </div>
                 </div>
@@ -187,18 +203,17 @@ function MoreyCoffinetPost() {
 // ── Saint Cosme post ──────────────────────────────────────────────────────────
 function SaintCosmePost() {
   const wines = [
-    { name: "Cotes du Rhone Rouge 2024", type: "Red", score: "90", critic: "Vinous", price: "HK$120", listPrice: "HK$185", note: "A single-variety Syrah. Intense white pepper, ripe black cherry and wild herbs. Fresh, supple and immediately appealing." },
-    { name: "Les Deux Albion Blanc 2024 (Cotes du Rhone)", type: "White", score: null, critic: null, manga: true, price: "HK$155", listPrice: "HK$185", note: "Salty minerality typical of limestone terroir with notes of dried apricots and white flowers. Fresh aromas of white peach, mango and rose, integrated with a balanced, saline palate." },
-    { name: "Les Deux Albion Rouge 2022 (Cotes du Rhone)", type: "Red", score: "91", critic: "WS", manga: true, price: "HK$155", listPrice: "HK$195", note: "Juicy and fresh, with notes of plum and blackberry compote supported by violets, black licorice and wood spice. This wine has energy and grit all the way through to the end. The wine that transported manga readers to Bali." },
-    { name: "Gigondas 2023", type: "Red", score: "94", critic: "WA", price: "HK$298", listPrice: "HK$420", note: "One of the best ever from this estate. Impressively full-bodied without being heavy, showcasing wonderfully ripe black cherry fruit with asphalt, red raspberries, sweet spice and licorice. Louis Barruol is continually striving to improve." },
-    { name: "Gigondas Hominis Fides 2023", type: "Red", score: "100", critic: "RP (2007)", isSV: true, highlight: true, price: "HK$630", listPrice: "HK$750", note: "Historic score: the 2007 vintage received a perfect 100 from Robert Parker — the only Gigondas ever. 2022+: 'Full-bodied, concentrated and layered — aromas of violet, dark cherries, lilac and pepper. Long, mineral and ethereal finish.' Sandy limestone soils fuse power with softness in this profound, enigmatic wine." },
-    { name: "Gigondas Le Claux 2023", type: "Red", score: "97", critic: "WA (2018)", isSV: true, price: "HK$630", listPrice: "HK$750", note: "Everything about the all-Grenache Le Claux is big — from the huge black cherry and blackberry fruit, to the insane levels of concentration, the rich, velvety tannins and the never-ending, licorice-tinged finish. Should evolve for at least a decade and a half. Jancis Robinson: 17/20, Super-glam!" },
-    { name: "Gigondas Le Poste 2024", type: "Red", score: "99", critic: "WA (2010)", isSV: true, top100: true, price: "HK$630", listPrice: "HK$750", note: "The highest elevation single vineyard at 280m. 2010: 'An amazing tour de force — 45+-second finish.' 2021 named Vinous Top 100 Wines of 2024 #27: 'Masterfully marrying power and complexity — an instant classic and top contender for wine of the year in Gigondas.'" },
-    { name: "Gigondas Le Poste Blanc 2024", type: "White", score: null, critic: null, isSV: true, price: "HK$338", listPrice: "HK$395", note: "Made from Clairette planted in the Le Poste vineyard. Famously long-lived with gunflint mineral character and the ability to age 20+ years. 2024: delicate white flowers, pear and white peach, crisp acidity with subtle almond finish." },
-    { name: "Saint-Joseph Rouge 2023", type: "Red", score: "95", critic: "WA (2019)", price: "HK$180", listPrice: "HK$300", note: "Blackberries, pepper, violets, and ground herbs — beautiful freshness and minerality. The 2019 scored 95 WA and 93 Vinous. 100% Serine/Syrah from Northern Rhone." },
-    { name: "Crozes-Hermitage 2023", type: "Red", score: null, critic: null, price: "HK$238", listPrice: "HK$348", note: "2024 vintage: progress during maturation reminiscent of an athlete approaching the Olympics. Expressiveness unmistakably bears the hallmark of fine wines. — Louis Barruol, Booklet 2026" },
-    { name: "Cote-Rotie 2023", type: "Red", score: null, critic: null, price: "HK$438", listPrice: "HK$550", note: "2024 vintage: great finesse, cut from a Burgundian cloth with intense aromatics of red berry fruits, graphite and peony. Elegance and softness prevail. — Louis Barruol, Booklet 2026" },
-    { name: "Condrieu 2023", type: "White", score: null, critic: null, isSommPick: true, price: "HK$398", listPrice: "HK$495", note: "2024 vintage: captivating aromas of elderflower and bush peaches. Among the finest Viogniers in a great vintage year. 100% Viognier from Northern Rhone. — Louis Barruol, Booklet 2026" },
+    { id: "TCFR-SC0624", name: "Cotes du Rhone Rouge 2024", type: "Red", score: "88", critic: "WA 88 (2024) · Vinous 90 (2024)", note: "A single-variety Syrah. Intense white pepper, ripe black cherry and wild herbs. Fresh, supple and immediately appealing." },
+    { id: "TCFR-SC0522", name: "Les Deux Albion Rouge 2022 (Cotes du Rhone)", type: "Red", score: "88", critic: "WA 88 (2022)", manga: true, note: "Juicy and fresh, with notes of plum and blackberry compote supported by violets, black licorice and wood spice. This wine has energy and grit all the way through to the end. The wine that transported manga readers to Bali." },
+    { id: "TCFR-SC0123", name: "Gigondas 2023", type: "Red", score: "92", critic: "WA 92 (2023)", note: "One of the best ever from this estate. Impressively full-bodied without being heavy, showcasing wonderfully ripe black cherry fruit with asphalt, red raspberries, sweet spice and licorice. Louis Barruol is continually striving to improve." },
+    { id: "TCFR-SC0223", name: "Chateauneuf-du-Pape 2023", type: "Red", score: "94", critic: "JS 94 · WA 91 (2023)", note: "A Grenache-based Chateauneuf-du-Pape showing the noblest expression of the southern Rhone: ripe black fruit, truffle, vanilla and minerality, with a full, round and long finish." },
+    { id: "TCFR-SC1123", name: "Gigondas Hominis Fides 2023", type: "Red", score: "100", critic: "RP 100 (2007) · WA 93 (2023)", isSV: true, highlight: true, note: "Historic score: the 2007 vintage received a perfect 100 from Robert Parker — the only Gigondas ever. 2022+: 'Full-bodied, concentrated and layered — aromas of violet, dark cherries, lilac and pepper. Long, mineral and ethereal finish.' Sandy limestone soils fuse power with softness in this profound, enigmatic wine." },
+    { id: "TCFR-SC0423", name: "Gigondas Le Claux 2023", type: "Red", score: "93", critic: "WA 93 (2023)", isSV: true, note: "Everything about the all-Grenache Le Claux is big — from the huge black cherry and blackberry fruit, to the insane levels of concentration, the rich, velvety tannins and the never-ending, licorice-tinged finish. Should evolve for at least a decade and a half. Jancis Robinson: 'Super-glam!'" },
+    { id: "TCFR-SC0723", name: "Gigondas Le Poste 2024", type: "Red", score: "93", critic: "WA 93 (2024)", isSV: true, top100: true, note: "The highest elevation single vineyard at 280m. An amazing tour de force with a 45+-second finish. The 2021 was named Vinous Top 100 Wines of 2024 #27: 'Masterfully marrying power and complexity — an instant classic and top contender for wine of the year in Gigondas.'" },
+    { id: "TCFR-SC0323", name: "Saint-Joseph Rouge 2023", type: "Red", score: "89", critic: "WA 89 (2023)", note: "Blackberries, pepper, violets, and ground herbs — beautiful freshness and minerality. 100% Serine/Syrah from Northern Rhone." },
+    { id: "TCFR-SC0823", name: "Crozes-Hermitage 2023", type: "Red", score: "90", critic: "WA 90 (2023)", note: "2024 vintage: progress during maturation reminiscent of an athlete approaching the Olympics. Expressiveness unmistakably bears the hallmark of fine wines. — Louis Barruol, Booklet 2026" },
+    { id: "TCFR-SC1023", name: "Cote-Rotie 2023", type: "Red", score: "92", critic: "WA 92 (2023)", note: "2024 vintage: great finesse, cut from a Burgundian cloth with intense aromatics of red berry fruits, graphite and peony. Elegance and softness prevail. — Louis Barruol, Booklet 2026" },
+    { id: "TCFR-SC1423", name: "Condrieu 2023", type: "White", score: "92", critic: "WA 92 (2023)", isSommPick: true, note: "2024 vintage: captivating aromas of elderflower and bush peaches. Among the finest Viogniers in a great vintage year. 100% Viognier from Northern Rhone. — Louis Barruol, Booklet 2026" },
   ] as const;
 
   return (
@@ -230,8 +245,8 @@ function SaintCosmePost() {
         <div className="grid grid-cols-3 gap-3">
           {[
             { name: "'Hominis Fides'", desc: "中新世瑞士沙地，高石灰質。沙質土壤賦予 Grenache 獨特質感，融合力量與柔美。RP 歷史滿分 100 分。" },
-            { name: "'Le Claux'", desc: "黏土及石灰質泥灰，表面細碎礫石。藤齡逾百年，最具「勃艮第風格」的 Gigondas。WA 97 分。" },
-            { name: "'Le Poste'", desc: "Tortonian 期石灰質泥灰，全 Gigondas 唯一。海拔 280m，最優雅細膩。WA 99 分 / Vinous Top 100 #27。" },
+            { name: "'Le Claux'", desc: "黏土及石灰質泥灰，表面細碎礫石。藤齡逾百年，最具「勃艮第風格」的 Gigondas。WA 93 分（2023）。" },
+            { name: "'Le Poste'", desc: "Tortonian 期石灰質泥灰，全 Gigondas 唯一。海拔 280m，最優雅細膩。WA 93 分（2024）/ Vinous Top 100 #27（2021 年份）。" },
           ].map(s => (
             <div key={s.name} className="p-3 rounded-lg" style={{background:'rgba(255,255,255,0.07)', border:'1px solid rgba(255,255,255,0.12)'}}>
               <div className="font-body text-xs font-semibold mb-1.5 italic" style={{color:'hsl(38,72%,52%)'}}>{s.name}</div>
@@ -270,7 +285,7 @@ function SaintCosmePost() {
       <div className="mb-8">
         <SectionLabel>2024 全系列優惠 · Complete Offer</SectionLabel>
         <Rule color="hsl(355,65%,35%)" />
-        <p className="font-body text-[11px] text-muted-foreground mb-6">RP / WA = Wine Advocate · WS = Wine Spectator · Vinous = Antonio Galloni · 評分來自歷年最佳紀錄</p>
+        <p className="font-body text-[11px] text-muted-foreground mb-6">WA = Wine Advocate · JS = Jeb Dunnuck · 評分為所列年份分數；Hominis Fides 100 分為 2007 年份歷史紀錄</p>
         <div className="space-y-4">
           {wines.map((w: any) => (
             <div key={w.name} className={`border rounded-xl overflow-hidden ${w.highlight ? 'border-[hsl(355,65%,35%)] ring-1 ring-[hsl(355,65%,35%)]' : w.isSV ? 'border-[hsl(38,60%,60%)]' : 'border-border'}`}>
@@ -316,8 +331,7 @@ function SaintCosmePost() {
                 <div className="flex items-center justify-between">
                   <div className="text-xs text-muted-foreground">Terroir & Craft 獨家供應</div>
                   <div className="text-right">
-                    <span className="text-xs text-muted-foreground line-through mr-2">{w.listPrice}</span>
-                    <span className="font-display text-xl font-medium" style={{color:'hsl(355,65%,30%)'}}>{w.price}</span>
+                    <LivePrice id={w.id} accent="hsl(355,65%,30%)" />
                     <span className="text-xs text-muted-foreground ml-1">/bottle</span>
                   </div>
                 </div>
@@ -343,7 +357,7 @@ function SaintCosmePost() {
 // ── Realm Cellars post ────────────────────────────────────────────────────────
 const REALM_WINES: Array<{
   code: string; name: string; tier: "entry" | "bard" | "sv"; isNew: boolean; tags: string[]; meta: string;
-  score: string[] | null; list: string; offer: string; unit: string; headline: string; note: string; source: string; flagship: boolean;
+  score: string[] | null; unit: string; headline: string; note: string; source: string; flagship: boolean;
 }> = [
   {
     "code": "RC0223",
@@ -355,8 +369,6 @@ const REALM_WINES: Array<{
     ],
     "meta": "2023 · 750ml · Napa Valley",
     "score": null,
-    "list": "HK$580",
-    "offer": "HK$398",
     "unit": "per bottle",
     "headline": "",
     "note": "以 Napa 最優質 Cabernet Sauvignon 釀製的精品玫瑰紅酒。鮮草莓、西瓜、白桃及輕盈花香，清爽活潑而優雅，是 Realm 酒款中最平易近人的入門之選。",
@@ -373,8 +385,6 @@ const REALM_WINES: Array<{
     ],
     "meta": "2025 · 750ml · Coombsville & Yountville · ~1,000 cases",
     "score": null,
-    "list": "HK$1,150",
-    "offer": "HK$880",
     "unit": "per bottle",
     "headline": "",
     "note": "Realm 唯一的白酒，以 Coombsville 的 Farella 莊園（樹齡逾 25 年的老藤）及 Yountville 的 Riverbound 葡萄園 Sauvignon Blanc 為骨幹，於新舊橡木桶、水泥、陶土及陶瓷容器中發酵，帶來質感與張力。\n\"Lifted and expressive, a full spectrum of fruits. The palate is supple and honest, finishing with clean, mouthwatering acidity that lingers. Clarity, texture and energy.\"",
@@ -395,8 +405,6 @@ const REALM_WINES: Array<{
       "96",
       "WA"
     ],
-    "list": "HK$1,400",
-    "offer": "HK$970",
     "unit": "per bottle",
     "headline": "",
     "note": "\"The full-bodied palate is plush and juicy with lots of fragrant savory/earthy layers restraining the ripe black fruit flavors, finishing with impressive length.\"",
@@ -414,8 +422,6 @@ const REALM_WINES: Array<{
     ],
     "meta": "2022 · 750ml · 87% Cab Sauv",
     "score": null,
-    "list": "HK$1,400",
-    "offer": "HK$970",
     "unit": "per bottle",
     "headline": "",
     "note": "\"One of the valley's great, great values... a killer nose of bright red and blue fruits intermixed with spring flowers, graphite, baking spices, and incense. It competes with wines at 2-3x its going rate.\"",
@@ -436,8 +442,6 @@ const REALM_WINES: Array<{
       "98",
       "JD"
     ],
-    "list": "HK$850",
-    "offer": "HK$535",
     "unit": "375ml",
     "headline": "",
     "note": "\"This wine comes out swinging. Explosive aromas, bright red fruit and everything in balance, super extroverted and ready to go. The 2021 vintage gave us a wine with precision and freshness that will age beautifully.\"",
@@ -455,8 +459,6 @@ const REALM_WINES: Array<{
     ],
     "meta": "2021 · 1500ml",
     "score": null,
-    "list": "HK$3,150",
-    "offer": "HK$2,080",
     "unit": "per magnum",
     "headline": "",
     "note": "Magnum 版本陳年潛力更勝標準裝，適合長期收藏或特別場合。2021 年份 The Bard 獲 Decanter 年度十大及多位評論家 95–98 分高度讚揚。",
@@ -474,8 +476,6 @@ const REALM_WINES: Array<{
     ],
     "meta": "2018 · 1500ml · Mature vintage",
     "score": null,
-    "list": "HK$2,600",
-    "offer": "HK$1,980",
     "unit": "per magnum",
     "headline": "",
     "note": "2018 年是 Napa 的經典大年份，炎熱而飽滿，The Bard 展現出豐厚的黑果與巧克力氣息，單寧成熟，現在至未來十年皆宜飲用。現有限量 Magnum 庫存，是難得的成熟年份佳釀。",
@@ -496,8 +496,6 @@ const REALM_WINES: Array<{
       "98",
       "JD"
     ],
-    "list": "HK$3,080",
-    "offer": "HK$1,980",
     "unit": "per bottle",
     "headline": "",
     "note": "\"Aged 20 months in 80% new French oak, the 2023 Cabernet Sauvignon Estate Moonracer offers killer aromatics of darker currants, smoky tobacco, chocolate, and lead pencil that give this an almost Mouton Rothschild-like style.\"",
@@ -518,8 +516,6 @@ const REALM_WINES: Array<{
       "97",
       "JS"
     ],
-    "list": "HK$3,080",
-    "offer": "HK$1,980",
     "unit": "per bottle",
     "headline": "",
     "note": "\"The 2021 Cabernet Sauvignon Moonracer is aromatic and silky, with a gorgeous bouquet. Crushed flowers, mint, cedar, sweet pipe tobacco, red cherry and rose petals grace this elegant, wonderfully polished Cabernet.\"",
@@ -537,8 +533,6 @@ const REALM_WINES: Array<{
     ],
     "meta": "2021 · 375ml",
     "score": null,
-    "list": "HK$1,490",
-    "offer": "HK$1,100",
     "unit": "half bottle",
     "headline": "",
     "note": "同款酒的半瓶裝，適合兩人品嚐或禮品饋贈之用，同樣享有 Moonracer 2021 的完整複雜度與優雅架構。",
@@ -559,8 +553,6 @@ const REALM_WINES: Array<{
       "99",
       "JD"
     ],
-    "list": "HK$2,850",
-    "offer": "HK$1,780",
     "unit": "per bottle",
     "headline": "",
     "note": "\"Killer aromatics of blackcurrants, blueberries, melted crayon/graphite, violets, and scorched earth.\"",
@@ -581,8 +573,6 @@ const REALM_WINES: Array<{
       "98",
       "WA"
     ],
-    "list": "HK$2,850",
-    "offer": "HK$1,780",
     "unit": "per bottle",
     "headline": "",
     "note": "\"It comes barreling out with powerful notes of blackcurrant jelly, stewed plums, and fruitcake followed by hints of charcoal, wild sage, mossy tree bark, and black olives. Full-bodied, a rock-solid frame of firm, grainy tannins... Just under 1,000 cases were made.\"",
@@ -603,8 +593,6 @@ const REALM_WINES: Array<{
       "98",
       "JD"
     ],
-    "list": "HK$2,650",
-    "offer": "HK$1,580",
     "unit": "per bottle",
     "headline": "",
     "note": "\"Incredibly floral and perfumed, with a red, blue, and black fruit core.\"",
@@ -625,8 +613,6 @@ const REALM_WINES: Array<{
       "98",
       "JD"
     ],
-    "list": "HK$5,600",
-    "offer": "HK$2,500",
     "unit": "per bottle",
     "headline": "",
     "note": "\"A sensational effort that will be flirting with perfection at maturity. From a Grand Cru site outside of St. Helena, a riveting perfume of creme de cassis, blueberries, spring flowers, and darker chocolate. Full-bodied, concentrated, and powerful... a wine to cellar for 20+ years.\"",
@@ -648,8 +634,6 @@ const REALM_WINES: Array<{
       "100",
       "JD"
     ],
-    "list": "HK$6,980",
-    "offer": "HK$3,380",
     "unit": "per bottle",
     "headline": "Jeb Dunnuck 滿分 100 分 · James Suckling 99 分 · Vinous 98 分",
     "note": "\"Another perfect wine in this lineup... saturated purple hue followed by a deep, majestic, massively concentrated Cabernet offering incredible purity and depth in its blackcurrant, Griotte cherry, loamy earth, and dried flower aromas. Full-bodied richness, loads of glycerin, sweet tannins, a stacked mid-palate, and a blockbuster of a finish — should drink well for 25–30 years.\"",
@@ -702,8 +686,7 @@ function RealmWineCard({ w }: { w: typeof REALM_WINES[number] }) {
           <div className="flex items-center justify-between">
             <div className="text-xs text-muted-foreground">Terroir & Craft 獨家供應</div>
             <div className="text-right">
-              <span className="text-xs text-muted-foreground line-through mr-2">{w.list}</span>
-              <span className="font-display text-xl font-medium" style={{ color: "hsl(355,65%,30%)" }}>{w.offer}</span>
+              <LivePrice id={`TCUS-${w.code}`} accent="hsl(355,65%,30%)" />
               <span className="text-xs text-muted-foreground ml-1">/{w.unit.replace("per ", "")}</span>
             </div>
           </div>
@@ -884,8 +867,8 @@ const ALL_BLOG_POSTS: BlogPost[] = [
     category: "Producer Feature",
     categoryZh: "酒莊推介",
     heroImage: "https://winebow-files.s3.amazonaws.com/public/2025-08/spring044.jpg?VersionId=Fd93hocLV5X9r8OfwKlp2mBxjS94V9gX",
-    excerpt: "Hominis Fides 2007 scored a perfect 100 from Robert Parker — the only Gigondas ever. The Drops of God connection, full range tasting notes and exclusive summer pricing.",
-    excerptZh: "Hominis Fides 2007 獲 Robert Parker 滿分 100 分，Gigondas 史上唯一。神之水滴第 3 卷主角酒款，全系列品鑑筆記 + 天地人酒業獨家夏季優惠，限時至 8 月 31 日。",
+    excerpt: "Hominis Fides 2007 scored a perfect 100 from Robert Parker — the only Gigondas ever. The Drops of God connection, full range tasting notes and exclusive pricing.",
+    excerptZh: "Hominis Fides 2007 獲 Robert Parker 滿分 100 分，Gigondas 史上唯一。神之水滴第 3 卷主角酒款，全系列品鑑筆記 + 天地人酒業獨家優惠價。",
     component: SaintCosmePost,
   },
   {
