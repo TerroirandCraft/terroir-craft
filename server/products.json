@@ -2066,11 +2066,7 @@
       }
     ],
     "exclusive": true,
-    "image": "/bottle-shots/TCUS-RC0118MG.png",
-    "promo_price": 1980,
-    "promotions": [
-      "realm2026"
-    ]
+    "image": "/bottle-shots/TCUS-RC0118MG.png"
   },
   {
     "id": "TCUS-RC0121HF",
@@ -2095,11 +2091,8 @@
     ],
     "exclusive": true,
     "image": "/bottle-shots/TCUS-RC0121HF.png",
-    "promo_price": 535,
-    "promotion": "winenow2026",
-    "promotions": [
-      "realm2026"
-    ]
+    "promo_price": 728,
+    "promotion": "winenow2026"
   },
   {
     "id": "TCUS-RC0121MG",
@@ -2123,11 +2116,7 @@
       }
     ],
     "exclusive": true,
-    "image": "/bottle-shots/TCUS-RC0121MG.png",
-    "promo_price": 2080,
-    "promotions": [
-      "realm2026"
-    ]
+    "image": "/bottle-shots/TCUS-RC0121MG.png"
   },
   {
     "id": "TCUS-RC0122",
@@ -2151,11 +2140,7 @@
       }
     ],
     "exclusive": true,
-    "image": "/bottle-shots/TCUS-RC0122.png",
-    "promo_price": 970,
-    "promotions": [
-      "realm2026"
-    ]
+    "image": "/bottle-shots/TCUS-RC0122.png"
   },
   {
     "id": "TCUS-RC0223",
@@ -2176,10 +2161,7 @@
     "image": "/bottle-shots/TCUS-RC0223.png",
     "new_arrival": true,
     "promo_price": 398,
-    "promotion": "winenow2026",
-    "promotions": [
-      "realm2026"
-    ]
+    "promotion": "winenow2026"
   },
   {
     "id": "TCUS-RC0324",
@@ -2221,11 +2203,7 @@
       }
     ],
     "exclusive": true,
-    "image": "/bottle-shots/TCUS-RC0421.png",
-    "promo_price": 1980,
-    "promotions": [
-      "realm2026"
-    ]
+    "image": "/bottle-shots/TCUS-RC0421.png"
   },
   {
     "id": "TCUS-RC0421HF",
@@ -2249,11 +2227,7 @@
       }
     ],
     "exclusive": true,
-    "image": "/bottle-shots/TCUS-RC0421HF.png",
-    "promo_price": 1100,
-    "promotions": [
-      "realm2026"
-    ]
+    "image": "/bottle-shots/TCUS-RC0421HF.png"
   },
   {
     "id": "TCUS-RC0621",
@@ -2277,11 +2251,7 @@
       }
     ],
     "exclusive": true,
-    "image": "/bottle-shots/TCUS-RC0621.png",
-    "promo_price": 2500,
-    "promotions": [
-      "realm2026"
-    ]
+    "image": "/bottle-shots/TCUS-RC0621.png"
   },
   {
     "id": "TCUS-RC0721",
@@ -2305,11 +2275,7 @@
       }
     ],
     "exclusive": true,
-    "image": "/bottle-shots/TCUS-RC0721.png",
-    "promo_price": 1780,
-    "promotions": [
-      "realm2026"
-    ]
+    "image": "/bottle-shots/TCUS-RC0721.png"
   },
   {
     "id": "TCUS-RC0921",
@@ -2333,11 +2299,7 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCUS-RC0921.png",
-    "promo_price": 3380,
-    "promotions": [
-      "realm2026"
-    ]
+    "image_url": "/bottle-shots/TCUS-RC0921.png"
   },
   {
     "id": "TCHYD-001",
@@ -4440,11 +4402,7 @@
     "size": "750ml",
     "price_display": "HK$1,400",
     "exclusive": true,
-    "new_arrival": true,
-    "promo_price": 970,
-    "promotions": [
-      "realm2026"
-    ]
+    "new_arrival": true
   },
   {
     "id": "TCUS-RC0325",
@@ -4462,11 +4420,7 @@
     "size": "750ml",
     "price_display": "HK$1,150",
     "exclusive": true,
-    "new_arrival": true,
-    "promo_price": 880,
-    "promotions": [
-      "realm2026"
-    ]
+    "new_arrival": true
   },
   {
     "id": "TCUS-RC0423",
@@ -4491,11 +4445,7 @@
     "size": "750ml",
     "price_display": "HK$3,080",
     "exclusive": true,
-    "new_arrival": true,
-    "promo_price": 1980,
-    "promotions": [
-      "realm2026"
-    ]
+    "new_arrival": true
   },
   {
     "id": "TCUS-RC0723",
@@ -4525,10 +4475,6 @@
     "price_display": "HK$2,850",
     "exclusive": true,
     "new_arrival": true,
-    "promo_price": 1780,
-    "promotions": [
-      "realm2026"
-    ],
     "image": "/bottle-shots/TCUS-RC0723.png"
   },
   {
@@ -4554,10 +4500,6 @@
     "size": "750ml",
     "price_display": "HK$2,650",
     "exclusive": true,
-    "new_arrival": true,
-    "promo_price": 1580,
-    "promotions": [
-      "realm2026"
-    ]
+    "new_arrival": true
   }
 ]

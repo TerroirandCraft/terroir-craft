@@ -68,7 +68,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [promoOpen, setPromoOpen] = useState(false);
   const promoRef = useRef<HTMLDivElement>(null);
-  const promoList = Object.values(PROMOTIONS);
+  const promoList = Object.values(PROMOTIONS).filter((p) => !p.hidden);
 
   // Dark mode toggle — reads system preference, no localStorage
   // Default: always light mode (day mode) regardless of OS setting

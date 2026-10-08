@@ -15,6 +15,7 @@ export interface BlogPost {
   excerpt: string;
   excerptZh: string;
   component: React.FC;
+  draft?: boolean;
 }
 
 // ── Shared helpers ────────────────────────────────────────────────────────────
@@ -859,7 +860,7 @@ function RealmCellarsPost() {
 }
 
 // ── Blog post registry ────────────────────────────────────────────────────────
-export const BLOG_POSTS: BlogPost[] = [
+const ALL_BLOG_POSTS: BlogPost[] = [
   {
     id: "realm-cellars-2026",
     slug: "realm-cellars-new-arrivals-2026",
@@ -872,6 +873,7 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt: "The Bard, Moonracer, Houyi and Farella 2023 have arrived — scored 96 to 99 points by The Wine Advocate and Jeb Dunnuck. Full range with tasting notes and exclusive HK pricing.",
     excerptZh: "The Bard、Moonracer、Houyi、Farella 2023 年份新貨到港，Wine Advocate 及 Jeb Dunnuck 評分 96–99 分。全系列品鑑筆記 + 天地人酒業獨家優惠價。",
     component: RealmCellarsPost,
+    draft: true, // unhide at month end
   },
   {
     id: "saint-cosme-2024",
@@ -900,6 +902,8 @@ export const BLOG_POSTS: BlogPost[] = [
     component: MoreyCoffinetPost,
   },
 ];
+
+export const BLOG_POSTS: BlogPost[] = ALL_BLOG_POSTS.filter((p) => !p.draft);
 
 // ── Main Wine Blog Page ───────────────────────────────────────────────────────
 export default function WineBlogPage() {

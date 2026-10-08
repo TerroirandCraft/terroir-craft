@@ -18,6 +18,7 @@ export const PROMOTIONS: Record<string, {
   description: string;
   tag: string;
   endDate?: string;
+  hidden?: boolean;
   heroGradient: string;
   accentColor: string;
 }> = {
@@ -52,6 +53,7 @@ export const PROMOTIONS: Record<string, {
   },
   realm2026: {
     id: "realm2026",
+    hidden: true, // set to false (and restore promo prices, see server/realm-promo-backup.json) to relaunch at month end
     title: "REALM CELLARS",
     subtitle: "Napa Valley · Stags Leap District · Est. 2002",
     description: "Craft and culture over cult. Realm Cellars' 2023 new arrivals — The Bard, Moonracer, Houyi Vineyard and Farella Vineyard, plus Fidelio Sauvignon Blanc 2025 — join the full range at exclusive Terroir & Craft offer prices. Scores up to 99 points from Jeb Dunnuck and 98 from The Wine Advocate.",
@@ -188,7 +190,7 @@ function PromoWineCard({ product }: { product: Product }) {
 export default function PromotionPage() {
   const params = useParams<{ id: string }>();
   const promoId = params.id || "bordeaux2022";
-  const promo = PROMOTIONS[promoId];
+  const promo = PROMOTIONS[promoId]?.hidden ? undefined : PROMOTIONS[promoId];
 
   const { data: allProducts = [] } = useQuery<Product[]>({
     queryKey: ["/api/products"],

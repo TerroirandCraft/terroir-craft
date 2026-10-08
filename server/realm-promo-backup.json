@@ -1,0 +1,20 @@
+{
+  "note": "Realm Cellars EDM promo prices (set promotions:[\"realm2026\"] + promo_price to relaunch). RC0121HF and RC0223 were also in winenow2026 (728 / 398).",
+  "promo_prices": {
+    "TCUS-RC0118MG": 1980,
+    "TCUS-RC0121HF": 535,
+    "TCUS-RC0121MG": 2080,
+    "TCUS-RC0122": 970,
+    "TCUS-RC0223": 398,
+    "TCUS-RC0421": 1980,
+    "TCUS-RC0421HF": 1100,
+    "TCUS-RC0621": 2500,
+    "TCUS-RC0721": 1780,
+    "TCUS-RC0921": 3380,
+    "TCUS-RC0123": 970,
+    "TCUS-RC0325": 880,
+    "TCUS-RC0423": 1980,
+    "TCUS-RC0723": 1780,
+    "TCUS-RC0823": 1580
+  }
+}
