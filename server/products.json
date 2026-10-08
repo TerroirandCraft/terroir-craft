@@ -2066,7 +2066,11 @@
       }
     ],
     "exclusive": true,
-    "image": "/bottle-shots/TCUS-RC0118MG.png"
+    "image": "/bottle-shots/TCUS-RC0118MG.png",
+    "promo_price": 1980,
+    "promotions": [
+      "realm2026"
+    ]
   },
   {
     "id": "TCUS-RC0121HF",
@@ -2091,8 +2095,11 @@
     ],
     "exclusive": true,
     "image": "/bottle-shots/TCUS-RC0121HF.png",
-    "promo_price": 728,
-    "promotion": "winenow2026"
+    "promo_price": 535,
+    "promotion": "winenow2026",
+    "promotions": [
+      "realm2026"
+    ]
   },
   {
     "id": "TCUS-RC0121MG",
@@ -2116,7 +2123,11 @@
       }
     ],
     "exclusive": true,
-    "image": "/bottle-shots/TCUS-RC0121MG.png"
+    "image": "/bottle-shots/TCUS-RC0121MG.png",
+    "promo_price": 2080,
+    "promotions": [
+      "realm2026"
+    ]
   },
   {
     "id": "TCUS-RC0122",
@@ -2140,7 +2151,11 @@
       }
     ],
     "exclusive": true,
-    "image": "/bottle-shots/TCUS-RC0122.png"
+    "image": "/bottle-shots/TCUS-RC0122.png",
+    "promo_price": 970,
+    "promotions": [
+      "realm2026"
+    ]
   },
   {
     "id": "TCUS-RC0223",
@@ -2161,7 +2176,10 @@
     "image": "/bottle-shots/TCUS-RC0223.png",
     "new_arrival": true,
     "promo_price": 398,
-    "promotion": "winenow2026"
+    "promotion": "winenow2026",
+    "promotions": [
+      "realm2026"
+    ]
   },
   {
     "id": "TCUS-RC0324",
@@ -2203,7 +2221,11 @@
       }
     ],
     "exclusive": true,
-    "image": "/bottle-shots/TCUS-RC0421.png"
+    "image": "/bottle-shots/TCUS-RC0421.png",
+    "promo_price": 1980,
+    "promotions": [
+      "realm2026"
+    ]
   },
   {
     "id": "TCUS-RC0421HF",
@@ -2227,7 +2249,11 @@
       }
     ],
     "exclusive": true,
-    "image": "/bottle-shots/TCUS-RC0421HF.png"
+    "image": "/bottle-shots/TCUS-RC0421HF.png",
+    "promo_price": 1100,
+    "promotions": [
+      "realm2026"
+    ]
   },
   {
     "id": "TCUS-RC0621",
@@ -2251,7 +2277,11 @@
       }
     ],
     "exclusive": true,
-    "image": "/bottle-shots/TCUS-RC0621.png"
+    "image": "/bottle-shots/TCUS-RC0621.png",
+    "promo_price": 2500,
+    "promotions": [
+      "realm2026"
+    ]
   },
   {
     "id": "TCUS-RC0721",
@@ -2275,7 +2305,11 @@
       }
     ],
     "exclusive": true,
-    "image": "/bottle-shots/TCUS-RC0721.png"
+    "image": "/bottle-shots/TCUS-RC0721.png",
+    "promo_price": 1780,
+    "promotions": [
+      "realm2026"
+    ]
   },
   {
     "id": "TCUS-RC0921",
@@ -2299,7 +2333,11 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCUS-RC0921.png"
+    "image_url": "/bottle-shots/TCUS-RC0921.png",
+    "promo_price": 3380,
+    "promotions": [
+      "realm2026"
+    ]
   },
   {
     "id": "TCHYD-001",
@@ -4378,5 +4416,147 @@
     "image_url": "/bottle-shots/TCFR-MC1223.png",
     "tasting_notes": "Ripe red and black fruit, spice, liquorice and earthy notes. Medium-full body with structured yet fine tannins and lively acidity that keeps the wine vibrant and age-worthy.",
     "ratings": []
+  },
+  {
+    "id": "TCUS-RC0123",
+    "name": "Realm Cellars - The Bard Proprietary Blend Napa Valley 2023",
+    "type": "Red",
+    "status": "Premium",
+    "vintage": "2023",
+    "price": 1400,
+    "grape": "75% Cabernet Sauvignon, 20% Merlot, 5% Cabernet Franc",
+    "tasting_note": "Flagship Napa blend. Full-bodied, plush and juicy palate with fragrant savory and earthy layers restraining ripe black fruit. Impressive length. Source: Wine Advocate",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 96,
+        "maxScore": 100
+      }
+    ],
+    "image": "/bottle-shots/TCUS-RC0123.png",
+    "brand": "Realm Cellars",
+    "country": "USA",
+    "region": "Napa Valley",
+    "size": "750ml",
+    "price_display": "HK$1,400",
+    "exclusive": true,
+    "new_arrival": true,
+    "promo_price": 970,
+    "promotions": [
+      "realm2026"
+    ]
+  },
+  {
+    "id": "TCUS-RC0325",
+    "name": "Realm Cellars - Fidelio Sauvignon Blanc 2025",
+    "type": "White",
+    "status": "Premium",
+    "vintage": "2025",
+    "price": 1150,
+    "grape": "Sauvignon Blanc",
+    "tasting_note": "Napa Valley Sauvignon Blanc from Farella Estate and Riverbound Vineyard. Lifted and expressive with a full spectrum of fruits. Supple palate finishing with clean, mouthwatering acidity. Clarity, texture and energy. Source: Realm",
+    "image": "/bottle-shots/TCUS-RC0325.png",
+    "brand": "Realm Cellars",
+    "country": "USA",
+    "region": "Napa Valley",
+    "size": "750ml",
+    "price_display": "HK$1,150",
+    "exclusive": true,
+    "new_arrival": true,
+    "promo_price": 880,
+    "promotions": [
+      "realm2026"
+    ]
+  },
+  {
+    "id": "TCUS-RC0423",
+    "name": "Realm Cellars - The Moonracer Stags Leap District 2023",
+    "type": "Red",
+    "status": "Fixed",
+    "vintage": "2023",
+    "price": 3080,
+    "grape": "99% Cabernet Sauvignon, 1% Cabernet Franc",
+    "tasting_note": "Estate Cabernet from Stags Leap District. Aromatics of darker currants, smoky tobacco, chocolate and lead pencil with an almost Mouton Rothschild-like style. Full-bodied, tightly wound and muscular with firm, grainy tannins. Source: Jeb Dunnuck, Wine Advocate",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 97,
+        "maxScore": 100
+      }
+    ],
+    "image": "/bottle-shots/TCUS-RC0423.png",
+    "brand": "Realm Cellars",
+    "country": "USA",
+    "region": "Napa Valley",
+    "size": "750ml",
+    "price_display": "HK$3,080",
+    "exclusive": true,
+    "new_arrival": true,
+    "promo_price": 1980,
+    "promotions": [
+      "realm2026"
+    ]
+  },
+  {
+    "id": "TCUS-RC0723",
+    "name": "Realm Cellars - Houyi Vineyard Cabernet Sauvignon 2023",
+    "type": "Red",
+    "status": "Fixed",
+    "vintage": "2023",
+    "price": 2850,
+    "grape": "95% Cabernet Sauvignon, 4% Cabernet Franc, 1% Merlot",
+    "tasting_note": "Pritchard Hill Cabernet. Aromatics of blackcurrants, blueberries, graphite, violets and scorched earth. Full-bodied palate of black fruit preserves with a firm, grainy texture and freshness, finishing long and perfumed. Source: Jeb Dunnuck, Wine Advocate",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 98,
+        "maxScore": 100
+      },
+      {
+        "source": "JS",
+        "score": 97,
+        "maxScore": 100
+      }
+    ],
+    "brand": "Realm Cellars",
+    "country": "USA",
+    "region": "Napa Valley",
+    "size": "750ml",
+    "price_display": "HK$2,850",
+    "exclusive": true,
+    "new_arrival": true,
+    "promo_price": 1780,
+    "promotions": [
+      "realm2026"
+    ]
+  },
+  {
+    "id": "TCUS-RC0823",
+    "name": "Realm Cellars - Farella Vineyard Coombsville AVA Red 2023",
+    "type": "Red",
+    "status": "Fixed",
+    "vintage": "2023",
+    "price": 2650,
+    "grape": "Cabernet Sauvignon",
+    "tasting_note": "Coombsville Cabernet. Incredibly floral and perfumed with a red, blue and black fruit core. Full-bodied, tight-knit and multi-layered with mineral nuances, firm ripe tannins and seamless freshness; long, earthy finish. Source: Jeb Dunnuck, Wine Advocate",
+    "ratings": [
+      {
+        "source": "WA",
+        "score": 98,
+        "maxScore": 100
+      }
+    ],
+    "image": "/bottle-shots/TCUS-RC0823.png",
+    "brand": "Realm Cellars",
+    "country": "USA",
+    "region": "Napa Valley",
+    "size": "750ml",
+    "price_display": "HK$2,650",
+    "exclusive": true,
+    "new_arrival": true,
+    "promo_price": 1580,
+    "promotions": [
+      "realm2026"
+    ]
   }
 ]

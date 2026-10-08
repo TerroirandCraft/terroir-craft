@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import SeoHead from "@/components/SeoHead";
+import { API_BASE } from "@/lib/queryClient";
 
 // ── Blog post metadata ────────────────────────────────────────────────────────
 export interface BlogPost {
@@ -338,8 +339,540 @@ function SaintCosmePost() {
   );
 }
 
+// ── Realm Cellars post ────────────────────────────────────────────────────────
+const REALM_WINES: Array<{
+  code: string; name: string; tier: "entry" | "bard" | "sv"; isNew: boolean; tags: string[]; meta: string;
+  score: string[] | null; list: string; offer: string; unit: string; headline: string; note: string; source: string; flagship: boolean;
+}> = [
+  {
+    "code": "RC0223",
+    "name": "Precious Twin Rosé 2023",
+    "tier": "entry",
+    "isNew": false,
+    "tags": [
+      "Rosé"
+    ],
+    "meta": "2023 · 750ml · Napa Valley",
+    "score": null,
+    "list": "HK$580",
+    "offer": "HK$398",
+    "unit": "per bottle",
+    "headline": "",
+    "note": "以 Napa 最優質 Cabernet Sauvignon 釀製的精品玫瑰紅酒。鮮草莓、西瓜、白桃及輕盈花香，清爽活潑而優雅，是 Realm 酒款中最平易近人的入門之選。",
+    "source": "Realm Cellars estate note",
+    "flagship": false
+  },
+  {
+    "code": "RC0325",
+    "name": "Fidelio Sauvignon Blanc 2025",
+    "tier": "entry",
+    "isNew": true,
+    "tags": [
+      "White"
+    ],
+    "meta": "2025 · 750ml · Coombsville & Yountville · ~1,000 cases",
+    "score": null,
+    "list": "HK$1,150",
+    "offer": "HK$880",
+    "unit": "per bottle",
+    "headline": "",
+    "note": "Realm 唯一的白酒，以 Coombsville 的 Farella 莊園（樹齡逾 25 年的老藤）及 Yountville 的 Riverbound 葡萄園 Sauvignon Blanc 為骨幹，於新舊橡木桶、水泥、陶土及陶瓷容器中發酵，帶來質感與張力。\n\"Lifted and expressive, a full spectrum of fruits. The palate is supple and honest, finishing with clean, mouthwatering acidity that lingers. Clarity, texture and energy.\"",
+    "source": "Realm Cellars estate note",
+    "flagship": false
+  },
+  {
+    "code": "RC0123",
+    "name": "The Bard Napa Valley 2023",
+    "tier": "bard",
+    "isNew": true,
+    "tags": [
+      "Red",
+      "Shakespeare Label"
+    ],
+    "meta": "2023 · 750ml · 75% Cab Sauv · 20% Merlot · 5% Cab Franc",
+    "score": [
+      "96",
+      "WA"
+    ],
+    "list": "HK$1,400",
+    "offer": "HK$970",
+    "unit": "per bottle",
+    "headline": "",
+    "note": "\"The full-bodied palate is plush and juicy with lots of fragrant savory/earthy layers restraining the ripe black fruit flavors, finishing with impressive length.\"",
+    "source": "Lisa Perrotti-Brown, The Wine Advocate · WA 96",
+    "flagship": false
+  },
+  {
+    "code": "RC0122",
+    "name": "The Bard Napa Valley 2022",
+    "tier": "bard",
+    "isNew": false,
+    "tags": [
+      "Red",
+      "Shakespeare Label"
+    ],
+    "meta": "2022 · 750ml · 87% Cab Sauv",
+    "score": null,
+    "list": "HK$1,400",
+    "offer": "HK$970",
+    "unit": "per bottle",
+    "headline": "",
+    "note": "\"One of the valley's great, great values... a killer nose of bright red and blue fruits intermixed with spring flowers, graphite, baking spices, and incense. It competes with wines at 2-3x its going rate.\"",
+    "source": "Jeb Dunnuck",
+    "flagship": false
+  },
+  {
+    "code": "RC0121HF",
+    "name": "The Bard Napa Valley 2021",
+    "tier": "bard",
+    "isNew": false,
+    "tags": [
+      "Red",
+      "Decanter Top 10 · 2023"
+    ],
+    "meta": "2021 · 375ml · 83% Cab Sauv",
+    "score": [
+      "98",
+      "JD"
+    ],
+    "list": "HK$850",
+    "offer": "HK$535",
+    "unit": "375ml",
+    "headline": "",
+    "note": "\"This wine comes out swinging. Explosive aromas, bright red fruit and everything in balance, super extroverted and ready to go. The 2021 vintage gave us a wine with precision and freshness that will age beautifully.\"",
+    "source": "Realm Cellars · JD 98 · JS 97 · Decanter 97 · Vinous 95 · WA 95",
+    "flagship": false
+  },
+  {
+    "code": "RC0121MG",
+    "name": "The Bard Napa Valley 2021 · Magnum",
+    "tier": "bard",
+    "isNew": false,
+    "tags": [
+      "Red",
+      "1500ml"
+    ],
+    "meta": "2021 · 1500ml",
+    "score": null,
+    "list": "HK$3,150",
+    "offer": "HK$2,080",
+    "unit": "per magnum",
+    "headline": "",
+    "note": "Magnum 版本陳年潛力更勝標準裝，適合長期收藏或特別場合。2021 年份 The Bard 獲 Decanter 年度十大及多位評論家 95–98 分高度讚揚。",
+    "source": "",
+    "flagship": false
+  },
+  {
+    "code": "RC0118MG",
+    "name": "The Bard Napa Valley 2018 · Magnum",
+    "tier": "bard",
+    "isNew": false,
+    "tags": [
+      "Red",
+      "1500ml"
+    ],
+    "meta": "2018 · 1500ml · Mature vintage",
+    "score": null,
+    "list": "HK$2,600",
+    "offer": "HK$1,980",
+    "unit": "per magnum",
+    "headline": "",
+    "note": "2018 年是 Napa 的經典大年份，炎熱而飽滿，The Bard 展現出豐厚的黑果與巧克力氣息，單寧成熟，現在至未來十年皆宜飲用。現有限量 Magnum 庫存，是難得的成熟年份佳釀。",
+    "source": "",
+    "flagship": false
+  },
+  {
+    "code": "RC0423",
+    "name": "The Moonracer Stags Leap District 2023",
+    "tier": "sv",
+    "isNew": true,
+    "tags": [
+      "Red",
+      "★ Estate · Stags Leap"
+    ],
+    "meta": "2023 · 750ml · 99% Cab Sauv · 1% Cab Franc · 20 months in 80% new French oak",
+    "score": [
+      "98",
+      "JD"
+    ],
+    "list": "HK$3,080",
+    "offer": "HK$1,980",
+    "unit": "per bottle",
+    "headline": "",
+    "note": "\"Aged 20 months in 80% new French oak, the 2023 Cabernet Sauvignon Estate Moonracer offers killer aromatics of darker currants, smoky tobacco, chocolate, and lead pencil that give this an almost Mouton Rothschild-like style.\"",
+    "source": "Jeb Dunnuck 98 (Dec 2025) · Vinous 97 · WA 97 (Lisa Perrotti-Brown)",
+    "flagship": false
+  },
+  {
+    "code": "RC0421",
+    "name": "The Moonracer Stags Leap District 2021",
+    "tier": "sv",
+    "isNew": false,
+    "tags": [
+      "Red",
+      "★ Estate · Stags Leap"
+    ],
+    "meta": "2021 · 750ml · 100% Cab Sauv · First pure Cab vintage",
+    "score": [
+      "97",
+      "JS"
+    ],
+    "list": "HK$3,080",
+    "offer": "HK$1,980",
+    "unit": "per bottle",
+    "headline": "",
+    "note": "\"The 2021 Cabernet Sauvignon Moonracer is aromatic and silky, with a gorgeous bouquet. Crushed flowers, mint, cedar, sweet pipe tobacco, red cherry and rose petals grace this elegant, wonderfully polished Cabernet.\"",
+    "source": "Vinous 96–97 · JS 97 · LPB (Wine Independent) 96+",
+    "flagship": false
+  },
+  {
+    "code": "RC0421HF",
+    "name": "The Moonracer Stags Leap District 2021 · Half Bottle",
+    "tier": "sv",
+    "isNew": false,
+    "tags": [
+      "Red",
+      "★ Estate"
+    ],
+    "meta": "2021 · 375ml",
+    "score": null,
+    "list": "HK$1,490",
+    "offer": "HK$1,100",
+    "unit": "half bottle",
+    "headline": "",
+    "note": "同款酒的半瓶裝，適合兩人品嚐或禮品饋贈之用，同樣享有 Moonracer 2021 的完整複雜度與優雅架構。",
+    "source": "",
+    "flagship": false
+  },
+  {
+    "code": "RC0723",
+    "name": "Houyi Vineyard Cabernet Sauvignon 2023",
+    "tier": "sv",
+    "isNew": true,
+    "tags": [
+      "Red",
+      "★ Estate · Pritchard Hill"
+    ],
+    "meta": "2023 · 750ml · 95% Cab Sauv · 4% Cab Franc · 1% Merlot · 19 months in 63% new French oak",
+    "score": [
+      "99",
+      "JD"
+    ],
+    "list": "HK$2,850",
+    "offer": "HK$1,780",
+    "unit": "per bottle",
+    "headline": "",
+    "note": "\"Killer aromatics of blackcurrants, blueberries, melted crayon/graphite, violets, and scorched earth.\"",
+    "source": "Jeb Dunnuck 99 · WA 98 (Lisa Perrotti-Brown) · JS 97 · Vinous 97",
+    "flagship": false
+  },
+  {
+    "code": "RC0721",
+    "name": "Houyi Vineyard Cabernet Sauvignon 2021",
+    "tier": "sv",
+    "isNew": false,
+    "tags": [
+      "Red",
+      "★ Estate · Pritchard Hill"
+    ],
+    "meta": "2021 · 750ml · 100% Cab Sauv · ~1,000 cases",
+    "score": [
+      "98",
+      "WA"
+    ],
+    "list": "HK$2,850",
+    "offer": "HK$1,780",
+    "unit": "per bottle",
+    "headline": "",
+    "note": "\"It comes barreling out with powerful notes of blackcurrant jelly, stewed plums, and fruitcake followed by hints of charcoal, wild sage, mossy tree bark, and black olives. Full-bodied, a rock-solid frame of firm, grainy tannins... Just under 1,000 cases were made.\"",
+    "source": "WA 98 (Lisa Perrotti-Brown) · Decanter 98 · Vinous 97 · JS 97 · JD 97",
+    "flagship": false
+  },
+  {
+    "code": "RC0823",
+    "name": "Farella Vineyard Cabernet Sauvignon Coombsville 2023",
+    "tier": "sv",
+    "isNew": true,
+    "tags": [
+      "Red",
+      "★ Estate · Coombsville"
+    ],
+    "meta": "2023 · 750ml · 100% Cab Sauv · 20 months in 85% new French oak",
+    "score": [
+      "98",
+      "JD"
+    ],
+    "list": "HK$2,650",
+    "offer": "HK$1,580",
+    "unit": "per bottle",
+    "headline": "",
+    "note": "\"Incredibly floral and perfumed, with a red, blue, and black fruit core.\"",
+    "source": "Jeb Dunnuck 98 (Dec 2025) · WA 98 (Lisa Perrotti-Brown) · Vinous 97",
+    "flagship": false
+  },
+  {
+    "code": "RC0621",
+    "name": "Beckstoffer Dr. Crane Vineyard St. Helena 2021",
+    "tier": "sv",
+    "isNew": false,
+    "tags": [
+      "Red",
+      "★ Dr. Crane · Est. 1858"
+    ],
+    "meta": "2021 · 750ml · 100% Cab Sauv · St. Helena",
+    "score": [
+      "98",
+      "JD"
+    ],
+    "list": "HK$5,600",
+    "offer": "HK$2,500",
+    "unit": "per bottle",
+    "headline": "",
+    "note": "\"A sensational effort that will be flirting with perfection at maturity. From a Grand Cru site outside of St. Helena, a riveting perfume of creme de cassis, blueberries, spring flowers, and darker chocolate. Full-bodied, concentrated, and powerful... a wine to cellar for 20+ years.\"",
+    "source": "Jeb Dunnuck 98 · Vineyard history: RP 100pts (2012) · LPB 100pts (2015)",
+    "flagship": false
+  },
+  {
+    "code": "RC0921",
+    "name": "Hartwell XX Estate Red 2021",
+    "tier": "sv",
+    "isNew": false,
+    "tags": [
+      "Red",
+      "★ FLAGSHIP",
+      "★ Estate · Stags Leap"
+    ],
+    "meta": "2021 · 750ml · ~400 cases",
+    "score": [
+      "100",
+      "JD"
+    ],
+    "list": "HK$6,980",
+    "offer": "HK$3,380",
+    "unit": "per bottle",
+    "headline": "Jeb Dunnuck 滿分 100 分 · James Suckling 99 分 · Vinous 98 分",
+    "note": "\"Another perfect wine in this lineup... saturated purple hue followed by a deep, majestic, massively concentrated Cabernet offering incredible purity and depth in its blackcurrant, Griotte cherry, loamy earth, and dried flower aromas. Full-bodied richness, loads of glycerin, sweet tannins, a stacked mid-palate, and a blockbuster of a finish — should drink well for 25–30 years.\"",
+    "source": "Jeb Dunnuck 100 · JS 99 · Vinous 98 · The Wine Independent 98+",
+    "flagship": true
+  }
+];
+
+function RealmWineCard({ w }: { w: typeof REALM_WINES[number] }) {
+  return (
+    <div className={`border rounded-xl overflow-hidden ${w.flagship ? "border-amber-400 ring-1 ring-amber-200" : "border-border"}`}>
+      {w.flagship && (
+        <div className="bg-amber-50 text-amber-800 text-[10px] font-semibold tracking-widest uppercase text-center py-1.5 border-b border-amber-200">★ Flagship · 旗艦之作</div>
+      )}
+      <div className="p-4 sm:p-5 flex gap-4">
+        {/* Bottle photo */}
+        <div className={`shrink-0 rounded-lg bg-[hsl(36,18%,94%)] flex items-center justify-center ${w.code === "RC0723" ? "w-20 h-20 sm:w-24 sm:h-24 self-start" : "w-20 sm:w-24 h-52 sm:h-60"}`}>
+          <img
+            src={`${API_BASE}/realm/${w.code}.webp`}
+            alt={`Realm Cellars ${w.name}`}
+            loading="lazy"
+            className={w.code === "RC0723" ? "w-full h-full object-cover rounded-lg" : "max-h-48 sm:max-h-56 w-auto max-w-[4.25rem] sm:max-w-[5.25rem] object-contain"}
+          />
+        </div>
+        {/* Details */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-start justify-between gap-3 mb-3">
+            <div className="min-w-0">
+              <h4 className="font-display text-[16px] font-medium leading-snug text-foreground mb-2">{w.name}</h4>
+              <div className="flex flex-wrap gap-1.5 items-center mb-1.5">
+                {w.isNew && <span className="text-[9.5px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded bg-[hsl(40,60%,40%)] text-white">新貨 New</span>}
+                {w.tags.map(t => (
+                  <span key={t} className="text-[9.5px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded bg-amber-50 text-amber-800">{t}</span>
+                ))}
+              </div>
+              <p className="font-body text-[11px] text-muted-foreground">{w.meta}</p>
+            </div>
+            {w.score && (
+              <div className="w-14 h-14 shrink-0 rounded-full border-2 border-[hsl(40,60%,50%)] bg-amber-50/60 flex flex-col items-center justify-center">
+                <span className="font-display font-bold leading-none text-xl text-[hsl(40,60%,35%)]">{w.score[0]}</span>
+                <span className="text-[8px] font-semibold text-muted-foreground uppercase tracking-wide mt-0.5">{w.score[1]}</span>
+              </div>
+            )}
+          </div>
+          <div className="bg-amber-50/40 border-l-[3px] border-amber-300 px-3 py-2.5 mb-3 rounded-r">
+            {w.headline && <p className="font-body text-[12px] font-semibold text-[hsl(40,60%,32%)] mb-1.5">{w.headline}</p>}
+            <p className="font-body text-[12.5px] text-muted-foreground leading-relaxed whitespace-pre-line">{w.note}</p>
+            {w.source && <span className="text-[10px] text-muted-foreground/70 mt-1 block">— {w.source}</span>}
+          </div>
+          <div className="flex items-center justify-between">
+            <div className="text-xs text-muted-foreground">Terroir & Craft 獨家供應</div>
+            <div className="text-right">
+              <span className="text-xs text-muted-foreground line-through mr-2">{w.list}</span>
+              <span className="font-display text-xl font-medium" style={{ color: "hsl(355,65%,30%)" }}>{w.offer}</span>
+              <span className="text-xs text-muted-foreground ml-1">/{w.unit.replace("per ", "")}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function RealmCellarsPost() {
+  const newWines = REALM_WINES.filter(w => w.isNew);
+  const tiers: Array<{ key: "entry" | "bard" | "sv"; label: string }> = [
+    { key: "entry", label: "入門系列 · Entry" },
+    { key: "bard", label: "The Bard · Proprietary Blend" },
+    { key: "sv", label: "頂級單一園 · Grand Single Vineyards" },
+  ];
+  return (
+    <div className="max-w-[680px] mx-auto">
+
+      {/* Story */}
+      <div className="mb-10">
+        <SectionLabel>酒莊故事 · The Realm Story</SectionLabel>
+        <Rule />
+        <h2 className="font-display text-3xl font-light text-foreground mb-5">Napa 最後一個傳奇創業故事</h2>
+        <div className="grid sm:grid-cols-[1fr_200px] gap-6 items-start">
+          <div>
+            <p className="font-body text-base text-muted-foreground leading-relaxed mb-4">
+              Realm Cellars 由陸軍醫護兵出身的 <strong>Juan Mercado</strong> 於 2002 年創立，起點是一個沒有土地、沒有資金的「虛擬酒莊」夢想。憑著與頂級葡萄園合約及釀酒師 <strong>Benoit Touquette</strong>（師承 Michel Rolland）的加入，Realm 奠定了超凡品質基礎。
+            </p>
+            <p className="font-body text-base text-muted-foreground leading-relaxed mb-4">
+              2014 年，前哈佛 MBA、Harlan Estate 出身的 <strong>Scott Becker</strong> 接掌品牌並與 Touquette 共同擁有酒莊。同年，Dr. Crane 2012 獲 Robert Parker 滿分 100 分，Realm 一夜成名。
+            </p>
+            <p className="font-body text-base text-muted-foreground leading-relaxed">
+              今日 Realm 擁有三座自有莊園：Moonracer Estate（Stags Leap）、Farella Estate（Coombsville）及 Houyi Vineyard（Pritchard Hill），從「虛擬酒莊」蛻變為 Napa 頂級地主。
+            </p>
+          </div>
+          <img src={`${API_BASE}/realm/team.jpg`} alt="Scott Becker & Benoit Touquette" loading="lazy" className="w-full aspect-[4/5] object-cover object-top rounded-lg" />
+        </div>
+        <Quote text="Instead of talking about cult, we prefer to focus on craft and culture. Craft means the way we work, the technical details we apply in both the vineyard and the cellar." source="Scott Becker, Co-Owner & CEO, Realm Cellars" />
+      </div>
+
+      {/* Milestones */}
+      <div className="mb-10 p-6 bg-[hsl(30,12%,9%)] rounded-xl text-white">
+        <SectionLabel>里程碑 · Milestones</SectionLabel>
+        <div className="w-10 h-[1px] bg-[hsl(40,60%,50%)] mb-5" />
+        <h3 className="font-display text-2xl font-light text-white mb-3">從創業夢想到 Napa 傳奇</h3>
+        <p className="font-body text-sm leading-relaxed mb-5" style={{ color: "rgba(255,255,255,0.72)" }}>
+          二十年間，Realm 以驚人速度從零起步，積累了 Napa 最令人矚目的評分記錄之一——包括多個滿分 100 分、Decanter 年度十大及 Wine Advocate 最高榮譽。
+        </p>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {[
+            { n: "100", l: "Dr. Crane 2012", s: "Robert Parker WA" },
+            { n: "100", l: "Hartwell XX 2021", s: "Jeb Dunnuck" },
+            { n: "Top 10", l: "Decanter 2023", s: "The Bard 2021" },
+            { n: "3", l: "Estate Vineyards", s: "Stags Leap · Coombsville · Pritchard Hill" },
+          ].map(m => (
+            <div key={m.l} className="text-center">
+              <div className="font-display text-3xl text-[hsl(40,65%,60%)] leading-none mb-1.5">{m.n}</div>
+              <div className="font-body text-[11px] text-white/85">{m.l}</div>
+              <div className="font-body text-[10px] text-white/50">{m.s}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Vineyards */}
+      <div className="mb-10">
+        <SectionLabel>頂級葡萄園 · Grand Vineyards</SectionLabel>
+        <Rule />
+        <h3 className="font-display text-2xl font-light text-foreground mb-3">Napa 最精華地塊的風土表達</h3>
+        <p className="font-body text-sm text-muted-foreground leading-relaxed mb-4">
+          Realm 的每支單一園酒款，都來自 Napa Valley 最具傳奇色彩的地塊。Beckstoffer、Pritchard Hill、Stags Leap、Coombsville —— 每一個名字都是 Napa 葡萄酒歷史的一章。
+        </p>
+        <div className="grid sm:grid-cols-2 gap-3">
+          {[
+            { t: "Beckstoffer Dr. Crane", a: "St. Helena · Est. 1858", d: "Napa 歷史最悠久葡萄園之一，前身是 19 世紀唐人街舊址。深層黏土與礫石土壤，Realm 的 Dr. Crane 曾獲 Robert Parker 及 Lisa Perrotti-Brown 滿分 100 分。" },
+            { t: "Houyi Vineyard", a: "Pritchard Hill · Chang Family", d: "以中國神話弓箭手「后羿」命名，由香港移民 Chang 家族種植。火山岩土壤，海拔高，Realm 於 2022 年正式收購，是 Pritchard Hill 最具潛力的新興地塊之一。" },
+            { t: "Hartwell Estate", a: "Stags Leap District · Wappo Hill", d: "原屬 See's Candy 家族的 Bob Hartwell，以 Grace Family 葡萄藤無性系聞名。Realm 於 2015 年收購，成為 Moonracer 及 Hartwell XX 的搖籃。Jeb Dunnuck 2021 給予滿分 100 分。" },
+            { t: "Farella Vineyard", a: "Coombsville · Vaca Mountains Foothills", d: "位於 Napa 東南端涼爽的 Coombsville 產區，葡萄園始於 1970 年代，並於 1993 年增植。Realm 自 2003 年起釀造此園的 Cabernet Sauvignon，2018 年起接管種植及管理，成為旗下自有莊園之一。" },
+          ].map(v => (
+            <div key={v.t} className="p-4 rounded-lg border border-border bg-muted/20">
+              <div className="font-display text-base text-foreground">{v.t}</div>
+              <div className="font-body text-[10px] font-semibold tracking-wider uppercase text-[hsl(40,60%,38%)] mb-2">{v.a}</div>
+              <div className="font-body text-xs text-muted-foreground leading-relaxed">{v.d}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Label art */}
+      <div className="mb-10">
+        <SectionLabel>標籤藝術 · Label Art</SectionLabel>
+        <Rule />
+        <h3 className="font-display text-2xl font-light text-foreground mb-3">每支酒都是一件藝術品</h3>
+        <p className="font-body text-sm text-muted-foreground leading-relaxed mb-4">
+          Realm 的每款酒標都是專門委約藝術家創作，融合文學、神話與自然，讓每瓶酒在視覺上與味覺上同樣令人難忘。
+        </p>
+        <div className="grid sm:grid-cols-2 gap-3">
+          {[
+            { t: "The Bard", d: "以莎士比亞《理查二世》原文排版設計，書頁肌理上浮現醒目的哥特體「R」。文學與釀酒的交融——這支 Napa Proprietary Blend 如同偉大劇作，層次豐富，越陳越醇。" },
+            { t: "The Moonracer", d: "由算法藝術家 Sergio Albiac 創作，每支酒標都是世界上獨一無二的，以數據生成獨特圖案。蝴蝶圖像象徵莊園在 Stags Leap 的蛻變歷程。" },
+            { t: "Houyi Vineyard", d: "以中國神話《后羿射日》為靈感，由藝術家 Taher Jaoui 創作。「九個太陽」的構圖呼應 Pritchard Hill 的炎熱山坡，后羿射下多餘太陽，留下生機——酒莊以此比喻精準釀酒哲學。" },
+            { t: "Hartwell XX", d: "一棵佈滿藍色蝴蝶的古樹，象徵 Hartwell 莊園的歲月與生命力。「XX」代表 Becker 家族入主後的第二個十年，是 Realm 最尊貴的旗艦酒款，Jeb Dunnuck 給予 2021 年份滿分 100 分。" },
+          ].map(a => (
+            <div key={a.t} className="p-4 rounded-lg border border-border">
+              <div className="font-display text-base text-foreground mb-1.5">{a.t}</div>
+              <div className="font-body text-xs text-muted-foreground leading-relaxed">{a.d}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* New arrivals */}
+      <div className="mb-10 p-5 rounded-xl" style={{ background: "hsl(40,60%,50%)" }}>
+        <p className="font-body text-[9px] font-semibold tracking-[0.22em] uppercase text-white/70 mb-2">New Arrivals · 新貨到港</p>
+        <p className="font-body text-sm text-white leading-relaxed mb-3">
+          2023 年份 The Bard、Moonracer、Houyi Vineyard、Farella Vineyard 及 Fidelio Sauvignon Blanc 2025 現已到貨。Wine Advocate（Lisa Perrotti-Brown）給予 The Bard 96 分、Moonracer 97 分、Houyi 與 Farella 各 98 分；Jeb Dunnuck 給予 Houyi 99 分。
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {newWines.map(w => (
+            <span key={w.code} className="text-[10.5px] font-medium px-2.5 py-1 rounded-full bg-white/20 text-white">{w.name.replace(" Coombsville", "")}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* Wine list */}
+      <div className="mb-8">
+        <SectionLabel>酒款精選 · Wine Selection</SectionLabel>
+        <Rule />
+        <h3 className="font-display text-2xl font-light text-foreground mb-2">由入門到旗艦的完整梯度</h3>
+        <p className="font-body text-[11px] text-muted-foreground mb-6">WA = Wine Advocate · JD = Jeb Dunnuck · JS = James Suckling · Vinous = Antonio Galloni · Dec = Decanter</p>
+        {tiers.map(t => (
+          <div key={t.key} className="mb-8">
+            <div className="font-body text-[10px] font-semibold tracking-[0.2em] uppercase text-[hsl(40,60%,38%)] border-y border-border py-2 mb-4">{t.label}</div>
+            <div className="space-y-4">
+              {REALM_WINES.filter(w => w.tier === t.key).map(w => <RealmWineCard key={w.code} w={w} />)}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* CTA */}
+      <div className="p-6 rounded-xl text-center" style={{ background: "hsl(30,15%,7%)" }}>
+        <p className="font-body text-sm text-white/75 mb-1">Realm Cellars 全系列僅限天地人酒業供應。</p>
+        <p className="font-body text-sm text-white/75 mb-4">新貨及全系列獨家優惠價，數量有限，售完即止。</p>
+        <a href="/promotions/realm2026"
+          className="inline-block px-6 py-3 rounded-lg font-body font-medium text-sm"
+          style={{ background: "hsl(40,65%,55%)", color: "#1c1409", textDecoration: "none" }}>
+          查看全部優惠酒款 →
+        </a>
+      </div>
+    </div>
+  );
+}
+
 // ── Blog post registry ────────────────────────────────────────────────────────
 export const BLOG_POSTS: BlogPost[] = [
+  {
+    id: "realm-cellars-2026",
+    slug: "realm-cellars-new-arrivals-2026",
+    title: "Realm Cellars — Craft & Culture Over Cult: 2023 New Arrivals & Full Offer",
+    titleZh: "Realm Cellars · Napa 傳奇 · 2023 新貨到港 + 全系列優惠",
+    date: "2026-10-08",
+    category: "Producer Feature",
+    categoryZh: "酒莊推介",
+    heroImage: "https://www.terroirandcraft.online/realm/hero.jpg",
+    excerpt: "The Bard, Moonracer, Houyi and Farella 2023 have arrived — scored 96 to 99 points by The Wine Advocate and Jeb Dunnuck. Full range with tasting notes and exclusive HK pricing.",
+    excerptZh: "The Bard、Moonracer、Houyi、Farella 2023 年份新貨到港，Wine Advocate 及 Jeb Dunnuck 評分 96–99 分。全系列品鑑筆記 + 天地人酒業獨家優惠價。",
+    component: RealmCellarsPost,
+  },
   {
     id: "saint-cosme-2024",
     slug: "chateau-saint-cosme-2024-vintage",

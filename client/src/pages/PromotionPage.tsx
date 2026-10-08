@@ -50,7 +50,36 @@ export const PROMOTIONS: Record<string, {
     heroGradient: "linear-gradient(135deg, hsl(220,60%,10%) 0%, hsl(200,40%,14%) 40%, hsl(220,55%,18%) 100%)",
     accentColor: "hsl(48, 90%, 58%)",
   },
+  realm2026: {
+    id: "realm2026",
+    title: "REALM CELLARS",
+    subtitle: "Napa Valley · Stags Leap District · Est. 2002",
+    description: "Craft and culture over cult. Realm Cellars' 2023 new arrivals — The Bard, Moonracer, Houyi Vineyard and Farella Vineyard, plus Fidelio Sauvignon Blanc 2025 — join the full range at exclusive Terroir & Craft offer prices. Scores up to 99 points from Jeb Dunnuck and 98 from The Wine Advocate.",
+    tag: "New Arrivals · Exclusive Offer",
+    heroGradient: "linear-gradient(135deg, hsl(30,15%,6%) 0%, hsl(32,28%,11%) 45%, hsl(355,45%,14%) 100%)",
+    accentColor: "hsl(40, 65%, 55%)",
+  },
 };
+
+// Realm Cellars: group by wine series, in this order
+const REALM_SERIES_ORDER = [
+  "Entry · Rosé & Sauvignon Blanc",
+  "The Bard · Proprietary Blend",
+  "The Moonracer · Stags Leap District",
+  "Houyi Vineyard · Pritchard Hill",
+  "Farella Vineyard · Coombsville",
+  "Beckstoffer Dr. Crane · St. Helena",
+  "Hartwell XX · Flagship",
+];
+function realmSeries(name: string): string {
+  if (name.includes("Bard")) return REALM_SERIES_ORDER[1];
+  if (name.includes("Moonracer")) return REALM_SERIES_ORDER[2];
+  if (name.includes("Houyi")) return REALM_SERIES_ORDER[3];
+  if (name.includes("Farella")) return REALM_SERIES_ORDER[4];
+  if (name.includes("Dr. Crane")) return REALM_SERIES_ORDER[5];
+  if (name.includes("Hartwell")) return REALM_SERIES_ORDER[6];
+  return REALM_SERIES_ORDER[0];
+}
 
 // ── Score Badge ───────────────────────────────────────────────────────────────
 function ScoreBadge({ source, score }: { source: string; score: number }) {
@@ -165,19 +194,31 @@ export default function PromotionPage() {
     queryKey: ["/api/products"],
   });
 
-  const promoWines = allProducts.filter((p: any) => p.promotion === promoId);
+  const promoWines = allProducts.filter(
+    (p: any) => p.promotion === promoId || (Array.isArray(p.promotions) && p.promotions.includes(promoId))
+  );
 
-  // Group by brand for winenow2026, region for others
-  const groupKey = promoId === "winenow2026" ? "brand" : "region";
+  // Group by brand (Winenow), series (Realm) or region (others)
   const byGroup: Record<string, Product[]> = {};
   promoWines.forEach(w => {
-    const key = (w as any)[groupKey] || "Other";
+    const key =
+      promoId === "winenow2026" ? (w as any).brand || "Other"
+      : promoId === "realm2026" ? realmSeries(w.name)
+      : (w as any).region || "Other";
     if (!byGroup[key]) byGroup[key] = [];
     byGroup[key].push(w);
   });
+  // Newest vintage first inside each Realm series
+  if (promoId === "realm2026") {
+    Object.values(byGroup).forEach(list =>
+      list.sort((a, b) => Number((b as any).vintage) - Number((a as any).vintage) || b.price - a.price)
+    );
+  }
 
   // Region order for Bordeaux
-  const regionOrder = ["Saint-Estèphe", "Pessac-Léognan", "Saint-Julien", "Margaux", "Pomerol", "Pauillac", "Bordeaux"];
+  const regionOrder = promoId === "realm2026"
+    ? REALM_SERIES_ORDER
+    : ["Saint-Estèphe", "Pessac-Léognan", "Saint-Julien", "Margaux", "Pomerol", "Pauillac", "Bordeaux"];
   const sortedGroups = Object.keys(byGroup).sort((a, b) => {
     const ia = regionOrder.indexOf(a), ib = regionOrder.indexOf(b);
     return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
