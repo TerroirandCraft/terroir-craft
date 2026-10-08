@@ -1052,7 +1052,10 @@
     "image_url": "/bottle-shots/TCFR-SC0223.png",
     "new_arrival": true,
     "promo_price": 288,
-    "promotion": "winenow2026"
+    "promotion": "winenow2026",
+    "promotions": [
+      "saintcosme2024"
+    ]
   },
   {
     "id": "TCFR-SC0323",
@@ -1079,7 +1082,10 @@
     "exclusive": true,
     "image_url": "/bottle-shots/TCFR-SC0323.png",
     "promo_price": 180,
-    "promotion": "winenow2026"
+    "promotion": "winenow2026",
+    "promotions": [
+      "saintcosme2024"
+    ]
   },
   {
     "id": "TCFR-SC0423",
@@ -1106,7 +1112,7 @@
     "exclusive": true,
     "image_url": "/bottle-shots/TCFR-SC0423.png",
     "new_arrival": true,
-    "promo_price": 630,
+    "promo_price": 680,
     "promotion": "saintcosme2024"
   },
   {
@@ -1135,7 +1141,10 @@
     "image_url": "/bottle-shots/TCFR-SC0723.png",
     "new_arrival": true,
     "promo_price": 680,
-    "promotion": "winenow2026"
+    "promotion": "winenow2026",
+    "promotions": [
+      "saintcosme2024"
+    ]
   },
   {
     "id": "TCFR-SC0522",
@@ -1216,7 +1225,10 @@
     "exclusive": true,
     "image_url": "/bottle-shots/TCFR-SC0823.png",
     "promo_price": 250,
-    "promotion": "winenow2026"
+    "promotion": "winenow2026",
+    "promotions": [
+      "saintcosme2024"
+    ]
   },
   {
     "id": "TCFR-SC09NV",
@@ -1295,7 +1307,7 @@
     "exclusive": true,
     "image_url": "/bottle-shots/TCFR-SC1123.png",
     "new_arrival": true,
-    "promo_price": 630,
+    "promo_price": 680,
     "promotion": "saintcosme2024"
   },
   {
@@ -1321,9 +1333,7 @@
     ],
     "phonetic": "Château de Saint Cosme [sha-TOH duh san KOZM]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-SC1223.jpg",
-    "promo_price": 155,
-    "promotion": "saintcosme2024"
+    "image_url": "/bottle-shots/TCFR-SC1223.jpg"
   },
   {
     "id": "TCFR-SC13NV",
@@ -1375,7 +1385,10 @@
     "exclusive": true,
     "image_url": "/bottle-shots/TCFR-SC1423.png",
     "promo_price": 388,
-    "promotion": "winenow2026"
+    "promotion": "winenow2026",
+    "promotions": [
+      "saintcosme2024"
+    ]
   },
   {
     "id": "DAFR-DN0121",
