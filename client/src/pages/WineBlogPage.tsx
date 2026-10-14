@@ -285,7 +285,7 @@ function SaintCosmePost() {
       <div className="mb-8">
         <SectionLabel>2024 全系列優惠 · Complete Offer</SectionLabel>
         <Rule color="hsl(355,65%,35%)" />
-        <p className="font-body text-[11px] text-muted-foreground mb-6">WA = Wine Advocate · JS = Jeb Dunnuck · 評分為所列年份分數；Hominis Fides 100 分為 2007 年份歷史紀錄</p>
+        <p className="font-body text-[11px] text-muted-foreground mb-6">WA = Wine Advocate · JS = James Suckling · 評分為所列年份分數；Hominis Fides 100 分為 2007 年份歷史紀錄</p>
         <div className="space-y-4">
           {wines.map((w: any) => (
             <div key={w.name} className={`border rounded-xl overflow-hidden ${w.highlight ? 'border-[hsl(355,65%,35%)] ring-1 ring-[hsl(355,65%,35%)]' : w.isSV ? 'border-[hsl(38,60%,60%)]' : 'border-border'}`}>

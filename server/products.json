@@ -1323,11 +1323,16 @@
     "price": 185,
     "price_display": "HK$185",
     "grape": "30% Viognier, 30% Picpoul, 20% Marsanne, 6% Clairette, 6% Ugni Blanc, and 5% Bourboulenc",
-    "tasting_note": "Dark, inky and unadorned. Violet and fresh blackberry showing real purity. Ripe and weighty with velvety tannins. Source: Wine Advocate",
+    "tasting_note": "Terrific yellow grapefruit and white peaches make this a joyful dry white for the Southern Rhone. The fennel aroma and touch of blanched almonds add a lot of interest and energy on the textural, medium-bodied palate. From organically grown grapes. Drink or hold. Source: James Suckling",
     "ratings": [
       {
-        "source": "WA",
-        "score": 88,
+        "source": "JS",
+        "score": 91,
+        "maxScore": 100
+      },
+      {
+        "source": "WS",
+        "score": 90,
         "maxScore": 100
       }
     ],
