@@ -17,6 +17,21 @@ import { useState, useEffect, useCallback, useRef } from "react";
 // Edit this array to change hero content — no code changes needed
 const HERO_SLIDES = [
   {
+    id: "weekly",
+    bg: `${API_BASE}/weekly-offer-desktop.jpg?v=1`,
+    bgMobile: `${API_BASE}/weekly-offer-mobile.jpg?v=1`,
+    overlay: "rgba(0,0,0,0)",
+    eyebrow: "",
+    heading: "",
+    body: "",
+    cta1: { label: "Weekly Offer 每週精選優惠", href: "/promotions/weekly" },
+    cta2: null,
+    imageOnly: true,
+    heroClass: "hero-weekly",
+    bgSize: "contain",
+    bgColor: "#12060a",
+  },
+  {
     id: "member",
     bg: `${API_BASE}/member-hero-desktop.jpg?v=4`,
     bgMobile: `${API_BASE}/member-hero-mobile.jpg?v=4`,
@@ -129,13 +144,14 @@ function HeroCarousel() {
     <section
       className={`relative overflow-hidden ${
         (slide as any).imageOnly
-          ? "hero-member" // CSS handles responsive heights
+          ? ((slide as any).heroClass || "hero-member") // CSS handles responsive heights
           : ""
       }`}
       style={{
         minHeight: "clamp(500px, 75vh, 760px)",
         display: "flex",
         alignItems: "center",
+        background: (slide as any).bgColor || undefined,
       }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
@@ -147,7 +163,8 @@ function HeroCarousel() {
             className="absolute inset-0"
             style={{
               backgroundImage: `url('${s.bg}')`,
-              backgroundSize: "cover",
+              backgroundSize: (s as any).bgSize || "cover",
+              backgroundRepeat: "no-repeat",
               backgroundPosition: "center center",
               opacity: i === current ? 1 : 0,
               transition: "opacity 0.7s ease-in-out",
@@ -180,7 +197,7 @@ function HeroCarousel() {
           href={slide.cta1.href}
           className="absolute inset-0"
           style={{ zIndex: 20 }}
-          aria-label="Join Terroir & Craft membership"
+          aria-label={slide.cta1.label}
         />
       )}
 
@@ -246,18 +263,18 @@ function HeroCarousel() {
 
       {/* Prev / Next arrows */}
       <button onClick={prev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
         style={{ background: "rgba(0,0,0,0.35)", color: "white" }}>
         <ChevronLeft className="w-5 h-5" />
       </button>
       <button onClick={next}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
         style={{ background: "rgba(0,0,0,0.35)", color: "white" }}>
         <ChevronRight className="w-5 h-5" />
       </button>
 
       {/* Dot indicators */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
         {HERO_SLIDES.map((_, i) => (
           <button
             key={i}

@@ -70,7 +70,11 @@
       }
     ],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCAU-MO0223.png"
+    "image_url": "/bottle-shots/TCAU-MO0223.png",
+    "promo_price": 395,
+    "promotions": [
+      "weekly"
+    ]
   },
   {
     "id": "TCAU-MO0324",
@@ -362,7 +366,10 @@
     "exclusive": true,
     "image_url": "/bottle-shots/TCAU-TS0121.png",
     "promo_price": 148,
-    "promotion": "winenow2026"
+    "promotion": "winenow2026",
+    "promotions": [
+      "weekly"
+    ]
   },
   {
     "id": "TCAU-TS0222",
@@ -398,7 +405,11 @@
     "tasting_note": "Deep and concentrated Grenache with complex aromatics. Structured tannins with layers of berry and spice. Full-bodied with long finish. Source: Tscharke Official",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCAU-TS0321.png"
+    "image_url": "/bottle-shots/TCAU-TS0321.png",
+    "promo_price": 235,
+    "promotions": [
+      "weekly"
+    ]
   },
   {
     "id": "TCAU-TS0322",
@@ -932,7 +943,11 @@
     "ratings": [],
     "phonetic": "Bourgogne [boor-GOH-nyuh]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-MC1023.png"
+    "image_url": "/bottle-shots/TCFR-MC1023.png",
+    "promo_price": 220,
+    "promotions": [
+      "weekly"
+    ]
   },
   {
     "id": "TCFR-MC1122",
@@ -991,7 +1006,11 @@
     "ratings": [],
     "phonetic": "Chassagne Montrachet [sha-SAHN-yuh mon-rah-SHAY]",
     "exclusive": true,
-    "image_url": "/bottle-shots/TCFR-MC1223.png?v=2"
+    "image_url": "/bottle-shots/TCFR-MC1223.png?v=2",
+    "promo_price": 530,
+    "promotions": [
+      "weekly"
+    ]
   },
   {
     "id": "TCFR-SC0123",
@@ -1498,8 +1517,11 @@
     "ratings": [],
     "exclusive": true,
     "image_url": "/bottle-shots/TCGE-VH0522.png",
-    "promo_price": 188,
-    "promotion": "winenow2026"
+    "promo_price": 225,
+    "promotion": "winenow2026",
+    "promotions": [
+      "weekly"
+    ]
   },
   {
     "id": "TCGE-VH0622",
@@ -1737,7 +1759,11 @@
     "tasting_note": "New Zealand Sauvignon with intense aromatics. Citrus and green apple. Crisp acidity with clean finish. Fresh, vibrant character. World-class Kiwi style. Source: Sherwood Estate",
     "ratings": [],
     "exclusive": true,
-    "image_url": "/bottle-shots/TCNZ-SH0224.png"
+    "image_url": "/bottle-shots/TCNZ-SH0224.png",
+    "promo_price": 110,
+    "promotions": [
+      "weekly"
+    ]
   },
   {
     "id": "TCNZ-SH0523",
@@ -1756,6 +1782,28 @@
     "ratings": [],
     "exclusive": true,
     "image_url": "/bottle-shots/TCNZ-SH0523.png"
+  },
+  {
+    "id": "TCNZ-SH0524",
+    "name": "Sherwood - Stratum Pinot Noir",
+    "brand": "Sherwood",
+    "country": "New Zealand",
+    "region": "Waipara Valley",
+    "type": "Red",
+    "status": "Agency",
+    "size": "750ml",
+    "vintage": "2024",
+    "price": 120,
+    "price_display": "HK$120",
+    "grape": "Pinot Noir",
+    "tasting_note": "Juicy Pinot Noir with rich ripe fruit. Plum and blackberry flavors. Medium-bodied with balanced structure. Fresh cut roses and wet earth notes. Smooth finish. Source: Sherwood Estate",
+    "ratings": [],
+    "exclusive": true,
+    "image_url": "/bottle-shots/TCNZ-SH0523.png",
+    "promo_price": 85,
+    "promotions": [
+      "weekly"
+    ]
   },
   {
     "id": "TCNZ-SH0423",
@@ -4373,12 +4421,15 @@
     "country": "France",
     "vintage": "2024",
     "price": 480,
-    "promo_price": 460,
+    "promo_price": 420,
     "status": "Exclusive",
     "occasions": [],
     "image_url": "/bottle-shots/TCFR-MC1124.png",
     "tasting_notes": "Red cherry, raspberry, rose petal with light spice and forest floor. Medium-bodied with silky tannins and an elegant, refined structure.",
-    "ratings": []
+    "ratings": [],
+    "promotions": [
+      "weekly"
+    ]
   },
   {
     "id": "TCFR-MC1124",

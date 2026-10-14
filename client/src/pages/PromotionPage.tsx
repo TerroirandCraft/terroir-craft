@@ -22,6 +22,15 @@ export const PROMOTIONS: Record<string, {
   heroGradient: string;
   accentColor: string;
 }> = {
+  weekly: {
+    id: "weekly",
+    title: "WEEKLY OFFER",
+    subtitle: "每週精選優惠 · New Offers Every Week",
+    description: "Hand-picked wines at special prices, refreshed every week.",
+    tag: "Weekly Offer",
+    heroGradient: "linear-gradient(135deg, hsl(355,65%,10%) 0%, hsl(20,35%,14%) 100%)",
+    accentColor: "hsl(40, 85%, 58%)",
+  },
   bordeaux2022: {
     id: "bordeaux2022",
     title: "BORDEAUX 2022",
@@ -203,7 +212,8 @@ export default function PromotionPage() {
   const byGroup: Record<string, Product[]> = {};
   promoWines.forEach(w => {
     const key =
-      promoId === "winenow2026" ? (w as any).brand || "Other"
+      promoId === "weekly" ? "This Week's Picks · 本週精選"
+      : promoId === "winenow2026" ? (w as any).brand || "Other"
       : promoId === "realm2026" ? realmSeries(w.name)
       : (w as any).region || "Other";
     if (!byGroup[key]) byGroup[key] = [];
@@ -214,6 +224,12 @@ export default function PromotionPage() {
     Object.values(byGroup).forEach(list =>
       list.sort((a, b) => Number((b as any).vintage) - Number((a as any).vintage) || b.price - a.price)
     );
+  }
+
+  // Weekly Offer: biggest discount first
+  if (promoId === "weekly") {
+    const pct = (p: any) => p.promo_price ? (p.price - p.promo_price) / p.price : 0;
+    Object.values(byGroup).forEach(list => list.sort((a, b) => pct(b) - pct(a)));
   }
 
   // Region order for Bordeaux
@@ -236,7 +252,45 @@ export default function PromotionPage() {
   return (
     <div className="min-h-screen bg-background">
 
-      {/* ── Hero Banner ── */}
+      {promoId === "weekly" ? (
+        <>
+          {/* ── Weekly Offer banner ── */}
+          <div style={{ background: "#12060a" }}>
+            <picture>
+              <source media="(min-width: 1024px)" srcSet={`${API_BASE}/weekly-offer-desktop.jpg?v=1`} />
+              <img
+                src={`${API_BASE}/weekly-offer-mobile.jpg?v=1`}
+                alt="Weekly Offer · 每週精選優惠"
+                className="block w-full h-auto mx-auto"
+                style={{ maxWidth: 1920 }}
+              />
+            </picture>
+          </div>
+
+          {/* ── Free gift strip ── */}
+          <div style={{ background: "linear-gradient(135deg, hsl(355,65%,10%) 0%, hsl(20,35%,12%) 100%)" }}>
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center gap-6 sm:gap-10">
+              <img
+                src={`${API_BASE}/weekly/lascombes.png`}
+                alt="Château Lascombes 2017"
+                className="h-40 w-auto object-contain shrink-0 drop-shadow-2xl"
+              />
+              <div className="text-center sm:text-left">
+                <span className="inline-block font-body text-[10px] font-bold tracking-[0.25em] uppercase px-3 py-1 rounded-full mb-3"
+                  style={{ background: promo.accentColor, color: "hsl(355,65%,14%)" }}>
+                  Free Gift · 免費贈送
+                </span>
+                <h2 className="font-display text-2xl sm:text-3xl font-light text-white leading-snug">
+                  購物滿 <span style={{ color: promo.accentColor }}>HK$1,500</span> 即送 Château Lascombes 2017
+                </h2>
+                <p className="font-body text-sm text-white/65 mt-2">
+                  Margaux · Grand Cru Classé · 價值 HK$600 · Free bottle with any purchase over HK$1,500
+                </p>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
       <div
         className="relative overflow-hidden"
         style={{ background: promo.heroGradient, minHeight: "420px" }}
@@ -301,6 +355,7 @@ export default function PromotionPage() {
           </div>
         </div>
       </div>
+      )}
 
       {/* ── Wine Grid by Brand/Region ── */}
       <div className="bg-white">

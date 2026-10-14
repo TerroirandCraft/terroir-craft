@@ -229,3 +229,16 @@
     min-height: calc(100vw * 1260 / 1080) !important;
   }
 }
+
+/* Weekly Offer hero: landscape banner (2700x1080) on desktop, portrait (1080x1260) below 1024px.
+   Heights follow the image ratio so nothing is cropped. */
+@media (min-width: 1024px) {
+  .hero-weekly {
+    min-height: calc(min(100vw, 1920px) * 1080 / 2700) !important;
+  }
+}
+@media (max-width: 1023px) {
+  .hero-weekly {
+    min-height: calc(100vw * 1260 / 1080) !important;
+  }
+}

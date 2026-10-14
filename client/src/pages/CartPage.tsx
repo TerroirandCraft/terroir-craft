@@ -558,6 +558,19 @@ export default function CartPage() {
                     香港地址再加 {formatPrice(1000 - subtotalAfterAll)} 即可免費送貨
                   </p>
                 )}
+                {/* Weekly Offer free gift */}
+                <div className={`flex items-start gap-2 rounded-lg p-2.5 text-xs border ${
+                  subtotalWithDiscount >= 1500
+                    ? "bg-amber-50 border-amber-300 text-amber-900"
+                    : "bg-muted/40 border-border text-muted-foreground"
+                }`}>
+                  <Gift className="w-4 h-4 shrink-0 mt-0.5" />
+                  <span>
+                    {subtotalWithDiscount >= 1500
+                      ? "已符合贈品資格：送 Château Lascombes 2017（價值 HK$600）"
+                      : `Weekly Offer：再買 ${formatPrice(1500 - subtotalWithDiscount)} 即送 Château Lascombes 2017（價值 HK$600）`}
+                  </span>
+                </div>
                 <div className="border-t border-border pt-3 flex justify-between font-semibold text-base">
                   <span>Total</span>
                   <span className="text-[hsl(355,62%,28%)] font-display">{formatPrice(orderTotal)}</span>
