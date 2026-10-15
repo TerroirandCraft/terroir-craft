@@ -257,9 +257,9 @@ export default function PromotionPage() {
           {/* ── Weekly Offer banner ── */}
           <div style={{ background: "#12060a" }}>
             <picture>
-              <source media="(min-width: 1024px)" srcSet={`${API_BASE}/weekly-offer-desktop.jpg?v=2`} />
+              <source media="(min-width: 1024px)" srcSet={`${API_BASE}/weekly-offer-desktop.jpg?v=3`} />
               <img
-                src={`${API_BASE}/weekly-offer-mobile.jpg?v=2`}
+                src={`${API_BASE}/weekly-offer-mobile.jpg?v=3`}
                 alt="Weekly Offer · 每週精選優惠"
                 className="block w-full h-auto mx-auto"
                 style={{ maxWidth: 1920 }}
@@ -281,10 +281,10 @@ export default function PromotionPage() {
                   Free Gift · 免費贈送
                 </span>
                 <h2 className="font-display text-2xl sm:text-3xl font-light text-white leading-snug">
-                  購物滿 <span style={{ color: promo.accentColor }}>HK$1,500</span> 即送 Château Lascombes 2017
+                  購買指定酒款滿 <span style={{ color: promo.accentColor }}>HK$1,500</span> 即送 Château Lascombes 2017
                 </h2>
                 <p className="font-body text-sm text-white/65 mt-2">
-                  Margaux · Grand Cru Classé · 價值 HK$600 · Free bottle with any purchase over HK$1,500
+                  Margaux · Grand Cru Classé · 價值 HK$600 · Free bottle when you spend HK$1,500 on the selected Weekly Offer wines below
                 </p>
               </div>
             </div>

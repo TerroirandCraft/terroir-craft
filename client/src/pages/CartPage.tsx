@@ -104,6 +104,13 @@ export default function CartPage() {
     return sum + discountedLine;
   }, 0);
 
+  // Weekly Offer free gift: only designated (Weekly Offer) wines count toward HK$1,500
+  const GIFT_MIN = 1500;
+  const weeklyQualifying = items.reduce((sum, item) => {
+    const isWeekly = Array.isArray((item.product as any).promotions) && (item.product as any).promotions.includes("weekly");
+    return isWeekly ? sum + (item.product.promo_price ?? item.product.price) * item.quantity : sum;
+  }, 0);
+
   // tierSavings = only the tier discount portion (not promo savings)
   const tierSavings = subtotalBase - subtotalWithDiscount;
 
@@ -560,15 +567,15 @@ export default function CartPage() {
                 )}
                 {/* Weekly Offer free gift */}
                 <div className={`flex items-start gap-2 rounded-lg p-2.5 text-xs border ${
-                  subtotalWithDiscount >= 1500
+                  weeklyQualifying >= GIFT_MIN
                     ? "bg-amber-50 border-amber-300 text-amber-900"
                     : "bg-muted/40 border-border text-muted-foreground"
                 }`}>
                   <Gift className="w-4 h-4 shrink-0 mt-0.5" />
                   <span>
-                    {subtotalWithDiscount >= 1500
-                      ? "已符合贈品資格：送 Château Lascombes 2017（價值 HK$600）"
-                      : `Weekly Offer：再買 ${formatPrice(1500 - subtotalWithDiscount)} 即送 Château Lascombes 2017（價值 HK$600）`}
+                    {weeklyQualifying >= GIFT_MIN
+                      ? "已符合贈品資格：購買 Weekly Offer 指定酒款滿 HK$1,500，送 Château Lascombes 2017（價值 HK$600）"
+                      : `Weekly Offer：購買指定酒款再滿 ${formatPrice(GIFT_MIN - weeklyQualifying)} 即送 Château Lascombes 2017（價值 HK$600）`}
                   </span>
                 </div>
                 <div className="border-t border-border pt-3 flex justify-between font-semibold text-base">
