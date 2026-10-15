@@ -257,9 +257,9 @@ export default function PromotionPage() {
           {/* ── Weekly Offer banner ── */}
           <div style={{ background: "#12060a" }}>
             <picture>
-              <source media="(min-width: 1024px)" srcSet={`${API_BASE}/weekly-offer-desktop.jpg?v=1`} />
+              <source media="(min-width: 1024px)" srcSet={`${API_BASE}/weekly-offer-desktop.jpg?v=2`} />
               <img
-                src={`${API_BASE}/weekly-offer-mobile.jpg?v=1`}
+                src={`${API_BASE}/weekly-offer-mobile.jpg?v=2`}
                 alt="Weekly Offer · 每週精選優惠"
                 className="block w-full h-auto mx-auto"
                 style={{ maxWidth: 1920 }}
@@ -271,7 +271,7 @@ export default function PromotionPage() {
           <div style={{ background: "linear-gradient(135deg, hsl(355,65%,10%) 0%, hsl(20,35%,12%) 100%)" }}>
             <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center gap-6 sm:gap-10">
               <img
-                src={`${API_BASE}/weekly/lascombes.png`}
+                src={`${API_BASE}/weekly/lascombes.png?v=2`}
                 alt="Château Lascombes 2017"
                 className="h-40 w-auto object-contain shrink-0 drop-shadow-2xl"
               />
