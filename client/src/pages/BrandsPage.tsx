@@ -164,6 +164,7 @@ export default function BrandsPage() {
 
   const brandMap: Record<string, { products: Product[]; exclusive: boolean }> = {};
   products.forEach(p => {
+    if (p.type === "Whisky" || p.type === "Gin") return; // spirits live under Spirits & Others
     if (!brandMap[p.brand]) brandMap[p.brand] = { products: [], exclusive: !!p.exclusive };
     brandMap[p.brand].products.push(p);
     if (p.exclusive) brandMap[p.brand].exclusive = true;

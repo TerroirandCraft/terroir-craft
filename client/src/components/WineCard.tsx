@@ -23,6 +23,8 @@ const TYPE_COLOR_MAP: Record<string, string> = {
   "Fortified": "bg-orange-800/30 text-orange-200",
   "Makgeolli": "bg-green-800/30 text-green-200",
   "Supplement": "bg-fuchsia-800/30 text-fuchsia-200",
+  "Whisky": "bg-amber-900/40 text-amber-100",
+  "Gin": "bg-teal-800/30 text-teal-100",
 };
 
 const BOTTLE_COLORS: Record<string, string> = {
@@ -35,6 +37,8 @@ const BOTTLE_COLORS: Record<string, string> = {
   "Fortified": "#8B4513",
   "Makgeolli": "#5B8A3C",
   "Supplement": "#8B2B8C",
+  "Whisky": "#8A5A1C",
+  "Gin": "#4F8A8B",
 };
 
 export default function WineCard({ product }: WineCardProps) {

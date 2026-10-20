@@ -37,6 +37,7 @@ export function serveStatic(app: Express) {
       const staticPages = [
         { loc: "/", priority: "1.0", changefreq: "weekly" },
         { loc: "/wines", priority: "0.9", changefreq: "daily" },
+        { loc: "/spirits", priority: "0.8", changefreq: "weekly" },
         { loc: "/brands", priority: "0.8", changefreq: "weekly" },
         { loc: "/about", priority: "0.5", changefreq: "monthly" },
         { loc: "/promotions", priority: "0.7", changefreq: "weekly" },

@@ -56,6 +56,7 @@ const navLinks: { href: string; label: string; labelZh: string; isGold?: boolean
   { href: "/occasion", label: "By Occasion", labelZh: "場合選酒" },
   { href: "/brands", label: "Brands", labelZh: "品牌" },
   { href: "/wines", label: "Wines", labelZh: "酒款" },
+  { href: "/spirits", label: "Spirits & Others", labelZh: "烈酒及其他" },
   // Fine & Rare hidden: { href: "/fine-rare", label: "Fine & Rare", labelZh: "珍稀藏酒", isGold: true },
   { href: "/about", label: "About Us", labelZh: "關於我們" },
   { href: "/blog", label: "Wine Blog", labelZh: "酒識" },
@@ -101,7 +102,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             {navLinks.map(link => (
               <Link key={link.href} href={link.href} asChild>
                 <a
-                  className={`px-2.5 py-1.5 rounded-md text-xs font-medium font-body transition-colors whitespace-nowrap ${
+                  className={`px-1.5 xl:px-2.5 py-1.5 rounded-md text-[11px] xl:text-xs font-medium font-body transition-colors whitespace-nowrap ${
                     link.isGold
                       ? location === link.href
                         ? "text-amber-600 bg-amber-500/10 font-semibold"
@@ -288,6 +289,7 @@ export default function Layout({ children }: { children: ReactNode }) {
               <ul className="space-y-2 text-sm">
                 {[
                   { href: "/wines", label: "Our Wines 酒款" },
+                  { href: "/spirits", label: "Spirits & Others 烈酒及其他" },
                   { href: "/brands", label: "Brands 品牌" },
                   { href: "/sommelier", label: "AI Sommelier" },
                   { href: "/about", label: "About Us 關於" },

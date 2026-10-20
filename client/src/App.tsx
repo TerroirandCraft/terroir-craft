@@ -50,6 +50,7 @@ function App() {
                   <Switch>
                     <Route path="/" component={HomePage} />
                     <Route path="/wines" component={CataloguePage} />
+                    <Route path="/spirits" component={CataloguePage} />
                     <Route path="/wines/:id" component={ProductPage} />
                     <Route path="/brands" component={BrandsPage} />
                     <Route path="/brands/:brand" component={BrandDetailPage} />

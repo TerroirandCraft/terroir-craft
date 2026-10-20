@@ -35,6 +35,8 @@ const tastingNotesByType: Record<string, string> = {
   "Fortified": "Rich dried fruit, caramel, nutty complexity, lingering sweetness",
   "Rose": "Fresh red berries, delicate floral notes, dry and refreshing",
   "Makgeolli": "Traditional rice brew, light and slightly effervescent, subtly sweet",
+  "Whisky": "Complex malt character, layered spice and oak, long warming finish",
+  "Gin": "Juniper-led botanicals, bright citrus and aromatic spice",
 };
 
 const foodPairingByType: Record<string, string> = {
@@ -46,6 +48,8 @@ const foodPairingByType: Record<string, string> = {
   "Fortified": "Blue cheese, dark chocolate, dried fruits, nuts, desserts",
   "Rose": "Grilled fish, summer salads, charcuterie, soft cheeses",
   "Makgeolli": "Korean BBQ, spicy food, dim sum, light snacks",
+  "Whisky": "Neat, with a drop of water or on a large ice cube; dark chocolate, smoked salmon, aged cheeses",
+  "Gin": "Gin & tonic, martini or negroni; oysters, citrus-dressed seafood, light canapés",
 };
 
 const enrichedProducts: Product[] = (productsData as RawProduct[]).map(p => ({

@@ -9,8 +9,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import WineCard from "@/components/WineCard";
 import type { Product } from "@/lib/products";
 
-const TYPES = ["All Types", "Red", "White", "Sparkling", "Champagne", "Rose", "Fortified", "Sparkling Red", "Makgeolli", "Supplement"];
-const COUNTRIES = ["All Countries", "France", "Australia", "Portugal", "USA", "Germany", "New Zealand", "Spain", "Italy", "South Africa", "Korea"];
+const TYPES = ["All Types", "Red", "White", "Sparkling", "Champagne", "Rose", "Fortified", "Sparkling Red", "Makgeolli", "Supplement", "Whisky", "Gin"];
+const SPIRIT_TYPES = ["Whisky", "Gin"];
+const SPIRIT_COUNTRIES = ["All Countries", "Scotland", "Japan", "Germany"];
+const COUNTRIES = ["All Countries", "France", "Australia", "Portugal", "USA", "Germany", "New Zealand", "Spain", "Italy", "South Africa", "Korea", "Scotland", "Japan"];
 const SORT_OPTIONS = [
   { value: "default", label: "Featured" },
   { value: "price-asc", label: "Price: Low to High" },
@@ -32,6 +34,12 @@ export default function CataloguePage() {
 
   // Read ?country= and ?brand= and ?occasion= from URL
   const [location] = useLocation();
+  const isSpiritsPage = location.startsWith("/spirits");
+  const typeOptions = isSpiritsPage ? ["All Types", ...SPIRIT_TYPES] : TYPES;
+  const countryOptions = isSpiritsPage ? SPIRIT_COUNTRIES : COUNTRIES;
+
+  // Reset type filter when switching between Wines and Spirits & Others
+  useEffect(() => { setTypeFilter("All Types"); setCountryFilter("All Countries"); }, [isSpiritsPage]);
 
   const applyHashParams = () => {
     const params = new URLSearchParams(window.location.search);
@@ -81,7 +89,12 @@ export default function CataloguePage() {
   });
 
   // Use occasion products if occasion filter is active
-  const baseProducts = occasionFilter ? occasionProducts : products;
+  const baseProducts = occasionFilter
+    ? occasionProducts
+    : isSpiritsPage
+      ? products.filter(p => SPIRIT_TYPES.includes(p.type))
+      : products;
+  const wineCount = products.filter(p => !SPIRIT_TYPES.includes(p.type)).length;
 
   const OCCASION_LABELS: Record<string, string> = {
     gifts: "Gifts 送禮之選",
@@ -159,8 +172,17 @@ export default function CataloguePage() {
           ) : (
             <>
               <p className="font-body text-xs tracking-[0.2em] uppercase text-white/60 mb-3">Our Collection</p>
-              <h1 className="font-display text-4xl md:text-5xl font-light mb-2">Wine Catalogue 酒款目錄</h1>
-              <p className="font-body text-white/70 text-sm">{products.length} wines across 23 exclusive brands</p>
+              {isSpiritsPage ? (
+                <>
+                  <h1 className="font-display text-4xl md:text-5xl font-light mb-2">Spirits &amp; Others 烈酒及其他</h1>
+                  <p className="font-body text-white/70 text-sm">{baseProducts.length} whiskies &amp; gins</p>
+                </>
+              ) : (
+                <>
+                  <h1 className="font-display text-4xl md:text-5xl font-light mb-2">Wine Catalogue 酒款目錄</h1>
+                  <p className="font-body text-white/70 text-sm">{wineCount} wines across 23 exclusive brands</p>
+                </>
+              )}
             </>
           )}
         </div>
@@ -171,8 +193,8 @@ export default function CataloguePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center gap-1 overflow-x-auto py-2 scrollbar-none">
             {/* Country tabs */}
-            {["All Countries", "France", "Australia", "Portugal", "USA", "Germany", "New Zealand", "Korea", "Spain", "South Africa", "Italy"].map(c => {
-              const flagMap: Record<string, string> = { "France": "🇫🇷", "Australia": "🇦🇺", "Portugal": "🇵🇹", "USA": "🇺🇸", "Germany": "🇩🇪", "New Zealand": "🇳🇿", "Korea": "🇰🇷", "Spain": "🇪🇸", "South Africa": "🇿🇦", "Italy": "🇮🇹" };
+            {(isSpiritsPage ? SPIRIT_COUNTRIES : ["All Countries", "France", "Australia", "Portugal", "USA", "Germany", "New Zealand", "Korea", "Spain", "South Africa", "Italy"]).map(c => {
+              const flagMap: Record<string, string> = { "France": "🇫🇷", "Australia": "🇦🇺", "Portugal": "🇵🇹", "USA": "🇺🇸", "Germany": "🇩🇪", "New Zealand": "🇳🇿", "Korea": "🇰🇷", "Spain": "🇪🇸", "South Africa": "🇿🇦", "Italy": "🇮🇹", "Scotland": "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "Japan": "🇯🇵" };
               const isActive = !brandFilter && countryFilter === c;
               return (
                 <button
@@ -190,6 +212,7 @@ export default function CataloguePage() {
                 </button>
               );
             })}
+            {!isSpiritsPage && (<>
             {/* Separator */}
             <span className="shrink-0 w-px h-5 bg-border mx-1" />
             {/* Hydrodol brand tab */}
@@ -205,6 +228,7 @@ export default function CataloguePage() {
               <span>💊</span>
               Hydrodol
             </button>
+            </>)}
           </div>
         </div>
       </div>
@@ -215,7 +239,7 @@ export default function CataloguePage() {
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
-              placeholder="Search wines, brands, regions..."
+              placeholder={isSpiritsPage ? "Search whisky, gin, brands..." : "Search wines, brands, regions..."}
               value={search}
               onChange={e => setSearch(e.target.value)}
               className="pl-9 font-body"
@@ -257,9 +281,9 @@ export default function CataloguePage() {
         {showFilters && (
           <div className="bg-card border border-border rounded-lg p-5 mb-6 grid grid-cols-1 sm:grid-cols-3 gap-5">
             <div>
-              <label className="font-body text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2 block">Wine Type</label>
+              <label className="font-body text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2 block">Type</label>
               <div className="flex flex-wrap gap-1.5">
-                {TYPES.map(t => (
+                {typeOptions.map(t => (
                   <button
                     key={t}
                     onClick={() => setTypeFilter(t)}
@@ -278,7 +302,7 @@ export default function CataloguePage() {
             <div>
               <label className="font-body text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2 block">Country</label>
               <div className="flex flex-wrap gap-1.5">
-                {COUNTRIES.map(c => (
+                {countryOptions.map(c => (
                   <button
                     key={c}
                     onClick={() => setCountryFilter(c)}
@@ -369,7 +393,7 @@ export default function CataloguePage() {
 
         {/* Results count */}
         <p className="font-body text-sm text-muted-foreground mb-6">
-          {isLoading ? "Loading..." : `${filtered.length} wine${filtered.length !== 1 ? "s" : ""} found`}
+          {isLoading ? "Loading..." : `${filtered.length} ${isSpiritsPage ? "item" : "wine"}${filtered.length !== 1 ? "s" : ""} found`}
         </p>
 
         {/* Grid */}

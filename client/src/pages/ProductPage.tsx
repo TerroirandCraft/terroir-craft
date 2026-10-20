@@ -27,12 +27,14 @@ const TYPE_PILL: Record<string, string> = {
   "Fortified":    "bg-orange-50 text-orange-700 border-orange-200",
   "Sparkling Red":"bg-purple-50 text-purple-700 border-purple-200",
   "Supplement":   "bg-fuchsia-50 text-fuchsia-700 border-fuchsia-200",
+  "Whisky":       "bg-amber-50 text-amber-800 border-amber-300",
+  "Gin":          "bg-teal-50 text-teal-700 border-teal-200",
 };
 
 const BOTTLE_COLORS: Record<string, string> = {
   "Red": "#6B2233", "White": "#B89A3E", "Sparkling": "#7AAFC0",
   "Sparkling Red": "#8B2568", "Champagne": "#C4A035", "Rose": "#C46880",
-  "Fortified": "#7A3B10", "Supplement": "#7A2080",
+  "Fortified": "#7A3B10", "Supplement": "#7A2080", "Whisky": "#8A5A1C", "Gin": "#4F8A8B",
 };
 
 // ── Score badge (Watson's style — number + label) ──────────────────────────
@@ -154,6 +156,7 @@ export default function ProductPage() {
   const cleanName = product.name.replace(product.brand + " - ", "");
   const grapeDisplay = product.grape || (product.grape_varietals?.join(", ") ?? null);
   const tastingNoteDisplay = product.tasting_note || product.tasting_notes || null;
+  const isSpirit = product.type === "Whisky" || product.type === "Gin";
   const pillClass = TYPE_PILL[product.type] || "bg-gray-50 text-gray-700 border-gray-200";
 
   const handleAdd = () => {
@@ -165,8 +168,8 @@ export default function ProductPage() {
   const specs = [
     { label: "Region",        value: product.region,   icon: MapPin },
     { label: "Country",       value: product.country,  icon: Globe },
-    { label: "Grape Variety", value: grapeDisplay,     icon: Grape },
-    { label: "Colour",        value: product.type,     icon: Wine },
+    { label: isSpirit ? "Style" : "Grape Variety", value: grapeDisplay, icon: Grape },
+    { label: isSpirit ? "Type" : "Colour", value: product.type, icon: Wine },
     { label: "Vintage",       value: product.vintage,  icon: Calendar },
     { label: "Bottle Size",   value: product.size,     icon: Package },
     ...(product.style        ? [{ label: "Style",        value: product.style,        icon: Star }]        : []),
@@ -230,7 +233,7 @@ export default function ProductPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-2 text-xs text-muted-foreground font-body">
           <Link href="/"><a className="hover:text-foreground transition-colors">Home</a></Link>
           <span>/</span>
-          <Link href="/wines"><a className="hover:text-foreground transition-colors">Wines</a></Link>
+          <Link href={isSpirit ? "/spirits" : "/wines"}><a className="hover:text-foreground transition-colors">{isSpirit ? "Spirits & Others" : "Wines"}</a></Link>
           <span>/</span>
           <Link href={`/wines?country=${product.country}`}><a className="hover:text-foreground transition-colors">{product.country}</a></Link>
           <span>/</span>
@@ -499,7 +502,7 @@ export default function ProductPage() {
       {/* ── About This Wine ───────────────────────────────────────────────── */}
       <div className="border-t border-border bg-[hsl(30,20%,98%)] dark:bg-muted/10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
-          <h2 className="font-display text-2xl font-semibold text-foreground mb-8">About This Wine</h2>
+          <h2 className="font-display text-2xl font-semibold text-foreground mb-8">{isSpirit ? "About This Spirit" : "About This Wine"}</h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
 
