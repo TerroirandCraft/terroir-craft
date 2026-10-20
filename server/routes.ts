@@ -621,6 +621,46 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     createdAt: number;
   }>();
 
+  // ── Weekly Offer free gift ───────────────────────────────────────────────
+  // Buy HK$1,500+ of designated (promotions includes "weekly") wines -> 1 free bottle added as a HK$0 line.
+  // Change these constants when the weekly gift changes.
+  const WEEKLY_GIFT = {
+    promoId: "weekly",
+    threshold: 1500,
+    itemCode: "DAFR-LA0117",
+    name: "FREE GIFT - Château Lascombes 2017",
+  };
+  type OrderLineItem = { name: string; itemCode: string; quantity: number; unitPrice: number };
+  async function withWeeklyGift<T extends OrderLineItem>(items: T[]): Promise<T[]> {
+    try {
+      if (!items || items.length === 0) return items;
+      if (items.some(i => i.itemCode === WEEKLY_GIFT.itemCode)) return items; // already added
+      const all = await storage.getAllProducts();
+      const map = new Map(all.map((p: any) => [p.id, p]));
+      let qualifying = 0;
+      for (const i of items) {
+        const p: any = map.get(i.itemCode);
+        if (p && Array.isArray(p.promotions) && p.promotions.includes(WEEKLY_GIFT.promoId)) {
+          qualifying += (p.promo_price ?? p.price) * i.quantity;
+        }
+      }
+      if (qualifying < WEEKLY_GIFT.threshold) return items;
+      // Skip the gift if the gift bottle is tracked in the stock sheet and sold out
+      try {
+        const stock = (await getStockMap())[WEEKLY_GIFT.itemCode];
+        if (stock !== undefined && stock < 999 && stock <= 0) {
+          console.warn(`[WeeklyGift] ${WEEKLY_GIFT.itemCode} out of stock — gift not added`);
+          return items;
+        }
+      } catch {}
+      console.log(`[WeeklyGift] Qualifying HK$${qualifying} -> adding ${WEEKLY_GIFT.itemCode}`);
+      return [...items, { name: WEEKLY_GIFT.name, itemCode: WEEKLY_GIFT.itemCode, quantity: 1, unitPrice: 0 } as T];
+    } catch (e) {
+      console.error("[WeeklyGift] Error (order continues without gift):", e);
+      return items;
+    }
+  }
+
   // Create payment — stores order details + gets Payment Asia URL
   app.post("/api/payment/create", async (req, res) => {
     try {
@@ -638,6 +678,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
       }
 
       const { isGift, recipientName, recipientPhone, deliveryAddress, pointsRedeemed } = req.body;
+      const orderItems = await withWeeklyGift(items || []);
 
       // Store order details so callback can open Xero invoice
       pendingOrders.set(merchantReference, {
@@ -652,7 +693,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
         referredBy,
         amount: Number(amount),
         pointsRedeemed: Number(pointsRedeemed) || 0,
-        items: items || [],
+        items: orderItems,
         createdAt: Date.now(),
       });
 
@@ -1063,11 +1104,13 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
       // Generate order reference
       const orderRef = `TC-${Date.now().toString(36).toUpperCase()}`;
 
+      const orderItems = await withWeeklyGift(items);
+
       // Create Xero invoice (non-blocking on failure)
       const invoiceNumber = await createXeroInvoice({
         customerName,
         customerEmail,
-        items,
+        items: orderItems,
         referredBy,
         orderRef,
       });

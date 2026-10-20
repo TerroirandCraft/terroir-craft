@@ -574,7 +574,7 @@ export default function CartPage() {
                   <Gift className="w-4 h-4 shrink-0 mt-0.5" />
                   <span>
                     {weeklyQualifying >= GIFT_MIN
-                      ? "已符合贈品資格：購買 Weekly Offer 指定酒款滿 HK$1,500，送 Château Lascombes 2017（價值 HK$600）"
+                      ? "已符合贈品資格：購買 Weekly Offer 指定酒款滿 HK$1,500，送 Château Lascombes 2017（價值 HK$600），贈品會自動加入訂單"
                       : `Weekly Offer：購買指定酒款再滿 ${formatPrice(GIFT_MIN - weeklyQualifying)} 即送 Château Lascombes 2017（價值 HK$600）`}
                   </span>
                 </div>

@@ -157,11 +157,11 @@ export async function createXeroInvoice(params: CreateInvoiceParams): Promise<st
 
     // 4. Create AUTHORISED invoice
     const today = new Date().toISOString().split("T")[0];
-    const invoiceResp = await xero.accountingApi.createInvoices(tenantId, {
+    const buildInvoice = (lines: any[]) => ({
       invoices: [{
         type: "ACCREC" as any,
         contact: { contactID: contactId },
-        lineItems,
+        lineItems: lines,
         date: today,
         dueDate: today, // Already paid
         reference,
@@ -169,6 +169,17 @@ export async function createXeroInvoice(params: CreateInvoiceParams): Promise<st
         currencyCode: "HKD" as any,
       }],
     });
+    let invoiceResp;
+    try {
+      invoiceResp = await xero.accountingApi.createInvoices(tenantId, buildInvoice(lineItems));
+    } catch (firstErr) {
+      // Free-gift lines (HK$0) may use an item code that is not set up in Xero — retry without it
+      const hasGiftCode = lineItems.some((l: any) => l.unitAmount === 0 && l.itemCode);
+      if (!hasGiftCode) throw firstErr;
+      console.warn("[Xero] Invoice failed with gift item code — retrying without it:", (firstErr as any)?.message || firstErr);
+      const stripped = lineItems.map((l: any) => (l.unitAmount === 0 ? { ...l, itemCode: undefined } : l));
+      invoiceResp = await xero.accountingApi.createInvoices(tenantId, buildInvoice(stripped));
+    }
 
     const invoice = invoiceResp.body.invoices?.[0];
     const invoiceId = invoice?.invoiceID;
