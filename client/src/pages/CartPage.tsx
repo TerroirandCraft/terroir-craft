@@ -309,7 +309,12 @@ export default function CartPage() {
                     {item.product.type} · {item.product.vintage || "NV"} · {item.product.size}
                   </p>
                   <p className="font-display text-sm font-semibold text-[hsl(355,62%,28%)] mt-2">
-                    {formatPrice(item.product.price)} each
+                    {formatPrice(item.product.promo_price ?? item.product.price)} each
+                    {item.product.promo_price != null && item.product.promo_price < item.product.price && (
+                      <span className="ml-2 font-body text-xs font-normal text-muted-foreground line-through">
+                        {formatPrice(item.product.price)}
+                      </span>
+                    )}
                   </p>
                 </div>
                 <div className="flex flex-col items-end gap-3 shrink-0">
@@ -330,7 +335,7 @@ export default function CartPage() {
                     </button>
                   </div>
                   <p className="font-display text-sm font-semibold text-foreground">
-                    {formatPrice(item.product.price * item.quantity)}
+                    {formatPrice((item.product.promo_price ?? item.product.price) * item.quantity)}
                   </p>
                 </div>
               </div>

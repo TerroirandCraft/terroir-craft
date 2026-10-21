@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, useMemo, ReactNode } from "react";
+import { useQuery } from "@tanstack/react-query";
 import type { Product } from "@/lib/products";
 
 export interface CartItem {
@@ -19,7 +20,19 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | null>(null);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
+  const [rawItems, setItems] = useState<CartItem[]>([]);
+
+  // Always price cart lines from the latest product data (promo_price included),
+  // so a product added before a promotion changed still shows the current price.
+  const { data: liveProducts } = useQuery<Product[]>({ queryKey: ["/api/products"] });
+  const items = useMemo(() => {
+    if (!liveProducts || !Array.isArray(liveProducts)) return rawItems;
+    const map = new Map(liveProducts.map(p => [p.id, p]));
+    return rawItems.map(i => {
+      const fresh = map.get(i.product.id);
+      return fresh ? { ...i, product: { ...i.product, ...fresh } } : i;
+    });
+  }, [rawItems, liveProducts]);
 
   const addToCart = (product: Product, qty = 1) => {
     setItems(prev => {
@@ -40,7 +53,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const clearCart = () => setItems([]);
   const totalItems = items.reduce((sum, i) => sum + i.quantity, 0);
-  const totalPrice = items.reduce((sum, i) => sum + i.product.price * i.quantity, 0);
+  const totalPrice = items.reduce((sum, i) => sum + (i.product.promo_price ?? i.product.price) * i.quantity, 0);
 
   return (
     <CartContext.Provider value={{ items, addToCart, removeFromCart, updateQty, clearCart, totalItems, totalPrice }}>
