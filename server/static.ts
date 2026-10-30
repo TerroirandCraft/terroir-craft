@@ -1,6 +1,7 @@
 import express, { type Express } from "express";
 import fs from "fs";
 import path from "path";
+import { buildPage, renderHtml, LEGACY_PREFIX } from "./seo";
 
 const BASE_URL = "https://www.terroirandcraft.online";
 
@@ -81,13 +82,39 @@ export function serveStatic(app: Express) {
     }
   });
 
-  // Static assets
-  app.use(express.static(distPath));
+  // Apex domain -> www (canonical host)
+  app.use((req, res, next) => {
+    const host = (req.headers.host || "").toLowerCase().split(":")[0];
+    if (host === "terroirandcraft.online") return res.redirect(301, `${BASE_URL}${req.originalUrl}`);
+    next();
+  });
 
-  // ── History API fallback: serve index.html for all non-API, non-asset routes ──
-  app.use("/{*path}", (req, res) => {
+  // Old website (previous host) language URLs -> home
+  app.use((req, res, next) => {
+    if (LEGACY_PREFIX.test(req.path)) return res.redirect(301, "/");
+    next();
+  });
+
+  // Static assets (index.html is rendered with per-page SEO below, not served raw)
+  app.use(express.static(distPath, { index: false }));
+
+  // ── History API fallback: SPA shell with server-rendered SEO tags + crawlable content ──
+  const templatePath = path.resolve(distPath, "index.html");
+  let template = fs.readFileSync(templatePath, "utf-8");
+  app.use("/{*path}", async (req, res) => {
+    const urlPath = decodeURI(req.originalUrl.split("?")[0]);
     // Never intercept API calls or known static files
-    if (req.path.startsWith("/api/")) return res.status(404).json({ error: "Not found" });
-    res.sendFile(path.resolve(distPath, "index.html"));
+    if (urlPath.startsWith("/api/")) return res.status(404).json({ error: "Not found" });
+    // Missing asset files should be real 404s, not the app shell
+    if (/\.[a-zA-Z0-9]{2,5}$/.test(urlPath)) return res.status(404).type("text/plain").send("Not found");
+    try {
+      const { storage } = await import("./storage");
+      const products = await storage.getAllProducts();
+      const page = buildPage(urlPath, req.query as Record<string, any>, products as any[]);
+      res.status(page.status).type("html").send(renderHtml(template, page, urlPath));
+    } catch (e) {
+      console.error("[SEO] render failed, serving plain shell:", e);
+      res.sendFile(templatePath);
+    }
   });
 }
