@@ -24,7 +24,7 @@ export function serveStatic(app: Express) {
   // ── robots.txt ─────────────────────────────────────────────────────────────
   app.get("/robots.txt", (_req, res) => {
     res.type("text/plain").send(
-      `User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /admin\nSitemap: ${BASE_URL}/sitemap.xml\n`
+      `User-agent: *\nAllow: /\n# Public read-only data the pages need to render (Googlebot must be able to fetch these)\nAllow: /api/products\nAllow: /api/stock\nAllow: /api/occasions\nAllow: /api/fine-rare\nDisallow: /api/\nDisallow: /admin\nSitemap: ${BASE_URL}/sitemap.xml\n`
     );
   });
 
