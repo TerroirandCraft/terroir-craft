@@ -42,7 +42,14 @@ const esc = (s: unknown) =>
   String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const clip = (s: string, n = 300) => (s.length > n ? s.slice(0, n - 1).trimEnd() + "…" : s);
 const cleanName = (p: any) => (String(p.name).includes(" - ") ? String(p.name).split(" - ").slice(1).join(" - ") : p.name);
-const num = (v: any) => { const n = Number(v); return isNaN(n) ? undefined : n; };
+const fullName = (p: any) => {
+  let n = String(cleanName(p)).trim();
+  const b = String(p.brand || "").trim();
+  if (b && !n.toLowerCase().startsWith(b.toLowerCase())) n = `${b} ${n}`;
+  if (p.vintage && !n.includes(String(p.vintage))) n = `${n} ${p.vintage}`;
+  return n;
+};
+const num = (v: any) => { if (v === null || v === undefined || v === "") return undefined; const n = Number(v); return isNaN(n) ? undefined : n; };
 const hk = (n: any) => `HK$${Number(n).toLocaleString("en-US")}`;
 const link = (href: string, text: string) => `<a href="${esc(href)}">${esc(text)}</a>`;
 
@@ -122,7 +129,21 @@ export function buildPage(urlPath: string, query: Record<string, any>, products:
   const wines = products.filter((p) => p.type !== "Whisky" && p.type !== "Gin" && p.type !== "Makgeolli" && p.type !== "Supplement");
   const brands = Array.from(new Set(products.map((p) => p.brand))).sort();
   const productList = (list: any[]) =>
-    `<ul>${list.map((p) => `<li>${link(`/wines/${p.id}`, `${p.brand} ${cleanName(p)}${p.vintage ? " " + p.vintage : ""}`)} — ${hk(num(p.promo_price) ?? num(p.price))}</li>`).join("")}</ul>`;
+    `<ul>${list.map((p) => `<li>${link(`/wines/${p.id}`, fullName(p))} — ${hk(num(p.promo_price) ?? num(p.price))}</li>`).join("")}</ul>`;
+  const uniq = (a: any[]) => Array.from(new Set(a.filter(Boolean).map(String)));
+  const brandIntro = (brand: string, list: any[]) => {
+    const regions = uniq(list.map((p) => p.region)), countries = uniq(list.map((p) => p.country)), types = uniq(list.map((p) => p.type)), grapes = uniq(list.map((p) => p.grape));
+    return `<p>${esc(brand)}${countries.length ? ` is a producer from ${esc(countries.join(", "))}${regions.length ? ` (${esc(regions.join(", "))})` : ""}` : ""} represented in Hong Kong and Macau by Terroir & Craft 天地人酒業. ` +
+      `${list.length} ${list.length === 1 ? "wine is" : "wines are"} currently available to order online${types.length ? `: ${esc(types.join(", "))}` : ""}${grapes.length ? `, made from ${esc(grapes.join(", "))}` : ""}. ` +
+      `Free delivery over HK$1,000 in Hong Kong and HK$2,500 in Macau.</p>`;
+  };
+  const brandDetails = (list: any[]) =>
+    `<ul>${list.map((p) => {
+      const pr = num(p.promo_price) ?? num(p.price);
+      const bits = [p.type, p.grape, p.region, p.country].filter(Boolean).map(esc).join(" · ");
+      const note = p.tasting_note || p.tasting_notes || "";
+      return `<li>${link(`/wines/${p.id}`, `${fullName(p)}`)}${pr ? ` — ${hk(pr)}` : ""}${bits ? `<br>${bits}` : ""}${note ? `<br>${esc(clip(String(note), 220))}` : ""}${p.food_pairing ? `<br>Food pairing: ${esc(p.food_pairing)}` : ""}</li>`;
+    }).join("")}</ul>`;
   const brandList = `<ul>${brands.map((b) => `<li>${link(`/brands/${encodeURIComponent(b)}`, `${b} wines`)}</li>`).join("")}</ul>`;
 
   // ── Product ──
@@ -147,7 +168,7 @@ export function buildPage(urlPath: string, query: Record<string, any>, products:
       jsonLd: [productJsonLd(p, url, image)],
       bodyHtml:
         `<nav>${link("/", "Home")} / ${link("/wines", "Wines")} / ${link(`/brands/${encodeURIComponent(p.brand)}`, p.brand)}</nav>` +
-        `<h1>${esc(p.brand)} ${esc(cleanName(p))}${p.vintage ? " " + esc(p.vintage) : ""}</h1>` +
+        `<h1>${esc(fullName(p))}</h1>` +
         `<p>${sale && sale < num(p.price)! ? `${hk(sale)} (regular ${hk(num(p.price))})` : hk(num(p.price))}</p>` +
         `<p>${esc(p.tasting_note || p.tasting_notes || "")}</p>` +
         `<ul>${rows.map((r) => `<li>${esc(r[0])}: ${esc(r[1])}</li>`).join("")}</ul>` +
@@ -165,7 +186,7 @@ export function buildPage(urlPath: string, query: Record<string, any>, products:
       status: 200, title: brandTitle(brand),
       description: `${brand} wines available in Hong Kong from Terroir & Craft — exclusive HK agency. Shop ${brand} online with free delivery over HK$1,000.`,
       canonical: `${BASE_URL}/brands/${encodeURIComponent(brand)}`,
-      bodyHtml: `<h1>${esc(brand)} — Hong Kong</h1>${list.length ? productList(list) : ""}<p>${link("/brands", "All brands")}</p>`,
+      bodyHtml: `<h1>${esc(brand)} — Hong Kong</h1>${brandIntro(brand, list)}${list.length ? brandDetails(list) : ""}<p>${link("/brands", "All brands")}</p>`,
     };
   }
 
