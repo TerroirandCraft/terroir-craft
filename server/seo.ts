@@ -100,7 +100,7 @@ function orgJsonLd() {
       name: SITE_NAME,
       alternateName: ["Terroir and Craft", "天地人酒業", "Terroir & Craft Hong Kong"],
       url: BASE_URL,
-      logo: `${BASE_URL}/brand-logos/terroir-craft.png`,
+      logo: `${BASE_URL}/logo.png`,
       email: "eshop@terroirandcraft.com",
       telephone: "+852-9805-5609",
       address: {
