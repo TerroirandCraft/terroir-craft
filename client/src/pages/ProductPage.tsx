@@ -245,35 +245,15 @@ export default function ProductPage() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr_320px] gap-8 items-start">
 
-          {/* Bottle image with zoom */}
+          {/* Bottle image — always shown whole (no hover zoom, which cropped the bottle) */}
           <div
-            className="relative flex items-center justify-center bg-[hsl(30,15%,97%)] dark:bg-muted/30 rounded-2xl py-10 px-6 min-h-[400px] overflow-hidden"
-            style={{ cursor: product.image_url ? 'zoom-in' : 'default' }}
-            onMouseMove={(e) => {
-              if (!product.image_url) return;
-              const rect = e.currentTarget.getBoundingClientRect();
-              const x = ((e.clientX - rect.left) / rect.width) * 100;
-              const y = ((e.clientY - rect.top) / rect.height) * 100;
-              const img = e.currentTarget.querySelector('img') as HTMLImageElement | null;
-              if (img) {
-                img.style.transformOrigin = `${x}% ${y}%`;
-                img.style.transform = 'scale(2.2)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              const img = e.currentTarget.querySelector('img') as HTMLImageElement | null;
-              if (img) {
-                img.style.transform = 'scale(1)';
-                img.style.transformOrigin = 'center center';
-              }
-            }}
+            className="relative flex items-center justify-center bg-[hsl(30,15%,97%)] dark:bg-muted/30 rounded-2xl py-8 px-6 min-h-[520px] overflow-hidden"
           >
             {product.image_url ? (
               <img
                 src={product.image_url?.startsWith('/') ? `${API_BASE}${product.image_url}` : product.image_url}
                 alt={cleanName}
-                className="h-[380px] w-[200px] object-contain drop-shadow-xl"
-                style={{ transition: 'transform 0.15s ease', willChange: 'transform' }}
+                className="h-[460px] w-[220px] object-contain drop-shadow-xl"
               />
             ) : (
               <BottleSVG color={bottleColor} />
