@@ -107,6 +107,7 @@ function MediaIcon({ type }: { type: MediaLink["type"] }) {
 export default function ProductPage() {
   const { id } = useParams<{ id: string }>();
   const [qty, setQty] = useState(1);
+  const [lens, setLens] = useState<{ x: number; y: number; bx: number; by: number; bw: number; bh: number } | null>(null);
   const { addToCart } = useCart();
   const { toast } = useToast();
 
@@ -245,9 +246,30 @@ export default function ProductPage() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr_320px] gap-8 items-start">
 
-          {/* Bottle image — always shown whole (no hover zoom, which cropped the bottle) */}
+          {/* Bottle image: always shown whole; hover shows a magnifier lens that follows the pointer */}
           <div
             className="relative flex items-center justify-center bg-[hsl(30,15%,97%)] dark:bg-muted/30 rounded-2xl py-8 px-6 min-h-[520px] overflow-hidden"
+            style={{ cursor: product.image_url ? 'crosshair' : 'default' }}
+            onMouseMove={(e) => {
+              if (!product.image_url) return;
+              const box = e.currentTarget.getBoundingClientRect();
+              const img = e.currentTarget.querySelector('img') as HTMLImageElement | null;
+              if (!img || !img.naturalWidth) return;
+              const r = img.getBoundingClientRect();
+              // displayed rect of the bottle inside the object-contain box
+              const scale = Math.min(r.width / img.naturalWidth, r.height / img.naturalHeight);
+              const dw = img.naturalWidth * scale, dh = img.naturalHeight * scale;
+              const dx = r.left + (r.width - dw) / 2, dy = r.top + (r.height - dh) / 2;
+              const px = e.clientX, py = e.clientY;
+              const inside = px >= dx && px <= dx + dw && py >= dy && py <= dy + dh;
+              if (!inside) { setLens(null); return; }
+              setLens({
+                x: px - box.left, y: py - box.top,
+                bx: ((px - dx) / dw) * 100, by: ((py - dy) / dh) * 100,
+                bw: dw, bh: dh,
+              });
+            }}
+            onMouseLeave={() => setLens(null)}
           >
             {product.image_url ? (
               <img
@@ -257,6 +279,20 @@ export default function ProductPage() {
               />
             ) : (
               <BottleSVG color={bottleColor} />
+            )}
+            {lens && product.image_url && (
+              <div
+                className="pointer-events-none absolute rounded-full border-2 border-white shadow-xl"
+                style={{
+                  width: 150, height: 150,
+                  left: lens.x - 75, top: lens.y - 75,
+                  backgroundColor: 'hsl(30,15%,97%)',
+                  backgroundImage: `url(${product.image_url.startsWith('/') ? `${API_BASE}${product.image_url}` : product.image_url})`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: `${lens.bw * 2.6}px ${lens.bh * 2.6}px`,
+                  backgroundPosition: `${75 - (lens.bx / 100) * lens.bw * 2.6}px ${75 - (lens.by / 100) * lens.bh * 2.6}px`,
+                }}
+              />
             )}
           </div>
 
