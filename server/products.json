@@ -4560,6 +4560,11 @@
         "source": "WA",
         "score": 98,
         "maxScore": 100
+      },
+      {
+        "source": "JS",
+        "score": 100,
+        "maxScore": 100
       }
     ],
     "image": "/bottle-shots/TCUS-RC0823.png",
