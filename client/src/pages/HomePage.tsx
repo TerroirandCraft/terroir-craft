@@ -17,6 +17,21 @@ import { useState, useEffect, useCallback, useRef } from "react";
 // Edit this array to change hero content — no code changes needed
 const HERO_SLIDES = [
   {
+    id: "js100",
+    bg: `${API_BASE}/js100-desktop.jpg?v=2`,
+    bgMobile: `${API_BASE}/js100-mobile.jpg?v=3`,
+    overlay: "rgba(0,0,0,0)",
+    eyebrow: "",
+    heading: "",
+    body: "",
+    cta1: { label: "Realm Cellars Farella Vineyard 2023 — James Suckling 100 pts", href: "/wines/TCUS-RC0823" },
+    cta2: null,
+    imageOnly: true,
+    heroClass: "hero-weekly",
+    bgSize: "contain",
+    bgColor: "#09090b",
+  },
+  {
     id: "weekly",
     bg: `${API_BASE}/weekly-offer-desktop.jpg?v=3`,
     bgMobile: `${API_BASE}/weekly-offer-mobile.jpg?v=3`,
@@ -58,21 +73,6 @@ const HERO_SLIDES = [
     body: "From approachable everyday wines to collectible fine bottles, Terroir & Craft brings together importer-selected wines for drinking, gifting, and collecting in Hong Kong.",
     cta1: { label: "Shop Wines", href: "/wines" },
     cta2: { label: "Ask AI Sommelier", href: "/sommelier", icon: "bot" },
-  },
-  {
-    id: "js100",
-    bg: `${API_BASE}/js100-desktop.jpg?v=2`,
-    bgMobile: `${API_BASE}/js100-mobile.jpg?v=3`,
-    overlay: "rgba(0,0,0,0)",
-    eyebrow: "",
-    heading: "",
-    body: "",
-    cta1: { label: "Realm Cellars Farella Vineyard 2023 — James Suckling 100 pts", href: "/wines/TCUS-RC0823" },
-    cta2: null,
-    imageOnly: true,
-    heroClass: "hero-weekly",
-    bgSize: "contain",
-    bgColor: "#09090b",
   },
 
   {
